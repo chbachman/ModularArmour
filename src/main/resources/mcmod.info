@@ -1,0 +1,16 @@
+[
+{
+  "modid": "ModularArmour",
+  "name": "Modular Armour",
+  "description": "A Mod that makes a modular armour set, with upgrades",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authors": ["chbachman"],
+  "credits": "King Lemming, for COFH Core",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
