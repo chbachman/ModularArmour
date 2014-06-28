@@ -1,12 +1,16 @@
 package chbachman.armour;
 
+import net.minecraftforge.common.MinecraftForge;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import chbachman.armour.event.GenericEventHandler;
 import chbachman.armour.gui.GuiHandler;
 import chbachman.armour.items.ItemRegister;
 import chbachman.armour.proxy.CommonProxy;
 import chbachman.armour.reference.Reference;
+import chbachman.armour.upgrade.Upgrade;
 import cofh.mod.BaseMod;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -36,6 +40,8 @@ public class ModularArmour extends BaseMod{
 	@EventHandler
 	public static void preInit(FMLPreInitializationEvent event) {
 		ItemRegister.init();
+		Upgrade.init();
+		MinecraftForge.EVENT_BUS.register(new GenericEventHandler());
 	}
 	
 	@EventHandler

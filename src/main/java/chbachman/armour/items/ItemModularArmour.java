@@ -1,16 +1,20 @@
 package chbachman.armour.items;
 
+import java.util.List;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
+import util.ItemStackHelper;
 import chbachman.armour.ModularArmour;
 import chbachman.armour.gui.GuiHandler;
-import chbachman.armour.upgrade.IUpgradableArmour;
+import chbachman.armour.upgrade.Upgrade;
 import cofh.api.energy.IEnergyContainerItem;
 import cofh.api.item.IInventoryContainerItem;
 import cofh.item.ItemArmorAdv;
@@ -19,7 +23,7 @@ import cofh.util.EnergyHelper;
 
 
 //Credit for most of this goes to King Lemming. 
-public class ItemModularArmour extends ItemArmorAdv implements IUpgradableArmour, IInventoryContainerItem, ISpecialArmor, IEnergyContainerItem{
+public class ItemModularArmour extends ItemArmorAdv implements IInventoryContainerItem, ISpecialArmor, IEnergyContainerItem{
 	
 	public static final ArmorProperties USELESS = new ArmorProperties(0, 0.0D, 0);
 	
@@ -27,7 +31,7 @@ public class ItemModularArmour extends ItemArmorAdv implements IUpgradableArmour
 	protected int max = 0;
 	
 	
-	protected int capacity = 0;
+	protected int capacity = 100;
 	protected int maxTransfer = 10;
 	
 	protected int energyPerDamage = 0;
@@ -36,8 +40,43 @@ public class ItemModularArmour extends ItemArmorAdv implements IUpgradableArmour
 		super(material,type);
 		this.setCreativeTab(CreativeTabs.tabCombat);
 	}
-
 	
+	public void addUpgrade(ItemStack stack, Upgrade upgrade){
+		if(stack.stackTagCompound == null){
+			stack.stackTagCompound =  ItemStackHelper.createStackTagCompound();
+		}
+		
+		ItemStackHelper.getNBTTagList(stack.stackTagCompound).appendTag(upgrade.getNBT());
+	}
+	
+	public NBTTagList getNBTTagList(ItemStack stack){
+		if(stack.stackTagCompound == null){
+			stack.stackTagCompound =  ItemStackHelper.createStackTagCompound();
+		}
+		
+		return ItemStackHelper.getNBTTagList(stack.stackTagCompound);
+	}
+	
+	public List<Upgrade> getUpgradeList(ItemStack stack){
+		
+		if(stack.stackTagCompound == null){
+			stack.stackTagCompound =  ItemStackHelper.createStackTagCompound();
+		}
+		
+		return ItemStackHelper.getUpgradeListFromNBT(stack.stackTagCompound);
+	}
+	
+	@Override
+	public void onArmorTick(World world, EntityPlayer player, ItemStack stack){
+		
+		NBTTagList list = this.getNBTTagList(stack);
+		
+		for(int i = 0; i < list.tagCount(); i++){
+			Upgrade upgrade = Upgrade.getUpgradeFromNBT(list.getCompoundTagAt(i));
+			
+			upgrade.onArmourTick(world, player, stack);
+		}
+	}
 	
 	@Override
 	public boolean getIsRepairable(ItemStack itemToRepair, ItemStack stack){
@@ -65,8 +104,6 @@ public class ItemModularArmour extends ItemArmorAdv implements IUpgradableArmour
 		return stack.getItemDamage() != Short.MAX_VALUE;
 	}
 	
-	
-	
 	@Override
     public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
     {
@@ -76,7 +113,10 @@ public class ItemModularArmour extends ItemArmorAdv implements IUpgradableArmour
 		}
 		
 		if(player.isSneaking()){
-			return super.onItemRightClick(stack, world, player);
+			
+			this.receiveEnergy(stack, 1000, false);
+			return stack;
+			//return super.onItemRightClick(stack, world, player);
 		}
 		
 		if(world.isRemote == false){
@@ -138,7 +178,7 @@ public class ItemModularArmour extends ItemArmorAdv implements IUpgradableArmour
 
 		return capacity;
 	}
-
+	
 	//ISpecialArmor
 	@Override
 	public ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot) {
@@ -153,7 +193,14 @@ public class ItemModularArmour extends ItemArmorAdv implements IUpgradableArmour
 	@Override
 	public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {
 		if (getEnergyStored(armor) >= energyPerDamage) {
-			return 5;
+			int sum = 0;
+			
+			NBTTagList nbt = this.getNBTTagList(armor);
+			
+			for(int i = 0; i < nbt.tagCount(); i++){
+				sum += Upgrade.getUpgradeFromNBT(nbt.getCompoundTagAt(i)).getArmourDisplay();
+			}
+			return sum;
 		}
 		return 0;
 	}

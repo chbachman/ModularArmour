@@ -4,16 +4,24 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import chbachman.armour.crafting.Recipe;
+import chbachman.armour.upgrade.Upgrade;
 import cofh.gui.container.ContainerInventoryItem;
 
 public class ArmourContainer extends ContainerInventoryItem{
 	
 	World world;
 	
+	public Upgrade upgrade = null;
+	
+	public ItemStack stack;
+	
 	public ArmourContainer(ItemStack stack, InventoryPlayer inventory, World world) {
 		super(stack, inventory);
 		
 		this.world = world;
+		
+		this.stack = stack;
 		
 		this.bindCraftingGrid();
 		
@@ -46,6 +54,8 @@ public class ArmourContainer extends ContainerInventoryItem{
 	
 	public void onSlotChanged(){
 		super.onSlotChanged();
+		
+		upgrade = Recipe.getResult(this.containerWrapper);
 	}
 
 }
