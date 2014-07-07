@@ -1,7 +1,7 @@
 package chbachman.armour.gui.client;
 
+import java.awt.Color;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import net.minecraft.entity.player.InventoryPlayer;
@@ -9,14 +9,18 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.Constants;
-import util.ItemStackHelper;
 import chbachman.armour.gui.container.ArmourContainer;
+import chbachman.armour.handler.UpgradeHandler;
+import chbachman.armour.network.ArmourPacket;
+import chbachman.armour.network.ArmourPacket.PacketTypes;
 import chbachman.armour.reference.ResourceLocationHelper;
 import chbachman.armour.upgrade.Upgrade;
+import chbachman.armour.upgrade.UpgradeException;
 import cofh.gui.GuiBaseAdv;
 import cofh.gui.GuiProps;
 import cofh.gui.GuiTextList;
 import cofh.gui.element.ElementButton;
+import cofh.network.PacketHandler;
 
 public class ArmourGui extends GuiBaseAdv{
 
@@ -26,11 +30,12 @@ public class ArmourGui extends GuiBaseAdv{
 
 	public ElementButton button;
 	public GuiTextList list;
+	public GuiTextList errorMessage;
 	
 	
 	public ArmourGui(ArmourContainer container, InventoryPlayer inventory) {
 		super(container);
-
+		
 		this.container = container;
 
 		this.texture = TEXTURE;
@@ -56,7 +61,14 @@ public class ArmourGui extends GuiBaseAdv{
 		list.drawBackground = false;
 		list.drawBorder = false;
 		
+		errorMessage = new GuiTextList(this.fontRendererObj, guiLeft + 110, guiTop + 90, 70, 6);
+		errorMessage.textColor = Color.RED.getRGB();
+		errorMessage.textLines = null;
+		errorMessage.drawBackground = false;
+		errorMessage.drawBorder = false;
+		
 		list.setEnabled(true);
+		errorMessage.setEnabled(true);
 	}
 
 	@Override
@@ -65,8 +77,11 @@ public class ArmourGui extends GuiBaseAdv{
 		super.drawGuiContainerBackgroundLayer(f, x, y);
 		
 		list.textLines = getUpgradeNameList(this.container.stack);
-		
 		list.drawText();
+		
+		if(this.errorMessage.textLines != null){
+			errorMessage.drawText();
+		}
 	}
 	
 	@Override
@@ -82,19 +97,22 @@ public class ArmourGui extends GuiBaseAdv{
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void handleElementButtonClick(String buttonName, int mouseButton) {
 		if(buttonName.equals("Confirm Choice")){
 			
-			ItemStack stack = this.container.stack;
+			PacketHandler.sendToServer(ArmourPacket.getPacket(PacketTypes.ARMOURCRAFTING));
 			
-			if(stack.stackTagCompound == null){
-				stack.stackTagCompound =  ItemStackHelper.createStackTagCompound();
+			try {
+				if (UpgradeHandler.addUpgrade(this.container.stack, this.container.upgrade)) {
+
+					this.container.upgrade = null;
+				}
+			} catch (UpgradeException e) {
+				errorMessage.textLines = this.getFontRenderer().listFormattedStringToWidth(e.getMessage(), 70);
 			}
-			
-			if(this.container.upgrade != null){
-				ItemStackHelper.getNBTTagList(stack.stackTagCompound).appendTag(this.container.upgrade.getNBT());
-			}
+			list.textLines = getUpgradeNameList(this.container.stack);
 
 		}
 		

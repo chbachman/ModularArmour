@@ -1,28 +1,40 @@
 package chbachman.armour.upgrade;
 
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.Constants;
 import chbachman.armour.crafting.Recipe;
-import chbachman.armour.upgrade.upgradeList.UpgradeIron;
+import chbachman.armour.items.ItemModularArmour;
+import chbachman.armour.reference.ArmourSlot;
+import chbachman.armour.upgrade.upgradeList.UpgradeCalfShields;
+import chbachman.armour.upgrade.upgradeList.UpgradeHoverJetpack;
+import chbachman.armour.upgrade.upgradeList.UpgradePotion;
+import chbachman.armour.upgrade.upgradeList.potionEffect.PotionUpgrades;
 
 public abstract class Upgrade {
 
 	public static List<Upgrade> upgradeList = new ArrayList<Upgrade>();
 	
-	public static void init(){
-		upgradeList.add(new UpgradeIron());
+	public static void preInit(){
+		upgradeList.add(new UpgradeHoverJetpack());
+		upgradeList.add(new UpgradeCalfShields());
+		upgradeList.add(new UpgradePotion());
+		
+		PotionUpgrades.init();
 	}
 
-	private int id;
-	private String name;
+	public static void upgradeInit(){
+		for(Upgrade upgrade: upgradeList){
+			upgrade.init();
+		}
+	}
+	
+	protected final int id;
+	protected String name;
 
 	protected Recipe recipe;
 	
@@ -32,6 +44,10 @@ public abstract class Upgrade {
 		this.name = name;
 	}
 
+	protected void init(){
+		
+	}
+	
 	private int getNextAvailableId() {
 		return upgradeList.size();
 	}
@@ -42,21 +58,6 @@ public abstract class Upgrade {
 		NBTTagCompound nbt = new NBTTagCompound();
 		nbt.setInteger("ID", this.id);
 		return nbt;
-	}
-
-	public NBTTagCompound writeToNBT(NBTTagCompound nbt){
-		NBTTagList nbtList = nbt.getTagList("UpgradeList", Constants.NBT.TAG_COMPOUND);
-
-		if(nbtList == null){
-			nbtList = new NBTTagList();
-		}
-		
-		nbtList.appendTag(this.getNBT());
-		
-		nbt.setTag("UpgradeList", nbtList);
-		
-		return nbt;
-
 	}
 
 	public static Upgrade getUpgradeFromNBT(NBTTagCompound nbt){
@@ -80,23 +81,29 @@ public abstract class Upgrade {
 		return this.id;
 	}
 	
-	public Color getColor(){
-		return Color.BLACK;
+	public boolean isCompatible(int slot){
+		return isCompatible(ArmourSlot.getArmourSlot(slot));
 	}
+	
+	public abstract boolean isCompatible(ArmourSlot slot);
 	
 	public int getArmourDisplay(){
 		return 0;
 	}
 	
-	public void onArmourTick(World world, EntityPlayer player, ItemStack stack){
+	public double getDefenceRatio(int slot){
+		return 0;
+	}
+	
+	public void onArmourTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot){
 		
 	}
 	
-	public void onArmourPutOn(){
-		
+	public List<String> getDependencies(){
+		return null;
 	}
 	
-	public void onArmourTakeOff(){
+	public void onUpgradeAddition(ItemModularArmour armour, ItemStack stack){
 		
 	}
 

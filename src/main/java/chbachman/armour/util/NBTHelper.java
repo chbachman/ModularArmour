@@ -1,14 +1,14 @@
-package util;
+package chbachman.armour.util;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import chbachman.armour.upgrade.Upgrade;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.util.Constants;
+import chbachman.armour.upgrade.Upgrade;
 
-public class ItemStackHelper {
+public class NBTHelper {
 
 	public static NBTTagCompound createStackTagCompound(){
 
@@ -23,6 +23,10 @@ public class ItemStackHelper {
 
 	public static NBTTagList getNBTTagList(NBTTagCompound nbt){
 
+		if(nbt == null){
+			nbt = createStackTagCompound();
+		}
+		
 		if(!nbt.hasKey("UpgradeList")){
 			nbt.setTag("UpgradeList", new NBTTagList());
 		}
@@ -35,6 +39,10 @@ public class ItemStackHelper {
 
 	public static List<Upgrade> getUpgradeListFromNBT(NBTTagCompound nbt){
 
+		if(nbt == null){
+			nbt = createStackTagCompound();
+		}
+		
 		NBTTagList nbtList = nbt.getTagList("UpgradeList", Constants.NBT.TAG_COMPOUND);
 
 		if(nbtList == null){

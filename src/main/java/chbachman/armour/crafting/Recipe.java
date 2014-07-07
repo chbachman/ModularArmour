@@ -6,8 +6,8 @@ import java.util.HashMap;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import chbachman.armour.gui.ArmourContainerWrapper;
 import chbachman.armour.upgrade.Upgrade;
-import cofh.gui.container.InventoryContainerItemWrapper;
 
 public class Recipe {
 
@@ -85,21 +85,34 @@ public class Recipe {
 		craftinglist.add(recipe);
 	}
 
-	public boolean matches(InventoryContainerItemWrapper itemstackarray) {
+	public boolean matches(ArmourContainerWrapper containerWrapper) {
 		
-		if (itemstackarray == null) {
+		if (containerWrapper == null) {
 			return false;
 		}
 		
 		for (int i = 0; i < 9; i++) {
 			
-			if (!ItemStack.areItemStacksEqual(itemstackarray.getStackInSlot(i), this.recipe[i])) {
-				return false;
+			ItemStack stack = containerWrapper.getStackInSlot(i);
+			
+			if(stack == null){
+				if(this.recipe[i] != null){
+					return false;
+				}
+			}else{
+				
+				ItemStack copy = stack.copy();
+				
+				copy.stackSize = 1;
+				
+				if (!ItemStack.areItemStacksEqual(copy, this.recipe[i])) {
+					return false;
+				}
+				
 			}
+			
 		}
-		
 		return true;
-		
 	}
 
 	public Upgrade getResult() {
@@ -111,10 +124,10 @@ public class Recipe {
 		return this.result.toString();
 	}
 
-	public static Upgrade getResult(InventoryContainerItemWrapper inventory) {
-
+	public static Upgrade getResult(ArmourContainerWrapper containerWrapper) {
+		
 		for (int i = 0; i < craftinglist.size(); i++) {
-			if (craftinglist.get(i).matches(inventory)) {
+			if (craftinglist.get(i).matches(containerWrapper)) {
 				return craftinglist.get(i).getResult();
 			}
 		}
