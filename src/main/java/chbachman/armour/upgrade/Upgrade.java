@@ -40,8 +40,9 @@ public abstract class Upgrade {
 	
 	public Upgrade(String name) {
 		this.id = getNextAvailableId();
-		upgradeList.add(this);
 		this.name = name;
+		this.recipe = this.getRecipe();
+		Recipe.addToList(recipe);
 	}
 
 	protected void init(){
@@ -51,8 +52,6 @@ public abstract class Upgrade {
 	private int getNextAvailableId() {
 		return upgradeList.size();
 	}
-	
-	
 	
 	public NBTTagCompound getNBT(){
 		NBTTagCompound nbt = new NBTTagCompound();
@@ -87,6 +86,8 @@ public abstract class Upgrade {
 	
 	public abstract boolean isCompatible(ArmourSlot slot);
 	
+	public abstract Recipe getRecipe();
+	
 	public int getArmourDisplay(){
 		return 0;
 	}
@@ -95,16 +96,24 @@ public abstract class Upgrade {
 		return 0;
 	}
 	
-	public void onArmourTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot){
-		
-	}
-	
 	public List<String> getDependencies(){
 		return null;
 	}
 	
 	public void onUpgradeAddition(ItemModularArmour armour, ItemStack stack){
 		
+	}
+	
+	public void onArmourEquip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot){
+
+	}
+
+	public void onArmourTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot){
+
+	}
+
+	public void onArmourDequip(World world, EntityPlayer player, ItemStack stack, ArmourSlot armourSlot){
+
 	}
 
 }

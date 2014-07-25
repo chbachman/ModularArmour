@@ -1,7 +1,9 @@
 package chbachman.armour.upgrade.upgradeList;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import chbachman.armour.crafting.Recipe;
@@ -12,12 +14,14 @@ public class UpgradePotion extends Upgrade{
 	
 	public UpgradePotion() {
 		super("Potion");
-		
-		this.recipe = new Recipe(this, "iri", "gwg", "igi", 'i', Items.iron_ingot, 'g', Items.gold_ingot , 'r', Items.redstone, 'w', Items.water_bucket);
-		
-		Recipe.addToList(recipe);
 	}
 
+
+	@Override
+	public Recipe getRecipe() {
+		return new Recipe(this, "iri", "gwg", "igi", 'i', Items.iron_ingot, 'g', Item.getItemFromBlock(Blocks.glass) , 'r', Items.redstone, 'w', Items.water_bucket);
+	}
+	
 	@Override
 	public boolean isCompatible(ArmourSlot slot) {
 		return true;

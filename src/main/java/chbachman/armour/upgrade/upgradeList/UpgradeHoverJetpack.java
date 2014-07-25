@@ -14,10 +14,6 @@ public class UpgradeHoverJetpack extends Upgrade{
 
 	public UpgradeHoverJetpack() {
 		super("Jetpack");
-		
-		this.recipe = new Recipe(this, "igi", "ini", "r r", 'i', Items.iron_ingot, 'g', Items.gold_ingot, 'r', Items.redstone, 'n', Items.nether_star);
-		
-		Recipe.addToList(this.recipe);
 	}
 
 	@Override
@@ -26,16 +22,27 @@ public class UpgradeHoverJetpack extends Upgrade{
 	}
 
 	@Override
-	public void onArmourTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot){
-		//if(WorldUtil.isServer(world)){
-			player.capabilities.allowFlying = true;
-			
-			if(!UpgradeUtil.doesPlayerHaveUpgrade(player, "Calf Shields") && player.capabilities.isFlying){
-				player.attackEntityFrom(DamageSource.onFire, 4F);
-			}
-		//}
+	public Recipe getRecipe() {
+		return new Recipe(this, "igi", "ini", "r r", 'i', Items.iron_ingot, 'g', Items.gold_ingot, 'r', Items.redstone, 'n', Items.nether_star);
 	}
-
-
-
+	
+	@Override
+	public void onArmourEquip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot){
+		player.capabilities.allowFlying = true;
+	}
+	
+	@Override
+	public void onArmourTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot){
+		
+		if(!UpgradeUtil.doesPlayerHaveUpgrade(player, "Calf Shields") && player.capabilities.isFlying){
+			player.attackEntityFrom(DamageSource.onFire, 4F);
+		}
+	}
+	
+	@Override
+	public void onArmourDequip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot){
+		player.capabilities.allowFlying = false;
+		player.sendPlayerAbilities();
+	}
+	
 }

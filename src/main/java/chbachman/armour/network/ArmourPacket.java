@@ -3,10 +3,10 @@ package chbachman.armour.network;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import chbachman.armour.gui.container.ArmourContainer;
-import cofh.network.CoFHPacket;
+import cofh.network.PacketCoFHBase;
 import cofh.network.PacketHandler;
 
-public class ArmourPacket extends CoFHPacket{
+public class ArmourPacket extends PacketCoFHBase{
 	
 	public static void initialize() {
 
@@ -38,7 +38,7 @@ public class ArmourPacket extends CoFHPacket{
 		}
 	}
 
-	public static CoFHPacket getPacket(PacketTypes type) {
+	public static PacketCoFHBase getPacket(PacketTypes type) {
 
 		return new ArmourPacket().addByte(type.ordinal());
 	}

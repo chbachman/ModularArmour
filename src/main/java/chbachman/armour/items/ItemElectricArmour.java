@@ -5,12 +5,12 @@ import cofh.api.energy.IEnergyContainerItem;
 import cofh.item.ItemArmorAdv;
 import cofh.util.EnergyHelper;
 
-public class ItemElectricArmour extends ItemArmorAdv implements IEnergyContainerItem{
+public abstract class ItemElectricArmour extends ItemArmorAdv implements IEnergyContainerItem{
 
-	protected int capacity = 100;
-	protected int maxTransfer = 10;
+	public int capacity = 100;
+	public int maxTransfer = 10;
 
-	protected int energyPerDamage = 0;
+	public int energyPerDamage = 0;
 
 	public ItemElectricArmour(ArmorMaterial material, int type) {
 		super(material, type);

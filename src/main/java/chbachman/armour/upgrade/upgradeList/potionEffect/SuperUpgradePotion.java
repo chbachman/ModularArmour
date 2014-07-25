@@ -21,6 +21,7 @@ public class SuperUpgradePotion extends Upgrade{
 	Potion effect;
 	int level;
 	Upgrade dependency = null;
+	Item item;
 	
 	public SuperUpgradePotion(String name, Potion potion, Item item, int level) {
 		super(name);
@@ -29,16 +30,9 @@ public class SuperUpgradePotion extends Upgrade{
 			super.name = "Strong " + super.name;
 		}
 		
+		this.item = item;
 		this.effect = potion;
 		this.level = level;
-		
-		if(level == 0){
-			this.recipe = new Recipe(this, "iri", "gug", "igi", 'i', Items.iron_ingot, 'g', Item.getItemFromBlock(Blocks.glass) , 'r', Items.redstone, 'u', item);
-		}else{
-			this.recipe = new Recipe(this, "iri", "gug", "igi", 'i', Items.iron_ingot, 'g', Item.getItemFromBlock(Blocks.glass) , 'r', Item.getItemFromBlock(Blocks.redstone_block), 'u', item);
-		}
-		
-		Recipe.addToList(this.recipe);
 		
 	}
 	
@@ -46,6 +40,16 @@ public class SuperUpgradePotion extends Upgrade{
 		return true;
 	}
 
+
+	@Override
+	public Recipe getRecipe() {
+		if(level == 0){
+			return new Recipe(this, "iri", "gug", "igi", 'i', Items.iron_ingot, 'g', Item.getItemFromBlock(Blocks.glass) , 'r', Items.redstone, 'u', item);
+		}else{
+			return new Recipe(this, "iri", "gug", "igi", 'i', Items.iron_ingot, 'g', Item.getItemFromBlock(Blocks.glass) , 'r', Item.getItemFromBlock(Blocks.redstone_block), 'u', item);
+		}
+	}
+	
 	public void onArmourTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot){
 		player.addPotionEffect(new PotionEffect(effect.id, 0, level));
 	}
@@ -63,5 +67,6 @@ public class SuperUpgradePotion extends Upgrade{
 	public void onUpgradeAddition(ItemModularArmour armour, ItemStack stack){
 		UpgradeUtil.removeUpgrade(stack, this);
 	}
+
 	
 }

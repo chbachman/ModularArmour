@@ -34,7 +34,6 @@ public class ModularArmour extends BaseMod{
 	public static Logger log = LogManager.getLogger(Reference.MODID);
 	public static GuiHandler guiHandler = new GuiHandler();
 	
-	//TODO: Clean up ModularArmourItem
 	//TODO: Fix Remove Upgrade
 	//TODO: Add rest of Potion Upgrade
 	

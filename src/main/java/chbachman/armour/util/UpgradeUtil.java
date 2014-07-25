@@ -8,7 +8,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagList;
 import chbachman.armour.items.ItemModularArmour;
 import chbachman.armour.upgrade.Upgrade;
-import chbachman.armour.upgrade.UpgradeException;
 
 public class UpgradeUtil {
 	
@@ -54,29 +53,6 @@ public class UpgradeUtil {
 		return null;
 	}
 	
-	public static boolean addUpgrade(ItemStack stack, Upgrade upgrade){
-		if(stack.stackTagCompound == null){
-			stack.stackTagCompound =  NBTHelper.createStackTagCompound();
-		}
-
-		if(stack.getItem() instanceof ItemModularArmour){
-
-			ItemModularArmour armour = (ItemModularArmour) stack.getItem();
-
-			if(upgrade != null && !doesItemStackContainUpgrade(stack, upgrade) && upgrade.isCompatible(armour.armorType) && checkDependencies(stack, upgrade)){
-				
-				upgrade.onUpgradeAddition(armour, stack);
-				
-				NBTHelper.getNBTTagList(stack.stackTagCompound).appendTag(upgrade.getNBT());
-
-				return true;
-
-			}
-			
-		}
-		return false;
-	}
-	
 	public static void removeUpgrade(ItemStack stack, Upgrade upgrade){
 		if(stack.stackTagCompound == null){
 			stack.stackTagCompound =  NBTHelper.createStackTagCompound();
@@ -96,28 +72,6 @@ public class UpgradeUtil {
 			}
 		}
 
-	}
-	
-	public static boolean checkDependencies(ItemStack stack, Upgrade upgrade){
-		
-		if(upgrade == null){
-			return false;
-		}
-		
-		if(upgrade.getDependencies() == null || upgrade.getDependencies().isEmpty()){
-			return true;
-		}
-		
-		List<String> dependencies = upgrade.getDependencies();
-		
-		for(String dependency: dependencies){
-			if(!doesItemStackContainUpgrade(stack, dependency)){
-				throw new UpgradeException(String.format("This upgrade needs the %s upgrade to work", dependency));
-			}
-		}
-		
-		return true;
-		
 	}
 	
 	public static List<String> getDependencyList(Upgrade upgrade){
