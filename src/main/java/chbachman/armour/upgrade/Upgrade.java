@@ -1,6 +1,5 @@
 package chbachman.armour.upgrade;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -10,28 +9,9 @@ import net.minecraft.world.World;
 import chbachman.armour.crafting.Recipe;
 import chbachman.armour.items.ItemModularArmour;
 import chbachman.armour.reference.ArmourSlot;
-import chbachman.armour.upgrade.upgradeList.UpgradeCalfShields;
-import chbachman.armour.upgrade.upgradeList.UpgradeHoverJetpack;
-import chbachman.armour.upgrade.upgradeList.UpgradePotion;
-import chbachman.armour.upgrade.upgradeList.potionEffect.PotionUpgrades;
+import cofh.util.StringHelper;
 
-public abstract class Upgrade {
-
-	public static List<Upgrade> upgradeList = new ArrayList<Upgrade>();
-	
-	public static void preInit(){
-		upgradeList.add(new UpgradeHoverJetpack());
-		upgradeList.add(new UpgradeCalfShields());
-		upgradeList.add(new UpgradePotion());
-		
-		PotionUpgrades.init();
-	}
-
-	public static void upgradeInit(){
-		for(Upgrade upgrade: upgradeList){
-			upgrade.init();
-		}
-	}
+public abstract class Upgrade implements Comparable<Upgrade>{
 	
 	protected final int id;
 	protected String name;
@@ -40,9 +20,13 @@ public abstract class Upgrade {
 	
 	public Upgrade(String name) {
 		this.id = getNextAvailableId();
+		
 		this.name = name;
-		this.recipe = this.getRecipe();
-		Recipe.addToList(recipe);
+		
+		if(this.shouldRegisterRecipes()){
+			this.recipe = this.getRecipe();
+			Recipe.addToList(recipe);
+		}
 	}
 
 	protected void init(){
@@ -50,7 +34,7 @@ public abstract class Upgrade {
 	}
 	
 	private int getNextAvailableId() {
-		return upgradeList.size();
+		return UpgradeList.list.size();
 	}
 	
 	public NBTTagCompound getNBT(){
@@ -66,20 +50,37 @@ public abstract class Upgrade {
 		}
 		
 		try {
-			return upgradeList.get(nbt.getInteger("ID"));
+			return UpgradeList.list.get(nbt.getInteger("ID"));
 		} catch (IndexOutOfBoundsException e) {
 			return null;
 		}
 	}
 	
 	public String getName(){
-		return this.name;
+		return StringHelper.localize(this.getUnlocalizedName());
 	}
+	
+	public String getUnlocalizedName(){
+	    return this.getLocalizationString(name);
+	}
+	
+	protected String getLocalizationString(String name){
+        return "upgrade.chbachman." + StringHelper.camelCase(name).replace(" ", "") +  ".name";
+    }
 	
 	public int getId(){
 		return this.id;
 	}
 	
+	public boolean shouldRegisterRecipes(){
+		return true;
+	}
+	
+	public int compareTo(Upgrade upgrade){
+	    return this.getName().compareTo(upgrade.getName());
+	}
+	
+	//Api for Upgrades here
 	public boolean isCompatible(int slot){
 		return isCompatible(ArmourSlot.getArmourSlot(slot));
 	}
@@ -112,8 +113,16 @@ public abstract class Upgrade {
 
 	}
 
-	public void onArmourDequip(World world, EntityPlayer player, ItemStack stack, ArmourSlot armourSlot){
+	public void onArmourDequip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot){
 
+	}
+	
+	public int getEnergyTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot){
+		return 0;
+	}
+	
+	public void onNoEnergy(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot){
+		
 	}
 
 }

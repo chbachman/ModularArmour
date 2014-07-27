@@ -1,4 +1,4 @@
-ModularStorage
+ModularArmour
 ==============
 
-A Minecraft mod that adds better chests, tanks, and barrels
+A Minecraft mod that adds Modular Armour.

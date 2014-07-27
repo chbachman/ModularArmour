@@ -10,9 +10,9 @@ import chbachman.armour.crafting.Recipe;
 import chbachman.armour.reference.ArmourSlot;
 import chbachman.armour.upgrade.Upgrade;
 
-public class UpgradePotion extends Upgrade{
+public class UpgradeBasePotion extends Upgrade{
 	
-	public UpgradePotion() {
+	public UpgradeBasePotion() {
 		super("Potion");
 	}
 

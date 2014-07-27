@@ -36,7 +36,7 @@ public abstract class ItemSpecialArmour extends ItemElectricArmour implements IS
 	//ISpecialArmor
 	@Override
 	public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot) {
-		extractEnergy(stack, damage * energyPerDamage, false);
+		extractEnergy(stack, damage * energyPerDamage.get(stack), false);
 	}
 
 }

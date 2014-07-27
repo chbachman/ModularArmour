@@ -1,35 +1,33 @@
 package chbachman.armour.items;
 
 import net.minecraft.item.ItemStack;
+import chbachman.armour.objects.VariableInt;
+import chbachman.armour.util.NBTHelper;
 import cofh.api.energy.IEnergyContainerItem;
 import cofh.item.ItemArmorAdv;
 import cofh.util.EnergyHelper;
 
 public abstract class ItemElectricArmour extends ItemArmorAdv implements IEnergyContainerItem{
 
-	public int capacity = 100;
-	public int maxTransfer = 10;
+	public VariableInt capacity = new VariableInt("Capacity", 100);
+	public VariableInt maxTransfer = new VariableInt("MaxTransfer", 10);
 
-	public int energyPerDamage = 0;
+	public VariableInt energyPerDamage = new VariableInt("energyPerDamage", 10);
 
 	public ItemElectricArmour(ArmorMaterial material, int type) {
 		super(material, type);
 	}
-
 	
 	@Override
 	public int getDisplayDamage(ItemStack stack) {
-
-		if (stack.stackTagCompound == null) {
-			EnergyHelper.setDefaultEnergyTag(stack, 0);
-		}
-		return 1 + capacity - stack.stackTagCompound.getInteger("Energy");
+		NBTHelper.createDefaultStackTag(stack);
+		return 1 + capacity.get(stack) - stack.stackTagCompound.getInteger("Energy");
 	}
 	
 	@Override
 	public int getMaxDamage(ItemStack stack) {
 
-		return 1 + capacity;
+		return 1 + capacity.get(stack);
 	}
 	
 	@Override
@@ -38,51 +36,51 @@ public abstract class ItemElectricArmour extends ItemArmorAdv implements IEnergy
 		return stack.getItemDamage() != Short.MAX_VALUE;
 	}
 
-	// IEnergyContainerItem 
+	// IEnergystackItem 
 	@Override
-	public int receiveEnergy(ItemStack container, int maxReceive, boolean simulate) {
+	public int receiveEnergy(ItemStack stack, int maxReceive, boolean simulate) {
 
-		if (container.stackTagCompound == null) {
-			EnergyHelper.setDefaultEnergyTag(container, 0);
+		if (stack.stackTagCompound == null) {
+			EnergyHelper.setDefaultEnergyTag(stack, 0);
 		}
-		int stored = container.stackTagCompound.getInteger("Energy");
-		int receive = Math.min(maxReceive, Math.min(capacity - stored, maxTransfer));
+		int stored = stack.stackTagCompound.getInteger("Energy");
+		int receive = Math.min(maxReceive, Math.min(capacity.get(stack) - stored, maxTransfer.get(stack)));
 
 		if (!simulate) {
 			stored += receive;
-			container.stackTagCompound.setInteger("Energy", stored);
+			stack.stackTagCompound.setInteger("Energy", stored);
 		}
 		return receive;
 	}
 
 	@Override
-	public int extractEnergy(ItemStack container, int maxExtract, boolean simulate) {
+	public int extractEnergy(ItemStack stack, int maxExtract, boolean simulate) {
 
-		if (container.stackTagCompound == null) {
-			EnergyHelper.setDefaultEnergyTag(container, 0);
+		if (stack.stackTagCompound == null) {
+			EnergyHelper.setDefaultEnergyTag(stack, 0);
 		}
-		int stored = container.stackTagCompound.getInteger("Energy");
+		int stored = stack.stackTagCompound.getInteger("Energy");
 		int extract = Math.min(maxExtract, stored);
 
 		if (!simulate) {
 			stored -= extract;
-			container.stackTagCompound.setInteger("Energy", stored);
+			stack.stackTagCompound.setInteger("Energy", stored);
 		}
 		return extract;
 	}
 
 	@Override
-	public int getEnergyStored(ItemStack container) {
+	public int getEnergyStored(ItemStack stack) {
 
-		if (container.stackTagCompound == null) {
-			EnergyHelper.setDefaultEnergyTag(container, 0);
+		if (stack.stackTagCompound == null) {
+			EnergyHelper.setDefaultEnergyTag(stack, 0);
 		}
-		return container.stackTagCompound.getInteger("Energy");
+		return stack.stackTagCompound.getInteger("Energy");
 	}
 
 	@Override
-	public int getMaxEnergyStored(ItemStack container) {
-		return capacity;
+	public int getMaxEnergyStored(ItemStack stack) {
+		return capacity.get(stack);
 	}
 
 }

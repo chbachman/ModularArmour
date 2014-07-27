@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import net.minecraft.block.Block;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import chbachman.armour.gui.ArmourContainerWrapper;
 import chbachman.armour.upgrade.Upgrade;
 
 public class Recipe {
@@ -69,8 +69,7 @@ public class Recipe {
 			char c0 = s.charAt(i1);
 
 			if (hashmap.containsKey(Character.valueOf(c0))) {
-				aitemstack[i1] = hashmap
-						.get(Character.valueOf(c0)).copy();
+				aitemstack[i1] = hashmap.get(Character.valueOf(c0)).copy();
 			} else {
 				aitemstack[i1] = null;
 			}
@@ -85,7 +84,7 @@ public class Recipe {
 		craftinglist.add(recipe);
 	}
 
-	public boolean matches(ArmourContainerWrapper containerWrapper) {
+	public boolean matches(IInventory containerWrapper) {
 		
 		if (containerWrapper == null) {
 			return false;
@@ -124,7 +123,7 @@ public class Recipe {
 		return this.result.toString();
 	}
 
-	public static Upgrade getResult(ArmourContainerWrapper containerWrapper) {
+	public static Upgrade getResult(IInventory containerWrapper) {
 		
 		for (int i = 0; i < craftinglist.size(); i++) {
 			if (craftinglist.get(i).matches(containerWrapper)) {

@@ -8,7 +8,7 @@ import chbachman.armour.upgrade.Upgrade;
 public class UpgradeCalfShields extends Upgrade{
 	
 	public UpgradeCalfShields(){
-		super("Calf Shields");
+		super("CalfShields");
 	}
 
 	@Override

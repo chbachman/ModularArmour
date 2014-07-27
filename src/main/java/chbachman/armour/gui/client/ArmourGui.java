@@ -1,21 +1,19 @@
 package chbachman.armour.gui.client;
 
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
 
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.util.Constants;
 import chbachman.armour.gui.container.ArmourContainer;
+import chbachman.armour.gui.container.TabCrafting;
 import chbachman.armour.handler.UpgradeHandler;
 import chbachman.armour.network.ArmourPacket;
 import chbachman.armour.network.ArmourPacket.PacketTypes;
 import chbachman.armour.reference.ResourceLocationHelper;
 import chbachman.armour.upgrade.Upgrade;
 import chbachman.armour.upgrade.UpgradeException;
+import chbachman.armour.util.NBTHelper;
 import cofh.gui.GuiBaseAdv;
 import cofh.gui.GuiProps;
 import cofh.gui.GuiTextList;
@@ -29,9 +27,9 @@ public class ArmourGui extends GuiBaseAdv{
 	private ArmourContainer container;
 
 	public ElementButton button;
-	public GuiTextList list;
+	public UpgradeComponent list;
 	public GuiTextList errorMessage;
-	
+	public TabCrafting tab;
 	
 	public ArmourGui(ArmourContainer container, InventoryPlayer inventory) {
 		super(container);
@@ -51,13 +49,14 @@ public class ArmourGui extends GuiBaseAdv{
 	public void initGui(){
 		super.initGui();
 		
-		button = new ElementButton(this, 139, 70, "Confirm Choice", 208, 128, 208, 144, 208, 160, 16, 16, GuiProps.PATH_GUI + "FriendsList.png");
+		button = new ElementButton(this, 183, 210, "Confirm Choice", 208, 128, 208, 144, 208, 160, 16, 16, GuiProps.PATH_GUI + "FriendsList.png");
 		addElement(button);
 		
 		button.setActive();
 		
-		list = new GuiTextList(this.fontRendererObj, guiLeft + 5, guiTop + 5, 40, 20);
-		list.textLines = this.getUpgradeNameList(container.stack);
+		list = new UpgradeComponent(this.fontRendererObj, guiLeft + 5, guiTop + 5, 160 , 20);
+		
+		this.getUpgradeList();
 		list.drawBackground = false;
 		list.drawBorder = false;
 		
@@ -66,6 +65,9 @@ public class ArmourGui extends GuiBaseAdv{
 		errorMessage.textLines = null;
 		errorMessage.drawBackground = false;
 		errorMessage.drawBorder = false;
+		
+		tab = new TabCrafting(this, this.container);
+		this.addTab(tab);
 		
 		list.setEnabled(true);
 		errorMessage.setEnabled(true);
@@ -76,7 +78,7 @@ public class ArmourGui extends GuiBaseAdv{
 
 		super.drawGuiContainerBackgroundLayer(f, x, y);
 		
-		list.textLines = getUpgradeNameList(this.container.stack);
+		this.getUpgradeList();
 		list.drawText();
 		
 		if(this.errorMessage.textLines != null){
@@ -105,31 +107,27 @@ public class ArmourGui extends GuiBaseAdv{
 			PacketHandler.sendToServer(ArmourPacket.getPacket(PacketTypes.ARMOURCRAFTING));
 			
 			try {
-				if (UpgradeHandler.addUpgrade(this.container.stack, this.container.upgrade)) {
+				if (UpgradeHandler.addUpgrade(this.container.getContainerStack(), this.container.upgrade)) {
 
 					this.container.upgrade = null;
 				}
 			} catch (UpgradeException e) {
 				errorMessage.textLines = this.getFontRenderer().listFormattedStringToWidth(e.getMessage(), 70);
 			}
-			list.textLines = getUpgradeNameList(this.container.stack);
+			
+			this.getUpgradeList();
 
 		}
 		
 	}
 	
-	public List<String> getUpgradeNameList(ItemStack item){
-		List<String> output = new ArrayList<String>();
-		
-		NBTTagList tagList = item.stackTagCompound.getTagList("UpgradeList", Constants.NBT.TAG_COMPOUND);
-		
-		for(int i = 0; i < tagList.tagCount(); i++){
-			Upgrade upgrade  = Upgrade.getUpgradeFromNBT(tagList.getCompoundTagAt(i));
-			output.add(upgrade.getName());
-		}
-		
-		return output;
-		
+	private void getUpgradeList(){
+	    if(this.container.getContainerStack().stackTagCompound == null){
+            NBTHelper.createDefaultStackTag(this.container.getContainerStack());
+        }
+        
+        list.textLines = NBTHelper.getUpgradeListFromNBT(this.container.getContainerStack().stackTagCompound);
+        Collections.sort(list.textLines);
 	}
 
 }

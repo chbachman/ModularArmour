@@ -3,11 +3,13 @@ package chbachman.armour.util;
 import java.util.ArrayList;
 import java.util.List;
 
+import cofh.util.StringHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagList;
 import chbachman.armour.items.ItemModularArmour;
 import chbachman.armour.upgrade.Upgrade;
+import chbachman.armour.upgrade.UpgradeList;
 
 public class UpgradeUtil {
 	
@@ -19,9 +21,7 @@ public class UpgradeUtil {
 			if(armour != null){
 				if(armour.getItem() instanceof ItemModularArmour){
 					
-					if(armour.stackTagCompound == null){
-						armour.stackTagCompound = NBTHelper.createStackTagCompound();
-					}
+					NBTHelper.createDefaultStackTag(armour);
 					
 					List<Upgrade> upgradeList = NBTHelper.getUpgradeListFromNBT(armour.stackTagCompound);
 					
@@ -43,11 +43,17 @@ public class UpgradeUtil {
 		return doesPlayerHaveUpgrade(player, getUpgradeFromName(string));
 	}
 
-	public static Upgrade getUpgradeFromName(String name){
-		for(Upgrade upgrade : Upgrade.upgradeList){
-			if(upgrade.getName().equals(name)){
+	public static Upgrade getUpgradeFromName(String unlocalizedName){
+		for(Upgrade upgrade : UpgradeList.list){
+			if(upgrade.getUnlocalizedName().equals(unlocalizedName)){
 				return upgrade;
 			}
+		}
+		
+		for(Upgrade upgrade : UpgradeList.list){
+		    if(upgrade.getUnlocalizedName().equals("upgrade.chbachman." + StringHelper.camelCase(unlocalizedName).replace(" ", "") +  ".name")){
+		        return upgrade;
+		    }
 		}
 		
 		return null;
@@ -55,7 +61,7 @@ public class UpgradeUtil {
 	
 	public static void removeUpgrade(ItemStack stack, Upgrade upgrade){
 		if(stack.stackTagCompound == null){
-			stack.stackTagCompound =  NBTHelper.createStackTagCompound();
+			NBTHelper.createDefaultStackTag(stack);
 			return;
 		}
 		
@@ -76,7 +82,7 @@ public class UpgradeUtil {
 	
 	public static List<String> getDependencyList(Upgrade upgrade){
 		List<String> list = new ArrayList<String>();
-		list.add(upgrade.getName());
+		list.add(upgrade.getUnlocalizedName());
 		return list;
 	}
 	
@@ -90,7 +96,7 @@ public class UpgradeUtil {
 	public static boolean doesItemStackContainUpgrade(ItemStack stack, Upgrade upgrade){
 		
 		if(stack.stackTagCompound == null){
-			stack.stackTagCompound = NBTHelper.createStackTagCompound();
+			NBTHelper.createDefaultStackTag(stack);
 			return false;
 		}
 		
@@ -99,7 +105,7 @@ public class UpgradeUtil {
 		for(int i = 0; i < list.tagCount(); i++){
 			Upgrade up = Upgrade.getUpgradeFromNBT(list.getCompoundTagAt(i));
 			
-			if(up.getId() == upgrade.getId()){
+			if(up != null && upgrade != null && up.getId() == upgrade.getId()){
 				return true;
 			}
 		}
