@@ -54,6 +54,7 @@ public class ModularArmour extends BaseMod{
 	public static void init(FMLInitializationEvent event) {
 		
 		MinecraftForge.EVENT_BUS.register(new GenericEventHandler());
+		MinecraftForge.EVENT_BUS.register(proxy);
 		FMLCommonHandler.instance().bus().register(new GenericEventHandler());
 		
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance, guiHandler);

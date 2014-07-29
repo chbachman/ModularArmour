@@ -57,7 +57,7 @@ public class UpgradeComponent extends Gui{
         for (int i = startLine; i < startLine + displayLines; i++) {
             if (textLines.size() > i) {
                 String lineToDraw = fRend.trimStringToWidth(textLines.get(i).getName(), width);
-                if (selectedLine == i && highlightSelectedLine) {
+                if (selectedLine == i) {
                     drawRect(xPos, yPos + 1 + lineHeight * (i - startLine), xPos + width, yPos + lineHeight * (1 + i - startLine), selectedLineColor);
                     fRend.drawStringWithShadow(lineToDraw, xPos + X_OFFSET, yPos + Y_OFFSET + lineHeight * (i - startLine), selectedTextColor);
                 } else {
@@ -71,11 +71,15 @@ public class UpgradeComponent extends Gui{
 
         int theLine = (mouseY - offsetY) / lineHeight;
         
-        if(this.selectedLine == theLine){
-            textLines.get(theLine);
+        if(theLine != this.selectedLine){
+            this.selectedLine = theLine;
         }
         
-        return textLines.get(theLine);
+        try{
+            return textLines.get(theLine);
+        }catch(IndexOutOfBoundsException e){
+            return null;
+        }
         
         
     }

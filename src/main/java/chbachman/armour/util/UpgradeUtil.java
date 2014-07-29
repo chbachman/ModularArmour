@@ -3,13 +3,15 @@ package chbachman.armour.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import cofh.util.StringHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagList;
+import chbachman.armour.handler.UpgradeHandler;
 import chbachman.armour.items.ItemModularArmour;
 import chbachman.armour.upgrade.Upgrade;
+import chbachman.armour.upgrade.UpgradeException;
 import chbachman.armour.upgrade.UpgradeList;
+import cofh.util.StringHelper;
 
 public class UpgradeUtil {
 	
@@ -35,7 +37,7 @@ public class UpgradeUtil {
 			}
 			
 		}
-		
+		 
 		return false;
 	}
 	
@@ -59,7 +61,10 @@ public class UpgradeUtil {
 		return null;
 	}
 	
-	public static void removeUpgrade(ItemStack stack, Upgrade upgrade){
+	public static void removeUpgrade(ItemStack container, Upgrade upgrade){
+	    
+	    ItemStack stack = container.copy();
+	    
 		if(stack.stackTagCompound == null){
 			NBTHelper.createDefaultStackTag(stack);
 			return;
@@ -73,9 +78,22 @@ public class UpgradeUtil {
 				Upgrade upgradeList = Upgrade.getUpgradeFromNBT(list.getCompoundTagAt(i));
 				
 				if(upgradeList != null && upgradeList.getId() == upgrade.getId()){
-					return;
+				    
+					list.removeTag(i);
 				}
 			}
+			
+			try{
+	            
+	            for(int i = 0; i < list.tagCount(); i++){
+	                UpgradeHandler.checkDependencies(stack, Upgrade.getUpgradeFromNBT(list.getCompoundTagAt(i)));
+	            }
+	            
+	        }catch(UpgradeException e){
+	            throw new UpgradeException("The %s Upgrade requires the %s Upgrade", e.cause, upgrade);
+	        }
+	        
+	        container.stackTagCompound = stack.stackTagCompound;
 		}
 
 	}
@@ -92,6 +110,18 @@ public class UpgradeUtil {
 		return list;
 	}
 	
+	public static boolean doesNBTListContainUpgrade(NBTTagList list, Upgrade upgrade){
+	    
+	    for(int i = 0; i < list.tagCount(); i++){
+	        Upgrade up = Upgrade.getUpgradeFromNBT(list.getCompoundTagAt(i));
+	        
+	        if(up != null && upgrade != null && up.getId() == upgrade.getId()){
+	            return true;
+	        }
+	    }
+	    
+	    return false;
+	}
 	
 	public static boolean doesItemStackContainUpgrade(ItemStack stack, Upgrade upgrade){
 		
@@ -102,15 +132,7 @@ public class UpgradeUtil {
 		
 		NBTTagList list = NBTHelper.getNBTTagList(stack.stackTagCompound);
 		
-		for(int i = 0; i < list.tagCount(); i++){
-			Upgrade up = Upgrade.getUpgradeFromNBT(list.getCompoundTagAt(i));
-			
-			if(up != null && upgrade != null && up.getId() == upgrade.getId()){
-				return true;
-			}
-		}
-
-		return false;
+		return doesNBTListContainUpgrade(list, upgrade);
 	}
 
 	public static boolean doesItemStackContainUpgrade(ItemStack stack, String name){

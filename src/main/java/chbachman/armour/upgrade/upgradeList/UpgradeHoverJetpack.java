@@ -47,7 +47,7 @@ public class UpgradeHoverJetpack extends Upgrade{
 	
 	public int getEnergyTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot){
 		if(player.capabilities.isFlying){
-			return 100;
+			return 500;
 		}else{
 			return 0;
 		}

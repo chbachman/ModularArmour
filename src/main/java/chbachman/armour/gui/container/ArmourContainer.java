@@ -10,8 +10,11 @@ import net.minecraft.world.World;
 import chbachman.armour.gui.ArmourContainerWrapper;
 import chbachman.armour.handler.UpgradeHandler;
 import chbachman.armour.items.ItemModularArmour;
+import chbachman.armour.network.ArmourPacket;
 import chbachman.armour.upgrade.Upgrade;
 import chbachman.armour.upgrade.UpgradeException;
+import chbachman.armour.upgrade.UpgradeList;
+import chbachman.armour.util.UpgradeUtil;
 import cofh.util.ItemHelper;
 
 public class ArmourContainer extends Container{
@@ -67,24 +70,37 @@ public class ArmourContainer extends Container{
 	}
 	
 	public void onSlotChanged() {
-	    player.inventory.mainInventory[this.containerIndex] = stack;
 		upgrade = UpgradeHandler.getResult(this.containerWrapper);
 	}
 	
-	public void onButtonClick(){
-		try {
-			if (UpgradeHandler.addUpgrade(stack, upgrade)) {
-
-				for (int i = 0; i < this.containerWrapper.getSizeInventory(); i++) {
-
-					containerWrapper.decrStackSize(i, 1);
-				}
-
-				this.upgrade = null;
-			}
-		} catch (UpgradeException e) {
-			
-		}
+	public void onButtonClick(ArmourPacket packet, String name){
+	    
+	    try{
+	        
+	        if (name.equals("UpgradeAddition")) {
+	            if (UpgradeHandler.addUpgrade(stack, upgrade)) {
+	                
+	                for (int i = 0; i < this.containerWrapper.getSizeInventory(); i++) {
+	                    
+	                    containerWrapper.decrStackSize(i, 1);
+	                }
+	                
+	                this.upgrade = null;
+	            }
+	            
+	        }else if(name.equals("RemoveItems")){
+	            this.onContainerClosed(this.player);
+	        }else if(name.equals("RemoveUpgrade")){
+	            UpgradeUtil.removeUpgrade(this.stack, UpgradeList.list.get(packet.getInt()));
+	        }
+	        
+	    } catch (UpgradeException e) {
+	        
+	    }finally{
+	        player.inventory.mainInventory[this.containerIndex] = stack;
+	    }
+	    
+	    
 	}
 	
 	@Override
@@ -92,10 +108,16 @@ public class ArmourContainer extends Container{
     {
         super.onContainerClosed(par1EntityPlayer);
 
+        for (int i = 0; i < 9; ++i)
+        {   
+            this.transferStackInSlot(par1EntityPlayer, i);
+        }
+        
         if (!this.player.worldObj.isRemote)
         {
-            for (int i = 0; i < 9; ++i)
-            {
+            
+            
+            for(int i = 0; i < 9; i++){
                 ItemStack itemstack = this.containerWrapper.getStackInSlotOnClosing(i);
 
                 if (itemstack != null)

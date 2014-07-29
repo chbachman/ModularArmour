@@ -57,7 +57,7 @@ public class ArmourPacket extends PacketCoFHBase{
 		if(container instanceof ArmourContainer){
 			ArmourContainer armourContainer = (ArmourContainer) container;
 
-			armourContainer.onButtonClick();
+			armourContainer.onButtonClick(this, this.getString());
 		}
 	}
 

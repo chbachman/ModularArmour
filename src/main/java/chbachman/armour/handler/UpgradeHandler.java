@@ -56,7 +56,10 @@ public class UpgradeHandler {
 		
 		for(String dependency: dependencies){
 			if(!UpgradeUtil.doesItemStackContainUpgrade(stack, dependency)){
-				throw new UpgradeException(String.format("This upgrade needs the %s upgrade to work", dependency));
+			    
+			    Upgrade up = UpgradeUtil.getUpgradeFromName(dependency);
+			    
+				throw new UpgradeException(String.format("This upgrade needs the %s upgrade to work", up.getName()), upgrade);
 			}
 		}
 		

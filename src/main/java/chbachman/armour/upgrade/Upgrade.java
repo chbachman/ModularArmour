@@ -80,6 +80,10 @@ public abstract class Upgrade implements Comparable<Upgrade>{
 	    return this.getName().compareTo(upgrade.getName());
 	}
 	
+	public String toString(){
+	    return this.getName();
+	}
+	
 	//Api for Upgrades here
 	public boolean isCompatible(int slot){
 		return isCompatible(ArmourSlot.getArmourSlot(slot));
