@@ -16,6 +16,7 @@ import chbachman.armour.reference.ArmourSlot;
 import chbachman.armour.upgrade.Upgrade;
 import chbachman.armour.upgrade.UpgradeList;
 import chbachman.armour.util.UpgradeUtil;
+import cofh.util.StringHelper;
 
 public class UpgradePotion extends Upgrade {
     
@@ -23,11 +24,7 @@ public class UpgradePotion extends Upgrade {
     private final int level;
     
     public UpgradePotion(PotionUpgrades upgrade, int level) {
-        super(upgrade.name);
-        
-        if(level != 0){
-            super.name = upgrade.name + "strong";
-        }
+        super(level != 0 ? "strong " : "" + upgrade.name);
         
         this.level = level;
         this.upgrade = upgrade;
@@ -35,6 +32,18 @@ public class UpgradePotion extends Upgrade {
         this.recipe = this.getRecipe();
         Recipe.addToList(this.recipe);
         
+    }
+    
+    @Override
+    public String getName() {
+        if (this.level != 0) {
+            String strong = StringHelper.localize("info.chbachman.strong");
+            
+            return strong + " " + this.upgrade.name;
+            
+        } else {
+            return this.upgrade.name;
+        }
     }
     
     @Override
@@ -57,8 +66,10 @@ public class UpgradePotion extends Upgrade {
     }
     
     @Override
-    public void onArmourTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
+    public int onArmourTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
         player.addPotionEffect(new PotionEffect(this.upgrade.potion.id, 0, this.level));
+        
+        return 10;
     }
     
     @Override

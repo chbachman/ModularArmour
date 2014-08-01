@@ -5,17 +5,17 @@ import chbachman.armour.upgrade.Upgrade;
 import chbachman.armour.upgrade.UpgradeList;
 import cofh.key.CoFHKey;
 
-public abstract class CommonProxy implements IProxy{
-	
-	@Override
-	public void registerKeyBinds() {
-		
-		for(Upgrade upgrade : UpgradeList.list){
-			if(upgrade instanceof KeybindUpgrade){
-				CoFHKey.addServerKeyBind( (KeybindUpgrade) upgrade );
-			}
-		}
-		
-	}
-
+public abstract class CommonProxy implements IProxy {
+    
+    @Override
+    public void registerKeyBinds() {
+        
+        for (Upgrade upgrade : UpgradeList.list) {
+            if (upgrade instanceof KeybindUpgrade) {
+                CoFHKey.addServerKeyBind((KeybindUpgrade) upgrade);
+            }
+        }
+        
+    }
+    
 }

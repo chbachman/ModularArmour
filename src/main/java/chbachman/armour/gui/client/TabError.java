@@ -5,8 +5,8 @@ import java.util.List;
 import cofh.gui.GuiBase;
 import cofh.gui.element.TabInfo;
 
-public class TabError extends TabInfo{
-
+public class TabError extends TabInfo {
+    
     public boolean hasError;
     private List<String> myTextSave;
     
@@ -15,24 +15,24 @@ public class TabError extends TabInfo{
     }
     
     @SuppressWarnings("unchecked")
-    public void setString(String string){
+    public void setString(String string) {
         
-        myTextSave = myText;
+        this.myTextSave = this.myText;
         
-        myText = getFontRenderer().listFormattedStringToWidth(string, maxWidth - 16);
-        numLines = Math.min(myText.size(), (maxHeight - 24) / getFontRenderer().FONT_HEIGHT);
-        maxFirstLine = myText.size() - numLines;
+        this.myText = this.getFontRenderer().listFormattedStringToWidth(string, this.maxWidth - 16);
+        this.numLines = Math.min(this.myText.size(), (this.maxHeight - 24) / this.getFontRenderer().FONT_HEIGHT);
+        this.maxFirstLine = this.myText.size() - this.numLines;
         
         this.hasError = true;
         
     }
     
-    public void reset(){
+    public void reset() {
         
-        myText = myTextSave;
+        this.myText = this.myTextSave;
         
-        numLines = Math.min(myText.size(), (maxHeight - 24) / getFontRenderer().FONT_HEIGHT);
-        maxFirstLine = myText.size() - numLines;
+        this.numLines = Math.min(this.myText.size(), (this.maxHeight - 24) / this.getFontRenderer().FONT_HEIGHT);
+        this.maxFirstLine = this.myText.size() - this.numLines;
         
         this.hasError = false;
     }

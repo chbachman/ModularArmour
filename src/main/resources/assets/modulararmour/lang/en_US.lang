@@ -4,8 +4,13 @@ item.chbachman.armour.chestplateModular.name=Modular Chestplate
 item.chbachman.armour.leggingsModular.name=Modular Leggings
 item.chbachman.armour.bootsModular.name=Modular Boots
 
+item.modulararmour.material.heatedElectrum.name=Heated Electrum
+item.modulararmour.material.temperedElectrum.name=Tempered Electrum
+
+
 info.chbachman.control=Control
 info.chbachman.upgradeList=Upgrade List
+info.chbachman.strong=Strong
 
 upgrade.chbachman.jetpack.name=Jetpack
 upgrade.chbachman.calfShields.name=Calf Shields
@@ -14,21 +19,6 @@ upgrade.chbachman.cobblestoneUpgrade.name=CobbleStone Energy
 upgrade.chbachman.ironUpgrade.name=Iron Energy
 upgrade.chbachman.goldUpgrade.name=Gold Energy
 upgrade.chbachman.diamondUpgrade.name=Diamond Energy
-upgrade.chbachman.strengthPotion.name=Strength
-upgrade.chbachman.strengthPotionStrong.name=Strong Strength
-upgrade.chbachman.speedPotion.name=Speed
-upgrade.chbachman.speedPotionStrong.name=Strong Speed
-upgrade.chbachman.hastePotion.name=Haste
-upgrade.chbachman.hastePotionStrong.name=Strong Haste
-upgrade.chbachman.jumpPotion.name=Jump Boost
-upgrade.chbachman.jumpPotionStrong.name=Strong Jump Boost
-upgrade.chbachman.regenPotion.name=Regeneration
-upgrade.chbachman.regenPotionStrong.name=Strong Regeneration
-upgrade.chbachman.resistancePotion.name=Resistance
-upgrade.chbachman.resistancePotionStrong.name=Strong Resistance
-upgrade.chbachman.fireResistancePotion.name=Fire Resistance
-upgrade.chbachman.fireResistancePotionStrong.name=Strong Fire Resistance
-upgrade.chbachman.waterBreathingPotion.name=Water Breathing
-upgrade.chbachman.waterBreathingPotionStrong.name=Strong Water Breathing
-upgrade.chbachman.nightVisionPotion.name=Night Vision
-upgrade.chbachman.nightVisionPotionStrong.name=Strong Night Vision
+
+upgrade.chbachman.fallDamage.name=Long Fall Dampeners
+upgrade.chbachman.solar.name=Solar Helmet

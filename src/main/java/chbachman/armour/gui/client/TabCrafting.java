@@ -12,7 +12,7 @@ import cofh.gui.GuiProps;
 import cofh.gui.element.TabBase;
 import cofh.render.RenderHelper;
 
-public class TabCrafting extends TabBase{
+public class TabCrafting extends TabBase {
     
     public static int defaultSide = 1;
     public static int defaultBackgroundColor = 0x0033FF;
@@ -23,31 +23,31 @@ public class TabCrafting extends TabBase{
     
     int slotsBorderX1 = 7;
     int slotsBorderY1 = 20;
-
+    
     public TabCrafting(ArmourGui container) {
         super(container, defaultSide);
-        backgroundColor = defaultBackgroundColor;
-
-        myContainer = container;
-
-        maxHeight = 110;
-        maxWidth = 93;
+        this.backgroundColor = defaultBackgroundColor;
+        
+        this.myContainer = container;
+        
+        this.maxHeight = 110;
+        this.maxWidth = 93;
     }
     
     @Override
     public void draw() {
-
-        if (!isVisible()) {
+        
+        if (!this.isVisible()) {
             return;
         }
         
-        drawBackground();
-        drawTabIcon("IconUpgrade");
-        if (!isFullyOpened()) {
+        this.drawBackground();
+        this.drawTabIcon("IconUpgrade");
+        if (!this.isFullyOpened()) {
             return;
         }
         
-        if(this.myContainer.container.upgrade != null){
+        if (this.myContainer.container.upgrade != null) {
             
             @SuppressWarnings("unchecked")
             List<String> list = this.getFontRenderer().listFormattedStringToWidth(this.myContainer.container.upgrade.getName(), 70);
@@ -57,81 +57,80 @@ public class TabCrafting extends TabBase{
                 this.getFontRenderer().drawStringWithShadow(lineToDraw, this.posX + 3, 87 + 10 * i, -1);
             }
             
-            if (isCoordsInBorders(this.gui.getMouseX() - this.currentShiftX, this.gui.getMouseY() - this.currentShiftY, 70 ,70 + 16, 24 ,24 + 16)) {
-                gui.drawButton("IconAccept", this.posX + 70, this.posY + 24, 1, 1);
-            }else{
-                gui.drawButton("IconAccept", this.posX + 70, this.posY + 24, 1, 0);
+            if (this.isCoordsInBorders(this.gui.getMouseX() - this.currentShiftX, this.gui.getMouseY() - this.currentShiftY, 70, 70 + 16, 24, 24 + 16)) {
+                this.gui.drawButton("IconAccept", this.posX + 70, this.posY + 24, 1, 1);
+            } else {
+                this.gui.drawButton("IconAccept", this.posX + 70, this.posY + 24, 1, 0);
             }
             
-            
-        }else{
-            gui.drawButton("IconAcceptInactive", this.posX + 70, this.posY + 24, 1, 2);
+        } else {
+            this.gui.drawButton("IconAcceptInactive", this.posX + 70, this.posY + 24, 1, 2);
             
             this.getFontRenderer().drawStringWithShadow("No Upgrade", this.posX + 3, 87, -1);
             this.getFontRenderer().drawStringWithShadow("Selected Yet!", this.posX + 3, 97, -1);
         }
         
-        if (isCoordsInBorders(this.gui.getMouseX() - this.currentShiftX, this.gui.getMouseY() - this.currentShiftY, 70 ,70 + 16, 42 ,42 + 16)) {
-            gui.drawButton("IconCancel", this.posX + 70, this.posY + 42, 1, 1);
-        }else{
-            gui.drawButton("IconCancel", this.posX + 70, this.posY + 42, 1, 0);
+        if (this.isCoordsInBorders(this.gui.getMouseX() - this.currentShiftX, this.gui.getMouseY() - this.currentShiftY, 70, 70 + 16, 42, 42 + 16)) {
+            this.gui.drawButton("IconCancel", this.posX + 70, this.posY + 42, 1, 1);
+        } else {
+            this.gui.drawButton("IconCancel", this.posX + 70, this.posY + 42, 1, 0);
         }
         
-        getFontRenderer().drawStringWithShadow("Upgrades", posXOffset() + 18, posY + 8, headerColor);
+        this.getFontRenderer().drawStringWithShadow("Upgrades", this.posXOffset() + 18, this.posY + 8, this.headerColor);
         
     }
-
+    
     @Override
     public void addTooltip(List<String> list) {
-
-        if(!isFullyOpened()){
+        
+        if (!this.isFullyOpened()) {
             list.add("Upgrade");
         }
         
-        if (this.myContainer.container.upgrade != null && isCoordsInBorders(this.gui.getMouseX() - this.currentShiftX, this.gui.getMouseY() - this.currentShiftY, 70 ,70 + 16, 24 ,24 + 16)) {
+        if (this.myContainer.container.upgrade != null && this.isCoordsInBorders(this.gui.getMouseX() - this.currentShiftX, this.gui.getMouseY() - this.currentShiftY, 70, 70 + 16, 24, 24 + 16)) {
             list.add("Add Upgrade");
         }
         
-        if (isCoordsInBorders(this.gui.getMouseX() - this.currentShiftX, this.gui.getMouseY() - this.currentShiftY, 70 ,70 + 16, 42 ,42 + 16)) {
+        if (this.isCoordsInBorders(this.gui.getMouseX() - this.currentShiftX, this.gui.getMouseY() - this.currentShiftY, 70, 70 + 16, 42, 42 + 16)) {
             list.add("Remove Items");
         }
     }
-
+    
     @Override
     public boolean onMousePressed(int mouseX, int mouseY, int mouseButton) {
-
-        if (!isFullyOpened()) {
+        
+        if (!this.isFullyOpened()) {
             return false;
         }
-        mouseX -= currentShiftX;
-        mouseY -= currentShiftY;
+        mouseX -= this.currentShiftX;
+        mouseY -= this.currentShiftY;
         
-        if (isCoordsInBorders(mouseX, mouseY, 0, 22, 0 ,22)) {
+        if (this.isCoordsInBorders(mouseX, mouseY, 0, 22, 0, 22)) {
             return false;
         }
         
-        if (isCoordsInBorders(mouseX, mouseY, 70 ,70 + 16, 24 ,24 + 16)) {
+        if (this.isCoordsInBorders(mouseX, mouseY, 70, 70 + 16, 24, 24 + 16)) {
             this.myContainer.onButtonClick("UpgradeAddition");
             GuiBase.playSound("random.click", 1.0F, 0.4F);
         }
         
-        if (isCoordsInBorders(mouseX, mouseY, 70 ,70 + 16, 42 ,42 + 16)) {
+        if (this.isCoordsInBorders(mouseX, mouseY, 70, 70 + 16, 42, 42 + 16)) {
             this.myContainer.onButtonClick("RemoveItems");
             GuiBase.playSound("random.click", 1.0F, 0.4F);
         }
-       
+        
         return true;
     }
-
-    public boolean isCoordsInBorders(int xCoord, int yCoord, int x, int x2, int y, int y2){
+    
+    public boolean isCoordsInBorders(int xCoord, int yCoord, int x, int x2, int y, int y2) {
         return xCoord > x && xCoord < x2 && yCoord > y && yCoord < y2;
     }
     
     @Override
     protected void drawBackground() {
         super.drawBackground();
-
-        if (!isFullyOpened()) {
+        
+        if (!this.isFullyOpened()) {
             return;
         }
         
@@ -139,27 +138,27 @@ public class TabCrafting extends TabBase{
         
         RenderHelper.bindTexture(GRID_TEXTURE);
         
-        drawSlots(0, 0, 3);
-        drawSlots(0, 1, 3);
-        drawSlots(0, 2, 3);
+        this.drawSlots(0, 0, 3);
+        this.drawSlots(0, 1, 3);
+        this.drawSlots(0, 2, 3);
     }
     
     @Override
     public void setFullyOpen() {
         super.setFullyOpen();
-
+        
         for (int i = 0; i < 9; i++) {
-            ((Slot) myContainer.container.inventorySlots.get(i)).xDisplayPosition = posXOffset() + slotsBorderX1 + 4 + 18 * (i % 3);
-            ((Slot) myContainer.container.inventorySlots.get(i)).yDisplayPosition = posY + slotsBorderY1 + 4 + 18 * (i / 3);
+            ((Slot) this.myContainer.container.inventorySlots.get(i)).xDisplayPosition = this.posXOffset() + this.slotsBorderX1 + 4 + 18 * (i % 3);
+            ((Slot) this.myContainer.container.inventorySlots.get(i)).yDisplayPosition = this.posY + this.slotsBorderY1 + 4 + 18 * (i / 3);
         }
     }
-
+    
     @Override
     public void toggleOpen() {
-        if (open) {
+        if (this.open) {
             for (int i = 0; i < 9; i++) {
-                ((Slot) myContainer.container.inventorySlots.get(i)).xDisplayPosition = -gui.getGuiLeft() - 16;
-                ((Slot) myContainer.container.inventorySlots.get(i)).yDisplayPosition = -gui.getGuiTop() - 16;
+                ((Slot) this.myContainer.container.inventorySlots.get(i)).xDisplayPosition = -this.gui.getGuiLeft() - 16;
+                ((Slot) this.myContainer.container.inventorySlots.get(i)).yDisplayPosition = -this.gui.getGuiTop() - 16;
             }
             
         }
@@ -167,7 +166,7 @@ public class TabCrafting extends TabBase{
     }
     
     private void drawSlots(int xOffset, int yOffset, int slots) {
-        gui.drawSizedTexturedModalRect(posXOffset() + slotsBorderX1 + 3 + 9 * xOffset, posY + slotsBorderY1 + 3 + 18 * yOffset, 0, 0, 18 * slots, 18, 72, 18);
+        this.gui.drawSizedTexturedModalRect(this.posXOffset() + this.slotsBorderX1 + 3 + 9 * xOffset, this.posY + this.slotsBorderY1 + 3 + 18 * yOffset, 0, 0, 18 * slots, 18, 72, 18);
     }
     
 }
