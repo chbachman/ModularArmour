@@ -4,6 +4,8 @@ import java.util.Collections;
 
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
+import chbachman.armour.ModularArmour;
+import chbachman.armour.gui.GuiHandler;
 import chbachman.armour.gui.container.ArmourContainer;
 import chbachman.armour.handler.UpgradeHandler;
 import chbachman.armour.network.ArmourPacket;
@@ -51,9 +53,6 @@ public class ArmourGui extends GuiBaseAdv {
         this.getUpgradeList();
         
         this.list.highlightSelectedLine = true;
-        
-        // list.drawBackground = false;
-        // list.drawBorder = false;
         
         this.tabCrafting = new TabCrafting(this);
         this.addTab(this.tabCrafting);
@@ -121,6 +120,10 @@ public class ArmourGui extends GuiBaseAdv {
                 UpgradeUtil.removeUpgrade(this.container.stack, this.selectedUpgrade);
                 PacketHandler.sendToServer(ArmourPacket.getPacket(PacketTypes.ARMOURCRAFTING).addString(name).addInt(this.selectedUpgrade.getId()));
                 return;
+            } else if(name.equals("Recipe")){
+                if (this.container.player.worldObj.isRemote == false) {
+                    this.container.player.openGui(ModularArmour.instance, GuiHandler.ARMOUR_ID, this.container.player.worldObj, 0, 0, 0);
+                }
             }
             
             PacketHandler.sendToServer(ArmourPacket.getPacket(PacketTypes.ARMOURCRAFTING).addString(name));

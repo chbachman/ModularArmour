@@ -7,7 +7,9 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import chbachman.armour.ModularArmour;
 import chbachman.armour.gui.ArmourContainerWrapper;
+import chbachman.armour.gui.GuiHandler;
 import chbachman.armour.handler.UpgradeHandler;
 import chbachman.armour.items.ItemModularArmour;
 import chbachman.armour.network.ArmourPacket;
@@ -88,6 +90,10 @@ public class ArmourContainer extends Container {
                 this.onContainerClosed(this.player);
             } else if (name.equals("RemoveUpgrade")) {
                 UpgradeUtil.removeUpgrade(this.stack, UpgradeList.list.get(packet.getInt()));
+            } else if(name.equals("Recipe")){
+                if (this.player.worldObj.isRemote == false) {
+                    this.player.openGui(ModularArmour.instance, GuiHandler.RECIPE_ID, this.player.worldObj, 0, 0, 0);
+                }
             }
             
         } catch (UpgradeException e) {

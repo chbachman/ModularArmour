@@ -1,5 +1,6 @@
 package chbachman.armour.proxy;
 
+import net.minecraft.init.Items;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import chbachman.armour.items.ItemRegister;
 import chbachman.armour.upgrade.KeybindUpgrade;
@@ -38,7 +39,7 @@ public class ClientProxy extends CommonProxy {
             
         } else if (event.map.getTextureType() == 1) {
             
-            IconRegistry.addIcon("IconPlus", "cofh:icons/Icon_Access_Friends", event.map);
+            IconRegistry.addIcon("IconRecipe", Items.paper.getIconFromDamage(0));
             IconRegistry.addIcon("IconUpgrade", ItemRegister.chestplateModular.getIconFromDamage(0));
         }
     }

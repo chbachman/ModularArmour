@@ -16,12 +16,6 @@ public class Recipe {
     private ItemStack[] recipe;
     private Upgrade result;
     
-    public Recipe(Upgrade result, ItemStack... recipe) {
-        this.recipe = recipe;
-        this.result = result;
-        Recipe.addToList(this);
-    }
-    
     public Recipe(Upgrade output, Object... ingredients) {
         String s = "";
         int i = 0;
@@ -55,7 +49,7 @@ public class Recipe {
             if (ingredients[i + 1] instanceof Item) {
                 itemstack1 = new ItemStack((Item) ingredients[i + 1]);
             } else if (ingredients[i + 1] instanceof Block) {
-                itemstack1 = new ItemStack((Block) ingredients[i + 1], 1, 32767);
+                itemstack1 = new ItemStack(Item.getItemFromBlock((Block) ingredients[i + 1]), 1, 32767);
             } else if (ingredients[i + 1] instanceof ItemStack) {
                 itemstack1 = (ItemStack) ingredients[i + 1];
             }

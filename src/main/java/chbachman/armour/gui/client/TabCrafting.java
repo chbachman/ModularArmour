@@ -57,24 +57,18 @@ public class TabCrafting extends TabBase {
                 this.getFontRenderer().drawStringWithShadow(lineToDraw, this.posX + 3, 87 + 10 * i, -1);
             }
             
-            if (this.isCoordsInBorders(this.gui.getMouseX() - this.currentShiftX, this.gui.getMouseY() - this.currentShiftY, 70, 70 + 16, 24, 24 + 16)) {
-                this.gui.drawButton("IconAccept", this.posX + 70, this.posY + 24, 1, 1);
-            } else {
-                this.gui.drawButton("IconAccept", this.posX + 70, this.posY + 24, 1, 0);
-            }
+            this.drawButton("IconAccept", 70, 24, true);
             
         } else {
-            this.gui.drawButton("IconAcceptInactive", this.posX + 70, this.posY + 24, 1, 2);
+            this.drawButton("IconAcceptInactive", 70, 24, false);
             
             this.getFontRenderer().drawStringWithShadow("No Upgrade", this.posX + 3, 87, -1);
             this.getFontRenderer().drawStringWithShadow("Selected Yet!", this.posX + 3, 97, -1);
         }
         
-        if (this.isCoordsInBorders(this.gui.getMouseX() - this.currentShiftX, this.gui.getMouseY() - this.currentShiftY, 70, 70 + 16, 42, 42 + 16)) {
-            this.gui.drawButton("IconCancel", this.posX + 70, this.posY + 42, 1, 1);
-        } else {
-            this.gui.drawButton("IconCancel", this.posX + 70, this.posY + 42, 1, 0);
-        }
+        this.drawButton("IconRecipe", 70, 60, true);
+        
+        this.drawButton("IconCancel", 70, 42, true);
         
         this.getFontRenderer().drawStringWithShadow("Upgrades", this.posXOffset() + 18, this.posY + 8, this.headerColor);
         
@@ -93,6 +87,10 @@ public class TabCrafting extends TabBase {
         
         if (this.isCoordsInBorders(this.gui.getMouseX() - this.currentShiftX, this.gui.getMouseY() - this.currentShiftY, 70, 70 + 16, 42, 42 + 16)) {
             list.add("Remove Items");
+        }
+        
+        if (this.isCoordsInBorders(this.gui.getMouseX() - this.currentShiftX, this.gui.getMouseY() - this.currentShiftY, 70, 70 + 16, 60, 60 + 16)) {
+            list.add("Recipes");
         }
     }
     
@@ -116,6 +114,11 @@ public class TabCrafting extends TabBase {
         
         if (this.isCoordsInBorders(mouseX, mouseY, 70, 70 + 16, 42, 42 + 16)) {
             this.myContainer.onButtonClick("RemoveItems");
+            GuiBase.playSound("random.click", 1.0F, 0.4F);
+        }
+        
+        if (this.isCoordsInBorders(mouseX, mouseY, 70, 70 + 16, 60, 60 + 16)) {
+            this.myContainer.onButtonClick("Recipe");
             GuiBase.playSound("random.click", 1.0F, 0.4F);
         }
         
@@ -163,6 +166,20 @@ public class TabCrafting extends TabBase {
             
         }
         super.toggleOpen();
+    }
+    
+    private void drawButton(String name, int xShift, int yShift, boolean active){
+        if(active){
+            if (this.isCoordsInBorders(this.gui.getMouseX() - this.currentShiftX, this.gui.getMouseY() - this.currentShiftY, xShift, xShift + 16, yShift, yShift + 16)) {
+                this.gui.drawButton(name, this.posX + xShift, this.posY + yShift, 1, 1);
+            } else {
+                this.gui.drawButton(name, this.posX + xShift, this.posY + yShift, 1, 0);
+            }
+        }else{
+            this.gui.drawButton(name, this.posX + xShift, this.posY + yShift, 1, 2);
+        }
+        
+        
     }
     
     private void drawSlots(int xOffset, int yOffset, int slots) {

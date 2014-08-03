@@ -3,7 +3,6 @@ package chbachman.armour.upgrade.upgradeList;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import chbachman.armour.crafting.Recipe;
@@ -34,7 +33,7 @@ public class UpgradeFallDamage extends Upgrade {
     
     @Override
     public Recipe getRecipe() {
-        return new Recipe(this, "   ", "   ", "iwi", 'w', Item.getItemFromBlock(Blocks.wool), 'i', Items.iron_ingot);
+        return new Recipe(this, "   ", "   ", "iwi", 'w', Blocks.wool, 'i', Items.iron_ingot);
     }
     
 }

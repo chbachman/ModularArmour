@@ -27,6 +27,8 @@ public class UpgradeList extends ArrayList<Upgrade> {
         list.add(new UpgradeSpeed());
         list.add(new UpgradeStepAssist());
         
+        UpgradePortableGui.GuiUpgrades.init();
+        
     }
     
     public Upgrade getByClass(Class<? extends Upgrade> clazz) {

@@ -3,6 +3,7 @@ package chbachman.armour.upgrade;
 import net.minecraft.entity.player.EntityPlayer;
 import cofh.CoFHCore;
 import cofh.key.IKeyBinding;
+import cofh.util.StringHelper;
 
 public abstract class KeybindUpgrade extends Upgrade implements IKeyBinding {
     
@@ -19,7 +20,7 @@ public abstract class KeybindUpgrade extends Upgrade implements IKeyBinding {
     
     @Override
     public String getUUID() {
-        return "modularArmour." + this.getName();
+        return "modularArmour." + this.getUnlocalizedName();
     }
     
     @Override
@@ -27,6 +28,8 @@ public abstract class KeybindUpgrade extends Upgrade implements IKeyBinding {
         return true;
     }
     
-    public abstract String getKeyName();
+    public String getKeyName(){
+        return StringHelper.localize(this.getUnlocalizedName() + ".key");
+    }
     
 }
