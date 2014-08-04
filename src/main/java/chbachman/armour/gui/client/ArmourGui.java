@@ -1,7 +1,5 @@
 package chbachman.armour.gui.client;
 
-import java.util.Collections;
-
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import chbachman.armour.ModularArmour;
@@ -41,7 +39,6 @@ public class ArmourGui extends GuiBaseAdv {
         this.drawTitle = true;
         this.xSize = 176;
         this.ySize = 234;
-        
     }
     
     @Override
@@ -118,7 +115,7 @@ public class ArmourGui extends GuiBaseAdv {
                 this.container.onContainerClosed(this.container.player);
             } else if (name.equals("RemoveUpgrade")) {
                 UpgradeUtil.removeUpgrade(this.container.stack, this.selectedUpgrade);
-                PacketHandler.sendToServer(ArmourPacket.getPacket(PacketTypes.ARMOURCRAFTING).addString(name).addInt(this.selectedUpgrade.getId()));
+                PacketHandler.sendToServer(ArmourPacket.getPacket(PacketTypes.BUTTON).addString(name).addInt(this.selectedUpgrade.getId()));
                 return;
             } else if(name.equals("Recipe")){
                 if (this.container.player.worldObj.isRemote == false) {
@@ -126,7 +123,7 @@ public class ArmourGui extends GuiBaseAdv {
                 }
             }
             
-            PacketHandler.sendToServer(ArmourPacket.getPacket(PacketTypes.ARMOURCRAFTING).addString(name));
+            PacketHandler.sendToServer(ArmourPacket.getPacket(PacketTypes.BUTTON).addString(name));
             
         } catch (UpgradeException e) {
             this.scrolledText.setString(e.getMessage());
@@ -143,8 +140,7 @@ public class ArmourGui extends GuiBaseAdv {
             NBTHelper.createDefaultStackTag(this.container.getContainerStack());
         }
         
-        this.list.textLines = NBTHelper.getUpgradeListFromNBT(this.container.getContainerStack().stackTagCompound);
-        Collections.sort(this.list.textLines);
+        this.list.textLines = NBTHelper.getNBTUpgradeList(this.container.getContainerStack().stackTagCompound);
     }
     
 }

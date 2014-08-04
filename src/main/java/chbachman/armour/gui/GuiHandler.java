@@ -3,7 +3,7 @@ package chbachman.armour.gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import chbachman.armour.gui.client.ArmourGui;
-import chbachman.armour.gui.client.ArmourRecipe;
+import chbachman.armour.gui.client.ArmourGuiRecipe;
 import chbachman.armour.gui.container.ArmourContainer;
 import chbachman.armour.gui.container.ArmourContainerRecipe;
 import chbachman.armour.items.ItemModularArmour;
@@ -39,7 +39,7 @@ public class GuiHandler implements IGuiHandler {
                 return new ArmourGui(new ArmourContainer(player.getHeldItem(), player.inventory, world), player.inventory);
             }
         case RECIPE_ID:
-                return new ArmourRecipe(new ArmourContainerRecipe(player.getHeldItem(), player.inventory, world), player.inventory);
+                return new ArmourGuiRecipe(new ArmourContainerRecipe(player.getHeldItem(), player.inventory, world), player.inventory);
         default:
             return null;
         }

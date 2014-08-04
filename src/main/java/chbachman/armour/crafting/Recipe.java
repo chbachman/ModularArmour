@@ -74,7 +74,7 @@ public class Recipe {
         Recipe.addToList(this);
     }
     
-    public static void addToList(Recipe recipe) {
+    private static void addToList(Recipe recipe) {
         craftinglist.add(recipe);
     }
     
@@ -110,6 +110,10 @@ public class Recipe {
     
     public Upgrade getResult() {
         return this.result;
+    }
+    
+    public ItemStack[] getRecipe(){
+        return this.recipe;
     }
     
     @Override

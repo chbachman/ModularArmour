@@ -1,11 +1,9 @@
 package chbachman.armour.gui.client;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import chbachman.armour.upgrade.Upgrade;
+import chbachman.armour.util.NBTUpgradeList;
 
 public class UpgradeComponent extends Gui {
     
@@ -34,7 +32,7 @@ public class UpgradeComponent extends Gui {
     public int displayLines = 0;
     public int lineHeight = 10;
     
-    public List<Upgrade> textLines = new LinkedList<Upgrade>();
+    public NBTUpgradeList textLines = new NBTUpgradeList();
     public int startLine = 0;
     public int selectedLine = -1;
     

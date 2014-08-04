@@ -3,7 +3,7 @@ package chbachman.armour.network;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
-import chbachman.armour.gui.container.ArmourContainer;
+import chbachman.armour.gui.IInputHandler;
 import chbachman.armour.items.ItemModularArmour;
 import chbachman.armour.reference.ArmourSlot;
 import chbachman.armour.upgrade.Upgrade;
@@ -20,7 +20,7 @@ public class ArmourPacket extends PacketCoFHBase {
     
     public enum PacketTypes {
         
-        ARMOURCRAFTING(), ENTITYJOINWORLD();
+        BUTTON(), KEYTYPED(), ENTITYJOINWORLD();
         
     }
     
@@ -32,13 +32,16 @@ public class ArmourPacket extends PacketCoFHBase {
             
             switch (PacketTypes.values()[type]) {
             
-            case ARMOURCRAFTING:
-                this.handleCraftingPacket(player);
+            case BUTTON:
+                this.handleButtonPressed(player);
+                break;
+            case KEYTYPED:
+                this.handleKeyTyped(player);
                 break;
             case ENTITYJOINWORLD:
                 this.handleEntityJoinWorld(player);
                 break;
-            
+                
             default:
                 
             }
@@ -52,14 +55,25 @@ public class ArmourPacket extends PacketCoFHBase {
         return new ArmourPacket().addByte(type.ordinal());
     }
     
-    public void handleCraftingPacket(EntityPlayer player) {
+    public void handleKeyTyped(EntityPlayer player){
         
         Container container = player.openContainer;
         
-        if (container instanceof ArmourContainer) {
-            ArmourContainer armourContainer = (ArmourContainer) container;
+        if (container instanceof IInputHandler) {
+            IInputHandler inputHandler = (IInputHandler) container;
             
-            armourContainer.onButtonClick(this, this.getString());
+            inputHandler.onKeyTyped(this, (char) this.getShort(), this.getInt());
+        }
+    }
+    
+    public void handleButtonPressed(EntityPlayer player) {
+        
+        Container container = player.openContainer;
+        
+        if (container instanceof IInputHandler) {
+            IInputHandler inputHandler = (IInputHandler) container;
+            
+            inputHandler.onButtonClick(this, this.getString());
         }
     }
     
@@ -70,7 +84,7 @@ public class ArmourPacket extends PacketCoFHBase {
                 
                 ItemModularArmour armour = (ItemModularArmour) stack.getItem();
                 
-                for (Upgrade upgrade : NBTHelper.getUpgradeListFromNBT(stack.stackTagCompound)) {
+                for (Upgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
                     upgrade.onArmourEquip(player.worldObj, player, stack, ArmourSlot.getArmourSlot(armour.armorType));
                 }
                 

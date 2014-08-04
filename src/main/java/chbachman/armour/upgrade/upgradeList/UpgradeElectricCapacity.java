@@ -22,7 +22,6 @@ public class UpgradeElectricCapacity extends Upgrade {
         this.upgrade = upgrade;
         
         this.recipe = this.getRecipe();
-        Recipe.addToList(this.recipe);
         
     }
     

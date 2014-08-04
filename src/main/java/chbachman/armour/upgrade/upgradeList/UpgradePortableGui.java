@@ -20,8 +20,6 @@ public class UpgradePortableGui extends KeybindUpgrade{
     public UpgradePortableGui(GuiUpgrades upgrade) {
         super(upgrade.name);
         this.upgrade = upgrade;
-        
-        Recipe.addToList(this.getRecipe());
     }
     
     @Override

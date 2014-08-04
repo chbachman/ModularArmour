@@ -1,13 +1,8 @@
 package chbachman.armour.util;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraftforge.common.util.Constants;
-import chbachman.armour.upgrade.Upgrade;
 
 public class NBTHelper {
     
@@ -34,7 +29,15 @@ public class NBTHelper {
         return compound;
     }
     
-    public static NBTTagList getNBTTagList(NBTTagCompound nbt) {
+    public static NBTUpgradeList getNBTUpgradeList(ItemStack stack) {
+        
+        createDefaultStackTag(stack);
+        
+        return getNBTUpgradeList(stack.stackTagCompound);
+        
+    }
+    
+    public static NBTUpgradeList getNBTUpgradeList(NBTTagCompound nbt) {
         
         if (nbt == null) {
             nbt = createStackTagCompound();
@@ -44,37 +47,9 @@ public class NBTHelper {
             nbt.setTag("UpgradeList", new NBTTagList());
         }
         
-        NBTTagList tagList = nbt.getTagList("UpgradeList", Constants.NBT.TAG_COMPOUND);
+        NBTUpgradeList tagList = new NBTUpgradeList((NBTTagList) nbt.getTag("UpgradeList"));
         
         return tagList;
         
     }
-    
-    public static List<Upgrade> getUpgradeListFromNBT(NBTTagCompound nbt) {
-        
-        if (nbt == null) {
-            nbt = createStackTagCompound();
-        }
-        
-        NBTTagList nbtList = nbt.getTagList("UpgradeList", Constants.NBT.TAG_COMPOUND);
-        
-        if (nbtList == null) {
-            nbtList = new NBTTagList();
-        }
-        
-        nbt.setTag("UpgradeList", nbtList);
-        
-        List<Upgrade> output = new ArrayList<Upgrade>();
-        
-        for (int i = 0; i < nbtList.tagCount(); i++) {
-            Upgrade upgrade = Upgrade.getUpgradeFromNBT(nbtList.getCompoundTagAt(i));
-            if (upgrade != null) {
-                output.add(upgrade);
-            }
-        }
-        
-        return output;
-        
-    }
-    
 }

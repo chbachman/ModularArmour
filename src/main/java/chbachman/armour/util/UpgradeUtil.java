@@ -1,11 +1,11 @@
 package chbachman.armour.util;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagList;
 import chbachman.armour.handler.UpgradeHandler;
 import chbachman.armour.items.ItemModularArmour;
 import chbachman.armour.upgrade.Upgrade;
@@ -23,11 +23,7 @@ public class UpgradeUtil {
             if (armour != null) {
                 if (armour.getItem() instanceof ItemModularArmour) {
                     
-                    NBTHelper.createDefaultStackTag(armour);
-                    
-                    List<Upgrade> upgradeList = NBTHelper.getUpgradeListFromNBT(armour.stackTagCompound);
-                    
-                    for (Upgrade armourUpgrade : upgradeList) {
+                    for (Upgrade armourUpgrade : NBTHelper.getNBTUpgradeList(armour.stackTagCompound)) {
                         
                         if (upgrade.getId() == armourUpgrade.getId()) {
                             return true;
@@ -72,21 +68,23 @@ public class UpgradeUtil {
         
         if (stack.getItem() instanceof ItemModularArmour) {
             
-            NBTTagList list = NBTHelper.getNBTTagList(stack.stackTagCompound);
+            NBTUpgradeList list = NBTHelper.getNBTUpgradeList(stack.stackTagCompound);
             
-            for (int i = 0; i < list.tagCount(); i++) {
-                Upgrade upgradeList = Upgrade.getUpgradeFromNBT(list.getCompoundTagAt(i));
-                
-                if (upgradeList != null && upgradeList.getId() == upgrade.getId()) {
-                    
-                    list.removeTag(i);
+            Iterator<Upgrade> iterator = list.iterator();
+            while(iterator.hasNext()){
+                if (iterator.next().getId() == upgrade.getId()) {
+                    iterator.remove();
                 }
             }
             
+            
             try {
+                Iterator<Upgrade> iterator2 = list.iterator();
                 
-                for (int i = 0; i < list.tagCount(); i++) {
-                    UpgradeHandler.checkDependencies(stack, Upgrade.getUpgradeFromNBT(list.getCompoundTagAt(i)));
+                while(iterator2.hasNext()){
+                    
+                
+                    UpgradeHandler.checkDependencies(stack, iterator.next());
                 }
                 
             } catch (UpgradeException e) {
@@ -110,11 +108,9 @@ public class UpgradeUtil {
         return list;
     }
     
-    public static boolean doesNBTListContainUpgrade(NBTTagList list, Upgrade upgrade) {
+    public static boolean doesNBTListContainUpgrade(NBTUpgradeList list, Upgrade upgrade) {
         
-        for (int i = 0; i < list.tagCount(); i++) {
-            Upgrade up = Upgrade.getUpgradeFromNBT(list.getCompoundTagAt(i));
-            
+        for (Upgrade up : list) {
             if (up != null && upgrade != null && up.getId() == upgrade.getId()) {
                 return true;
             }
@@ -130,7 +126,7 @@ public class UpgradeUtil {
             return false;
         }
         
-        NBTTagList list = NBTHelper.getNBTTagList(stack.stackTagCompound);
+        NBTUpgradeList list = NBTHelper.getNBTUpgradeList(stack.stackTagCompound);
         
         return doesNBTListContainUpgrade(list, upgrade);
     }

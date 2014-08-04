@@ -4,13 +4,12 @@ import java.util.List;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import chbachman.armour.crafting.Recipe;
 import chbachman.armour.items.ItemModularArmour;
 import chbachman.armour.upgrade.Upgrade;
 import chbachman.armour.upgrade.UpgradeException;
 import chbachman.armour.util.NBTHelper;
+import chbachman.armour.util.NBTUpgradeList;
 import chbachman.armour.util.UpgradeUtil;
 
 public class UpgradeHandler {
@@ -30,22 +29,22 @@ public class UpgradeHandler {
                 
                 upgrade.onUpgradeAddition(armour, stack);
                 
-                NBTTagList list = NBTHelper.getNBTTagList(stack.stackTagCompound);
+                NBTUpgradeList list = NBTHelper.getNBTUpgradeList(stack.stackTagCompound);
                 
                 if (upgrade.isRepeatable()) {
-                    for (int i = 0; i < list.tagCount(); i++) {
-                        NBTTagCompound compound = list.getCompoundTagAt(i);
+                    for (Upgrade listUpgrade : list) {
                         
-                        if (compound.getInteger("ID") == upgrade.getId()) {
+                        if (listUpgrade.getId() == upgrade.getId()) {
                             
-                            compound.setInteger("amount", compound.getInteger("amount") + 1);
+                            //TODO: Fix this
+                            //compound.setInteger("amount", compound.getInteger("amount") + 1);
                             
                             return true;
                         }
                     }
                 }
                 
-                NBTHelper.getNBTTagList(stack.stackTagCompound).appendTag(upgrade.getNBT());
+                list.add(upgrade);
                 
                 return true;
                 

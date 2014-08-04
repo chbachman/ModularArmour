@@ -21,8 +21,6 @@ public class GenericEventHandler {
     @SubscribeEvent
     public void onEntityLivingUpdate(LivingUpdateEvent e) {
         
-        // System.out.println(playerList);
-        
         if (e.entity instanceof EntityPlayer && e.entity.worldObj.isRemote == false) {
             EntityPlayer player = (EntityPlayer) e.entity;
             
@@ -68,7 +66,7 @@ public class GenericEventHandler {
                 
                 ItemModularArmour armour = (ItemModularArmour) stack.getItem();
                 
-                for (Upgrade upgrade : NBTHelper.getUpgradeListFromNBT(stack.stackTagCompound)) {
+                for (Upgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
                     upgrade.onArmourEquip(e.player.worldObj, e.player, stack, ArmourSlot.getArmourSlot(armour.armorType));
                 }
                 

@@ -22,7 +22,6 @@ public class UpgradeDefensive extends Upgrade {
         this.upgrade = upgrade;
         
         this.recipe = this.getRecipe();
-        Recipe.addToList(this.recipe);
     }
     
     @Override
@@ -56,21 +55,29 @@ public class UpgradeDefensive extends Upgrade {
     
     @Override
     public Recipe getRecipe() {
-        Recipe.addToList(new Recipe(this, "iii", "iii", "   ", 'i', this.upgrade.material));
+        new Recipe(this, "iii", "iii", "   ", 'i', this.upgrade.material);
         return new Recipe(this, "   ", "iii", "iii", 'i', this.upgrade.material);
     }
     
     public static enum DefensiveUpgrades {
         
-        IRON("Iron Plating", Items.iron_ingot, 0.1D, 2, 100), DIAMOND("Iron Plating", Items.iron_ingot, 0.2D, 2, 150), ENERGY("Iron Plating", Items.iron_ingot, 1D, 2, 500);
+        IRON("Iron Plating", Items.iron_ingot, 0.1D, 2, 100),; //DIAMOND("diamondPlating", Items.diamond, 0.2D, 2, 150), ENERGY("energyPlating", ItemRegister.temperedElectrum, 1D, 2, 1000);
         
         public final String name;
-        public final Item material;
+        public final ItemStack material;
         public final double ratio;
         public final int display;
         public final int energyPerDamage;
         
         private DefensiveUpgrades(String name, Item material, double ratio, int display, int energyPerDamage) {
+            this.name = name;
+            this.material = new ItemStack(material);
+            this.ratio = ratio;
+            this.display = display;
+            this.energyPerDamage = energyPerDamage;
+        }
+        
+        private DefensiveUpgrades(String name, ItemStack material, double ratio, int display, int energyPerDamage) {
             this.name = name;
             this.material = material;
             this.ratio = ratio;

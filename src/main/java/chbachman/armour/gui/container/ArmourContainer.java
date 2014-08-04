@@ -10,6 +10,7 @@ import net.minecraft.world.World;
 import chbachman.armour.ModularArmour;
 import chbachman.armour.gui.ArmourContainerWrapper;
 import chbachman.armour.gui.GuiHandler;
+import chbachman.armour.gui.IInputHandler;
 import chbachman.armour.handler.UpgradeHandler;
 import chbachman.armour.items.ItemModularArmour;
 import chbachman.armour.network.ArmourPacket;
@@ -19,7 +20,7 @@ import chbachman.armour.upgrade.UpgradeList;
 import chbachman.armour.util.UpgradeUtil;
 import cofh.util.ItemHelper;
 
-public class ArmourContainer extends Container {
+public class ArmourContainer extends Container implements IInputHandler{
     
     public Upgrade upgrade = null;
     public final ItemModularArmour item;
@@ -71,6 +72,7 @@ public class ArmourContainer extends Container {
         this.upgrade = UpgradeHandler.getResult(this.containerWrapper);
     }
     
+    @Override
     public void onButtonClick(ArmourPacket packet, String name) {
         
         try {
@@ -101,6 +103,12 @@ public class ArmourContainer extends Container {
         } finally {
             this.player.inventory.mainInventory[this.containerIndex] = this.stack;
         }
+        
+    }
+    
+
+    @Override
+    public void onKeyTyped(ArmourPacket packet, char key, int keyCode) {
         
     }
     

@@ -13,7 +13,7 @@ import chbachman.armour.upgrade.Upgrade;
 public class UpgradeStepAssist extends Upgrade{
 
     public UpgradeStepAssist() {
-        super("speed");
+        super("stepAssist");
     }
 
     @Override

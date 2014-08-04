@@ -5,7 +5,6 @@ import java.util.List;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor.ArmorProperties;
@@ -30,7 +29,6 @@ public abstract class Upgrade implements Comparable<Upgrade> {
         
         if (this.shouldRegisterRecipes()) {
             this.recipe = this.getRecipe();
-            Recipe.addToList(this.recipe);
         }
     }
     
@@ -40,30 +38,6 @@ public abstract class Upgrade implements Comparable<Upgrade> {
     
     private int getNextAvailableId() {
         return UpgradeList.list.size();
-    }
-    
-    public NBTTagCompound getNBT() {
-        NBTTagCompound nbt = new NBTTagCompound();
-        nbt.setInteger("ID", this.id);
-        nbt.setInteger("amount", amount);
-        return nbt;
-    }
-    
-    public static Upgrade getUpgradeFromNBT(NBTTagCompound nbt) {
-        
-        if (nbt == null) {
-            return null;
-        }
-        
-        try {
-            Upgrade upgrade = UpgradeList.list.get(nbt.getInteger("ID"));
-            
-            upgrade.amount = nbt.getInteger("amount");
-            
-            return upgrade;
-        } catch (IndexOutOfBoundsException e) {
-            return null;
-        }
     }
     
     public String getName() {
