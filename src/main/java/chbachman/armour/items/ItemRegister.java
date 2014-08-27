@@ -13,9 +13,9 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import chbachman.armour.reference.Reference;
 import chbachman.armour.util.NBTHelper;
-import cofh.item.ItemBase;
-import cofh.util.ItemHelper;
-import cofh.util.ThermalExpansionHelper;
+import cofh.api.modhelpers.ThermalExpansionHelper;
+import cofh.core.item.ItemBase;
+import cofh.lib.util.helpers.ItemHelper;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 

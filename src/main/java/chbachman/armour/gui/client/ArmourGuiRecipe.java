@@ -12,9 +12,9 @@ import chbachman.armour.gui.container.ArmourContainerRecipe;
 import chbachman.armour.network.ArmourPacket;
 import chbachman.armour.network.ArmourPacket.PacketTypes;
 import chbachman.armour.reference.ResourceLocationHelper;
-import cofh.gui.GuiBaseAdv;
-import cofh.gui.element.ElementButton;
-import cofh.network.PacketHandler;
+import cofh.core.gui.GuiBaseAdv;
+import cofh.core.network.PacketHandler;
+import cofh.lib.gui.element.ElementButton;
 
 public class ArmourGuiRecipe extends GuiBaseAdv {
     
@@ -40,7 +40,6 @@ public class ArmourGuiRecipe extends GuiBaseAdv {
         leftArrow = new ElementButton(this, 5, 5, "Go Back", 182, 11, 182, 11, 182, 11, 7, 7, TEXTURE.toString());
         rightArrow = new ElementButton(this, 164, 5, "Next", 190, 11, 190, 11, 190, 11, 7, 7, TEXTURE.toString());
         
-        leftArrow.setToolTip("Go Back");
         rightArrow.setToolTip("Next");
     }
     

@@ -8,8 +8,8 @@ import chbachman.armour.items.ItemModularArmour;
 import chbachman.armour.reference.ArmourSlot;
 import chbachman.armour.upgrade.Upgrade;
 import chbachman.armour.util.NBTHelper;
-import cofh.network.PacketCoFHBase;
-import cofh.network.PacketHandler;
+import cofh.core.network.PacketCoFHBase;
+import cofh.core.network.PacketHandler;
 
 public class ArmourPacket extends PacketCoFHBase {
     

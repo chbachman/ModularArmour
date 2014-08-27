@@ -16,7 +16,7 @@ import chbachman.armour.reference.ArmourSlot;
 import chbachman.armour.upgrade.Upgrade;
 import chbachman.armour.upgrade.UpgradeList;
 import chbachman.armour.util.UpgradeUtil;
-import cofh.util.StringHelper;
+import cofh.lib.util.helpers.StringHelper;
 
 public class UpgradePotion extends Upgrade {
     

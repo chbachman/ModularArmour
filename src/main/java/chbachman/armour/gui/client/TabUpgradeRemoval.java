@@ -3,7 +3,7 @@ package chbachman.armour.gui.client;
 import java.util.List;
 
 import chbachman.armour.gui.container.ArmourContainer;
-import cofh.gui.element.TabBase;
+import cofh.lib.gui.element.TabBase;
 
 public class TabUpgradeRemoval extends TabBase {
     

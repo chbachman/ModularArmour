@@ -12,7 +12,7 @@ import chbachman.armour.gui.GuiHandler;
 import chbachman.armour.gui.IInputHandler;
 import chbachman.armour.items.ItemModularArmour;
 import chbachman.armour.network.ArmourPacket;
-import cofh.gui.slot.SlotViewOnly;
+import cofh.lib.gui.slot.SlotViewOnly;
 
 public class ArmourContainerRecipe extends Container implements IInputHandler{
 

@@ -3,7 +3,7 @@ package chbachman.armour.proxy;
 import chbachman.armour.upgrade.KeybindUpgrade;
 import chbachman.armour.upgrade.Upgrade;
 import chbachman.armour.upgrade.UpgradeList;
-import cofh.key.CoFHKey;
+import cofh.core.key.CoFHKey;
 
 public abstract class CommonProxy implements IProxy {
     

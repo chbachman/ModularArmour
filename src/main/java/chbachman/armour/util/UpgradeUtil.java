@@ -11,7 +11,7 @@ import chbachman.armour.items.ItemModularArmour;
 import chbachman.armour.upgrade.Upgrade;
 import chbachman.armour.upgrade.UpgradeException;
 import chbachman.armour.upgrade.UpgradeList;
-import cofh.util.StringHelper;
+import cofh.lib.util.helpers.StringHelper;
 
 public class UpgradeUtil {
     

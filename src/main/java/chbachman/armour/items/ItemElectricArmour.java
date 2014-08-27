@@ -4,8 +4,8 @@ import net.minecraft.item.ItemStack;
 import chbachman.armour.objects.VariableInt;
 import chbachman.armour.util.NBTHelper;
 import cofh.api.energy.IEnergyContainerItem;
-import cofh.item.ItemArmorAdv;
-import cofh.util.EnergyHelper;
+import cofh.core.item.ItemArmorAdv;
+import cofh.lib.util.helpers.EnergyHelper;
 
 public abstract class ItemElectricArmour extends ItemArmorAdv implements IEnergyContainerItem {
     

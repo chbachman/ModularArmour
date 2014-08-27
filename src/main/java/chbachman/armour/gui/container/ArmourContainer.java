@@ -18,7 +18,7 @@ import chbachman.armour.upgrade.Upgrade;
 import chbachman.armour.upgrade.UpgradeException;
 import chbachman.armour.upgrade.UpgradeList;
 import chbachman.armour.util.UpgradeUtil;
-import cofh.util.ItemHelper;
+import cofh.lib.util.helpers.ItemHelper;
 
 public class ArmourContainer extends Container implements IInputHandler{
     

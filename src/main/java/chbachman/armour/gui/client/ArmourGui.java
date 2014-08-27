@@ -13,8 +13,8 @@ import chbachman.armour.upgrade.Upgrade;
 import chbachman.armour.upgrade.UpgradeException;
 import chbachman.armour.util.NBTHelper;
 import chbachman.armour.util.UpgradeUtil;
-import cofh.gui.GuiBaseAdv;
-import cofh.network.PacketHandler;
+import cofh.core.gui.GuiBaseAdv;
+import cofh.core.network.PacketHandler;
 
 public class ArmourGui extends GuiBaseAdv {
     

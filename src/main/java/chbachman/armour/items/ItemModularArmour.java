@@ -15,8 +15,8 @@ import chbachman.armour.reference.ArmourSlot;
 import chbachman.armour.upgrade.Upgrade;
 import chbachman.armour.util.NBTHelper;
 import cofh.api.item.IInventoryContainerItem;
-import cofh.util.CoreUtils;
-import cofh.util.StringHelper;
+import cofh.core.util.CoreUtils;
+import cofh.lib.util.helpers.StringHelper;
 
 public class ItemModularArmour extends ItemSpecialArmour implements IInventoryContainerItem {
     

@@ -11,7 +11,7 @@ import net.minecraftforge.common.ISpecialArmor.ArmorProperties;
 import chbachman.armour.crafting.Recipe;
 import chbachman.armour.items.ItemModularArmour;
 import chbachman.armour.reference.ArmourSlot;
-import cofh.util.StringHelper;
+import cofh.lib.util.helpers.StringHelper;
 
 public abstract class Upgrade implements Comparable<Upgrade> {
     
