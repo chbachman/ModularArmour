@@ -6,9 +6,9 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import chbachman.api.Upgrade;
 import chbachman.armour.crafting.Recipe;
 import chbachman.armour.reference.ArmourSlot;
-import chbachman.armour.upgrade.Upgrade;
 
 public class UpgradeSpeed extends Upgrade{
 

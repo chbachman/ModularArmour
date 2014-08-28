@@ -7,7 +7,6 @@ import net.minecraft.item.ItemStack;
 import chbachman.api.IUpgrade;
 import chbachman.armour.crafting.Recipe;
 import chbachman.armour.items.ItemModularArmour;
-import chbachman.armour.upgrade.Upgrade;
 import chbachman.armour.upgrade.UpgradeException;
 import chbachman.armour.util.NBTHelper;
 import chbachman.armour.util.NBTUpgradeList;
@@ -15,11 +14,11 @@ import chbachman.armour.util.UpgradeUtil;
 
 public class UpgradeHandler {
     
-    public static Upgrade getResult(IInventory containerWrapper) {
+    public static IUpgrade getResult(IInventory containerWrapper) {
         return Recipe.getResult(containerWrapper);
     }
     
-    public static boolean addUpgrade(ItemStack stack, Upgrade upgrade) {
+    public static boolean addUpgrade(ItemStack stack, IUpgrade upgrade) {
         NBTHelper.createDefaultStackTag(stack);
         
         if (stack.getItem() instanceof ItemModularArmour) {
@@ -55,7 +54,7 @@ public class UpgradeHandler {
         return false;
     }
     
-    public static boolean checkContain(ItemStack stack, Upgrade upgrade) {
+    public static boolean checkContain(ItemStack stack, IUpgrade upgrade) {
         if (upgrade.isRepeatable()) {
             return true;
         } else {
@@ -78,7 +77,7 @@ public class UpgradeHandler {
         for (String dependency : dependencies) {
             if (!UpgradeUtil.doesItemStackContainUpgrade(stack, dependency)) {
                 
-                Upgrade up = UpgradeUtil.getUpgradeFromName(dependency);
+                IUpgrade up = UpgradeUtil.getUpgradeFromName(dependency);
                 
                 throw new UpgradeException(String.format("This upgrade needs the %s upgrade to work", up.getName()), iUpgrade);
             }

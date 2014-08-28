@@ -1,12 +1,15 @@
 package chbachman.armour.util;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.util.Constants;
 import chbachman.api.IUpgrade;
-import chbachman.armour.upgrade.Upgrade;
 import chbachman.armour.upgrade.UpgradeList;
 
 public class NBTUpgradeList implements List<IUpgrade>{
@@ -43,7 +46,7 @@ public class NBTUpgradeList implements List<IUpgrade>{
         }
         
         try {
-            Upgrade upgrade = UpgradeList.list.get(nbt.getInteger("ID"));
+            IUpgrade upgrade = UpgradeList.list.get(nbt.getInteger("ID"));
             
             return upgrade;
         } catch (IndexOutOfBoundsException e) {

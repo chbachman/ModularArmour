@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor.ArmorProperties;
+import chbachman.armour.items.ItemModularArmour;
 import chbachman.armour.reference.ArmourSlot;
 /**
  * Interface for adding upgrades. Any armour that can hold these must call each of these methods when appropriate.
@@ -87,5 +88,31 @@ public interface IUpgrade {
 	 * @return list of string dependencies.
 	 */
 	List<String> getDependencies();
+
+	/**
+	 * Gets the Unlocalized Name of the Upgrade
+	 * @return Unlocalized Name
+	 */
+	String getUnlocalizedName();
+
+	/**
+	 * Can the upgrade be repeated, that is put on more than once. 
+	 * @return whether the upgrade can be repeatedly put on. 
+	 */
+	boolean isRepeatable();
+
+	/**
+	 * Called when the Upgrade is added to the armour, usually used for editing the VariableInt classes that the object contains. 
+	 * @param armour
+	 * @param stack
+	 */
+	void onUpgradeAddition(ItemModularArmour armour, ItemStack stack);
+
+	/**
+	 * whether the armour is compatible with the given armour type. 
+	 * @param armorType
+	 * @return
+	 */
+	boolean isCompatible(int armorType);
 
 }

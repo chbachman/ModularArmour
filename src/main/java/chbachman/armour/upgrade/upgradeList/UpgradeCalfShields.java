@@ -1,9 +1,9 @@
 package chbachman.armour.upgrade.upgradeList;
 
 import net.minecraft.init.Items;
+import chbachman.api.Upgrade;
 import chbachman.armour.crafting.Recipe;
 import chbachman.armour.reference.ArmourSlot;
-import chbachman.armour.upgrade.Upgrade;
 
 public class UpgradeCalfShields extends Upgrade {
     

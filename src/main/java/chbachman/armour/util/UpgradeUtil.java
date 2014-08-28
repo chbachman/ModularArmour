@@ -9,14 +9,13 @@ import net.minecraft.item.ItemStack;
 import chbachman.api.IUpgrade;
 import chbachman.armour.handler.UpgradeHandler;
 import chbachman.armour.items.ItemModularArmour;
-import chbachman.armour.upgrade.Upgrade;
 import chbachman.armour.upgrade.UpgradeException;
 import chbachman.armour.upgrade.UpgradeList;
 import cofh.lib.util.helpers.StringHelper;
 
 public class UpgradeUtil {
     
-    public static boolean doesPlayerHaveUpgrade(EntityPlayer player, Upgrade upgrade) {
+    public static boolean doesPlayerHaveUpgrade(EntityPlayer player, IUpgrade upgrade) {
         ItemStack[] armourArray = player.inventory.armorInventory;
         
         for (ItemStack armour : armourArray) {
@@ -42,14 +41,14 @@ public class UpgradeUtil {
         return doesPlayerHaveUpgrade(player, getUpgradeFromName(string));
     }
     
-    public static Upgrade getUpgradeFromName(String unlocalizedName) {
-        for (Upgrade upgrade : UpgradeList.list) {
+    public static IUpgrade getUpgradeFromName(String unlocalizedName) {
+        for (IUpgrade upgrade : UpgradeList.list) {
             if (upgrade.getUnlocalizedName().equals(unlocalizedName)) {
                 return upgrade;
             }
         }
         
-        for (Upgrade upgrade : UpgradeList.list) {
+        for (IUpgrade upgrade : UpgradeList.list) {
             if (upgrade.getUnlocalizedName().equals("upgrade.chbachman." + StringHelper.camelCase(unlocalizedName).replace(" ", "") + ".name")) {
                 return upgrade;
             }
@@ -97,7 +96,7 @@ public class UpgradeUtil {
         
     }
     
-    public static List<String> getDependencyList(Upgrade upgrade) {
+    public static List<String> getDependencyList(IUpgrade upgrade) {
         List<String> list = new ArrayList<String>();
         list.add(upgrade.getUnlocalizedName());
         return list;
@@ -109,7 +108,7 @@ public class UpgradeUtil {
         return list;
     }
     
-    public static boolean doesNBTListContainUpgrade(NBTUpgradeList list, Upgrade upgrade) {
+    public static boolean doesNBTListContainUpgrade(NBTUpgradeList list, IUpgrade upgrade) {
         
         for (IUpgrade up : list) {
             if (up != null && upgrade != null && up.getId() == upgrade.getId()) {
@@ -120,7 +119,7 @@ public class UpgradeUtil {
         return false;
     }
     
-    public static boolean doesItemStackContainUpgrade(ItemStack stack, Upgrade upgrade) {
+    public static boolean doesItemStackContainUpgrade(ItemStack stack, IUpgrade upgrade) {
         
         if (stack.stackTagCompound == null) {
             NBTHelper.createDefaultStackTag(stack);

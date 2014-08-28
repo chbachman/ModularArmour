@@ -7,16 +7,16 @@ import net.minecraft.block.Block;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import chbachman.armour.upgrade.Upgrade;
+import chbachman.api.IUpgrade;
 
 public class Recipe {
     
     public static ArrayList<Recipe> craftinglist = new ArrayList<Recipe>();
     
     private ItemStack[] recipe;
-    private Upgrade result;
+    private IUpgrade result;
     
-    public Recipe(Upgrade output, Object... ingredients) {
+    public Recipe(IUpgrade output, Object... ingredients) {
         String s = "";
         int i = 0;
         int j = 0;
@@ -108,7 +108,7 @@ public class Recipe {
         return true;
     }
     
-    public Upgrade getResult() {
+    public IUpgrade getResult() {
         return this.result;
     }
     
@@ -121,7 +121,7 @@ public class Recipe {
         return this.result.toString();
     }
     
-    public static Upgrade getResult(IInventory containerWrapper) {
+    public static IUpgrade getResult(IInventory containerWrapper) {
         
         for (int i = 0; i < craftinglist.size(); i++) {
             if (craftinglist.get(i).matches(containerWrapper)) {

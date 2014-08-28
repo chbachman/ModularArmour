@@ -7,9 +7,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import chbachman.api.Upgrade;
 import chbachman.armour.crafting.Recipe;
 import chbachman.armour.reference.ArmourSlot;
-import chbachman.armour.upgrade.Upgrade;
 import chbachman.armour.util.EnergyUtil;
 
 public class UpgradeSolar extends Upgrade {

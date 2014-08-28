@@ -7,6 +7,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import chbachman.api.IUpgrade;
 import chbachman.armour.ModularArmour;
 import chbachman.armour.gui.ArmourContainerWrapper;
 import chbachman.armour.gui.GuiHandler;
@@ -14,7 +15,6 @@ import chbachman.armour.gui.IInputHandler;
 import chbachman.armour.handler.UpgradeHandler;
 import chbachman.armour.items.ItemModularArmour;
 import chbachman.armour.network.ArmourPacket;
-import chbachman.armour.upgrade.Upgrade;
 import chbachman.armour.upgrade.UpgradeException;
 import chbachman.armour.upgrade.UpgradeList;
 import chbachman.armour.util.UpgradeUtil;
@@ -22,7 +22,7 @@ import cofh.lib.util.helpers.ItemHelper;
 
 public class ArmourContainer extends Container implements IInputHandler{
     
-    public Upgrade upgrade = null;
+    public IUpgrade upgrade = null;
     public final ItemModularArmour item;
     public final IInventory containerWrapper;
     public final EntityPlayer player;

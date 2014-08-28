@@ -3,9 +3,9 @@ package chbachman.armour.upgrade.upgradeList;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import chbachman.api.Upgrade;
 import chbachman.armour.crafting.Recipe;
 import chbachman.armour.reference.ArmourSlot;
-import chbachman.armour.upgrade.Upgrade;
 
 public class UpgradeBasePotion extends Upgrade {
     

@@ -3,12 +3,14 @@ package chbachman.armour.upgrade;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import chbachman.api.IUpgrade;
+import chbachman.api.Upgrade;
 import chbachman.armour.ModularArmour;
 import chbachman.armour.crafting.Recipe;
 import chbachman.armour.upgrade.upgradeList.*;
 
 @SuppressWarnings("serial")
-public class UpgradeList extends ArrayList<Upgrade> {
+public class UpgradeList extends ArrayList<IUpgrade> {
     
     public static final UpgradeList list = new UpgradeList();
     
@@ -31,8 +33,8 @@ public class UpgradeList extends ArrayList<Upgrade> {
         
     }
     
-    public Upgrade getByClass(Class<? extends Upgrade> clazz) {
-        for (Upgrade upgrade : this) {
+    public IUpgrade getByClass(Class<? extends Upgrade> clazz) {
+        for (IUpgrade upgrade : this) {
             if (upgrade.getClass().getName().equals(clazz.getName())) {
                 return upgrade;
             }
@@ -42,7 +44,7 @@ public class UpgradeList extends ArrayList<Upgrade> {
     }
     
     @Override
-    public boolean add(Upgrade upgrade) {
+    public boolean add(IUpgrade upgrade) {
         if (ModularArmour.config.get("Command Enabling", upgrade.getUnlocalizedName(), true)) {
             return super.add(upgrade);
         }
