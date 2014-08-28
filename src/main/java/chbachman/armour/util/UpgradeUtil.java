@@ -6,6 +6,7 @@ import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import chbachman.api.IUpgrade;
 import chbachman.armour.handler.UpgradeHandler;
 import chbachman.armour.items.ItemModularArmour;
 import chbachman.armour.upgrade.Upgrade;
@@ -23,7 +24,7 @@ public class UpgradeUtil {
             if (armour != null) {
                 if (armour.getItem() instanceof ItemModularArmour) {
                     
-                    for (Upgrade armourUpgrade : NBTHelper.getNBTUpgradeList(armour.stackTagCompound)) {
+                    for (IUpgrade armourUpgrade : NBTHelper.getNBTUpgradeList(armour.stackTagCompound)) {
                         
                         if (upgrade.getId() == armourUpgrade.getId()) {
                             return true;
@@ -57,7 +58,7 @@ public class UpgradeUtil {
         return null;
     }
     
-    public static void removeUpgrade(ItemStack container, Upgrade upgrade) {
+    public static void removeUpgrade(ItemStack container, IUpgrade upgrade) {
         
         ItemStack stack = container.copy();
         
@@ -70,7 +71,7 @@ public class UpgradeUtil {
             
             NBTUpgradeList list = NBTHelper.getNBTUpgradeList(stack.stackTagCompound);
             
-            Iterator<Upgrade> iterator = list.iterator();
+            Iterator<IUpgrade> iterator = list.iterator();
             while(iterator.hasNext()){
                 if (iterator.next().getId() == upgrade.getId()) {
                     iterator.remove();
@@ -79,7 +80,7 @@ public class UpgradeUtil {
             
             
             try {
-                Iterator<Upgrade> iterator2 = list.iterator();
+                Iterator<IUpgrade> iterator2 = list.iterator();
                 
                 while(iterator2.hasNext()){
                     
@@ -110,7 +111,7 @@ public class UpgradeUtil {
     
     public static boolean doesNBTListContainUpgrade(NBTUpgradeList list, Upgrade upgrade) {
         
-        for (Upgrade up : list) {
+        for (IUpgrade up : list) {
             if (up != null && upgrade != null && up.getId() == upgrade.getId()) {
                 return true;
             }

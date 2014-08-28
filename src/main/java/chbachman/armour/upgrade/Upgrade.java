@@ -8,12 +8,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor.ArmorProperties;
+import chbachman.api.IUpgrade;
 import chbachman.armour.crafting.Recipe;
 import chbachman.armour.items.ItemModularArmour;
 import chbachman.armour.reference.ArmourSlot;
 import cofh.lib.util.helpers.StringHelper;
 
-public abstract class Upgrade implements Comparable<Upgrade> {
+public abstract class Upgrade implements IUpgrade , Comparable<Upgrade> {
     
     protected final int id;
     protected String name;

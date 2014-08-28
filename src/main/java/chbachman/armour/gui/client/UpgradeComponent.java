@@ -2,6 +2,7 @@ package chbachman.armour.gui.client;
 
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
+import chbachman.api.IUpgrade;
 import chbachman.armour.upgrade.Upgrade;
 import chbachman.armour.util.NBTUpgradeList;
 
@@ -65,7 +66,7 @@ public class UpgradeComponent extends Gui {
         }
     }
     
-    public Upgrade mouseClicked(int mouseX, int mouseY, int mouseButton, int offsetY) {
+    public IUpgrade mouseClicked(int mouseX, int mouseY, int mouseButton, int offsetY) {
         
         int theLine = (mouseY - offsetY) / this.lineHeight;
         

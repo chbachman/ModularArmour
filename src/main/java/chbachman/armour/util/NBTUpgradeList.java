@@ -5,10 +5,11 @@ import java.util.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.util.Constants;
+import chbachman.api.IUpgrade;
 import chbachman.armour.upgrade.Upgrade;
 import chbachman.armour.upgrade.UpgradeList;
 
-public class NBTUpgradeList implements List<Upgrade>{
+public class NBTUpgradeList implements List<IUpgrade>{
 
     public final NBTTagList list;
     
@@ -34,7 +35,7 @@ public class NBTUpgradeList implements List<Upgrade>{
         return list.tagCount();
     }
     
-    public Upgrade get(int index){
+    public IUpgrade get(int index){
         NBTTagCompound nbt = list.getCompoundTagAt(index);
         
         if (nbt == null) {
@@ -50,7 +51,7 @@ public class NBTUpgradeList implements List<Upgrade>{
         }
     }
     
-    public boolean add(Upgrade upgrade){
+    public boolean add(IUpgrade upgrade){
         NBTTagCompound nbt = new NBTTagCompound();
         nbt.setInteger("ID", upgrade.getId());
         
@@ -59,9 +60,9 @@ public class NBTUpgradeList implements List<Upgrade>{
         return true;
     }
     
-    public Upgrade remove(int index){
+    public IUpgrade remove(int index){
         
-        Upgrade upgrade = this.get(index);
+        IUpgrade upgrade = this.get(index);
         
         list.removeTag(index);
         
@@ -69,8 +70,8 @@ public class NBTUpgradeList implements List<Upgrade>{
     }
 
     @Override
-    public boolean addAll(Collection<? extends Upgrade> c) {
-        for(Upgrade upgrade : c){
+    public boolean addAll(Collection<? extends IUpgrade> c) {
+        for(IUpgrade upgrade : c){
             this.add(upgrade);
         }
         return true;
@@ -86,7 +87,7 @@ public class NBTUpgradeList implements List<Upgrade>{
     @Override
     public boolean contains(Object o) {
         
-        for(Upgrade upgrade : this){
+        for(IUpgrade upgrade : this){
             if(upgrade.equals(o)){
                 return true;
             }
@@ -109,7 +110,7 @@ public class NBTUpgradeList implements List<Upgrade>{
     @Override
     public int indexOf(Object o) {
         for(int i = 0; i < this.size(); i++){
-            Upgrade upgrade = this.get(i);
+            IUpgrade upgrade = this.get(i);
             if(upgrade.equals(o)){
                return i;
             }
@@ -126,7 +127,7 @@ public class NBTUpgradeList implements List<Upgrade>{
     @Override
     public int lastIndexOf(Object o) {
         for(int i = this.size() - 1; i >= 0; i--){
-            Upgrade upgrade = this.get(i);
+            IUpgrade upgrade = this.get(i);
             if(upgrade.equals(o)){
                return i;
             }
@@ -162,7 +163,7 @@ public class NBTUpgradeList implements List<Upgrade>{
     }
 
     @Override
-    public Upgrade set(int index, Upgrade element) {
+    public IUpgrade set(int index, IUpgrade element) {
         
         NBTTagCompound nbt = new NBTTagCompound();
         nbt.setInteger("ID", element.getId());
@@ -175,8 +176,8 @@ public class NBTUpgradeList implements List<Upgrade>{
     }
 
     @Override
-    public List<Upgrade> subList(int fromIndex, int toIndex) {
-        List<Upgrade> list = new ArrayList<Upgrade>();
+    public List<IUpgrade> subList(int fromIndex, int toIndex) {
+        List<IUpgrade> list = new ArrayList<IUpgrade>();
         
         for(int i = fromIndex; i < toIndex; i++){
             list.add(this.get(i));
@@ -212,7 +213,7 @@ public class NBTUpgradeList implements List<Upgrade>{
         return a;
     }
 
-    public class IteratorUpgradeList implements ListIterator<Upgrade>{
+    public class IteratorUpgradeList implements ListIterator<IUpgrade>{
         
         NBTUpgradeList list;
         int index = -1;
@@ -225,7 +226,7 @@ public class NBTUpgradeList implements List<Upgrade>{
             return index != list.size();
         }
 
-        public Upgrade next() {
+        public IUpgrade next() {
             this.index++;
             return list.get(index);
         }
@@ -234,7 +235,7 @@ public class NBTUpgradeList implements List<Upgrade>{
             return index != 0;
         }
 
-        public Upgrade previous() {
+        public IUpgrade previous() {
             this.index--;
             return list.get(index);
         }
@@ -251,24 +252,24 @@ public class NBTUpgradeList implements List<Upgrade>{
             list.remove(index);
         }
 
-        public void set(Upgrade e) {
+        public void set(IUpgrade e) {
             list.set(index, e);
         }
 
-        public void add(Upgrade e) {
+        public void add(IUpgrade e) {
             list.add(index, e);
         }
     }
 
     @Override
-    public void add(int index, Upgrade element) {
+    public void add(int index, IUpgrade element) {
         this.add(element);
         
     }
 
     @Override
-    public boolean addAll(int index, Collection<? extends Upgrade> c) {
-        for(Upgrade upgrade : c){
+    public boolean addAll(int index, Collection<? extends IUpgrade> c) {
+        for(IUpgrade upgrade : c){
             this.add(index, upgrade);
         }
         
@@ -276,17 +277,17 @@ public class NBTUpgradeList implements List<Upgrade>{
     }
 
     @Override
-    public ListIterator<Upgrade> listIterator() {
+    public ListIterator<IUpgrade> listIterator() {
         return new IteratorUpgradeList(this);
     }
 
     @Override
-    public Iterator<Upgrade> iterator() {
+    public Iterator<IUpgrade> iterator() {
         return new IteratorUpgradeList(this);
     }
 
     @Override
-    public ListIterator<Upgrade> listIterator(int index) {
+    public ListIterator<IUpgrade> listIterator(int index) {
         return new IteratorUpgradeList(this);
     }
 

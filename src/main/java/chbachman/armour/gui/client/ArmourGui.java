@@ -2,6 +2,7 @@ package chbachman.armour.gui.client;
 
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
+import chbachman.api.IUpgrade;
 import chbachman.armour.ModularArmour;
 import chbachman.armour.gui.GuiHandler;
 import chbachman.armour.gui.container.ArmourContainer;
@@ -9,7 +10,6 @@ import chbachman.armour.handler.UpgradeHandler;
 import chbachman.armour.network.ArmourPacket;
 import chbachman.armour.network.ArmourPacket.PacketTypes;
 import chbachman.armour.reference.ResourceLocationHelper;
-import chbachman.armour.upgrade.Upgrade;
 import chbachman.armour.upgrade.UpgradeException;
 import chbachman.armour.util.NBTHelper;
 import chbachman.armour.util.UpgradeUtil;
@@ -27,7 +27,7 @@ public class ArmourGui extends GuiBaseAdv {
     public TabError scrolledText;
     public TabUpgradeRemoval removal;
     
-    public Upgrade selectedUpgrade;
+    public IUpgrade selectedUpgrade;
     
     public ArmourGui(ArmourContainer container, InventoryPlayer inventory) {
         super(container);

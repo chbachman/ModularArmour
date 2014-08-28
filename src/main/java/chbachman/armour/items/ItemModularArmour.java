@@ -9,10 +9,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
+import chbachman.api.IUpgrade;
 import chbachman.armour.ModularArmour;
 import chbachman.armour.gui.GuiHandler;
 import chbachman.armour.reference.ArmourSlot;
-import chbachman.armour.upgrade.Upgrade;
 import chbachman.armour.util.NBTHelper;
 import cofh.api.item.IInventoryContainerItem;
 import cofh.core.util.CoreUtils;
@@ -39,7 +39,7 @@ public class ItemModularArmour extends ItemSpecialArmour implements IInventoryCo
         if (!StringHelper.isControlKeyDown() && NBTHelper.getNBTUpgradeList(stack.stackTagCompound).size() != 0) {
             list.add(StringHelper.LIGHT_GRAY + StringHelper.localize("info.cofh.hold") + " " + StringHelper.YELLOW + StringHelper.ITALIC + StringHelper.localize("info.chbachman.control") + " " + StringHelper.END + StringHelper.LIGHT_GRAY + StringHelper.localize("info.chbachman.upgradeList") + StringHelper.END);
         } else if (NBTHelper.getNBTUpgradeList(stack.stackTagCompound).size() != 0) {
-            for (Upgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
+            for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
                 
                 list.add(upgrade.getName());
                 
@@ -57,7 +57,7 @@ public class ItemModularArmour extends ItemSpecialArmour implements IInventoryCo
         
         int energy = 0;
         
-        for (Upgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
+        for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
             
             if (upgrade != null) {
                 energy += upgrade.onArmourTick(world, player, stack, ArmourSlot.getArmourSlot(this.armorType));
@@ -70,7 +70,7 @@ public class ItemModularArmour extends ItemSpecialArmour implements IInventoryCo
         if (!stack.stackTagCompound.getBoolean("HasPutOn")) {
             stack.stackTagCompound.setBoolean("HasPutOn", true);
             
-            for (Upgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
+            for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
                 
                 if (upgrade != null) {
                     upgrade.onArmourEquip(world, player, stack, ArmourSlot.getArmourSlot(this.armorType));
@@ -79,7 +79,7 @@ public class ItemModularArmour extends ItemSpecialArmour implements IInventoryCo
         }
         
         if (stack.stackTagCompound.getInteger("Energy") == 0) {
-            for (Upgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
+            for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
                 
                 if (upgrade != null) {
                     upgrade.onNoEnergy(world, player, stack, ArmourSlot.getArmourSlot(this.armorType));
@@ -99,7 +99,7 @@ public class ItemModularArmour extends ItemSpecialArmour implements IInventoryCo
         
         stack.stackTagCompound.setBoolean("HasPutOn", false);
         
-        for (Upgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
+        for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
             upgrade.onArmourDequip(world, player, stack, ArmourSlot.getArmourSlot(this.armorType));
         }
     }
@@ -108,7 +108,7 @@ public class ItemModularArmour extends ItemSpecialArmour implements IInventoryCo
     public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {
         if (this.getEnergyStored(armor) >= this.energyPerDamage.get(armor)) {
             int sum = 0;
-            for (Upgrade upgrade : NBTHelper.getNBTUpgradeList(armor.stackTagCompound)) {
+            for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(armor.stackTagCompound)) {
                 sum += upgrade.getArmourDisplay();
             }
             return sum;
@@ -139,7 +139,7 @@ public class ItemModularArmour extends ItemSpecialArmour implements IInventoryCo
         
         ArmorProperties output = new ArmorProperties(0, 0, 0);
         
-        for (Upgrade upgrade : NBTHelper.getNBTUpgradeList(armour.stackTagCompound)) {
+        for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(armour.stackTagCompound)) {
             ArmorProperties prop = upgrade.getProperties(player, armour, source, damage, ArmourSlot.getArmourSlot(slot));
             
             if (prop == null) {

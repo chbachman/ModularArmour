@@ -6,10 +6,10 @@ import java.util.Map;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import chbachman.api.IUpgrade;
 import chbachman.armour.items.ItemModularArmour;
 import chbachman.armour.objects.PlayerArmourSlot;
 import chbachman.armour.reference.ArmourSlot;
-import chbachman.armour.upgrade.Upgrade;
 import chbachman.armour.util.NBTHelper;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent;
@@ -66,7 +66,7 @@ public class GenericEventHandler {
                 
                 ItemModularArmour armour = (ItemModularArmour) stack.getItem();
                 
-                for (Upgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
+                for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
                     upgrade.onArmourEquip(e.player.worldObj, e.player, stack, ArmourSlot.getArmourSlot(armour.armorType));
                 }
                 

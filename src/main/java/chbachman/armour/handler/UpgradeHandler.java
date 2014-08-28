@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import chbachman.api.IUpgrade;
 import chbachman.armour.crafting.Recipe;
 import chbachman.armour.items.ItemModularArmour;
 import chbachman.armour.upgrade.Upgrade;
@@ -32,7 +33,7 @@ public class UpgradeHandler {
                 NBTUpgradeList list = NBTHelper.getNBTUpgradeList(stack.stackTagCompound);
                 
                 if (upgrade.isRepeatable()) {
-                    for (Upgrade listUpgrade : list) {
+                    for (IUpgrade listUpgrade : list) {
                         
                         if (listUpgrade.getId() == upgrade.getId()) {
                             
@@ -62,24 +63,24 @@ public class UpgradeHandler {
         }
     }
     
-    public static boolean checkDependencies(ItemStack stack, Upgrade upgrade) {
+    public static boolean checkDependencies(ItemStack stack, IUpgrade iUpgrade) {
         
-        if (upgrade == null) {
+        if (iUpgrade == null) {
             return false;
         }
         
-        if (upgrade.getDependencies() == null || upgrade.getDependencies().isEmpty()) {
+        if (iUpgrade.getDependencies() == null || iUpgrade.getDependencies().isEmpty()) {
             return true;
         }
         
-        List<String> dependencies = upgrade.getDependencies();
+        List<String> dependencies = iUpgrade.getDependencies();
         
         for (String dependency : dependencies) {
             if (!UpgradeUtil.doesItemStackContainUpgrade(stack, dependency)) {
                 
                 Upgrade up = UpgradeUtil.getUpgradeFromName(dependency);
                 
-                throw new UpgradeException(String.format("This upgrade needs the %s upgrade to work", up.getName()), upgrade);
+                throw new UpgradeException(String.format("This upgrade needs the %s upgrade to work", up.getName()), iUpgrade);
             }
         }
         
