@@ -5,3 +5,4 @@
 .project
 .settings
 /lib
+.DS_Store
