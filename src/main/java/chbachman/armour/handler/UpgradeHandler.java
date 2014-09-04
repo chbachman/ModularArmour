@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import chbachman.api.IModularItem;
 import chbachman.api.IUpgrade;
 import chbachman.armour.crafting.Recipe;
 import chbachman.armour.items.ItemModularArmour;
@@ -21,11 +22,11 @@ public class UpgradeHandler {
     public static boolean addUpgrade(ItemStack stack, IUpgrade upgrade) {
         NBTHelper.createDefaultStackTag(stack);
         
-        if (stack.getItem() instanceof ItemModularArmour) {
+        if (stack.getItem() instanceof IModularItem) {
             
-            ItemModularArmour armour = (ItemModularArmour) stack.getItem();
+        	IModularItem armour = (IModularItem) stack.getItem();
             
-            if (upgrade != null && checkContain(stack, upgrade) && upgrade.isCompatible(armour.armorType) && checkDependencies(stack, upgrade)) {
+            if (upgrade != null && checkContain(stack, upgrade) && upgrade.isCompatible(armour.getSlot()) && checkDependencies(stack, upgrade)) {
                 
                 upgrade.onUpgradeAddition(armour, stack);
                 

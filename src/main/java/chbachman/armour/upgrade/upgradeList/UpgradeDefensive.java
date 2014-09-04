@@ -6,9 +6,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.ISpecialArmor.ArmorProperties;
+import chbachman.api.IModularItem;
 import chbachman.api.Upgrade;
 import chbachman.armour.crafting.Recipe;
-import chbachman.armour.items.ItemModularArmour;
 import chbachman.armour.reference.ArmourSlot;
 import chbachman.armour.upgrade.UpgradeList;
 
@@ -35,8 +35,8 @@ public class UpgradeDefensive extends Upgrade {
     }
     
     @Override
-    public void onUpgradeAddition(ItemModularArmour armour, ItemStack stack) {
-        armour.energyPerDamage.set(stack, this.upgrade.energyPerDamage);
+    public void onUpgradeAddition(IModularItem armour, ItemStack stack) {
+        armour.getInt("energyPerDamage").set(stack, this.upgrade.energyPerDamage);
     }
     
     @Override

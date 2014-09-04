@@ -10,9 +10,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
+import chbachman.api.IModularItem;
 import chbachman.api.Upgrade;
 import chbachman.armour.crafting.Recipe;
-import chbachman.armour.items.ItemModularArmour;
 import chbachman.armour.reference.ArmourSlot;
 import chbachman.armour.upgrade.UpgradeList;
 import chbachman.armour.util.UpgradeUtil;
@@ -81,7 +81,7 @@ public class UpgradePotion extends Upgrade {
     }
     
     @Override
-    public void onUpgradeAddition(ItemModularArmour armour, ItemStack stack) {
+    public void onUpgradeAddition(IModularItem armour, ItemStack stack) {
         UpgradeUtil.removeUpgrade(stack, this);
     }
     

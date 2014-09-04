@@ -9,7 +9,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor.ArmorProperties;
 import chbachman.armour.crafting.Recipe;
-import chbachman.armour.items.ItemModularArmour;
 import chbachman.armour.reference.ArmourSlot;
 import chbachman.armour.upgrade.UpgradeList;
 import cofh.lib.util.helpers.StringHelper;
@@ -101,7 +100,7 @@ public abstract class Upgrade implements IUpgrade , Comparable<Upgrade>{
         return null;
     }
     
-    public void onUpgradeAddition(ItemModularArmour armour, ItemStack stack) {
+    public void onUpgradeAddition(IModularItem item, ItemStack stack) {
         
     }
     

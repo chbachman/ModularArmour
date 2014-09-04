@@ -6,9 +6,9 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import chbachman.api.IModularItem;
 import chbachman.api.Upgrade;
 import chbachman.armour.crafting.Recipe;
-import chbachman.armour.items.ItemModularArmour;
 import chbachman.armour.reference.ArmourSlot;
 import chbachman.armour.upgrade.UpgradeList;
 import chbachman.armour.util.UpgradeUtil;
@@ -42,9 +42,9 @@ public class UpgradeElectricCapacity extends Upgrade {
     }
     
     @Override
-    public void onUpgradeAddition(ItemModularArmour armour, ItemStack stack) {
-        armour.capacity.set(stack, this.upgrade.capacity);
-        armour.maxTransfer.set(stack, this.upgrade.maxTransfer);
+    public void onUpgradeAddition(IModularItem armour, ItemStack stack) {
+        armour.getInt("capacity").set(stack, this.upgrade.capacity);
+        armour.getInt("maxTransfer").set(stack, this.upgrade.maxTransfer);
     }
     
     @Override

@@ -9,16 +9,18 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
+import chbachman.api.IModularItem;
 import chbachman.api.IUpgrade;
 import chbachman.armour.ModularArmour;
 import chbachman.armour.gui.GuiHandler;
+import chbachman.armour.objects.VariableInt;
 import chbachman.armour.reference.ArmourSlot;
 import chbachman.armour.util.NBTHelper;
 import cofh.api.item.IInventoryContainerItem;
 import cofh.core.util.CoreUtils;
 import cofh.lib.util.helpers.StringHelper;
 
-public class ItemModularArmour extends ItemSpecialArmour implements IInventoryContainerItem {
+public class ItemModularArmour extends ItemSpecialArmour implements IInventoryContainerItem, IModularItem{
     
     public ItemModularArmour(ArmorMaterial material, int type) {
         super(material, type);
@@ -33,7 +35,7 @@ public class ItemModularArmour extends ItemSpecialArmour implements IInventoryCo
             list.add(StringHelper.shiftForDetails());
         } else {
             
-            list.add(StringHelper.localize("info.cofh.charge") + ": " + stack.stackTagCompound.getInteger("Energy") + " / " + this.capacity.get(stack) + " RF");
+            list.add(StringHelper.localize("info.cofh.charge") + ": " + stack.stackTagCompound.getInteger("Energy") + " / " + this.intMap.get("Capacity").get(stack) + " RF");
         }
         
         if (!StringHelper.isControlKeyDown() && NBTHelper.getNBTUpgradeList(stack.stackTagCompound).size() != 0) {
@@ -106,7 +108,7 @@ public class ItemModularArmour extends ItemSpecialArmour implements IInventoryCo
     
     @Override
     public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {
-        if (this.getEnergyStored(armor) >= this.energyPerDamage.get(armor)) {
+        if (this.getEnergyStored(armor) >= this.intMap.get("EnergyPerDamage").get(armor)) {
             int sum = 0;
             for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(armor.stackTagCompound)) {
                 sum += upgrade.getArmourDisplay();
@@ -154,7 +156,7 @@ public class ItemModularArmour extends ItemSpecialArmour implements IInventoryCo
             
         }
         
-        return new ArmorProperties(output.Priority, output.AbsorbRatio, this.getEnergyStored(armour) / this.energyPerDamage.get(armour));
+        return new ArmorProperties(output.Priority, output.AbsorbRatio, this.getEnergyStored(armour) / this.intMap.get("EnergyPerDamage").get(armour));
     }
     
     // IInventoryContainerItem
@@ -162,5 +164,16 @@ public class ItemModularArmour extends ItemSpecialArmour implements IInventoryCo
     public int getSizeInventory(ItemStack container) {
         return 9;
     }
+
+	@Override
+	public VariableInt getInt(String name) {
+		return this.intMap.get(name);
+	}
+
+	@Override
+	public int getSlot() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
     
 }

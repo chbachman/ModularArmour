@@ -8,7 +8,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor.ArmorProperties;
-import chbachman.armour.items.ItemModularArmour;
 import chbachman.armour.reference.ArmourSlot;
 /**
  * Interface for adding upgrades. Any armour that can hold these must call each of these methods when appropriate.
@@ -106,7 +105,7 @@ public interface IUpgrade {
 	 * @param armour
 	 * @param stack
 	 */
-	void onUpgradeAddition(ItemModularArmour armour, ItemStack stack);
+	void onUpgradeAddition(IModularItem armour, ItemStack stack);
 
 	/**
 	 * whether the armour is compatible with the given armour type. 

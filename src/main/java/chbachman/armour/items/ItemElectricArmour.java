@@ -1,5 +1,8 @@
 package chbachman.armour.items;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import net.minecraft.item.ItemStack;
 import chbachman.armour.objects.VariableInt;
 import chbachman.armour.util.NBTHelper;
@@ -9,25 +12,27 @@ import cofh.lib.util.helpers.EnergyHelper;
 
 public abstract class ItemElectricArmour extends ItemArmorAdv implements IEnergyContainerItem {
     
-    public VariableInt capacity = new VariableInt("Capacity", 100);
-    public VariableInt maxTransfer = new VariableInt("MaxTransfer", 10);
-    
-    public VariableInt energyPerDamage = new VariableInt("energyPerDamage", 10);
+	public Map<String, VariableInt> intMap = new HashMap<String, VariableInt>();
     
     public ItemElectricArmour(ArmorMaterial material, int type) {
         super(material, type);
+        
+        intMap.put("Capacity", new VariableInt("Capacity", 100));
+        intMap.put("MaxTransfer", new VariableInt("MaxTransfer", 10));
+        intMap.put("EnergyPerDamage", new VariableInt("EnergyPerDamage", 10));
+        
     }
     
     @Override
     public int getDisplayDamage(ItemStack stack) {
         NBTHelper.createDefaultStackTag(stack);
-        return 1 + this.capacity.get(stack) - stack.stackTagCompound.getInteger("Energy");
+        return 1 + this.intMap.get("Capacity").get(stack) - stack.stackTagCompound.getInteger("Energy");
     }
     
     @Override
     public int getMaxDamage(ItemStack stack) {
         
-        return 1 + this.capacity.get(stack);
+        return 1 + this.intMap.get("Capacity").get(stack);
     }
     
     @Override
@@ -44,7 +49,7 @@ public abstract class ItemElectricArmour extends ItemArmorAdv implements IEnergy
             EnergyHelper.setDefaultEnergyTag(stack, 0);
         }
         int stored = stack.stackTagCompound.getInteger("Energy");
-        int receive = Math.min(maxReceive, Math.min(this.capacity.get(stack) - stored, this.maxTransfer.get(stack)));
+        int receive = Math.min(maxReceive, Math.min(this.intMap.get("Capacity").get(stack) - stored, this.intMap.get("EnergyPerDamage").get(stack)));
         
         if (!simulate) {
             stored += receive;
@@ -80,7 +85,7 @@ public abstract class ItemElectricArmour extends ItemArmorAdv implements IEnergy
     
     @Override
     public int getMaxEnergyStored(ItemStack stack) {
-        return this.capacity.get(stack);
+        return this.intMap.get("Capacity").get(stack);
     }
     
 }
