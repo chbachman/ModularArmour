@@ -111,7 +111,7 @@ public class UpgradeUtil {
     public static boolean doesNBTListContainUpgrade(NBTUpgradeList list, IUpgrade upgrade) {
         
         for (IUpgrade up : list) {
-            if (up != null && upgrade != null && up.getId() == upgrade.getId()) {
+            if (up.getId() == upgrade.getId()) {
                 return true;
             }
         }

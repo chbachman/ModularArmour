@@ -36,10 +36,6 @@ public abstract class Upgrade implements IUpgrade , Comparable<Upgrade>{
         }
     }
     
-    protected void init() {
-        
-    }
-    
     private int getNextAvailableId() {
         return UpgradeList.list.size();
     }

@@ -172,8 +172,7 @@ public class ItemModularArmour extends ItemSpecialArmour implements IInventoryCo
 
 	@Override
 	public int getSlot() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.armorType;
 	}
     
 }

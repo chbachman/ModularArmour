@@ -46,9 +46,16 @@ public class NBTUpgradeList implements List<IUpgrade>{
         }
         
         try {
-            IUpgrade upgrade = UpgradeList.list.get(nbt.getInteger("ID"));
+        	
+        	if(nbt.hasKey("ID")){
+        		IUpgrade upgrade = UpgradeList.list.get(nbt.getInteger("ID"));
+                
+                return upgrade;
+        	}else{
+        		return null;
+        	}
+        	
             
-            return upgrade;
         } catch (IndexOutOfBoundsException e) {
             return null;
         }
@@ -219,7 +226,7 @@ public class NBTUpgradeList implements List<IUpgrade>{
     public class IteratorUpgradeList implements ListIterator<IUpgrade>{
         
         NBTUpgradeList list;
-        int index = -1;
+        int index = 0;
         
         public IteratorUpgradeList(NBTUpgradeList list){
             this.list = list;
@@ -230,8 +237,7 @@ public class NBTUpgradeList implements List<IUpgrade>{
         }
 
         public IUpgrade next() {
-            this.index++;
-            return list.get(index);
+            return list.get(index++);
         }
 
         public boolean hasPrevious() {
