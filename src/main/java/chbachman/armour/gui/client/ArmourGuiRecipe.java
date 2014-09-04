@@ -15,6 +15,7 @@ import chbachman.armour.reference.ResourceLocationHelper;
 import cofh.core.gui.GuiBaseAdv;
 import cofh.core.network.PacketHandler;
 import cofh.lib.gui.element.ElementButton;
+import cofh.lib.util.helpers.StringHelper;
 
 public class ArmourGuiRecipe extends GuiBaseAdv {
     
@@ -41,6 +42,7 @@ public class ArmourGuiRecipe extends GuiBaseAdv {
         rightArrow = new ElementButton(this, 164, 5, "Next", 190, 11, 190, 11, 190, 11, 7, 7, TEXTURE.toString());
         
         rightArrow.setToolTip("Next");
+        leftArrow.setToolTip("Back");
     }
     
     @Override
@@ -63,7 +65,9 @@ public class ArmourGuiRecipe extends GuiBaseAdv {
         super.drawGuiContainerBackgroundLayer(f, x, y);
         
         if(this.container.recipe != null){
-            this.drawStringBounded(this.container.recipe.getResult().getName(), 70, 252, 90, 0xFFFFF);
+            this.drawStringBounded(this.container.recipe.getResult().getName(), 70, 225, 85, 0xFFFFF);
+            
+            this.drawStringBounded(StringHelper.localize(this.container.recipe.getResult().getInformation()), 159, 135, 146, 0xFFFFF);
         }
     }
     
@@ -91,11 +95,6 @@ public class ArmourGuiRecipe extends GuiBaseAdv {
         }
         
         PacketHandler.sendToServer(ArmourPacket.getPacket(PacketTypes.BUTTON).addString(buttonName).addInt(this.container.index));
-    }
-    
-    @Override
-    public void mouseClicked(int mX, int mY, int mouseButton){
-        super.mouseClicked(mX, mY, mouseButton);
     }
     
     @Override

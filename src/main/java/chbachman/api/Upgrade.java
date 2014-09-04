@@ -49,12 +49,16 @@ public abstract class Upgrade implements IUpgrade , Comparable<Upgrade>{
         return StringHelper.localize(this.getUnlocalizedName());
     }
     
+    public String getInformation(){
+    	return this.getLocalizationString(this.name) + ".information";
+    }
+    
     public String getUnlocalizedName() {
-        return this.getLocalizationString(this.name);
+        return this.getLocalizationString(this.name) + ".name";
     }
     
     protected String getLocalizationString(String name) {
-        return "upgrade.chbachman." + StringHelper.camelCase(name).replace(" ", "") + ".name";
+        return "upgrade.chbachman." + StringHelper.camelCase(name).replace(" ", "");
     }
     
     public int getId() {

@@ -95,6 +95,12 @@ public interface IUpgrade {
 	String getUnlocalizedName();
 
 	/**
+	 * Gets the unlocalized information string
+	 * @return unlozalized information string
+	 */
+	String getInformation();
+	
+	/**
 	 * Can the upgrade be repeated, that is put on more than once. 
 	 * @return whether the upgrade can be repeatedly put on. 
 	 */
