@@ -2,7 +2,7 @@ package chbachman.armour.reference;
 
 public enum ArmourSlot {
     
-    HELMET(0), CHESTPLATE(1), LEGS(2), BOOTS(3), UNKNOWN(4);
+    HELMET(0), CHESTPLATE(1), LEGS(2), BOOTS(3), BELT(4), RING(5), PENDANT(6), UNKNOWN(7);
     
     public int id;
     
@@ -11,20 +11,13 @@ public enum ArmourSlot {
     }
     
     public static ArmourSlot getArmourSlot(int id) {
-        switch (id) {
-        
-        case 0:
-            return HELMET;
-        case 1:
-            return CHESTPLATE;
-        case 2:
-            return LEGS;
-        case 3:
-            return BOOTS;
-        default:
-            return UNKNOWN;
-            
+        for(ArmourSlot slot : ArmourSlot.values()){
+        	if(slot.id == id){
+        		return slot;
+        	}
         }
+        
+        return ArmourSlot.UNKNOWN;
     }
     
 }

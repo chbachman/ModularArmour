@@ -6,17 +6,17 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import chbachman.api.IModularItem;
 import chbachman.armour.ModularArmour;
 import chbachman.armour.crafting.Recipe;
 import chbachman.armour.gui.GuiHandler;
 import chbachman.armour.gui.IInputHandler;
-import chbachman.armour.items.ItemModularArmour;
 import chbachman.armour.network.ArmourPacket;
 import cofh.lib.gui.slot.SlotViewOnly;
 
 public class ArmourContainerRecipe extends Container implements IInputHandler{
 
-    public final ItemModularArmour item;
+    public final IModularItem item;
     public final EntityPlayer player;
     public final ItemStack stack;
     public final Inventory inventory;
@@ -24,7 +24,7 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
     public int index = 0;
     
     public ArmourContainerRecipe(ItemStack stack, InventoryPlayer inventory, World world) {
-        this.item = (ItemModularArmour) stack.getItem();
+        this.item = (IModularItem) stack.getItem();
         this.stack = stack;
         this.player = inventory.player;
         this.recipe = Recipe.craftinglist.get(0);

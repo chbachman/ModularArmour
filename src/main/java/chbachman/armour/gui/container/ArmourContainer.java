@@ -7,13 +7,13 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import chbachman.api.IModularItem;
 import chbachman.api.IUpgrade;
 import chbachman.armour.ModularArmour;
 import chbachman.armour.gui.ArmourContainerWrapper;
 import chbachman.armour.gui.GuiHandler;
 import chbachman.armour.gui.IInputHandler;
 import chbachman.armour.handler.UpgradeHandler;
-import chbachman.armour.items.ItemModularArmour;
 import chbachman.armour.network.ArmourPacket;
 import chbachman.armour.upgrade.UpgradeException;
 import chbachman.armour.upgrade.UpgradeList;
@@ -23,14 +23,14 @@ import cofh.lib.util.helpers.ItemHelper;
 public class ArmourContainer extends Container implements IInputHandler{
     
     public IUpgrade upgrade = null;
-    public final ItemModularArmour item;
+    public final IModularItem item;
     public final IInventory containerWrapper;
     public final EntityPlayer player;
     public final ItemStack stack;
     public final int containerIndex;
     
     public ArmourContainer(ItemStack stack, InventoryPlayer inventory, World world) {
-        this.item = (ItemModularArmour) stack.getItem();
+        this.item = (IModularItem) stack.getItem();
         this.containerWrapper = new ArmourContainerWrapper(this);
         this.containerIndex = inventory.currentItem;
         this.stack = stack;

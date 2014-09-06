@@ -6,6 +6,7 @@ import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import chbachman.api.IModularItem;
 import chbachman.api.IUpgrade;
 import chbachman.armour.handler.UpgradeHandler;
 import chbachman.armour.items.ItemModularArmour;
@@ -21,7 +22,7 @@ public class UpgradeUtil {
         for (ItemStack armour : armourArray) {
             
             if (armour != null) {
-                if (armour.getItem() instanceof ItemModularArmour) {
+                if (armour.getItem() instanceof IModularItem) {
                     
                     for (IUpgrade armourUpgrade : NBTHelper.getNBTUpgradeList(armour.stackTagCompound)) {
                         
@@ -66,7 +67,7 @@ public class UpgradeUtil {
             return;
         }
         
-        if (stack.getItem() instanceof ItemModularArmour) {
+        if (stack.getItem() instanceof IModularItem) {
             
             NBTUpgradeList list = NBTHelper.getNBTUpgradeList(stack.stackTagCompound);
             

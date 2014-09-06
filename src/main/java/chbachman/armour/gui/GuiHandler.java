@@ -2,6 +2,7 @@ package chbachman.armour.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
+import chbachman.api.IModularItem;
 import chbachman.armour.gui.client.ArmourGui;
 import chbachman.armour.gui.client.ArmourGuiRecipe;
 import chbachman.armour.gui.container.ArmourContainer;
@@ -20,7 +21,7 @@ public class GuiHandler implements IGuiHandler {
         switch (ID) {
         
         case ARMOUR_ID:
-            if (ItemHelper.isPlayerHoldingItem(ItemModularArmour.class, player)) {
+            if (ItemHelper.isPlayerHoldingItem(IModularItem.class, player)) {
                 return new ArmourContainer(player.getHeldItem(), player.inventory, world);
             }
         case RECIPE_ID:
@@ -35,7 +36,7 @@ public class GuiHandler implements IGuiHandler {
         switch (ID) {
         
         case ARMOUR_ID:
-            if (ItemHelper.isPlayerHoldingItem(ItemModularArmour.class, player)) {
+            if (ItemHelper.isPlayerHoldingItem(IModularItem.class, player)) {
                 return new ArmourGui(new ArmourContainer(player.getHeldItem(), player.inventory, world), player.inventory);
             }
         case RECIPE_ID:

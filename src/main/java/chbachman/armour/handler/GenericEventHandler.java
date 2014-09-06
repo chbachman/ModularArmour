@@ -6,9 +6,8 @@ import java.util.Map;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+import chbachman.api.IModularItem;
 import chbachman.api.IUpgrade;
-import chbachman.armour.items.ItemModularArmour;
-import chbachman.armour.objects.PlayerArmourSlot;
 import chbachman.armour.reference.ArmourSlot;
 import chbachman.armour.util.NBTHelper;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
@@ -34,7 +33,7 @@ public class GenericEventHandler {
                 
                 ItemStack stack = stacks[i];
                 
-                if (stack != null && stack.getItem() instanceof ItemModularArmour) {
+                if (stack != null && stack.getItem() instanceof IModularItem) {
                     
                     if (!this.playerList.containsKey(playerSlot)) {
                         this.playerList.put(playerSlot, stack);
@@ -46,10 +45,10 @@ public class GenericEventHandler {
                         
                         ItemStack stack2 = this.playerList.get(playerSlot);
                         
-                        ItemModularArmour armour = (ItemModularArmour) stack2.getItem();
+                        IModularItem armour = (IModularItem) stack2.getItem();
                         
-                        if (playerSlot.getSlot() == armour.getArmourSlot()) {
-                            armour.onArmorTakeOff(player.worldObj, player, stack2);
+                        if (playerSlot.getSlot().id == armour.getSlot()) {
+                            armour.onArmorDequip(player.worldObj, player, stack2);
                             
                             this.playerList.remove(playerSlot);
                         }
@@ -62,15 +61,72 @@ public class GenericEventHandler {
     @SubscribeEvent
     public void onPlayerJoinWorld(PlayerEvent.PlayerLoggedInEvent e) {
         for (ItemStack stack : e.player.inventory.armorInventory) {
-            if (stack != null && stack.getItem() instanceof ItemModularArmour) {
+            if (stack != null && stack.getItem() instanceof IModularItem) {
                 
-                ItemModularArmour armour = (ItemModularArmour) stack.getItem();
+                IModularItem armour = (IModularItem) stack.getItem();
                 
                 for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
-                    upgrade.onArmourEquip(e.player.worldObj, e.player, stack, ArmourSlot.getArmourSlot(armour.armorType));
+                    upgrade.onArmourEquip(e.player.worldObj, e.player, stack, ArmourSlot.getArmourSlot(armour.getSlot()));
                 }
                 
             }
         }
     }
+
+    private class PlayerArmourSlot {
+        
+        private final EntityPlayer player;
+        private final ArmourSlot slot;
+        
+        public PlayerArmourSlot(EntityPlayer player, int slot) {
+            super();
+            this.player = player;
+            this.slot = ArmourSlot.getArmourSlot(slot);
+        }
+        
+        public ArmourSlot getSlot() {
+            return this.slot;
+        }
+        
+        @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + (this.player == null ? 0 : this.player.hashCode());
+            result = prime * result + (this.slot == null ? 0 : this.slot.hashCode());
+            return result;
+        }
+        
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (this.getClass() != obj.getClass()) {
+                return false;
+            }
+            PlayerArmourSlot other = (PlayerArmourSlot) obj;
+            if (this.player == null) {
+                if (other.player != null) {
+                    return false;
+                }
+            } else if (!this.player.equals(other.player)) {
+                return false;
+            }
+            if (this.slot != other.slot) {
+                return false;
+            }
+            return true;
+        }
+        
+        @Override
+        public String toString() {
+            return "PlayerArmourSlot [player=" + this.player + ", slot=" + this.slot + "]";
+        }
+        
+    }
+
 }
