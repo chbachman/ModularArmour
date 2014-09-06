@@ -27,13 +27,13 @@ public class UpgradeHoverJetpack extends Upgrade {
     }
     
     @Override
-    public void onArmourEquip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
+    public void onEquip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
         player.capabilities.allowFlying = true;
         player.sendPlayerAbilities();
     }
     
     @Override
-    public int onArmourTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
+    public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
         
         if (!UpgradeUtil.doesPlayerHaveUpgrade(player, "CalfShields") && player.capabilities.isFlying) {
             player.attackEntityFrom(DamageSource.onFire, 4F);
@@ -47,7 +47,7 @@ public class UpgradeHoverJetpack extends Upgrade {
     }
     
     @Override
-    public void onArmourDequip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
+    public void onDequip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
         player.capabilities.allowFlying = false;
         player.capabilities.isFlying = false;
         player.sendPlayerAbilities();

@@ -27,3 +27,19 @@ upgrade.chbachman.crafting.name=Portable Crafting Table
 upgrade.chbachman.stepAssist.name=Step Assist
 upgrade.chbachman.speed.name=Walking Speed Boost
 upgrade.chbachman.ironPlating.name=Iron Plating
+
+upgrade.chbachman.jetpack.information=Allows you to fly like you are in creative. It is reccomended to have Calf Shields
+upgrade.chbachman.calfShields.information=Rocket Packs are easy. The hard part is inventing Calf Shields.
+upgrade.chbachman.potion.information=Allows your suit of armor to give you potion effects. This upgrade does nothing, only allows it from other upgrades.
+upgrade.chbachman.cobblestoneUpgrade.information=Provides your suit with increased electrical capabilities, through the power of cobblestone.
+upgrade.chbachman.ironUpgrade.information=Provides your suit with increased electrical capabilities, through the power of iron.
+upgrade.chbachman.goldUpgrade.information=Provides your suit with increased electrical capabilities, through the power of gold.
+upgrade.chbachman.diamondUpgrade.information=Provides your suit with increased electrical capabilities, through the power of diamond.
+
+upgrade.chbachman.fallDamage.information=Ever heard of long fall boots. Well these are those.
+upgrade.chbachman.solar.information=A solar helmet. Makes energy.
+upgrade.chbachman.feeder.information=It takes food from your inventory, stores it, and stuffs it into your mouth when you are hungry.
+upgrade.chbachman.crafting.information=Allows you to craft on the go.
+upgrade.chbachman.stepAssist.information=Increased leg movement allows you to step up 1 meter high.
+upgrade.chbachman.speed.information=Speeds you up using the power of pistons. Don't ask me how it works.
+upgrade.chbachman.ironPlating.information=Gives you the protection of iron armour.

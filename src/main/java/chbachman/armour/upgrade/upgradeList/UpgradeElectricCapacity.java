@@ -43,8 +43,8 @@ public class UpgradeElectricCapacity extends Upgrade {
     
     @Override
     public void onUpgradeAddition(IModularItem armour, ItemStack stack) {
-        armour.getInt("capacity").set(stack, this.upgrade.capacity);
-        armour.getInt("maxTransfer").set(stack, this.upgrade.maxTransfer);
+        armour.getInt("Capacity").set(stack, this.upgrade.capacity);
+        armour.getInt("MaxTransfer").set(stack, this.upgrade.maxTransfer);
     }
     
     @Override

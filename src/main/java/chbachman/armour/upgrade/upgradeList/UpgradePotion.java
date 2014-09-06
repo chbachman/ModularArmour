@@ -65,7 +65,7 @@ public class UpgradePotion extends Upgrade {
     }
     
     @Override
-    public int onArmourTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
+    public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
         player.addPotionEffect(new PotionEffect(this.upgrade.potion.id, 0, this.level));
         
         return 10;

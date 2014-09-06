@@ -17,7 +17,7 @@ import cofh.lib.util.helpers.StringHelper;
  * @author chbachman
  *
  */
-public abstract class Upgrade implements IUpgrade , Comparable<Upgrade>{
+public abstract class Upgrade implements IArmourUpgrade , Comparable<Upgrade>{
     
     protected final int id;
     protected String name;
@@ -104,15 +104,15 @@ public abstract class Upgrade implements IUpgrade , Comparable<Upgrade>{
         
     }
     
-    public void onArmourEquip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
+    public void onEquip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
         
     }
     
-    public int onArmourTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
+    public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
         return 0;
     }
     
-    public void onArmourDequip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
+    public void onDequip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
         
     }
     

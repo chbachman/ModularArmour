@@ -27,11 +27,13 @@ public class ItemRegister {
     public static Item chestplateModular;
     public static Item leggingsModular;
     public static Item bootsModular;
+    public static Item itemRing;
     
     public static ItemStack stackHelmetModular;
     public static ItemStack stackChestplateModular;
     public static ItemStack stackLeggingsModular;
     public static ItemStack stackBootsModular;
+    public static ItemStack stackItemRing;
     
     public static ItemBase material;
     
@@ -49,10 +51,12 @@ public class ItemRegister {
         chestplateModular = new ItemModularArmour(materialModular, 1).setArmorTextures(TEXTURE_MODULAR).setUnlocalizedName("chbachman.armour.chestplateModular").setTextureName(Reference.ITEM_LOCATION + "ModularChestplate");
         leggingsModular = new ItemModularArmour(materialModular, 2).setArmorTextures(TEXTURE_MODULAR).setUnlocalizedName("chbachman.armour.leggingsModular").setTextureName(Reference.ITEM_LOCATION + "ModularLegs");
         bootsModular = new ItemModularArmour(materialModular, 3).setArmorTextures(TEXTURE_MODULAR).setUnlocalizedName("chbachman.armour.bootsModular").setTextureName(Reference.ITEM_LOCATION + "ModularBoots");
+        itemRing = new ItemRing().setUnlocalizedName("chbachman.armour.itemRing").setTextureName(Reference.ITEM_LOCATION + "ItemRing");
         GameRegistry.registerItem(helmetModular, "helmetModular");
         GameRegistry.registerItem(chestplateModular, "chestplateModular");
         GameRegistry.registerItem(leggingsModular, "leggingsModular");
         GameRegistry.registerItem(bootsModular, "bootsModular");
+        GameRegistry.registerItem(itemRing, "itemRing");
         
     }
     
@@ -65,6 +69,7 @@ public class ItemRegister {
         stackChestplateModular = NBTHelper.createDefaultStackTag(new ItemStack(chestplateModular));
         stackLeggingsModular = NBTHelper.createDefaultStackTag(new ItemStack(leggingsModular));
         stackBootsModular = NBTHelper.createDefaultStackTag(new ItemStack(bootsModular));
+        stackItemRing = NBTHelper.createDefaultStackTag(new ItemStack(itemRing));
         
         if (Loader.isModLoaded("ThermalFoundation")) {
             ThermalExpansionHelper.addTransposerFill(4000, GameRegistry.findItemStack("ThermalFoundation", "ingotElectrum", 1), heatedElectrum, new FluidStack(FluidRegistry.getFluid("pyrotheum"), 1000), false);
@@ -91,6 +96,7 @@ public class ItemRegister {
         GameRegistry.addRecipe(new ShapedOreRecipe(stackChestplateModular, new Object[] { "I I", "III", "III", 'I', temperedElectrum }));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackLeggingsModular, new Object[] { "III", "I I", "I I", 'I', temperedElectrum }));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackBootsModular, new Object[] { "I I", "I I", 'I', temperedElectrum }));
+        GameRegistry.addRecipe(new ShapedOreRecipe(stackItemRing, new Object[] {" I ", "I I", " I ", 'I', temperedElectrum}));
     }
     
 }

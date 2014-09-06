@@ -13,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
+import chbachman.api.IArmourUpgrade;
 import chbachman.api.IModularItem;
 import chbachman.api.IUpgrade;
 import chbachman.armour.ModularArmour;
@@ -100,7 +101,7 @@ public class ItemModularArmour extends ItemArmorAdv implements IEnergyContainerI
 		for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
 
 			if (upgrade != null) {
-				energy += upgrade.onArmourTick(world, player, stack, ArmourSlot.getArmourSlot(this.armorType));
+				energy += upgrade.onTick(world, player, stack, ArmourSlot.getArmourSlot(this.armorType));
 			}
 
 		}
@@ -113,7 +114,7 @@ public class ItemModularArmour extends ItemArmorAdv implements IEnergyContainerI
 			for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
 
 				if (upgrade != null) {
-					upgrade.onArmourEquip(world, player, stack, ArmourSlot.getArmourSlot(this.armorType));
+					upgrade.onEquip(world, player, stack, ArmourSlot.getArmourSlot(this.armorType));
 				}
 			}
 		}
@@ -163,7 +164,7 @@ public class ItemModularArmour extends ItemArmorAdv implements IEnergyContainerI
 		if (this.getEnergyStored(armor) >= this.intMap.get("EnergyPerDamage").get(armor)) {
 			int sum = 0;
 			for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(armor.stackTagCompound)) {
-				sum += upgrade.getArmourDisplay();
+				sum += upgrade instanceof IArmourUpgrade ? ((IArmourUpgrade) upgrade).getArmourDisplay() : 0;
 			}
 			return sum;
 		} else {
@@ -177,7 +178,11 @@ public class ItemModularArmour extends ItemArmorAdv implements IEnergyContainerI
 		ArmorProperties output = new ArmorProperties(0, 0, 0);
 
 		for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(armour.stackTagCompound)) {
-			ArmorProperties prop = upgrade.getProperties(player, armour, source, damage, ArmourSlot.getArmourSlot(slot));
+			ArmorProperties prop = null;
+			
+			if(upgrade instanceof IArmourUpgrade){
+				prop = ((IArmourUpgrade) upgrade).getProperties(player, armour, source, damage, ArmourSlot.getArmourSlot(slot));
+			}
 
 			if (prop == null) {
 				continue;
@@ -269,7 +274,7 @@ public class ItemModularArmour extends ItemArmorAdv implements IEnergyContainerI
 		stack.stackTagCompound.setBoolean("HasPutOn", false);
 
 		for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
-			upgrade.onArmourDequip(world, player, stack, ArmourSlot.getArmourSlot(this.armorType));
+			upgrade.onDequip(world, player, stack, ArmourSlot.getArmourSlot(this.armorType));
 		}
 	}
 

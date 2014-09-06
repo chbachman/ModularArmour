@@ -1,18 +1,14 @@
 package chbachman.armour.items;
 
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
@@ -20,30 +16,26 @@ import baubles.common.container.InventoryBaubles;
 import baubles.common.lib.PlayerHandler;
 import chbachman.api.IModularItem;
 import chbachman.api.IUpgrade;
+import chbachman.armour.ModularArmour;
+import chbachman.armour.gui.GuiHandler;
 import chbachman.armour.objects.VariableInt;
 import chbachman.armour.reference.ArmourSlot;
 import chbachman.armour.util.NBTHelper;
 import cofh.api.energy.IEnergyContainerItem;
 import cofh.api.energy.ItemEnergyContainer;
+import cofh.core.util.CoreUtils;
 import cofh.lib.util.helpers.StringHelper;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class ItemRing extends ItemEnergyContainer implements IBauble, IModularItem, IEnergyContainerItem{
 
-	private Map<String, VariableInt> dataMap = new HashMap<String, VariableInt>();
-	private List<IUpgrade> upgradeList = new LinkedList<IUpgrade>();
+	private Map<String, VariableInt> intMap = new HashMap<String, VariableInt>();
 	
 	public ItemRing(){
 		super();
-		this.setMaxStackSize(1);
+		intMap.put("Capacity", new VariableInt("Capacity", 100));
+		intMap.put("MaxTransfer", new VariableInt("MaxTransfer", 10));
+		intMap.put("EnergyPerDamage", new VariableInt("EnergyPerDamage", 10));
 		setCreativeTab(CreativeTabs.tabTools);
-	}
-
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerIcons(IIconRegister ir) {
-		this.itemIcon = ir.registerIcon("baubles:ring");
 	}
 
 	@Override
@@ -52,28 +44,38 @@ public class ItemRing extends ItemEnergyContainer implements IBauble, IModularIt
 	}
 
 	@Override
-	public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-		if(!par2World.isRemote) { 
-			InventoryBaubles baubles = PlayerHandler.getPlayerBaubles(par3EntityPlayer);
-			for(int i = 0; i < baubles.getSizeInventory(); i++)
-				if(baubles.getStackInSlot(i) == null && baubles.isItemValidForSlot(i, par1ItemStack)) {
-					baubles.setInventorySlotContents(i, par1ItemStack.copy());
-					if(!par3EntityPlayer.capabilities.isCreativeMode){
-						par3EntityPlayer.inventory.setInventorySlotContents(par3EntityPlayer.inventory.currentItem, null);
-					}
-					onEquipped(par1ItemStack, par3EntityPlayer);
-					break;
-				}
+	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+		
+		
+		if (CoreUtils.isFakePlayer(player)) {
+			return stack;
 		}
 
-		return par1ItemStack;	
+		if (player.isSneaking() && !world.isRemote) {
+			InventoryBaubles baubles = PlayerHandler.getPlayerBaubles(player);
+			for(int i = 0; i < baubles.getSizeInventory(); i++){
+				if(baubles.getStackInSlot(i) == null && baubles.isItemValidForSlot(i, stack)) {
+					baubles.setInventorySlotContents(i, stack.copy());
+					if(!player.capabilities.isCreativeMode){
+						player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
+					}
+					onEquipped(stack, player);
+					break;
+				}
+			}
+		}
+
+		if (world.isRemote == false) {
+			player.openGui(ModularArmour.instance, GuiHandler.ARMOUR_ID, world, 0, 0, 0);
+		}
+		return stack;
 	}
 
 	@Override
 	public void onWornTick(ItemStack itemstack, EntityLivingBase player) {
 		int energy = 0;
-		for(IUpgrade upgrade : upgradeList){
-			energy += upgrade.onArmourTick(player.worldObj, (EntityPlayer) player, itemstack, ArmourSlot.getArmourSlot(this.getSlot()));
+		for(IUpgrade upgrade : NBTHelper.getNBTUpgradeList(itemstack)){
+			energy += upgrade.onTick(player.worldObj, (EntityPlayer) player, itemstack, ArmourSlot.getArmourSlot(this.getSlot()));
 		}
 		this.extractEnergy(itemstack, energy, false);
 		
@@ -96,7 +98,7 @@ public class ItemRing extends ItemEnergyContainer implements IBauble, IModularIt
             list.add(StringHelper.shiftForDetails());
         } else {
             
-            list.add(StringHelper.localize("info.cofh.charge") + ": " + stack.stackTagCompound.getInteger("Energy") + " / " + this.dataMap.get("Capacity").get(stack) + " RF");
+            list.add(StringHelper.localize("info.cofh.charge") + ": " + stack.stackTagCompound.getInteger("Energy") + " / " + this.intMap.get("Capacity").get(stack) + " RF");
         }
         
         if (!StringHelper.isControlKeyDown() && NBTHelper.getNBTUpgradeList(stack.stackTagCompound).size() != 0) {
@@ -127,15 +129,15 @@ public class ItemRing extends ItemEnergyContainer implements IBauble, IModularIt
 			player.worldObj.playSoundAtEntity(player, "random.orb", 0.1F, 1.3f);
 		}
 		
-		for(IUpgrade upgrade : upgradeList){
-			upgrade.onArmourEquip(player.worldObj, (EntityPlayer) player, itemstack, ArmourSlot.getArmourSlot(this.getSlot()));
+		for(IUpgrade upgrade : NBTHelper.getNBTUpgradeList(itemstack)){
+			upgrade.onEquip(player.worldObj, (EntityPlayer) player, itemstack, ArmourSlot.getArmourSlot(this.getSlot()));
 		}
 	}
 
 	@Override
 	public void onUnequipped(ItemStack itemstack, EntityLivingBase player) {
-		for(IUpgrade upgrade : upgradeList){
-			upgrade.onArmourDequip(player.worldObj, (EntityPlayer) player, itemstack, ArmourSlot.getArmourSlot(this.getSlot()));
+		for(IUpgrade upgrade : NBTHelper.getNBTUpgradeList(itemstack)){
+			upgrade.onDequip(player.worldObj, (EntityPlayer) player, itemstack, ArmourSlot.getArmourSlot(this.getSlot()));
 		}
 	}
 	
@@ -151,7 +153,7 @@ public class ItemRing extends ItemEnergyContainer implements IBauble, IModularIt
 
 	@Override
 	public VariableInt getInt(String name) {
-		return this.dataMap.get(name);
+		return this.intMap.get(name);
 	}
 
 	@Override

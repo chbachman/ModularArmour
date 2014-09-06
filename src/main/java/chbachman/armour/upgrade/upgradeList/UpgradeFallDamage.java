@@ -17,7 +17,7 @@ public class UpgradeFallDamage extends Upgrade {
     }
     
     @Override
-    public int onArmourTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
+    public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
         if (player.fallDistance > 2 && EnergyUtil.getItem(stack).getEnergyStored(stack) > 100) {
             player.fallDistance = 0;
             return 100;
