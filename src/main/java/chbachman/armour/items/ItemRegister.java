@@ -1,5 +1,6 @@
 package chbachman.armour.items;
 
+import baubles.api.BaubleType;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -28,12 +29,16 @@ public class ItemRegister {
     public static Item leggingsModular;
     public static Item bootsModular;
     public static Item itemRing;
+    public static Item itemPendant;
+    public static Item itemBelt;
     
     public static ItemStack stackHelmetModular;
     public static ItemStack stackChestplateModular;
     public static ItemStack stackLeggingsModular;
     public static ItemStack stackBootsModular;
     public static ItemStack stackItemRing;
+    public static ItemStack stackItemPendant;
+    public static ItemStack stackItemBelt;
     
     public static ItemBase material;
     
@@ -51,12 +56,17 @@ public class ItemRegister {
         chestplateModular = new ItemModularArmour(materialModular, 1).setArmorTextures(TEXTURE_MODULAR).setUnlocalizedName("chbachman.armour.chestplateModular").setTextureName(Reference.ITEM_LOCATION + "ModularChestplate");
         leggingsModular = new ItemModularArmour(materialModular, 2).setArmorTextures(TEXTURE_MODULAR).setUnlocalizedName("chbachman.armour.leggingsModular").setTextureName(Reference.ITEM_LOCATION + "ModularLegs");
         bootsModular = new ItemModularArmour(materialModular, 3).setArmorTextures(TEXTURE_MODULAR).setUnlocalizedName("chbachman.armour.bootsModular").setTextureName(Reference.ITEM_LOCATION + "ModularBoots");
-        itemRing = new ItemRing().setUnlocalizedName("chbachman.armour.itemRing").setTextureName(Reference.ITEM_LOCATION + "ItemRing");
+        itemRing = new ItemBauble().setBaubleType(BaubleType.RING).setUnlocalizedName("chbachman.armour.itemRing").setTextureName(Reference.ITEM_LOCATION + "ItemRing");
+        itemPendant = new ItemBauble().setBaubleType(BaubleType.AMULET).setUnlocalizedName("chbachman.armour.itemPendant").setTextureName(Reference.ITEM_LOCATION + "ItemPendant");
+        itemBelt = new ItemBauble().setBaubleType(BaubleType.BELT).setUnlocalizedName("chbachman.armour.itemBelt").setTextureName(Reference.ITEM_LOCATION + "ItemBelt");
+        
         GameRegistry.registerItem(helmetModular, "helmetModular");
         GameRegistry.registerItem(chestplateModular, "chestplateModular");
         GameRegistry.registerItem(leggingsModular, "leggingsModular");
         GameRegistry.registerItem(bootsModular, "bootsModular");
         GameRegistry.registerItem(itemRing, "itemRing");
+        GameRegistry.registerItem(itemPendant, "itemPendant");
+        GameRegistry.registerItem(itemBelt, "itemBelt");
         
     }
     
@@ -70,6 +80,8 @@ public class ItemRegister {
         stackLeggingsModular = NBTHelper.createDefaultStackTag(new ItemStack(leggingsModular));
         stackBootsModular = NBTHelper.createDefaultStackTag(new ItemStack(bootsModular));
         stackItemRing = NBTHelper.createDefaultStackTag(new ItemStack(itemRing));
+        stackItemBelt = NBTHelper.createDefaultStackTag(new ItemStack(itemBelt));
+        stackItemPendant = NBTHelper.createDefaultStackTag(new ItemStack(itemPendant));
         
         if (Loader.isModLoaded("ThermalFoundation")) {
             ThermalExpansionHelper.addTransposerFill(4000, GameRegistry.findItemStack("ThermalFoundation", "ingotElectrum", 1), heatedElectrum, new FluidStack(FluidRegistry.getFluid("pyrotheum"), 1000), false);
@@ -97,6 +109,8 @@ public class ItemRegister {
         GameRegistry.addRecipe(new ShapedOreRecipe(stackLeggingsModular, new Object[] { "III", "I I", "I I", 'I', temperedElectrum }));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackBootsModular, new Object[] { "I I", "I I", 'I', temperedElectrum }));
         GameRegistry.addRecipe(new ShapedOreRecipe(stackItemRing, new Object[] {" I ", "I I", " I ", 'I', temperedElectrum}));
+        GameRegistry.addRecipe(new ShapedOreRecipe(stackItemBelt, new Object[] {"III", "I I", "III", 'I', temperedElectrum}));
+        GameRegistry.addRecipe(new ShapedOreRecipe(stackItemPendant, new Object[] {" ss", "IIs", "II ", 'I', temperedElectrum, 's', Items.string}));
     }
     
 }

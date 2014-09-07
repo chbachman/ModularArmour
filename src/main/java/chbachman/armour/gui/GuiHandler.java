@@ -7,7 +7,6 @@ import chbachman.armour.gui.client.ArmourGui;
 import chbachman.armour.gui.client.ArmourGuiRecipe;
 import chbachman.armour.gui.container.ArmourContainer;
 import chbachman.armour.gui.container.ArmourContainerRecipe;
-import chbachman.armour.items.ItemModularArmour;
 import cofh.lib.util.helpers.ItemHelper;
 import cpw.mods.fml.common.network.IGuiHandler;
 

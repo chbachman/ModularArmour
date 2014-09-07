@@ -26,11 +26,13 @@ import cofh.api.energy.ItemEnergyContainer;
 import cofh.core.util.CoreUtils;
 import cofh.lib.util.helpers.StringHelper;
 
-public class ItemRing extends ItemEnergyContainer implements IBauble, IModularItem, IEnergyContainerItem{
+public class ItemBauble extends ItemEnergyContainer implements IBauble, IModularItem, IEnergyContainerItem{
 
 	private Map<String, VariableInt> intMap = new HashMap<String, VariableInt>();
 	
-	public ItemRing(){
+	private BaubleType type;
+	
+	public ItemBauble(){
 		super();
 		intMap.put("Capacity", new VariableInt("Capacity", 100));
 		intMap.put("MaxTransfer", new VariableInt("MaxTransfer", 10));
@@ -38,9 +40,14 @@ public class ItemRing extends ItemEnergyContainer implements IBauble, IModularIt
 		setCreativeTab(CreativeTabs.tabTools);
 	}
 
+	public ItemBauble setBaubleType(BaubleType type){
+		this.type = type;
+		return this;
+	}
+	
 	@Override
 	public BaubleType getBaubleType(ItemStack itemstack) {
-		return BaubleType.RING;
+		return this.type;
 	}
 
 	@Override
@@ -158,7 +165,7 @@ public class ItemRing extends ItemEnergyContainer implements IBauble, IModularIt
 
 	@Override
 	public int getSlot() {
-		return ArmourSlot.RING.id;
+		return ArmourSlot.getArmourSlot(this.type).id;
 	}
 
 	@Override

@@ -2,12 +2,9 @@ package chbachman.api;
 
 import java.util.List;
 
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ISpecialArmor.ArmorProperties;
 import chbachman.armour.reference.ArmourSlot;
 /**
  * Interface for adding upgrades. Any armour that can hold these must call each of these methods when appropriate.

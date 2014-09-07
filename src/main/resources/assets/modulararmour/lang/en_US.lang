@@ -3,6 +3,9 @@ item.chbachman.armour.helmetModular.name=Modular Helmet
 item.chbachman.armour.chestplateModular.name=Modular Chestplate
 item.chbachman.armour.leggingsModular.name=Modular Leggings
 item.chbachman.armour.bootsModular.name=Modular Boots
+item.chbachman.armour.itemRing.0.name=Modular Ring
+item.chbachman.armour.itemPendant.0.name=Modular Amulet
+item.chbachman.armour.itemBelt.0.name=Modular Belt
 
 item.modulararmour.material.heatedElectrum.name=Heated Electrum
 item.modulararmour.material.temperedElectrum.name=Tempered Electrum
@@ -11,6 +14,8 @@ item.modulararmour.material.temperedElectrum.name=Tempered Electrum
 info.chbachman.control=Control
 info.chbachman.upgradeList=Upgrade List
 info.chbachman.strong=Strong
+
+info.chbachman.noUpgrade=There is no description for this upgrade!
 
 upgrade.chbachman.jetpack.name=Jetpack
 upgrade.chbachman.calfShields.name=Calf Shields

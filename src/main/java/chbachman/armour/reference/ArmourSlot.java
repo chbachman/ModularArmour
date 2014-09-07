@@ -1,5 +1,7 @@
 package chbachman.armour.reference;
 
+import baubles.api.BaubleType;
+
 public enum ArmourSlot {
     
     HELMET(0), CHESTPLATE(1), LEGS(2), BOOTS(3), BELT(4), RING(5), PENDANT(6), UNKNOWN(7);
@@ -18,6 +20,17 @@ public enum ArmourSlot {
         }
         
         return ArmourSlot.UNKNOWN;
+    }
+    
+    public static ArmourSlot getArmourSlot(BaubleType type){
+    	switch(type){
+    	
+    	case BELT: return BELT;
+    	case RING: return RING;
+    	case AMULET: return PENDANT;
+    	default: return UNKNOWN;
+    	
+    	}
     }
     
 }

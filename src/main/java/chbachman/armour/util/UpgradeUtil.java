@@ -9,7 +9,6 @@ import net.minecraft.item.ItemStack;
 import chbachman.api.IModularItem;
 import chbachman.api.IUpgrade;
 import chbachman.armour.handler.UpgradeHandler;
-import chbachman.armour.items.ItemModularArmour;
 import chbachman.armour.upgrade.UpgradeException;
 import chbachman.armour.upgrade.UpgradeList;
 import cofh.lib.util.helpers.StringHelper;
