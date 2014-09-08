@@ -35,7 +35,7 @@ public class ArmourGuiRecipe extends GuiBaseAdv {
         this.drawTitle = false;
         this.drawInventory = false;
         this.xSize = 176;
-        this.ySize = 115;
+        this.ySize = 152;
         
         
         leftArrow = new ElementButton(this, 5, 5, "Go Back", 182, 11, 182, 11, 182, 11, 7, 7, TEXTURE.toString());
@@ -65,11 +65,11 @@ public class ArmourGuiRecipe extends GuiBaseAdv {
         super.drawGuiContainerBackgroundLayer(f, x, y);
         
         if(this.container.recipe != null){
-            this.drawStringBounded(this.container.recipe.getResult().getName(), 70, 225, 85, 0xFFFFF);
+            this.drawStringBounded(this.container.recipe.getRecipeOutput().getName(), 70, 225, 85, 0xFFFFF);
             
-            String localized = StringHelper.localize(this.container.recipe.getResult().getInformation());
+            String localized = StringHelper.localize(this.container.recipe.getRecipeOutput().getInformation());
             
-            if(localized.equals(this.container.recipe.getResult().getInformation())){
+            if(localized.equals(this.container.recipe.getRecipeOutput().getInformation())){
             	localized = StringHelper.localize("info.chbachman.noUpgrade");
             }
             
@@ -84,18 +84,18 @@ public class ArmourGuiRecipe extends GuiBaseAdv {
         if(buttonName.equals("Go Back")){
             this.container.index--;
             try{
-                this.container.recipe = Recipe.craftinglist.get(this.container.index);
+                this.container.recipe = Recipe.craftingList.get(this.container.index);
             }catch(IndexOutOfBoundsException e){
-                this.container.index = Recipe.craftinglist.size() - 1;
-                this.container.recipe = Recipe.craftinglist.get(this.container.index);
+                this.container.index = Recipe.craftingList.size() - 1;
+                this.container.recipe = Recipe.craftingList.get(this.container.index);
             }
         }else if(buttonName.equals("Next")){
             this.container.index++;
             try{
-                this.container.recipe = Recipe.craftinglist.get(this.container.index);
+                this.container.recipe = Recipe.craftingList.get(this.container.index);
             }catch(IndexOutOfBoundsException e){
                 this.container.index = 0;
-                this.container.recipe = Recipe.craftinglist.get(this.container.index);
+                this.container.recipe = Recipe.craftingList.get(this.container.index);
             }
             
         }

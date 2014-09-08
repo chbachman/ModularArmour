@@ -1,13 +1,11 @@
 package chbachman.armour.upgrade.upgradeList;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.FoodStats;
 import net.minecraft.world.World;
 import chbachman.api.Upgrade;
-import chbachman.armour.crafting.Recipe;
 import chbachman.armour.objects.VariableInt;
 import chbachman.armour.reference.ArmourSlot;
 
@@ -22,11 +20,6 @@ public class UpgradeAutoFeeder extends Upgrade{
     @Override
     public boolean isCompatible(ArmourSlot slot) {
         return slot == ArmourSlot.HELMET;
-    }
-
-    @Override
-    public Recipe getRecipe() {
-        return new Recipe(this, "igi", "igi", "iii", 'i', Items.iron_ingot, 'g', Items.golden_apple);
     }
     
     @Override

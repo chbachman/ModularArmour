@@ -24,16 +24,12 @@ public abstract class Upgrade implements IArmourUpgrade , Comparable<Upgrade>{
     
     public int amount = 1;
     
-    protected Recipe recipe;
-    
     public Upgrade(String name) {
         this.id = this.getNextAvailableId();
         
         this.name = name;
         
-        if (this.shouldRegisterRecipes()) {
-            this.recipe = this.getRecipe();
-        }
+        UpgradeList.list.add(this);
     }
     
     private int getNextAvailableId() {
@@ -65,10 +61,6 @@ public abstract class Upgrade implements IArmourUpgrade , Comparable<Upgrade>{
         return this.id;
     }
     
-    public boolean shouldRegisterRecipes() {
-        return true;
-    }
-    
     @Override
     public int compareTo(Upgrade upgrade) {
         return this.getName().compareTo(upgrade.getName());
@@ -84,9 +76,9 @@ public abstract class Upgrade implements IArmourUpgrade , Comparable<Upgrade>{
         return this.isCompatible(ArmourSlot.getArmourSlot(slot));
     }
     
-    public abstract boolean isCompatible(ArmourSlot slot);
-    
-    public abstract Recipe getRecipe();
+    public boolean isCompatible(ArmourSlot slot){
+    	return true;
+    }
     
     public int getArmourDisplay() {
         return 0;

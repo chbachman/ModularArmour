@@ -1,12 +1,10 @@
 package chbachman.armour.upgrade.upgradeList;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import chbachman.api.Upgrade;
-import chbachman.armour.crafting.Recipe;
 import chbachman.armour.reference.ArmourSlot;
 import chbachman.armour.util.UpgradeUtil;
 
@@ -19,11 +17,6 @@ public class UpgradeHoverJetpack extends Upgrade {
     @Override
     public boolean isCompatible(ArmourSlot slot) {
         return slot == ArmourSlot.CHESTPLATE;
-    }
-    
-    @Override
-    public Recipe getRecipe() {
-        return new Recipe(this, "igi", "ini", "r r", 'i', Items.iron_ingot, 'g', Items.gold_ingot, 'r', Items.redstone, 'n', Items.nether_star);
     }
     
     @Override

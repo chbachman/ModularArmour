@@ -2,11 +2,11 @@ package chbachman.armour.handler;
 
 import java.util.List;
 
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import chbachman.api.IModularItem;
 import chbachman.api.IUpgrade;
 import chbachman.armour.crafting.Recipe;
+import chbachman.armour.gui.ArmourContainerWrapper;
 import chbachman.armour.upgrade.UpgradeException;
 import chbachman.armour.util.NBTHelper;
 import chbachman.armour.util.NBTUpgradeList;
@@ -14,7 +14,7 @@ import chbachman.armour.util.UpgradeUtil;
 
 public class UpgradeHandler {
     
-    public static IUpgrade getResult(IInventory containerWrapper) {
+    public static IUpgrade getResult(ArmourContainerWrapper containerWrapper) {
         return Recipe.getResult(containerWrapper);
     }
     

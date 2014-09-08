@@ -1,14 +1,10 @@
 package chbachman.armour.upgrade.upgradeList;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import chbachman.api.Upgrade;
-import chbachman.armour.crafting.Recipe;
 import chbachman.armour.reference.ArmourSlot;
 import chbachman.armour.util.EnergyUtil;
 
@@ -44,11 +40,6 @@ public class UpgradeSolar extends Upgrade {
     @Override
     public boolean isCompatible(ArmourSlot slot) {
         return slot == ArmourSlot.HELMET;
-    }
-    
-    @Override
-    public Recipe getRecipe() {
-        return new Recipe(this, "ggg", "ici", "iii", 'g', Item.getItemFromBlock(Blocks.glass), 'i', Items.iron_ingot, 'c', Items.coal);
     }
     
     @Override

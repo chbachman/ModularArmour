@@ -1,5 +1,7 @@
 package chbachman.armour.gui.container;
 
+import java.util.ArrayList;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -19,7 +21,7 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
     public final IModularItem item;
     public final EntityPlayer player;
     public final ItemStack stack;
-    public final Inventory inventory;
+    public Inventory inventory;
     public Recipe recipe;
     public int index = 0;
     
@@ -27,8 +29,8 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
         this.item = (IModularItem) stack.getItem();
         this.stack = stack;
         this.player = inventory.player;
-        this.recipe = Recipe.craftinglist.get(0);
-        this.inventory = new Inventory(recipe);
+        this.recipe = Recipe.craftingList.get(0);
+        this.inventory = new Inventory();
         
         
         
@@ -51,7 +53,7 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
     @Override
     public void onButtonClick(ArmourPacket packet, String name) {
         this.index = packet.getInt();
-        this.inventory.setRecipe(Recipe.craftinglist.get(index));
+        this.recipe = Recipe.craftingList.get(index);
     }
 
     @Override
@@ -63,13 +65,9 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
     
     private class Inventory implements IInventory{
         
-        ItemStack[] inventory;
+        private int counter = 0;
+        private int index = 0;
         
-        public Inventory(Recipe recipe){
-            this.inventory = new ItemStack[9];
-            this.setRecipe(recipe);
-        }
-
         @Override
         public int getSizeInventory() {
             return 9;
@@ -77,7 +75,29 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
 
         @Override
         public ItemStack getStackInSlot(int slot) {
-            return recipe.getRecipe()[slot];
+        	
+        	Object obj = recipe.getInput()[slot];
+        	
+        	counter++;
+        	
+        	if(counter == 500){
+        		counter = 0;
+        		index++;
+        	}
+        	
+        	if(obj instanceof ItemStack){
+        		return (ItemStack) obj;
+        	}
+        	
+        	if(obj instanceof ArrayList){
+        		@SuppressWarnings("unchecked")
+				ArrayList<ItemStack> list = (ArrayList<ItemStack>) obj;
+        		return list.get(index % list.size());
+        		
+        	}
+        	
+        	return null;
+        	
         }
 
         @Override
@@ -91,10 +111,7 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
         }
 
         @Override
-        public void setInventorySlotContents(int slot, ItemStack stack) {
-            inventory[slot] = stack;
-            this.markDirty();
-        }
+        public void setInventorySlotContents(int slot, ItemStack stack) {}
 
         @Override
         public String getInventoryName() {
@@ -129,13 +146,7 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
         public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_) {
             return true;
         }
-        
-        public void setRecipe(Recipe recipe){
-            ItemStack[] stack = recipe.getRecipe();
-            for(int i = 0; i < 9; i++){
-                this.setInventorySlotContents(i, stack[i]);
-            }
-        }
+
     }
     
 }

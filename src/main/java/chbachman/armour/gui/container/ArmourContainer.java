@@ -24,7 +24,7 @@ public class ArmourContainer extends Container implements IInputHandler{
     
     public IUpgrade upgrade = null;
     public final IModularItem item;
-    public final IInventory containerWrapper;
+    public final ArmourContainerWrapper containerWrapper;
     public final EntityPlayer player;
     public final ItemStack stack;
     public final int containerIndex;
