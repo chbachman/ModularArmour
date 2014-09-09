@@ -8,11 +8,10 @@ import org.apache.logging.log4j.Logger;
 
 import chbachman.armour.gui.GuiHandler;
 import chbachman.armour.handler.GenericEventHandler;
-import chbachman.armour.items.ItemRegister;
-import chbachman.armour.items.UpgradeRegister;
 import chbachman.armour.network.ArmourPacket;
 import chbachman.armour.proxy.IProxy;
 import chbachman.armour.reference.Reference;
+import chbachman.armour.register.Vanilla;
 import cofh.core.util.ConfigHandler;
 import cofh.mod.BaseMod;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -45,8 +44,7 @@ public class ModularArmour extends BaseMod {
     @EventHandler
     public static void preInit(FMLPreInitializationEvent event) {
         config.setConfiguration(new Configuration(event.getSuggestedConfigurationFile()));
-        ItemRegister.preInit();
-        UpgradeRegister.preInit();
+        Vanilla.preInit();
         ArmourPacket.initialize();
     }
     
@@ -57,8 +55,7 @@ public class ModularArmour extends BaseMod {
         MinecraftForge.EVENT_BUS.register(proxy);
         FMLCommonHandler.instance().bus().register(new GenericEventHandler());
         
-        ItemRegister.init();
-        UpgradeRegister.init();
+        Vanilla.init();
         
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, guiHandler);
         proxy.registerKeyBinds();
@@ -68,8 +65,7 @@ public class ModularArmour extends BaseMod {
     @EventHandler
     public static void postInit(FMLPostInitializationEvent event) {
         config.cleanUp(false, true);
-        ItemRegister.postInit();
-        UpgradeRegister.postInit();
+        Vanilla.postInit();
     }
     
     @Override

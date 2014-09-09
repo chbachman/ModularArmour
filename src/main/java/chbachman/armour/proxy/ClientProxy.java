@@ -3,7 +3,7 @@ package chbachman.armour.proxy;
 import net.minecraft.init.Items;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import chbachman.api.IUpgrade;
-import chbachman.armour.items.ItemRegister;
+import chbachman.armour.register.Vanilla;
 import chbachman.armour.upgrade.KeybindUpgrade;
 import chbachman.armour.upgrade.UpgradeList;
 import cofh.core.key.CoFHKey;
@@ -40,7 +40,7 @@ public class ClientProxy extends CommonProxy {
         } else if (event.map.getTextureType() == 1) {
             
             IconRegistry.addIcon("IconRecipe", Items.paper.getIconFromDamage(0));
-            IconRegistry.addIcon("IconUpgrade", ItemRegister.chestplateModular.getIconFromDamage(0));
+            IconRegistry.addIcon("IconUpgrade", Vanilla.chestplateModular.getIconFromDamage(0));
         }
     }
     

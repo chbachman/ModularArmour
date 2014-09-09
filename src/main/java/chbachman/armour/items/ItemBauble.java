@@ -12,8 +12,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
-import baubles.common.container.InventoryBaubles;
-import baubles.common.lib.PlayerHandler;
 import chbachman.api.IModularItem;
 import chbachman.api.IUpgrade;
 import chbachman.armour.ModularArmour;
@@ -56,20 +54,6 @@ public class ItemBauble extends ItemEnergyContainer implements IBauble, IModular
 		
 		if (CoreUtils.isFakePlayer(player)) {
 			return stack;
-		}
-
-		if (player.isSneaking() && !world.isRemote) {
-			InventoryBaubles baubles = PlayerHandler.getPlayerBaubles(player);
-			for(int i = 0; i < baubles.getSizeInventory(); i++){
-				if(baubles.getStackInSlot(i) == null && baubles.isItemValidForSlot(i, stack)) {
-					baubles.setInventorySlotContents(i, stack.copy());
-					if(!player.capabilities.isCreativeMode){
-						player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
-					}
-					onEquipped(stack, player);
-					break;
-				}
-			}
 		}
 
 		if (world.isRemote == false) {
