@@ -55,7 +55,7 @@ public interface IUpgrade {
 	 * Gets the list of dependencies
 	 * @return list of string dependencies.
 	 */
-	List<String> getDependencies();
+	List<IUpgrade> getDependencies();
 	
 	/**
 	 * Called every tick, when equiped from the armour.
@@ -82,15 +82,6 @@ public interface IUpgrade {
 	 * @param armourSlot
 	 */
 	void onEquip(World world, EntityPlayer player, ItemStack stack, ArmourSlot armourSlot);
-
-	/**
-	 * Called when the Armour piece runs out of energy.
-	 * @param world
-	 * @param player
-	 * @param stack
-	 * @param armourSlot
-	 */
-	void onNoEnergy(World world, EntityPlayer player, ItemStack stack, ArmourSlot armourSlot);
 
 	/**
 	 * Called when the armour is dequiped.

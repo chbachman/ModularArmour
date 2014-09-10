@@ -5,13 +5,15 @@ import java.util.Iterator;
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import baubles.api.BaublesApi;
+import baubles.api.IBauble;
 import chbachman.api.IModularItem;
 import chbachman.api.IUpgrade;
 import chbachman.armour.handler.UpgradeHandler;
 import chbachman.armour.upgrade.UpgradeException;
-import chbachman.armour.upgrade.UpgradeList;
-import cofh.lib.util.helpers.StringHelper;
+import cpw.mods.fml.common.Loader;
 
 public class UpgradeUtil {
     
@@ -34,27 +36,23 @@ public class UpgradeUtil {
             
         }
         
+        if(Loader.isModLoaded("Baubles")){
+        	IInventory inventory = BaublesApi.getBaubles(player);
+        	
+        	for(int i = 0; i < inventory.getSizeInventory(); i++){
+        		ItemStack bauble = inventory.getStackInSlot(i);
+        		
+        		if(bauble != null && bauble.getItem() instanceof IBauble){
+        			for(IUpgrade armourUpgrade : NBTHelper.getNBTUpgradeList(bauble)){
+        				if(armourUpgrade.getId() == upgrade.getId()){
+        					return true;
+        				}
+        			}
+        		}
+        	}
+        }
+        
         return false;
-    }
-    
-    public static boolean doesPlayerHaveUpgrade(EntityPlayer player, String string) {
-        return doesPlayerHaveUpgrade(player, getUpgradeFromName(string));
-    }
-    
-    public static IUpgrade getUpgradeFromName(String unlocalizedName) {
-        for (IUpgrade upgrade : UpgradeList.list) {
-            if (upgrade.getUnlocalizedName().equals(unlocalizedName)) {
-                return upgrade;
-            }
-        }
-        
-        for (IUpgrade upgrade : UpgradeList.list) {
-            if (upgrade.getUnlocalizedName().equals("upgrade.chbachman." + StringHelper.camelCase(unlocalizedName).replace(" ", "") + ".name")) {
-                return upgrade;
-            }
-        }
-        
-        return null;
     }
     
     public static void removeUpgrade(ItemStack container, IUpgrade upgrade) {
@@ -96,27 +94,10 @@ public class UpgradeUtil {
         
     }
     
-    public static List<String> getDependencyList(IUpgrade upgrade) {
-        List<String> list = new ArrayList<String>();
-        list.add(upgrade.getUnlocalizedName());
-        return list;
-    }
-    
-    public static List<String> getDependencyList(String upgrade) {
-        List<String> list = new ArrayList<String>();
+    public static List<IUpgrade> getDependencyList(IUpgrade upgrade) {
+        List<IUpgrade> list = new ArrayList<IUpgrade>();
         list.add(upgrade);
         return list;
-    }
-    
-    public static boolean doesNBTListContainUpgrade(NBTUpgradeList list, IUpgrade upgrade) {
-        
-        for (IUpgrade up : list) {
-            if (up.getId() == upgrade.getId()) {
-                return true;
-            }
-        }
-        
-        return false;
     }
     
     public static boolean doesItemStackContainUpgrade(ItemStack stack, IUpgrade upgrade) {
@@ -128,12 +109,7 @@ public class UpgradeUtil {
         
         NBTUpgradeList list = NBTHelper.getNBTUpgradeList(stack.stackTagCompound);
         
-        return doesNBTListContainUpgrade(list, upgrade);
-    }
-    
-    public static boolean doesItemStackContainUpgrade(ItemStack stack, String name) {
-        
-        return doesItemStackContainUpgrade(stack, getUpgradeFromName(name));
+        return list.contains(upgrade);
     }
     
 }

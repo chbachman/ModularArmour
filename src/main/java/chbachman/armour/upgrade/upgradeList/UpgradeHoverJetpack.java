@@ -6,6 +6,8 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import chbachman.api.Upgrade;
 import chbachman.armour.reference.ArmourSlot;
+import chbachman.armour.register.Vanilla;
+import chbachman.armour.util.EnergyUtil;
 import chbachman.armour.util.UpgradeUtil;
 
 public class UpgradeHoverJetpack extends Upgrade {
@@ -20,15 +22,17 @@ public class UpgradeHoverJetpack extends Upgrade {
     }
     
     @Override
-    public void onEquip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
-        player.capabilities.allowFlying = true;
-        player.sendPlayerAbilities();
-    }
-    
-    @Override
     public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
         
-        if (!UpgradeUtil.doesPlayerHaveUpgrade(player, "CalfShields") && player.capabilities.isFlying) {
+    	if(EnergyUtil.getEnergyStored(stack) != 0){
+    		setFlying(player, true);
+    	}
+    	
+    	if(EnergyUtil.getEnergyStored(stack) == 0){
+    		setFlying(player, false);
+    	}
+    	
+        if (!UpgradeUtil.doesPlayerHaveUpgrade(player, Vanilla.calfShields) && player.capabilities.isFlying) {
             player.attackEntityFrom(DamageSource.onFire, 4F);
         }
         
@@ -41,16 +45,18 @@ public class UpgradeHoverJetpack extends Upgrade {
     
     @Override
     public void onDequip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
-        player.capabilities.allowFlying = false;
-        player.capabilities.isFlying = false;
-        player.sendPlayerAbilities();
+        setFlying(player, false);
     }
     
-    @Override
-    public void onNoEnergy(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
-        player.capabilities.allowFlying = false;
-        player.capabilities.isFlying = false;
-        player.sendPlayerAbilities();
+    private void setFlying(EntityPlayer player, boolean bool){
+    	if(bool){
+    		player.capabilities.allowFlying = true;
+            player.sendPlayerAbilities();
+    	}else{
+    		player.capabilities.allowFlying = false;
+            player.capabilities.isFlying = false;
+            player.sendPlayerAbilities();
+    	}
     }
     
 }

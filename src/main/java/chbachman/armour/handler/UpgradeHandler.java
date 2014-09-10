@@ -72,14 +72,12 @@ public class UpgradeHandler {
             return true;
         }
         
-        List<String> dependencies = iUpgrade.getDependencies();
+        List<IUpgrade> dependencies = iUpgrade.getDependencies();
         
-        for (String dependency : dependencies) {
+        for (IUpgrade dependency : dependencies) {
             if (!UpgradeUtil.doesItemStackContainUpgrade(stack, dependency)) {
                 
-                IUpgrade up = UpgradeUtil.getUpgradeFromName(dependency);
-                
-                throw new UpgradeException(String.format("This upgrade needs the %s upgrade to work", up.getName()), iUpgrade);
+                throw new UpgradeException(String.format("This upgrade needs the %s upgrade to work", dependency.getName()), iUpgrade);
             }
         }
         

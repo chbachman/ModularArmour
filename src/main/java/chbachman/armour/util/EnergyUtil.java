@@ -13,4 +13,11 @@ public class EnergyUtil {
         return null;
     }
     
+    public static int getEnergyStored(ItemStack stack){
+    	if(EnergyHelper.isEnergyContainerItem(stack)){
+            return ((IEnergyContainerItem) stack.getItem()).getEnergyStored(stack);
+        }
+        return 0;
+    }
+    
 }

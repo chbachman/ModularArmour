@@ -119,15 +119,6 @@ public class ItemModularArmour extends ItemArmorAdv implements IEnergyContainerI
 			}
 		}
 
-		if (stack.stackTagCompound.getInteger("Energy") == 0) {
-			for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
-
-				if (upgrade != null) {
-					upgrade.onNoEnergy(world, player, stack, ArmourSlot.getArmourSlot(this.armorType));
-				}
-			}
-		}
-
 	}
 
 	@Override

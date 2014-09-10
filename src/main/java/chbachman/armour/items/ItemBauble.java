@@ -70,15 +70,6 @@ public class ItemBauble extends ItemEnergyContainer implements IBauble, IModular
 		}
 		this.extractEnergy(itemstack, energy, false);
 		
-		if (itemstack.stackTagCompound.getInteger("Energy") == 0) {
-            for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(itemstack.stackTagCompound)) {
-                
-                if (upgrade != null) {
-                    upgrade.onNoEnergy(player.worldObj, (EntityPlayer) player, itemstack, ArmourSlot.getArmourSlot(this.getSlot()));
-                }
-            }
-        }
-		
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })

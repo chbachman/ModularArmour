@@ -8,7 +8,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor.ArmorProperties;
-import chbachman.armour.crafting.Recipe;
 import chbachman.armour.reference.ArmourSlot;
 import chbachman.armour.upgrade.UpgradeList;
 import cofh.lib.util.helpers.StringHelper;
@@ -71,7 +70,29 @@ public abstract class Upgrade implements IArmourUpgrade , Comparable<Upgrade>{
         return this.getName();
     }
     
-    // Api for Upgrades here
+    @Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Upgrade))
+			return false;
+		Upgrade other = (Upgrade) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+
+	// Api for Upgrades here
     public boolean isCompatible(int slot) {
         return this.isCompatible(ArmourSlot.getArmourSlot(slot));
     }
@@ -88,7 +109,7 @@ public abstract class Upgrade implements IArmourUpgrade , Comparable<Upgrade>{
         return null;
     }
     
-    public List<String> getDependencies() {
+    public List<IUpgrade> getDependencies() {
         return null;
     }
     
@@ -105,10 +126,6 @@ public abstract class Upgrade implements IArmourUpgrade , Comparable<Upgrade>{
     }
     
     public void onDequip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
-        
-    }
-    
-    public void onNoEnergy(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
         
     }
     

@@ -65,15 +65,15 @@ public class ArmourGuiRecipe extends GuiBaseAdv {
         super.drawGuiContainerBackgroundLayer(f, x, y);
         
         if(this.container.recipe != null){
-            this.drawStringBounded(this.container.recipe.getRecipeOutput().getName(), 70, 225, 85, 0xFFFFF);
             
+        	this.drawStringBounded(this.container.recipe.getRecipeOutput().getName(), 70, 225, 65, 0xFFFFFF);
             String localized = StringHelper.localize(this.container.recipe.getRecipeOutput().getInformation());
             
             if(localized.equals(this.container.recipe.getRecipeOutput().getInformation())){
             	localized = StringHelper.localize("info.chbachman.noUpgrade");
             }
             
-            this.drawStringBounded(StringHelper.localize(localized), 159, 135, 146, 0xFFFFF);
+            this.drawStringBounded(StringHelper.localize(localized), 159, 135, 126, 0xFFFFFF);
         }
     }
     
