@@ -11,19 +11,7 @@ import chbachman.armour.reference.ArmourSlot;
  * @author chbachman
  *
  */
-public interface IUpgrade {
-
-	/**
-	 * Get the Localized Name of the Upgrade
-	 * @return Localized Name of the Upgrade
-	 */
-	String getName();
-	
-	/**
-	 * Gets the Unlocalized Name of the Upgrade
-	 * @return Unlocalized Name
-	 */
-	String getUnlocalizedName();
+public interface IUpgrade extends Comparable<IUpgrade>{
 
 	/**
 	 * Gets the unique id of the Upgrade, used for saving and loading from NBT.
@@ -32,24 +20,28 @@ public interface IUpgrade {
 	int getId();
 
 	/**
-	 * Gets the unlocalized information string
-	 * @return unlozalized information string
+	 * Gets the information string
+	 * @return information string
 	 */
 	String getInformation();
 	
 	/**
-	 * Can the upgrade be repeated, that is put on more than once. 
-	 * @return whether the upgrade can be repeatedly put on. 
+	 * Get the Localized Name of the Upgrade
+	 * @return Localized Name of the Upgrade
 	 */
-	boolean isRepeatable();
+	String getName();
 
 	/**
 	 * whether the upgrade is compatible with the given armour type. 
 	 * @param armorType
 	 * @return
 	 */
-	boolean isCompatible(int armorType);
+	boolean isCompatible(IModularItem item, ItemStack stack, int armorType);
 	
+	
+	boolean equals(Object obj);
+	
+	int hashCode();
 
 	/**
 	 * Gets the list of dependencies

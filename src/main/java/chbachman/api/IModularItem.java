@@ -3,7 +3,7 @@ package chbachman.api;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import chbachman.armour.objects.VariableInt;
+import chbachman.armour.reference.ArmourSlot;
 
 /**
  * This class has a lot around it that must be implemented. You must call every single method in the {@link IUpgrade} class when appropriate. 
@@ -14,14 +14,7 @@ import chbachman.armour.objects.VariableInt;
 public interface IModularItem{
 	
 	/**
-	 * This one is to let Upgrades edit some data. They pass in the name of the data, and you give them the {@link VariableInt} class.
-	 * @param name
-	 * @return VariableInt corresponding to the name, if no data is stored, null;
-	 */
-	public VariableInt getInt(String name);
-	
-	/**
-	 * Gets the slot that the armour contains. See {@link ArmourSlot} for details about the armour numebrs that chould be returned. 
+	 * Gets the slot that the armour contains. See {@link ArmourSlot} for details about the armour numbers that chould be returned. 
 	 * @return Slot
 	 */
 	public int getSlot();

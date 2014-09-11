@@ -25,24 +25,11 @@ public class UpgradeHandler {
             
         	IModularItem armour = (IModularItem) stack.getItem();
             
-            if (upgrade != null && checkContain(stack, upgrade) && upgrade.isCompatible(armour.getSlot()) && checkDependencies(stack, upgrade)) {
+            if (upgrade != null && checkContain(stack, upgrade) && upgrade.isCompatible(armour, stack, armour.getSlot()) && checkDependencies(stack, upgrade)) {
                 
                 upgrade.onUpgradeAddition(armour, stack);
                 
                 NBTUpgradeList list = NBTHelper.getNBTUpgradeList(stack.stackTagCompound);
-                
-                if (upgrade.isRepeatable()) {
-                    for (IUpgrade listUpgrade : list) {
-                        
-                        if (listUpgrade.getId() == upgrade.getId()) {
-                            
-                            //TODO: Fix this
-                            //compound.setInteger("amount", compound.getInteger("amount") + 1);
-                            
-                            return true;
-                        }
-                    }
-                }
                 
                 list.add(upgrade);
                 
@@ -55,11 +42,7 @@ public class UpgradeHandler {
     }
     
     public static boolean checkContain(ItemStack stack, IUpgrade upgrade) {
-        if (upgrade.isRepeatable()) {
-            return true;
-        } else {
-            return !UpgradeUtil.doesItemStackContainUpgrade(stack, upgrade);
-        }
+    	return !UpgradeUtil.doesItemStackContainUpgrade(stack, upgrade);
     }
     
     public static boolean checkDependencies(ItemStack stack, IUpgrade iUpgrade) {

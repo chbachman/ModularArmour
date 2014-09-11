@@ -5,6 +5,7 @@ import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.FoodStats;
 import net.minecraft.world.World;
+import chbachman.api.IModularItem;
 import chbachman.api.Upgrade;
 import chbachman.armour.objects.VariableInt;
 import chbachman.armour.reference.ArmourSlot;
@@ -18,8 +19,8 @@ public class UpgradeAutoFeeder extends Upgrade{
     }
 
     @Override
-    public boolean isCompatible(ArmourSlot slot) {
-        return slot == ArmourSlot.HELMET;
+    public boolean isCompatible(IModularItem item, ItemStack stack, int armourType) {
+        return armourType == ArmourSlot.HELMET.id;
     }
     
     @Override

@@ -44,7 +44,7 @@ public class ModularArmour extends BaseMod {
     @EventHandler
     public static void preInit(FMLPreInitializationEvent event) {
         config.setConfiguration(new Configuration(event.getSuggestedConfigurationFile()));
-        ItemRegister.INSTANCE.preInit();
+        ItemRegister.INSTANCE.preInit(event.getModConfigurationDirectory());
         ArmourPacket.initialize();
     }
     

@@ -16,12 +16,10 @@ import cofh.lib.util.helpers.StringHelper;
  * @author chbachman
  *
  */
-public abstract class Upgrade implements IArmourUpgrade , Comparable<Upgrade>{
+public abstract class Upgrade implements IArmourUpgrade{
     
     protected final int id;
     protected String name;
-    
-    public int amount = 1;
     
     public Upgrade(String name) {
         this.id = this.getNextAvailableId();
@@ -35,24 +33,15 @@ public abstract class Upgrade implements IArmourUpgrade , Comparable<Upgrade>{
         return UpgradeList.list.size();
     }
     
-    public String getName() {
-        
-        if(this.amount > 1){
-            return StringHelper.localize(this.getUnlocalizedName()) + "(" + this.amount + ")";
-        }
-        
-        return StringHelper.localize(this.getUnlocalizedName());
-    }
-    
     public String getInformation(){
-    	return this.getLocalizationString(this.name) + ".information";
+    	return StringHelper.localize(this.getLocalizationString() + ".information");
     }
     
-    public String getUnlocalizedName() {
-        return this.getLocalizationString(this.name) + ".name";
+    public String getName() {
+    	return StringHelper.localize(this.getLocalizationString() + ".name");
     }
     
-    protected String getLocalizationString(String name) {
+    protected String getLocalizationString() {
         return "upgrade.chbachman." + StringHelper.camelCase(name).replace(" ", "");
     }
     
@@ -61,13 +50,8 @@ public abstract class Upgrade implements IArmourUpgrade , Comparable<Upgrade>{
     }
     
     @Override
-    public int compareTo(Upgrade upgrade) {
+    public int compareTo(IUpgrade upgrade) {
         return this.getName().compareTo(upgrade.getName());
-    }
-    
-    @Override
-    public String toString() {
-        return this.getName();
     }
     
     @Override
@@ -93,12 +77,8 @@ public abstract class Upgrade implements IArmourUpgrade , Comparable<Upgrade>{
 	}
 
 	// Api for Upgrades here
-    public boolean isCompatible(int slot) {
-        return this.isCompatible(ArmourSlot.getArmourSlot(slot));
-    }
-    
-    public boolean isCompatible(ArmourSlot slot){
-    	return true;
+    public boolean isCompatible(IModularItem item, ItemStack stack, int armorType) {
+        return true;
     }
     
     public int getArmourDisplay() {
@@ -127,10 +107,6 @@ public abstract class Upgrade implements IArmourUpgrade , Comparable<Upgrade>{
     
     public void onDequip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
         
-    }
-    
-    public boolean isRepeatable() {
-        return false;
     }
     
 }

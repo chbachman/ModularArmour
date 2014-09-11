@@ -27,7 +27,7 @@ public class UpgradeList extends ArrayList<IUpgrade> {
     
     @Override
     public boolean add(IUpgrade upgrade) {
-        if (ModularArmour.config.get("Command Enabling", upgrade.getUnlocalizedName(), true)) {
+        if (ModularArmour.config.get("Command Enabling", upgrade.getName(), true)) {
             return super.add(upgrade);
         }
         

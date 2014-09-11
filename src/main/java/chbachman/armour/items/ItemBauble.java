@@ -1,17 +1,18 @@
 package chbachman.armour.items;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
+import chbachman.api.IConfigurableElectric;
 import chbachman.api.IModularItem;
 import chbachman.api.IUpgrade;
 import chbachman.armour.ModularArmour;
@@ -20,21 +21,18 @@ import chbachman.armour.objects.VariableInt;
 import chbachman.armour.reference.ArmourSlot;
 import chbachman.armour.util.NBTHelper;
 import cofh.api.energy.IEnergyContainerItem;
-import cofh.api.energy.ItemEnergyContainer;
 import cofh.core.util.CoreUtils;
 import cofh.lib.util.helpers.StringHelper;
 
-public class ItemBauble extends ItemEnergyContainer implements IBauble, IModularItem, IEnergyContainerItem{
+public class ItemBauble extends Item implements IBauble, IModularItem, IConfigurableElectric, IEnergyContainerItem{
 
-	private Map<String, VariableInt> intMap = new HashMap<String, VariableInt>();
-	
 	private BaubleType type;
-	
+
+	private VariableInt capacity = new VariableInt("capacity", 100);
+	private VariableInt maxTransfer = new VariableInt("maxTransfer", 100);
+	private VariableInt energyPerDamage = new VariableInt("energyPerDamage", 100);
+
 	public ItemBauble(){
-		super();
-		intMap.put("Capacity", new VariableInt("Capacity", 100));
-		intMap.put("MaxTransfer", new VariableInt("MaxTransfer", 10));
-		intMap.put("EnergyPerDamage", new VariableInt("EnergyPerDamage", 10));
 		setCreativeTab(CreativeTabs.tabTools);
 	}
 
@@ -42,7 +40,7 @@ public class ItemBauble extends ItemEnergyContainer implements IBauble, IModular
 		this.type = type;
 		return this;
 	}
-	
+
 	@Override
 	public BaubleType getBaubleType(ItemStack itemstack) {
 		return this.type;
@@ -50,8 +48,8 @@ public class ItemBauble extends ItemEnergyContainer implements IBauble, IModular
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
-		
-		
+
+
 		if (CoreUtils.isFakePlayer(player)) {
 			return stack;
 		}
@@ -69,31 +67,31 @@ public class ItemBauble extends ItemEnergyContainer implements IBauble, IModular
 			energy += upgrade.onTick(player.worldObj, (EntityPlayer) player, itemstack, ArmourSlot.getArmourSlot(this.getSlot()));
 		}
 		this.extractEnergy(itemstack, energy, false);
-		
+
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-    @Override
-    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean check) {
-        NBTHelper.createDefaultStackTag(stack);
-        if (!StringHelper.isShiftKeyDown()) {
-            list.add(StringHelper.shiftForDetails());
-        } else {
-            
-            list.add(StringHelper.localize("info.cofh.charge") + ": " + stack.stackTagCompound.getInteger("Energy") + " / " + this.intMap.get("Capacity").get(stack) + " RF");
-        }
-        
-        if (!StringHelper.isControlKeyDown() && NBTHelper.getNBTUpgradeList(stack.stackTagCompound).size() != 0) {
-            list.add(StringHelper.LIGHT_GRAY + StringHelper.localize("info.cofh.hold") + " " + StringHelper.YELLOW + StringHelper.ITALIC + StringHelper.localize("info.chbachman.control") + " " + StringHelper.END + StringHelper.LIGHT_GRAY + StringHelper.localize("info.chbachman.upgradeList") + StringHelper.END);
-        } else if (NBTHelper.getNBTUpgradeList(stack.stackTagCompound).size() != 0) {
-            for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
-                
-                list.add(upgrade.getName());
-                
-            }
-        }
-    }
-	
+	@Override
+	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean check) {
+		NBTHelper.createDefaultStackTag(stack);
+		if (!StringHelper.isShiftKeyDown()) {
+			list.add(StringHelper.shiftForDetails());
+		} else {
+
+			list.add(StringHelper.localize("info.cofh.charge") + ": " + stack.stackTagCompound.getInteger("Energy") + " / " + this.capacity.get(stack) + " RF");
+		}
+
+		if (!StringHelper.isControlKeyDown() && NBTHelper.getNBTUpgradeList(stack.stackTagCompound).size() != 0) {
+			list.add(StringHelper.LIGHT_GRAY + StringHelper.localize("info.cofh.hold") + " " + StringHelper.YELLOW + StringHelper.ITALIC + StringHelper.localize("info.chbachman.control") + " " + StringHelper.END + StringHelper.LIGHT_GRAY + StringHelper.localize("info.chbachman.upgradeList") + StringHelper.END);
+		} else if (NBTHelper.getNBTUpgradeList(stack.stackTagCompound).size() != 0) {
+			for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
+
+				list.add(upgrade.getName());
+
+			}
+		}
+	}
+
 	@Override
 	public EnumRarity getRarity(ItemStack par1ItemStack) {
 		return EnumRarity.rare;
@@ -110,7 +108,7 @@ public class ItemBauble extends ItemEnergyContainer implements IBauble, IModular
 		if (!player.worldObj.isRemote) {
 			player.worldObj.playSoundAtEntity(player, "random.orb", 0.1F, 1.3f);
 		}
-		
+
 		for(IUpgrade upgrade : NBTHelper.getNBTUpgradeList(itemstack)){
 			upgrade.onEquip(player.worldObj, (EntityPlayer) player, itemstack, ArmourSlot.getArmourSlot(this.getSlot()));
 		}
@@ -122,20 +120,15 @@ public class ItemBauble extends ItemEnergyContainer implements IBauble, IModular
 			upgrade.onDequip(player.worldObj, (EntityPlayer) player, itemstack, ArmourSlot.getArmourSlot(this.getSlot()));
 		}
 	}
-	
+
 	@Override
 	public boolean canEquip(ItemStack itemstack, EntityLivingBase player) {
 		return true;
 	}
-	
+
 	@Override
 	public boolean canUnequip(ItemStack itemstack, EntityLivingBase player) {
 		return true;
-	}
-
-	@Override
-	public VariableInt getInt(String name) {
-		return this.intMap.get(name);
 	}
 
 	@Override
@@ -145,7 +138,90 @@ public class ItemBauble extends ItemEnergyContainer implements IBauble, IModular
 
 	@Override
 	public void onArmorDequip(World worldObj, EntityPlayer player, ItemStack stack) {
-		
+
+	}
+
+	//IConfigurableElectric
+	@Override
+	public int getCapacity(ItemStack stack) {
+		return capacity.get(stack);
+	}
+
+	@Override
+	public void setCapacity(ItemStack stack, int amount) {
+		capacity.set(stack, amount);
+	}
+
+	@Override
+	public int getEnergyPerDamage(ItemStack stack) {
+		return energyPerDamage.get(stack);
+	}
+
+	@Override
+	public void setEnergyPerDamage(ItemStack stack, int amount) {
+		energyPerDamage.set(stack, amount);
+
+	}
+
+	@Override
+	public int getMaxTransfer(ItemStack stack) {
+		return maxTransfer.get(stack);
+	}
+
+	@Override
+	public void setMaxTransfer(ItemStack stack, int amount) {
+		maxTransfer.set(stack, amount);
+
+	}
+
+	//IEnergyContainerItem
+
+
+
+	public int receiveEnergy(ItemStack stack, int amount, boolean simulate)
+	{
+		if (stack.stackTagCompound == null) {
+			stack.stackTagCompound = new NBTTagCompound();
+		}
+		int i = stack.stackTagCompound.getInteger("Energy");
+		int j = Math.min(this.capacity.get(stack) - i, Math.min(this.maxTransfer.get(stack), amount));
+
+		if (!(simulate)) {
+			i += j;
+			stack.stackTagCompound.setInteger("Energy", i);
+		}
+		return j;
+	}
+
+
+	public int extractEnergy(ItemStack stack, int amount, boolean simulate)
+	{
+		if ((stack.stackTagCompound == null) || (!(stack.stackTagCompound.hasKey("Energy")))) {
+			return 0;
+		}
+		int i = stack.stackTagCompound.getInteger("Energy");
+		int j = Math.min(i, Math.min(this.maxTransfer.get(stack), amount));
+
+		if (!(simulate)) {
+			i -= j;
+			stack.stackTagCompound.setInteger("Energy", i);
+		}
+		return j;
+	}
+
+
+	public int getEnergyStored(ItemStack stack)
+	{
+		if ((stack.stackTagCompound == null) || (!(stack.stackTagCompound.hasKey("Energy")))) {
+			return 0;
+		}
+		return stack.stackTagCompound.getInteger("Energy");
+	}
+
+
+	public int getMaxEnergyStored(ItemStack stack)
+	{
+		return this.capacity.get(stack);
 	}
 
 

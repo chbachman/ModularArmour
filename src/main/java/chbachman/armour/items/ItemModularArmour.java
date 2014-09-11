@@ -1,9 +1,11 @@
 package chbachman.armour.items;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import thaumcraft.api.IGoggles;
+import thaumcraft.api.IVisDiscountGear;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.nodes.IRevealer;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -18,25 +20,19 @@ import chbachman.api.IModularItem;
 import chbachman.api.IUpgrade;
 import chbachman.armour.ModularArmour;
 import chbachman.armour.gui.GuiHandler;
-import chbachman.armour.objects.VariableInt;
 import chbachman.armour.reference.ArmourSlot;
+import chbachman.armour.register.Thaumcraft;
 import chbachman.armour.util.NBTHelper;
-import cofh.api.energy.IEnergyContainerItem;
+import chbachman.armour.util.NBTUpgradeList;
 import cofh.api.item.IInventoryContainerItem;
 import cofh.core.item.ItemArmorAdv;
 import cofh.core.util.CoreUtils;
-import cofh.lib.util.helpers.EnergyHelper;
 import cofh.lib.util.helpers.StringHelper;
 
-public class ItemModularArmour extends ItemArmorAdv implements IEnergyContainerItem, ISpecialArmor, IInventoryContainerItem, IModularItem{
-
-	public Map<String, VariableInt> intMap = new HashMap<String, VariableInt>();
+public abstract class ItemModularArmour extends ItemArmorAdv implements ISpecialArmor, IInventoryContainerItem, IModularItem, IGoggles, IVisDiscountGear, IRevealer{
 
 	public ItemModularArmour(ArmorMaterial material, int type) {
 		super(material, type);
-		intMap.put("Capacity", new VariableInt("Capacity", 100));
-		intMap.put("MaxTransfer", new VariableInt("MaxTransfer", 10));
-		intMap.put("EnergyPerDamage", new VariableInt("EnergyPerDamage", 10));
 		this.setCreativeTab(CreativeTabs.tabCombat);
 	}
 
@@ -46,12 +42,6 @@ public class ItemModularArmour extends ItemArmorAdv implements IEnergyContainerI
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean check) {
 		NBTHelper.createDefaultStackTag(stack);
-		if (!StringHelper.isShiftKeyDown()) {
-			list.add(StringHelper.shiftForDetails());
-		} else {
-
-			list.add(StringHelper.localize("info.cofh.charge") + ": " + stack.stackTagCompound.getInteger("Energy") + " / " + this.intMap.get("Capacity").get(stack) + " RF");
-		}
 
 		if (!StringHelper.isControlKeyDown() && NBTHelper.getNBTUpgradeList(stack.stackTagCompound).size() != 0) {
 			list.add(StringHelper.LIGHT_GRAY + StringHelper.localize("info.cofh.hold") + " " + StringHelper.YELLOW + StringHelper.ITALIC + StringHelper.localize("info.chbachman.control") + " " + StringHelper.END + StringHelper.LIGHT_GRAY + StringHelper.localize("info.chbachman.upgradeList") + StringHelper.END);
@@ -67,7 +57,7 @@ public class ItemModularArmour extends ItemArmorAdv implements IEnergyContainerI
 	@Override
 	public int getDisplayDamage(ItemStack stack) {
 		NBTHelper.createDefaultStackTag(stack);
-		return 1 + this.intMap.get("Capacity").get(stack) - stack.stackTagCompound.getInteger("Energy");
+		return 1 + this.getMaximumDamage(stack) - this.getCurrentDamage(stack);
 	}
 	
 	@Override
@@ -78,7 +68,7 @@ public class ItemModularArmour extends ItemArmorAdv implements IEnergyContainerI
 	@Override
 	public int getMaxDamage(ItemStack stack) {
 
-		return 1 + this.intMap.get("Capacity").get(stack);
+		return 1 + this.getMaximumDamage(stack);
 	}
 	
 	@Override
@@ -106,7 +96,7 @@ public class ItemModularArmour extends ItemArmorAdv implements IEnergyContainerI
 
 		}
 
-		this.extractEnergy(stack, energy, false);
+		this.damageArmour(stack, new DamageSource("requirement"), energy);
 
 		if (!stack.stackTagCompound.getBoolean("HasPutOn")) {
 			stack.stackTagCompound.setBoolean("HasPutOn", true);
@@ -147,14 +137,14 @@ public class ItemModularArmour extends ItemArmorAdv implements IEnergyContainerI
 	//ISpecialArmor
 	@Override
 	public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot) {
-		this.extractEnergy(stack, damage * this.intMap.get("EnergyPerDamage").get(stack), false);
+		this.damageArmour(stack, source, damage);
 	}
 
 	@Override
-	public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {
-		if (this.getEnergyStored(armor) >= this.intMap.get("EnergyPerDamage").get(armor)) {
+	public int getArmorDisplay(EntityPlayer player, ItemStack stack, int slot) {
+		if (this.shouldShowArmour(stack)) {
 			int sum = 0;
-			for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(armor.stackTagCompound)) {
+			for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
 				sum += upgrade instanceof IArmourUpgrade ? ((IArmourUpgrade) upgrade).getArmourDisplay() : 0;
 			}
 			return sum;
@@ -164,15 +154,15 @@ public class ItemModularArmour extends ItemArmorAdv implements IEnergyContainerI
 	}
 
 	@Override
-	public ArmorProperties getProperties(EntityLivingBase player, ItemStack armour, DamageSource source, double damage, int slot) {
+	public ArmorProperties getProperties(EntityLivingBase player, ItemStack stack, DamageSource source, double damage, int slot) {
 
 		ArmorProperties output = new ArmorProperties(0, 0, 0);
 
-		for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(armour.stackTagCompound)) {
+		for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
 			ArmorProperties prop = null;
 			
 			if(upgrade instanceof IArmourUpgrade){
-				prop = ((IArmourUpgrade) upgrade).getProperties(player, armour, source, damage, ArmourSlot.getArmourSlot(slot));
+				prop = ((IArmourUpgrade) upgrade).getProperties(player, stack, source, damage, ArmourSlot.getArmourSlot(slot));
 			}
 
 			if (prop == null) {
@@ -187,54 +177,17 @@ public class ItemModularArmour extends ItemArmorAdv implements IEnergyContainerI
 
 		}
 
-		return new ArmorProperties(output.Priority, output.AbsorbRatio, this.getEnergyStored(armour) / this.intMap.get("EnergyPerDamage").get(armour));
+		return new ArmorProperties(output.Priority, output.AbsorbRatio, this.getMaximumDamage(stack));
 	}
 	
-	//IEnergyContainerItem
-	@Override
-	public int extractEnergy(ItemStack stack, int maxExtract, boolean simulate) {
-
-		if (stack.stackTagCompound == null) {
-			EnergyHelper.setDefaultEnergyTag(stack, 0);
-		}
-		int stored = stack.stackTagCompound.getInteger("Energy");
-		int extract = Math.min(maxExtract, stored);
-
-		if (!simulate) {
-			stored -= extract;
-			stack.stackTagCompound.setInteger("Energy", stored);
-		}
-		return extract;
-	}
+	public abstract void damageArmour(ItemStack stack, DamageSource source, int amount);
 	
-	@Override
-	public int getEnergyStored(ItemStack stack) {
-
-		if (stack.stackTagCompound == null) {
-			EnergyHelper.setDefaultEnergyTag(stack, 0);
-		}
-		return stack.stackTagCompound.getInteger("Energy");
-	}
-
-	@Override
-	public int getMaxEnergyStored(ItemStack stack) {
-		return this.intMap.get("Capacity").get(stack);
-	}
-
-	@Override
-	public int receiveEnergy(ItemStack stack, int maxReceive, boolean simulate) {
-
-		if (stack.stackTagCompound == null) {
-			EnergyHelper.setDefaultEnergyTag(stack, 0);
-		}
-		int stored = stack.stackTagCompound.getInteger("Energy");
-		int receive = Math.min(maxReceive, Math.min(this.intMap.get("Capacity").get(stack) - stored, this.intMap.get("EnergyPerDamage").get(stack)));
-
-		if (!simulate) {
-			stored += receive;
-			stack.stackTagCompound.setInteger("Energy", stored);
-		}
-		return receive;
+	public abstract int getMaximumDamage(ItemStack stack);
+	
+	public abstract int getCurrentDamage(ItemStack stack);
+	
+	public boolean shouldShowArmour(ItemStack stack){
+		return true;
 	}
 	
 	//IInventoryContainerItem
@@ -244,11 +197,6 @@ public class ItemModularArmour extends ItemArmorAdv implements IEnergyContainerI
 	}
 	
 	//IModularItem
-	@Override
-	public VariableInt getInt(String name) {
-		return this.intMap.get(name);
-	}
-
 	@Override
 	public int getSlot() {
 		return this.armorType;
@@ -267,6 +215,48 @@ public class ItemModularArmour extends ItemArmorAdv implements IEnergyContainerI
 		for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
 			upgrade.onDequip(world, player, stack, ArmourSlot.getArmourSlot(this.armorType));
 		}
+	}
+	
+	//IRevealer
+	@Override
+	public boolean showNodes(ItemStack itemstack, EntityLivingBase player) {
+		NBTUpgradeList list = NBTHelper.getNBTUpgradeList(itemstack);
+
+		return list.contains(Thaumcraft.gogglesOfRevealing);
+	}
+
+	//IVisDiscountGear
+	@Override
+	public int getVisDiscount(ItemStack stack, EntityPlayer player, Aspect aspect) {
+		NBTUpgradeList list = NBTHelper.getNBTUpgradeList(stack);
+		
+		if(list.contains(Thaumcraft.visDiscount)){
+			if(stack.getItem() instanceof IModularItem){
+				IModularItem armour = (IModularItem) stack.getItem();
+				
+				switch(ArmourSlot.getArmourSlot(armour.getSlot())){
+				case BELT: return 4;
+				case BOOTS: return 2;
+				case CHESTPLATE: return 5;
+				case HELMET: return 3;
+				case LEGS: return 4;
+				case PENDANT: return 3;
+				case RING: return 1;
+				case UNKNOWN: return 0;
+				default: return 0;
+				}
+			}
+		}
+		
+		return 0;
+	}
+
+	//IGoggles
+	@Override
+	public boolean showIngamePopups(ItemStack itemstack, EntityLivingBase player) {
+		NBTUpgradeList list = NBTHelper.getNBTUpgradeList(itemstack);
+
+		return list.contains(Thaumcraft.gogglesOfRevealing);
 	}
 
 }

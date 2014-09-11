@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
+import chbachman.api.IModularItem;
 import chbachman.api.Upgrade;
 import chbachman.armour.reference.ArmourSlot;
 import chbachman.armour.register.Vanilla;
@@ -17,8 +18,8 @@ public class UpgradeHoverJetpack extends Upgrade {
     }
     
     @Override
-    public boolean isCompatible(ArmourSlot slot) {
-        return slot == ArmourSlot.CHESTPLATE;
+    public boolean isCompatible(IModularItem item, ItemStack stack, int armourType) {
+        return armourType == ArmourSlot.CHESTPLATE.id;
     }
     
     @Override

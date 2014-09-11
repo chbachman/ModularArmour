@@ -21,7 +21,7 @@ public abstract class KeybindUpgrade extends Upgrade implements IKeyBinding {
     
     @Override
     public String getUUID() {
-        return "modularArmour." + this.getUnlocalizedName();
+        return this.getLocalizationString();
     }
     
     @Override
@@ -30,7 +30,7 @@ public abstract class KeybindUpgrade extends Upgrade implements IKeyBinding {
     }
     
     public String getKeyName(){
-        return StringHelper.localize(this.getUnlocalizedName() + ".key");
+        return StringHelper.localize(this.getLocalizationString() + ".key");
     }
     
 }
