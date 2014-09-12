@@ -3,27 +3,41 @@ item.chbachman.armour.helmetModular.name=模块化头盔
 item.chbachman.armour.chestplateModular.name=模块化胸甲
 item.chbachman.armour.leggingsModular.name=模块化护腿
 item.chbachman.armour.bootsModular.name=模块化鞋子
+item.chbachman.armour.itemRing.0.name=模块化指环
+item.chbachman.armour.itemPendant.0.name=模块化护身符
+item.chbachman.armour.itemBelt.0.name=模块化腰带
 
-item.modulararmour.material.heatedElectrum.name=加热的金银合金
-item.modulararmour.material.temperedElectrum.name=锻炼的金银合金
+item.modulararmour.material.heatedElectrum.name=炽热的金银合金
+item.modulararmour.material.temperedElectrum.name=冷却的金银合金
 
 
 info.chbachman.control=控制
 info.chbachman.upgradeList=升级模块列表
 info.chbachman.strong=强力
 
+info.chbachman.noUpgrade=这个升级组件没有介绍!
+
 upgrade.chbachman.jetpack.name=飞行背包
 upgrade.chbachman.calfShields.name=小腿护盾
-upgrade.chbachman.potion.name=药水
-upgrade.chbachman.cobblestoneUpgrade.name=低级能量存储
-upgrade.chbachman.ironUpgrade.name=中级能源存储
-upgrade.chbachman.goldUpgrade.name=高级能量存储
-upgrade.chbachman.diamondUpgrade.name=超级能量存储
-
+upgrade.chbachman.potion.name=药水组件
 upgrade.chbachman.fallDamage.name=下落减震器
 upgrade.chbachman.solar.name=太阳能头盔
-upgrade.chbachman.feeder.name=自动补食
-upgrade.chbachman.crafting.name=便携合成台
-upgrade.chbachman.stepAssist.name=爬坡辅助
-upgrade.chbachman.speed.name=移速增加
-upgrade.chbachman.ironPlating.name=铁护板
+upgrade.chbachman.feeder.name=自动补食器
+upgrade.chbachman.stepAssist.name=步行辅助器
+upgrade.chbachman.speed.name=加速组件
+upgrade.chbachman.visDiscount.name=灵气减免组件
+upgrade.chbachman.gogglesOfRevealing.name=揭示护目镜升级组件
+
+
+upgrade.chbachman.jetpack.information=让你像创造模式那样自由飞行. 建议配合小腿护盾组件使用
+upgrade.chbachman.calfShields.information=使用飞行背包十分容易. 但没了小腿护盾一切都是白搭
+upgrade.chbachman.potion.information=让你的胸甲给予你药水效果. 这个升级组件本身无任何用处, 只在安装其它组件后才会生效
+upgrade.chbachman.fallDamage.information=你可曾听说过下落减震器? 这就是它
+upgrade.chbachman.solar.information=太阳能头盔. 为你的装备提供能量
+upgrade.chbachman.feeder.information=它能从你的背包中拿取食物, 储存起来, 当你饥饿度减少时就能自动为你补充
+upgrade.chbachman.crafting.information=让你随时随地都能进行合成
+upgrade.chbachman.stepAssist.information=增强腿部的活动能力, 能让你轻易的走上1格高的方块
+upgrade.chbachman.speed.information=使用活塞的力量加快你的速度. 别问我它的工作原理是什么
+upgrade.chbachman.ironPlating.information=给予你铁制装备的保护
+upgrade.chbachman.visDiscount.information=让你更容易的制作法杖
+upgrade.chbachman.gogglesOfRevealing.information=天哪, 你是怎么将一副护目镜安装上头盔的?
