@@ -19,6 +19,7 @@ import chbachman.armour.reference.ArmourSlot;
 import chbachman.armour.reference.Reference;
 import chbachman.armour.upgrade.upgradeList.UpgradeAutoFeeder;
 import chbachman.armour.upgrade.upgradeList.UpgradeBasic;
+import chbachman.armour.upgrade.upgradeList.UpgradeEnergy;
 import chbachman.armour.upgrade.upgradeList.UpgradeFallDamage;
 import chbachman.armour.upgrade.upgradeList.UpgradeHoverJetpack;
 import chbachman.armour.upgrade.upgradeList.UpgradeJumpBoost;
@@ -69,6 +70,10 @@ public class Vanilla extends Module{
 	public static IUpgrade stepAssist;
 	public static IUpgrade autoFeeder;
 	public static IUpgrade jumpBoost;
+	public static IUpgrade leadstoneEnergy;
+	public static IUpgrade hardenedEnergy;
+	public static IUpgrade reinforcedEnergy;
+	public static IUpgrade resonantEnergy;
 
 	public static final String[] TEXTURE_MODULAR = { Reference.ARMOUR_LOATION + "Modular_1.png", Reference.ARMOUR_LOATION + "Modular_2.png" };
 
@@ -89,8 +94,6 @@ public class Vanilla extends Module{
 		GameRegistry.registerItem(leggingsModular, "leggingsModular");
 		GameRegistry.registerItem(bootsModular, "bootsModular");
 
-		registerUpgrades();
-
 	}
 
 	public final void registerUpgrades(){
@@ -103,6 +106,11 @@ public class Vanilla extends Module{
 		stepAssist = new UpgradeStepAssist();
 		autoFeeder = new UpgradeAutoFeeder();
 		jumpBoost = new UpgradeJumpBoost();
+		
+		leadstoneEnergy = new UpgradeEnergy("leadstone", 80, 400000);
+		hardenedEnergy = new UpgradeEnergy("hardened", 400, 2000000);
+		reinforcedEnergy = new UpgradeEnergy("reinforced", 2000, 10000000);
+		resonantEnergy = new UpgradeEnergy("resonant", 10000, 50000000);
 	}
 
 	public final void init() {
@@ -116,8 +124,8 @@ public class Vanilla extends Module{
 		stackBootsModular = NBTHelper.createDefaultStackTag(new ItemStack(bootsModular));
 
 		if(Loader.isModLoaded("ThermalFoundation")){
-			ThermalExpansionHelper.addTransposerFill(4000, GameRegistry.findItemStack("ThermalFoundation", "ingotElectrum", 1), heatedElectrum, new FluidStack(FluidRegistry.getFluid("pyrotheum"), 1000), false);
-			ThermalExpansionHelper.addTransposerFill(4000, heatedElectrum, temperedElectrum, new FluidStack(FluidRegistry.getFluid("cryotheum"), 1000), false);
+			ThermalExpansionHelper.addTransposerFill(4000, GameRegistry.findItemStack("ThermalFoundation", "ingotElectrum", 1), heatedElectrum, new FluidStack(FluidRegistry.getFluid("pyrotheum"), 500), false);
+			ThermalExpansionHelper.addTransposerFill(4000, heatedElectrum, temperedElectrum, new FluidStack(FluidRegistry.getFluid("cryotheum"), 500), false);
 		}
 	}
 
@@ -131,6 +139,10 @@ public class Vanilla extends Module{
 		Recipe.addRecipe(new Recipe(speed, "pip", "i i", "i i", 'i', "ingotIron", 'p', Blocks.piston));
 		Recipe.addRecipe(new Recipe(stepAssist, "pip", "i i", "   ", 'i', "ingotIron", 'p', Blocks.piston));
 		Recipe.addRecipe(new Recipe(jumpBoost, "i i", "i i", "p p", 'i', "ingotIron", 'p', Blocks.piston));
+		Recipe.addRecipe(new Recipe(leadstoneEnergy, "iri", "rbr", "iri", 'i', "ingotIron", 'r', "dustRedstone", 'b', "blockIron"));
+		Recipe.addRecipe(new Recipe(hardenedEnergy, "lrl", "rbr", "lrl", 'l', "gemLapis", 'r', "dustRedstone", 'b', "blockLapis"));
+		Recipe.addRecipe(new Recipe(reinforcedEnergy, "grg", "rbr", "grg", 'g', "ingotGold", 'r', "dustRedstone", 'b', "blockGold"));
+		Recipe.addRecipe(new Recipe(resonantEnergy, "drd", "rbr", "drd", 'd', "gemDiamond", 'r', "dustRedstone", 'b', "blockDiamond"));
 	}
 
 	public final void postInit() {

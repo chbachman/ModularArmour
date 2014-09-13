@@ -1,6 +1,7 @@
 package chbachman.armour.upgrade.upgradeList;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import chbachman.api.Upgrade;
 import chbachman.armour.util.UpgradeUtil;
@@ -10,6 +11,7 @@ public class UpgradeJumpBoost extends Upgrade {
 
 	public UpgradeJumpBoost() {
 		super("jumpBoost");
+		MinecraftForge.EVENT_BUS.register(this);
 		
 	}
 	
@@ -19,7 +21,8 @@ public class UpgradeJumpBoost extends Upgrade {
 			EntityPlayer player = (EntityPlayer) event.entityLiving;
 			
 			if(UpgradeUtil.doesPlayerHaveUpgrade(player, this)){
-				player.motionY += 2;
+				player.motionY += .3;
+				
 			}
 		}
 	}

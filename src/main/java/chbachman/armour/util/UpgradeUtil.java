@@ -8,7 +8,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import baubles.api.BaublesApi;
-import baubles.api.IBauble;
 import chbachman.api.IModularItem;
 import chbachman.api.IUpgrade;
 import chbachman.armour.handler.UpgradeHandler;
@@ -21,18 +20,9 @@ public class UpgradeUtil {
         ItemStack[] armourArray = player.inventory.armorInventory;
         
         for (ItemStack armour : armourArray) {
-            
-            if (armour != null) {
-                if (armour.getItem() instanceof IModularItem) {
-                    
-                    for (IUpgrade armourUpgrade : NBTHelper.getNBTUpgradeList(armour.stackTagCompound)) {
-                        
-                        if (upgrade.getId() == armourUpgrade.getId()) {
-                            return true;
-                        }
-                    }
-                }
-            }
+        	if(doesItemStackContainUpgrade(armour, upgrade)){
+        		return true;
+        	}
             
         }
         
@@ -42,12 +32,8 @@ public class UpgradeUtil {
         	for(int i = 0; i < inventory.getSizeInventory(); i++){
         		ItemStack bauble = inventory.getStackInSlot(i);
         		
-        		if(bauble != null && bauble.getItem() instanceof IBauble){
-        			for(IUpgrade armourUpgrade : NBTHelper.getNBTUpgradeList(bauble)){
-        				if(armourUpgrade.getId() == upgrade.getId()){
-        					return true;
-        				}
-        			}
+        		if(doesItemStackContainUpgrade(bauble, upgrade)){
+        			return true;
         		}
         	}
         }
@@ -101,11 +87,12 @@ public class UpgradeUtil {
     }
     
     public static boolean doesItemStackContainUpgrade(ItemStack stack, IUpgrade upgrade) {
-        
-        if (stack.stackTagCompound == null) {
-            NBTHelper.createDefaultStackTag(stack);
-            return false;
-        }
+    	
+    	if(stack == null || upgrade == null){
+    		return false;
+    	}
+    	
+        NBTHelper.createDefaultStackTag(stack);
         
         NBTUpgradeList list = NBTHelper.getNBTUpgradeList(stack.stackTagCompound);
         

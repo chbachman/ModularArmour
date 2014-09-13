@@ -5,12 +5,13 @@ import java.util.List;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
+import chbachman.api.IConfigurableElectric;
 import chbachman.armour.objects.VariableInt;
 import chbachman.armour.util.NBTHelper;
 import cofh.api.energy.IEnergyContainerItem;
 import cofh.lib.util.helpers.StringHelper;
 
-public class ItemModularArmourElectric extends ItemModularArmour implements IEnergyContainerItem{
+public class ItemModularArmourElectric extends ItemModularArmour implements IEnergyContainerItem, IConfigurableElectric{
 	
 	private VariableInt capacity = new VariableInt("capacity", 100);
 	private VariableInt maxTransfer = new VariableInt("maxTransfer", 100);
@@ -83,10 +84,42 @@ public class ItemModularArmourElectric extends ItemModularArmour implements IEne
 	public int getMaximumDamage(ItemStack stack) {
 		return this.capacity.get(stack);
 	}
-
+	
 	@Override
 	public int getCurrentDamage(ItemStack stack) {
 		return this.getEnergyStored(stack);
+	}
+	
+	//IConfigurableElectric
+
+	@Override
+	public int getCapacity(ItemStack stack) {
+		return this.capacity.get(stack);
+	}
+
+	@Override
+	public void setCapacity(ItemStack stack, int amount) {
+		this.capacity.set(stack, amount);
+	}
+
+	@Override
+	public int getEnergyPerDamage(ItemStack stack) {
+		return this.energyPerDamage.get(stack);
+	}
+
+	@Override
+	public void setEnergyPerDamage(ItemStack stack, int amount) {
+		this.energyPerDamage.set(stack, amount);
+	}
+
+	@Override
+	public int getMaxTransfer(ItemStack stack) {
+		return this.maxTransfer.get(stack);
+	}
+
+	@Override
+	public void setMaxTransfer(ItemStack stack, int amount) {
+		this.maxTransfer.set(stack, amount);
 	}
 	
 	

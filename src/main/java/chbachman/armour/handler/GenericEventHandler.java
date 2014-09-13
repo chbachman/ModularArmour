@@ -63,9 +63,15 @@ public class GenericEventHandler {
         for (ItemStack stack : e.player.inventory.armorInventory) {
             if (stack != null && stack.getItem() instanceof IModularItem) {
                 
+            	NBTHelper.createDefaultStackTag(stack);
+            	
                 IModularItem armour = (IModularItem) stack.getItem();
                 
                 for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
+                	if(upgrade == null){
+                		continue;
+                	}
+                	
                     upgrade.onEquip(e.player.worldObj, e.player, stack, ArmourSlot.getArmourSlot(armour.getSlot()));
                 }
                 
