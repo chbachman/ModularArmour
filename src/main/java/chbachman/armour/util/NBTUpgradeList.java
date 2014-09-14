@@ -237,7 +237,7 @@ public class NBTUpgradeList implements List<IUpgrade>{
         }
 
         public IUpgrade next() {
-            return list.get(index++);
+            return list.get(++index);
         }
 
         public boolean hasPrevious() {

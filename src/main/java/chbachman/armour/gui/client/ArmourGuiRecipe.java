@@ -7,6 +7,7 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.input.Keyboard;
 
+import chbachman.api.IUpgrade;
 import chbachman.armour.crafting.Recipe;
 import chbachman.armour.gui.container.ArmourContainerRecipe;
 import chbachman.armour.network.ArmourPacket;
@@ -65,9 +66,13 @@ public class ArmourGuiRecipe extends GuiBaseAdv {
         
         if(this.container.recipe != null){
             
-        	this.drawStringBounded(this.container.recipe.getRecipeOutput().getName(), 70, this.guiLeft + 100, this.guiTop + 18, 0xFFFFFF);
+        	IUpgrade upgrade = this.container.recipe.getRecipeOutput();
+        	
+        	this.drawStringBounded(upgrade.getName(), 70, this.guiLeft + 100, this.guiTop + 18, 0xFFFFFF);
             
-            this.drawStringBounded(this.container.recipe.getRecipeOutput().getInformation(), 159, this.guiLeft + 11, this.guiTop + 80, 0xFFFFFF);
+            this.drawStringBounded(upgrade.getInformation(), 159, this.guiLeft + 11, this.guiTop + 80, 0xFFFFFF);
+            
+            this.drawStringBounded(String.valueOf(upgrade.isCompatible(this.container.item, this.container.stack, this.container.item.getSlot())), 70, this.guiLeft + 100, this.guiTop + 30, 0xFFFFFF);
         }
     }
     

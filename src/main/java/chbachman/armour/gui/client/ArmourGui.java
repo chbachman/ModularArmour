@@ -68,7 +68,7 @@ public class ArmourGui extends GuiBaseAdv {
         super.mouseClicked(mX, mY, mouseButton);
         
         if (mX > 5 + this.guiLeft && mX < 165 + this.guiLeft && mY > 5) {
-            this.selectedUpgrade = this.list.mouseClicked(mX, mY, mouseButton, 5 + this.guiTop);
+            this.selectedUpgrade = this.list.mouseClicked(mX, mY, mouseButton, this.guiTop + 5);
         }
         
     }
