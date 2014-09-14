@@ -29,7 +29,7 @@ public class ItemRegister {
 		
 		register(new Baubles());
 		register(new Thaumcraft());
-		register(new ThermalExpansion());
+		//register(new ThermalExpansion());
 	}
 	
 	public void register(Module m){

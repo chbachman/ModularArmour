@@ -41,6 +41,31 @@ public class UpgradeUtil {
         return false;
     }
     
+    public static ItemStack getPlayerUpgrade(EntityPlayer player, IUpgrade upgrade){
+ItemStack[] armourArray = player.inventory.armorInventory;
+        
+        for (ItemStack armour : armourArray) {
+        	if(doesItemStackContainUpgrade(armour, upgrade)){
+        		return armour;
+        	}
+            
+        }
+        
+        if(Loader.isModLoaded("Baubles")){
+        	IInventory inventory = BaublesApi.getBaubles(player);
+        	
+        	for(int i = 0; i < inventory.getSizeInventory(); i++){
+        		ItemStack bauble = inventory.getStackInSlot(i);
+        		
+        		if(doesItemStackContainUpgrade(bauble, upgrade)){
+        			return bauble;
+        		}
+        	}
+        }
+        
+        return null;
+    }
+    
     public static void removeUpgrade(ItemStack container, IUpgrade upgrade) {
         
         ItemStack stack = container.copy();

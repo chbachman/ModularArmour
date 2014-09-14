@@ -3,7 +3,6 @@ package chbachman.armour.upgrade.upgradeList;
 import java.util.List;
 
 import net.minecraft.item.ItemStack;
-import chbachman.api.IConfigurableElectric;
 import chbachman.api.IModularItem;
 import chbachman.api.IUpgrade;
 import chbachman.api.Upgrade;
@@ -23,11 +22,8 @@ public class UpgradeEnergy extends Upgrade{
 	}
 	
 	public void onUpgradeAddition(IModularItem armour, ItemStack stack){
-		if(armour instanceof IConfigurableElectric){
-			IConfigurableElectric config = (IConfigurableElectric) armour;
-			config.setCapacity(stack, capacity);
-			config.setMaxTransfer(stack, maxTransfer);
-		}
+		armour.setCapacity(stack, capacity);
+		armour.setMaxTransfer(stack, maxTransfer);
 	}
 	
 	public List<IUpgrade> getDependencies() {

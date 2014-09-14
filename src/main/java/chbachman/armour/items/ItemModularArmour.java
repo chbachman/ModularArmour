@@ -2,10 +2,6 @@ package chbachman.armour.items;
 
 import java.util.List;
 
-import thaumcraft.api.IGoggles;
-import thaumcraft.api.IVisDiscountGear;
-import thaumcraft.api.aspects.Aspect;
-import thaumcraft.api.nodes.IRevealer;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -15,11 +11,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
+import thaumcraft.api.IGoggles;
+import thaumcraft.api.IVisDiscountGear;
+import thaumcraft.api.aspects.Aspect;
+import thaumcraft.api.nodes.IRevealer;
 import chbachman.api.IArmourUpgrade;
 import chbachman.api.IModularItem;
 import chbachman.api.IUpgrade;
 import chbachman.armour.ModularArmour;
 import chbachman.armour.gui.GuiHandler;
+import chbachman.armour.objects.VariableInt;
 import chbachman.armour.reference.ArmourSlot;
 import chbachman.armour.register.Thaumcraft;
 import chbachman.armour.util.NBTHelper;
@@ -29,8 +30,12 @@ import cofh.core.item.ItemArmorAdv;
 import cofh.core.util.CoreUtils;
 import cofh.lib.util.helpers.StringHelper;
 
-public abstract class ItemModularArmour extends ItemArmorAdv implements ISpecialArmor, IInventoryContainerItem, IModularItem, IGoggles, IVisDiscountGear, IRevealer{
+public class ItemModularArmour extends ItemArmorAdv implements ISpecialArmor, IInventoryContainerItem, IModularItem, IGoggles, IVisDiscountGear, IRevealer{
 
+	private VariableInt capacity = new VariableInt("capacity", 100);
+	private VariableInt maxTransfer = new VariableInt("maxTransfer", 100);
+	private VariableInt energyPerDamage = new VariableInt("energyPerDamage", 100);
+	
 	public ItemModularArmour(ArmorMaterial material, int type) {
 		super(material, type);
 		this.setCreativeTab(CreativeTabs.tabCombat);
@@ -43,6 +48,13 @@ public abstract class ItemModularArmour extends ItemArmorAdv implements ISpecial
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean check) {
 		NBTHelper.createDefaultStackTag(stack);
 
+		if (!StringHelper.isShiftKeyDown()) {
+			list.add(StringHelper.shiftForDetails());
+		} else {
+
+			list.add(StringHelper.localize("info.cofh.charge") + ": " + stack.stackTagCompound.getInteger("Energy") + " / " + this.capacity.get(stack) + " RF");
+		}
+		
 		if (!StringHelper.isControlKeyDown() && NBTHelper.getNBTUpgradeList(stack.stackTagCompound).size() != 0) {
 			list.add(StringHelper.LIGHT_GRAY + StringHelper.localize("info.cofh.hold") + " " + StringHelper.YELLOW + StringHelper.ITALIC + StringHelper.localize("info.chbachman.control") + " " + StringHelper.END + StringHelper.LIGHT_GRAY + StringHelper.localize("info.chbachman.upgradeList") + StringHelper.END);
 		} else if (NBTHelper.getNBTUpgradeList(stack.stackTagCompound).size() != 0) {
@@ -52,12 +64,14 @@ public abstract class ItemModularArmour extends ItemArmorAdv implements ISpecial
 
 			}
 		}
+		
+		
 	}
-
+	
 	@Override
 	public int getDisplayDamage(ItemStack stack) {
 		NBTHelper.createDefaultStackTag(stack);
-		return 1 + this.getMaximumDamage(stack) - this.getCurrentDamage(stack);
+		return 1 + this.capacity.get(stack) - this.getEnergyStored(stack);
 	}
 	
 	@Override
@@ -68,7 +82,7 @@ public abstract class ItemModularArmour extends ItemArmorAdv implements ISpecial
 	@Override
 	public int getMaxDamage(ItemStack stack) {
 
-		return 1 + this.getMaximumDamage(stack);
+		return 1 + this.capacity.get(stack);
 	}
 	
 	@Override
@@ -96,7 +110,7 @@ public abstract class ItemModularArmour extends ItemArmorAdv implements ISpecial
 
 		}
 
-		this.damageArmour(stack, new DamageSource("requirement"), energy);
+		this.extractEnergy(stack, energy, false);
 
 		if (!stack.stackTagCompound.getBoolean("HasPutOn")) {
 			stack.stackTagCompound.setBoolean("HasPutOn", true);
@@ -137,7 +151,7 @@ public abstract class ItemModularArmour extends ItemArmorAdv implements ISpecial
 	//ISpecialArmor
 	@Override
 	public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot) {
-		this.damageArmour(stack, source, damage);
+		this.extractEnergy(stack, this.energyPerDamage.get(stack) * damage, false);
 	}
 
 	@Override
@@ -177,14 +191,8 @@ public abstract class ItemModularArmour extends ItemArmorAdv implements ISpecial
 
 		}
 
-		return new ArmorProperties(output.Priority, output.AbsorbRatio, this.getMaximumDamage(stack));
+		return new ArmorProperties(output.Priority, output.AbsorbRatio, Integer.MAX_VALUE);
 	}
-	
-	public abstract void damageArmour(ItemStack stack, DamageSource source, int amount);
-	
-	public abstract int getMaximumDamage(ItemStack stack);
-	
-	public abstract int getCurrentDamage(ItemStack stack);
 	
 	public boolean shouldShowArmour(ItemStack stack){
 		return true;
@@ -257,6 +265,78 @@ public abstract class ItemModularArmour extends ItemArmorAdv implements ISpecial
 		NBTUpgradeList list = NBTHelper.getNBTUpgradeList(itemstack);
 
 		return list.contains(Thaumcraft.gogglesOfRevealing);
+	}
+
+	
+	//IEnergyContainerItem
+	@Override
+	public int receiveEnergy(ItemStack container, int maxReceive, boolean simulate) {
+		NBTHelper.createDefaultStackTag(container);
+		
+		int energy = container.stackTagCompound.getInteger("Energy");
+		int energyReceived = Math.min(capacity.get(container) - energy, Math.min(this.maxTransfer.get(container), maxReceive));
+
+		if (!simulate) {
+			energy += energyReceived;
+			container.stackTagCompound.setInteger("Energy", energy);
+		}
+		return energyReceived;
+	}
+
+	@Override
+	public int extractEnergy(ItemStack container, int maxExtract, boolean simulate) {
+		NBTHelper.createDefaultStackTag(container);
+		int energy = container.stackTagCompound.getInteger("Energy");
+		int energyExtracted = Math.min(energy, Math.min(this.maxTransfer.get(container) , maxExtract));
+
+		if (!simulate) {
+			energy -= energyExtracted;
+			container.stackTagCompound.setInteger("Energy", energy);
+		}
+		return energyExtracted;
+	}
+
+	@Override
+	public int getEnergyStored(ItemStack container) {
+		NBTHelper.createDefaultStackTag(container);
+		return container.stackTagCompound.getInteger("Energy");
+	}
+
+	@Override
+	public int getMaxEnergyStored(ItemStack container) {
+		return this.capacity.get(container) ;
+	}
+	
+	//IConfigurableElectric
+
+	@Override
+	public int getCapacity(ItemStack stack) {
+		return this.capacity.get(stack);
+	}
+
+	@Override
+	public void setCapacity(ItemStack stack, int amount) {
+		this.capacity.set(stack, amount);
+	}
+
+	@Override
+	public int getEnergyPerDamage(ItemStack stack) {
+		return this.energyPerDamage.get(stack);
+	}
+
+	@Override
+	public void setEnergyPerDamage(ItemStack stack, int amount) {
+		this.energyPerDamage.set(stack, amount);
+	}
+
+	@Override
+	public int getMaxTransfer(ItemStack stack) {
+		return this.maxTransfer.get(stack);
+	}
+
+	@Override
+	public void setMaxTransfer(ItemStack stack, int amount) {
+		this.maxTransfer.set(stack, amount);
 	}
 
 }

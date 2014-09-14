@@ -12,7 +12,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
-import chbachman.api.IConfigurableElectric;
 import chbachman.api.IModularItem;
 import chbachman.api.IUpgrade;
 import chbachman.armour.ModularArmour;
@@ -20,11 +19,10 @@ import chbachman.armour.gui.GuiHandler;
 import chbachman.armour.objects.VariableInt;
 import chbachman.armour.reference.ArmourSlot;
 import chbachman.armour.util.NBTHelper;
-import cofh.api.energy.IEnergyContainerItem;
 import cofh.core.util.CoreUtils;
 import cofh.lib.util.helpers.StringHelper;
 
-public class ItemBauble extends Item implements IBauble, IModularItem, IConfigurableElectric, IEnergyContainerItem{
+public class ItemBauble extends Item implements IBauble, IModularItem{
 
 	private BaubleType type;
 

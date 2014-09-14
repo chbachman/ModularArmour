@@ -32,6 +32,7 @@ upgrade.chbachman.leadstone.name=Leadstone Energy
 upgrade.chbachman.hardened.name=Hardened Energy
 upgrade.chbachman.reinforced.name=Reinforced Energy
 upgrade.chbachman.resonant.name=Resonant Energy
+upgrade.chbachman.electrolyzer.name=Electrolyzer
 
 upgrade.chbachman.jetpack.information=Allows you to fly like you are in creative. It is reccomended to have Calf Shields
 upgrade.chbachman.calfShields.information=Rocket Packs are easy. The hard part is inventing Calf Shields.
@@ -50,3 +51,4 @@ upgrade.chbachman.leadstone.information=Using the power of Leadstone, your armou
 upgrade.chbachman.hardened.information=Using the power of Hardened Leadstone, your armour can hold more energy!
 upgrade.chbachman.reinforced.information=Using the power of Reinforced Hardened Leadstone, your armour can hold more energy!
 upgrade.chbachman.resonant.information=Using the power of Resonant Reinforced Hardened Leadstone, your armour can hold more energy!
+upgrade.chbachman.electrlyzer.information=Have you ever drowned? Well this is the electrolyzer for you! It take energy to make air underwater. Magic!

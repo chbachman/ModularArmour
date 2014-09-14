@@ -14,11 +14,12 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import chbachman.api.IUpgrade;
 import chbachman.armour.crafting.Recipe;
-import chbachman.armour.items.ItemModularArmourElectric;
+import chbachman.armour.items.ItemModularArmour;
 import chbachman.armour.reference.ArmourSlot;
 import chbachman.armour.reference.Reference;
 import chbachman.armour.upgrade.upgradeList.UpgradeAutoFeeder;
 import chbachman.armour.upgrade.upgradeList.UpgradeBasic;
+import chbachman.armour.upgrade.upgradeList.UpgradeElectrolyzer;
 import chbachman.armour.upgrade.upgradeList.UpgradeEnergy;
 import chbachman.armour.upgrade.upgradeList.UpgradeFallDamage;
 import chbachman.armour.upgrade.upgradeList.UpgradeHoverJetpack;
@@ -74,6 +75,7 @@ public class Vanilla extends Module{
 	public static IUpgrade hardenedEnergy;
 	public static IUpgrade reinforcedEnergy;
 	public static IUpgrade resonantEnergy;
+	public static IUpgrade electrolyzer;
 
 	public static final String[] TEXTURE_MODULAR = { Reference.ARMOUR_LOATION + "Modular_1.png", Reference.ARMOUR_LOATION + "Modular_2.png" };
 
@@ -84,10 +86,10 @@ public class Vanilla extends Module{
 
 		materialModular = EnumHelper.addArmorMaterial("", 25, new int[] { 3, 7, 5, 3 }, 10);
 
-		helmetModular = new ItemModularArmourElectric(materialModular, 0).setArmorTextures(TEXTURE_MODULAR).setUnlocalizedName("chbachman.armour.helmetModular").setTextureName(Reference.ITEM_LOCATION + "ModularHelmet");
-		chestplateModular = new ItemModularArmourElectric(materialModular, 1).setArmorTextures(TEXTURE_MODULAR).setUnlocalizedName("chbachman.armour.chestplateModular").setTextureName(Reference.ITEM_LOCATION + "ModularChestplate");
-		leggingsModular = new ItemModularArmourElectric(materialModular, 2).setArmorTextures(TEXTURE_MODULAR).setUnlocalizedName("chbachman.armour.leggingsModular").setTextureName(Reference.ITEM_LOCATION + "ModularLegs");
-		bootsModular = new ItemModularArmourElectric(materialModular, 3).setArmorTextures(TEXTURE_MODULAR).setUnlocalizedName("chbachman.armour.bootsModular").setTextureName(Reference.ITEM_LOCATION + "ModularBoots");
+		helmetModular = new ItemModularArmour(materialModular, 0).setArmorTextures(TEXTURE_MODULAR).setUnlocalizedName("chbachman.armour.helmetModular").setTextureName(Reference.ITEM_LOCATION + "ModularHelmet");
+		chestplateModular = new ItemModularArmour(materialModular, 1).setArmorTextures(TEXTURE_MODULAR).setUnlocalizedName("chbachman.armour.chestplateModular").setTextureName(Reference.ITEM_LOCATION + "ModularChestplate");
+		leggingsModular = new ItemModularArmour(materialModular, 2).setArmorTextures(TEXTURE_MODULAR).setUnlocalizedName("chbachman.armour.leggingsModular").setTextureName(Reference.ITEM_LOCATION + "ModularLegs");
+		bootsModular = new ItemModularArmour(materialModular, 3).setArmorTextures(TEXTURE_MODULAR).setUnlocalizedName("chbachman.armour.bootsModular").setTextureName(Reference.ITEM_LOCATION + "ModularBoots");
 
 		GameRegistry.registerItem(helmetModular, "helmetModular");
 		GameRegistry.registerItem(chestplateModular, "chestplateModular");
@@ -106,6 +108,7 @@ public class Vanilla extends Module{
 		stepAssist = new UpgradeStepAssist();
 		autoFeeder = new UpgradeAutoFeeder();
 		jumpBoost = new UpgradeJumpBoost();
+		electrolyzer = new UpgradeElectrolyzer();
 		
 		leadstoneEnergy = new UpgradeEnergy("leadstone", 80, 400000);
 		hardenedEnergy = new UpgradeEnergy("hardened", 400, 2000000).setDependencies(leadstoneEnergy);
@@ -143,6 +146,7 @@ public class Vanilla extends Module{
 		Recipe.addRecipe(new Recipe(hardenedEnergy, "lrl", "rbr", "lrl", 'l', "gemLapis", 'r', "dustRedstone", 'b', "blockLapis"));
 		Recipe.addRecipe(new Recipe(reinforcedEnergy, "grg", "rbr", "grg", 'g', "ingotGold", 'r', "dustRedstone", 'b', "blockGold"));
 		Recipe.addRecipe(new Recipe(resonantEnergy, "drd", "rbr", "drd", 'd', "gemDiamond", 'r', "dustRedstone", 'b', "blockDiamond"));
+		Recipe.addRecipe(new Recipe(electrolyzer, "iii", "g g", "iii", 'i', "ingotIron", 'g', "blockGlass"));
 	}
 
 	public final void postInit() {
