@@ -15,7 +15,6 @@ import chbachman.armour.reference.ResourceLocationHelper;
 import cofh.core.gui.GuiBaseAdv;
 import cofh.core.network.PacketHandler;
 import cofh.lib.gui.element.ElementButton;
-import cofh.lib.util.helpers.StringHelper;
 
 public class ArmourGuiRecipe extends GuiBaseAdv {
     
@@ -66,14 +65,9 @@ public class ArmourGuiRecipe extends GuiBaseAdv {
         
         if(this.container.recipe != null){
             
-        	this.drawStringBounded(this.container.recipe.getRecipeOutput().getName(), 70, 225, 65, 0xFFFFFF);
-            String localized = StringHelper.localize(this.container.recipe.getRecipeOutput().getInformation());
+        	this.drawStringBounded(this.container.recipe.getRecipeOutput().getName(), 70, this.guiLeft + 100, this.guiTop + 18, 0xFFFFFF);
             
-            if(localized.equals(this.container.recipe.getRecipeOutput().getInformation())){
-            	localized = StringHelper.localize("info.chbachman.noUpgrade");
-            }
-            
-            this.drawStringBounded(StringHelper.localize(localized), 159, 135, 126, 0xFFFFFF);
+            this.drawStringBounded(this.container.recipe.getRecipeOutput().getInformation(), 159, this.guiLeft + 11, this.guiTop + 80, 0xFFFFFF);
         }
     }
     

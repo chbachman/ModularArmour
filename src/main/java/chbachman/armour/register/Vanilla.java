@@ -108,9 +108,9 @@ public class Vanilla extends Module{
 		jumpBoost = new UpgradeJumpBoost();
 		
 		leadstoneEnergy = new UpgradeEnergy("leadstone", 80, 400000);
-		hardenedEnergy = new UpgradeEnergy("hardened", 400, 2000000);
-		reinforcedEnergy = new UpgradeEnergy("reinforced", 2000, 10000000);
-		resonantEnergy = new UpgradeEnergy("resonant", 10000, 50000000);
+		hardenedEnergy = new UpgradeEnergy("hardened", 400, 2000000).setDependencies(leadstoneEnergy);
+		reinforcedEnergy = new UpgradeEnergy("reinforced", 2000, 10000000).setDependencies(hardenedEnergy);
+		resonantEnergy = new UpgradeEnergy("resonant", 10000, 50000000).setDependencies(reinforcedEnergy);
 	}
 
 	public final void init() {

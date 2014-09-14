@@ -27,7 +27,11 @@ upgrade.chbachman.stepAssist.name=Step Assist
 upgrade.chbachman.speed.name=Walking Speed Boost
 upgrade.chbachman.visDiscount.name=Vis Discount
 upgrade.chbachman.gogglesOfRevealing.name=Upgrade of Revealing
-
+upgrade.chbachman.jumpBoost.name=Jump Boost
+upgrade.chbachman.leadstone.name=Leadstone Energy
+upgrade.chbachman.hardened.name=Hardened Energy
+upgrade.chbachman.reinforced.name=Reinforced Energy
+upgrade.chbachman.resonant.name=Resonant Energy
 
 upgrade.chbachman.jetpack.information=Allows you to fly like you are in creative. It is reccomended to have Calf Shields
 upgrade.chbachman.calfShields.information=Rocket Packs are easy. The hard part is inventing Calf Shields.
@@ -41,3 +45,8 @@ upgrade.chbachman.speed.information=Speeds you up using the power of pistons. Do
 upgrade.chbachman.ironPlating.information=Gives you the protection of iron armour.
 upgrade.chbachman.visDiscount.information=Makes channeling your wand a bit easier.
 upgrade.chbachman.gogglesOfRevealing.information=Man, how does a pair of goggles fit into your helmet?
+upgrade.chbachman.jumpBoost.information=Jumps higher. Like a lot higher. 
+upgrade.chbachman.leadstone.information=Using the power of Leadstone, your armour can hold more energy!
+upgrade.chbachman.hardened.information=Using the power of Hardened Leadstone, your armour can hold more energy!
+upgrade.chbachman.reinforced.information=Using the power of Reinforced Hardened Leadstone, your armour can hold more energy!
+upgrade.chbachman.resonant.information=Using the power of Resonant Reinforced Hardened Leadstone, your armour can hold more energy!
