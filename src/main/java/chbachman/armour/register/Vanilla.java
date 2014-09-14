@@ -6,6 +6,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
@@ -24,6 +25,8 @@ import chbachman.armour.upgrade.upgradeList.UpgradeEnergy;
 import chbachman.armour.upgrade.upgradeList.UpgradeFallDamage;
 import chbachman.armour.upgrade.upgradeList.UpgradeHoverJetpack;
 import chbachman.armour.upgrade.upgradeList.UpgradeJumpBoost;
+import chbachman.armour.upgrade.upgradeList.UpgradeMagnet;
+import chbachman.armour.upgrade.upgradeList.UpgradePotion;
 import chbachman.armour.upgrade.upgradeList.UpgradeSolar;
 import chbachman.armour.upgrade.upgradeList.UpgradeSpeed;
 import chbachman.armour.upgrade.upgradeList.UpgradeStepAssist;
@@ -76,6 +79,9 @@ public class Vanilla extends Module{
 	public static IUpgrade reinforcedEnergy;
 	public static IUpgrade resonantEnergy;
 	public static IUpgrade electrolyzer;
+	public static IUpgrade nightVision;
+	public static IUpgrade invisibility;
+	public static IUpgrade magnet;
 
 	public static final String[] TEXTURE_MODULAR = { Reference.ARMOUR_LOATION + "Modular_1.png", Reference.ARMOUR_LOATION + "Modular_2.png" };
 
@@ -109,6 +115,10 @@ public class Vanilla extends Module{
 		autoFeeder = new UpgradeAutoFeeder();
 		jumpBoost = new UpgradeJumpBoost();
 		electrolyzer = new UpgradeElectrolyzer();
+		nightVision = new UpgradePotion("nightVision", Potion.nightVision, 0, 0, 250);
+		invisibility = new UpgradePotion("invisibility", Potion.invisibility, 0, 10, 500);
+		magnet = new UpgradeMagnet();
+		
 		
 		leadstoneEnergy = new UpgradeEnergy("leadstone", 80, 400000);
 		hardenedEnergy = new UpgradeEnergy("hardened", 400, 2000000).setDependencies(leadstoneEnergy);
@@ -147,6 +157,9 @@ public class Vanilla extends Module{
 		Recipe.addRecipe(new Recipe(reinforcedEnergy, "grg", "rbr", "grg", 'g', "ingotGold", 'r', "dustRedstone", 'b', "blockGold"));
 		Recipe.addRecipe(new Recipe(resonantEnergy, "drd", "rbr", "drd", 'd', "gemDiamond", 'r', "dustRedstone", 'b', "blockDiamond"));
 		Recipe.addRecipe(new Recipe(electrolyzer, "iii", "g g", "iii", 'i', "ingotIron", 'g', "blockGlass"));
+		Recipe.addRecipe(new Recipe(nightVision, "gig", "bpb" ,"gig", 'g', "ingotGold", 'b', "blockGlass", 'i', "ingotIron", 'p', new ItemStack(Items.potionitem, 1, 8198)));
+		Recipe.addRecipe(new Recipe(invisibility, "gig", "bpb" ,"gig", 'g', "ingotGold", 'b', "blockGlass", 'i', "ingotIron", 'p', new ItemStack(Items.potionitem, 1, 8206)));
+		Recipe.addRecipe(new Recipe(magnet, "g g", "i i", " i ", 'i', "ingotIron", 'g', "ingotGold"));
 	}
 
 	public final void postInit() {

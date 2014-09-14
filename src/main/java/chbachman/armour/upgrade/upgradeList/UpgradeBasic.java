@@ -1,11 +1,18 @@
 package chbachman.armour.upgrade.upgradeList;
 
+import java.util.List;
+
+import net.minecraft.item.ItemStack;
+import chbachman.api.IModularItem;
+import chbachman.api.IUpgrade;
 import chbachman.api.Upgrade;
 import chbachman.armour.reference.ArmourSlot;
+import chbachman.armour.util.UpgradeUtil;
 
 public class UpgradeBasic extends Upgrade{
 
-	private ArmourSlot slot;
+	private ArmourSlot slot = null;
+	private IUpgrade dependency = null;
 	
 	public UpgradeBasic(String name){
 		super(name);
@@ -16,12 +23,27 @@ public class UpgradeBasic extends Upgrade{
 		return this;
 	}
 	
-	public boolean isCompatible(ArmourSlot slot){
+	public UpgradeBasic setDependencies(IUpgrade upgrade){
+		this.dependency = upgrade;
+		return this;
+	}
+	
+	public boolean isCompatible(IModularItem item, ItemStack stack, int armorType) {
 		if(this.slot == null){
 			return true;
 		}
 		
-		return this.slot == slot;
-	}
+        return armorType == slot.id;
+    }
+	
+	public List<IUpgrade> getDependencies() {
+		if(dependency == null){
+			return null;
+		}
+		
+        return UpgradeUtil.getDependencyList(dependency);
+    }
+	
+	
 	
 }
