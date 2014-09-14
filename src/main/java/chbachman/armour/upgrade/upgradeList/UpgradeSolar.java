@@ -6,7 +6,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import chbachman.api.IModularItem;
 import chbachman.api.Upgrade;
-import chbachman.armour.reference.ArmourSlot;
+import chbachman.armour.util.ArmourSlot;
 import cofh.lib.util.helpers.EnergyHelper;
 
 public class UpgradeSolar extends Upgrade {

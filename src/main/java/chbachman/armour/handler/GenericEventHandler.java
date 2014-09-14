@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import chbachman.api.IModularItem;
 import chbachman.api.IUpgrade;
-import chbachman.armour.reference.ArmourSlot;
+import chbachman.armour.util.ArmourSlot;
 import chbachman.armour.util.NBTHelper;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent;

@@ -3,7 +3,7 @@ package chbachman.api;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import chbachman.armour.reference.ArmourSlot;
+import chbachman.armour.util.ArmourSlot;
 import cofh.api.energy.IEnergyContainerItem;
 
 /**

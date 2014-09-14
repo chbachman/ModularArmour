@@ -8,8 +8,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor.ArmorProperties;
-import chbachman.armour.reference.ArmourSlot;
 import chbachman.armour.upgrade.UpgradeList;
+import chbachman.armour.util.ArmourSlot;
 import cofh.lib.util.helpers.StringHelper;
 /**
  * Default implementation of IUpgrade. Use this or make your own. 

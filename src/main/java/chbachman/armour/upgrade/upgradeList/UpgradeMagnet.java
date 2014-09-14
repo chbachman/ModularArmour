@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import chbachman.api.Upgrade;
-import chbachman.armour.reference.ArmourSlot;
+import chbachman.armour.util.ArmourSlot;
 
 public class UpgradeMagnet extends Upgrade{
 

@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 import chbachman.api.IModularItem;
 import chbachman.api.IUpgrade;
 import chbachman.api.Upgrade;
-import chbachman.armour.reference.ArmourSlot;
+import chbachman.armour.util.ArmourSlot;
 import chbachman.armour.util.UpgradeUtil;
 
 public class UpgradeBasic extends Upgrade{

@@ -5,7 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import chbachman.api.IModularItem;
 import chbachman.api.Upgrade;
-import chbachman.armour.reference.ArmourSlot;
+import chbachman.armour.util.ArmourSlot;
 
 public class UpgradeStepAssist extends Upgrade{
 

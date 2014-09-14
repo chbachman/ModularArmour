@@ -16,9 +16,9 @@ import chbachman.api.IModularItem;
 import chbachman.api.IUpgrade;
 import chbachman.armour.ModularArmour;
 import chbachman.armour.gui.GuiHandler;
-import chbachman.armour.objects.VariableInt;
-import chbachman.armour.reference.ArmourSlot;
+import chbachman.armour.util.ArmourSlot;
 import chbachman.armour.util.NBTHelper;
+import chbachman.armour.util.VariableInt;
 import cofh.core.util.CoreUtils;
 import cofh.lib.util.helpers.StringHelper;
 

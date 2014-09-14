@@ -7,8 +7,8 @@ import net.minecraft.util.FoodStats;
 import net.minecraft.world.World;
 import chbachman.api.IModularItem;
 import chbachman.api.Upgrade;
-import chbachman.armour.objects.VariableInt;
-import chbachman.armour.reference.ArmourSlot;
+import chbachman.armour.util.ArmourSlot;
+import chbachman.armour.util.VariableInt;
 
 public class UpgradeAutoFeeder extends Upgrade{
     

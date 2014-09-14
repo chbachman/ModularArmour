@@ -1,4 +1,4 @@
-package chbachman.armour.reference;
+package chbachman.armour.util;
 
 import baubles.api.BaubleType;
 

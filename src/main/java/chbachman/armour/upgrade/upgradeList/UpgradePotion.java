@@ -9,8 +9,8 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 import chbachman.api.IUpgrade;
 import chbachman.api.Upgrade;
-import chbachman.armour.reference.ArmourSlot;
 import chbachman.armour.register.Vanilla;
+import chbachman.armour.util.ArmourSlot;
 import chbachman.armour.util.UpgradeUtil;
 
 public class UpgradePotion extends Upgrade {

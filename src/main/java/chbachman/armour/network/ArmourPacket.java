@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 import chbachman.api.IModularItem;
 import chbachman.api.IUpgrade;
 import chbachman.armour.gui.IInputHandler;
-import chbachman.armour.reference.ArmourSlot;
+import chbachman.armour.util.ArmourSlot;
 import chbachman.armour.util.NBTHelper;
 import cofh.core.network.PacketCoFHBase;
 import cofh.core.network.PacketHandler;
