@@ -14,6 +14,8 @@ item.modulararmour.material.temperedElectrum.name=Tempered Electrum
 info.chbachman.control=Control
 info.chbachman.upgradeList=Upgrade List
 info.chbachman.strong=Strong
+info.chbachman.doesWork=Does not work.
+info.chbachman.doesntWork=Does work.
 
 info.chbachman.noUpgrade=There is no description for this upgrade!
 
@@ -54,7 +56,7 @@ upgrade.chbachman.leadstone.information=Using the power of Leadstone, your armou
 upgrade.chbachman.hardened.information=Using the power of Hardened Leadstone, your armour can hold more energy!
 upgrade.chbachman.reinforced.information=Using the power of Reinforced Hardened Leadstone, your armour can hold more energy!
 upgrade.chbachman.resonant.information=Using the power of Resonant Reinforced Hardened Leadstone, your armour can hold more energy!
-upgrade.chbachman.electrlyzer.information=Have you ever drowned? Well this is the electrolyzer for you! It takes energy to make air underwater. Science!
+upgrade.chbachman.electrolyzer.information=Have you ever drowned? Well this is the electrolyzer for you! It takes energy to make air underwater. Science!
 upgrade.chbachman.magnet.information=Pulls all items in towards you.
 upgrade.chbachman.nightVision.information=Makes you able to see during the night, and the day. Magic FTW!
 upgrade.chbachman.invisibility.information=Makes you invisible. Recommended use: Prank Friends. 

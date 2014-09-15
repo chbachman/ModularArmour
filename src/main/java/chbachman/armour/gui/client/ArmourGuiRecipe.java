@@ -16,6 +16,7 @@ import chbachman.armour.reference.ResourceLocationHelper;
 import cofh.core.gui.GuiBaseAdv;
 import cofh.core.network.PacketHandler;
 import cofh.lib.gui.element.ElementButton;
+import cofh.lib.util.helpers.StringHelper;
 
 public class ArmourGuiRecipe extends GuiBaseAdv {
     
@@ -72,7 +73,11 @@ public class ArmourGuiRecipe extends GuiBaseAdv {
             
             this.drawStringBounded(upgrade.getInformation(), 159, this.guiLeft + 11, this.guiTop + 80, 0xFFFFFF);
             
-            this.drawStringBounded(String.valueOf(upgrade.isCompatible(this.container.item, this.container.stack, this.container.item.getSlot())), 70, this.guiLeft + 100, this.guiTop + 30, 0xFFFFFF);
+            if(upgrade.isCompatible(this.container.item, this.container.stack, this.container.item.getSlot())){
+            	this.drawStringBounded(StringHelper.localize("info.chbachman.doesWork"), 70, this.guiLeft + 100, this.guiTop + 50, 0xFFFFFF);
+            }else{
+            	this.drawStringBounded(StringHelper.localize("info.chbachman.doesntWork"), 70, this.guiLeft + 100, this.guiTop + 50, 0xFFFFFF);
+            }
         }
     }
     
