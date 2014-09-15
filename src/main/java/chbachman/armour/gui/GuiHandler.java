@@ -3,10 +3,10 @@ package chbachman.armour.gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import chbachman.api.IModularItem;
-import chbachman.armour.gui.client.ArmourGui;
-import chbachman.armour.gui.client.ArmourGuiRecipe;
-import chbachman.armour.gui.container.ArmourContainer;
-import chbachman.armour.gui.container.ArmourContainerRecipe;
+import chbachman.armour.gui.crafting.ArmourContainer;
+import chbachman.armour.gui.crafting.ArmourGui;
+import chbachman.armour.gui.recipe.ArmourContainerRecipe;
+import chbachman.armour.gui.recipe.ArmourGuiRecipe;
 import cofh.lib.util.helpers.ItemHelper;
 import cpw.mods.fml.common.network.IGuiHandler;
 

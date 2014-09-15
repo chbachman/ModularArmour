@@ -1,4 +1,4 @@
-package chbachman.armour.gui.container;
+package chbachman.armour.gui.crafting;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;

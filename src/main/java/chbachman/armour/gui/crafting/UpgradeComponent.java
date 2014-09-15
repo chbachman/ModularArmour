@@ -1,4 +1,4 @@
-package chbachman.armour.gui.client;
+package chbachman.armour.gui.crafting;
 
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;

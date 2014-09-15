@@ -3,7 +3,7 @@ package chbachman.armour.gui;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import chbachman.armour.gui.container.ArmourContainer;
+import chbachman.armour.gui.crafting.ArmourContainer;
 
 public class ArmourContainerWrapper implements IInventory {
     

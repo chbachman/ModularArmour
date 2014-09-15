@@ -1,4 +1,4 @@
-package chbachman.armour.gui.container;
+package chbachman.armour.gui.recipe;
 
 import java.util.ArrayList;
 

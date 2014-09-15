@@ -1,4 +1,4 @@
-package chbachman.armour.gui.client;
+package chbachman.armour.gui.recipe;
 
 import java.util.List;
 
@@ -9,7 +9,6 @@ import org.lwjgl.input.Keyboard;
 
 import chbachman.api.IUpgrade;
 import chbachman.armour.crafting.Recipe;
-import chbachman.armour.gui.container.ArmourContainerRecipe;
 import chbachman.armour.network.ArmourPacket;
 import chbachman.armour.network.ArmourPacket.PacketTypes;
 import chbachman.armour.reference.ResourceLocationHelper;
