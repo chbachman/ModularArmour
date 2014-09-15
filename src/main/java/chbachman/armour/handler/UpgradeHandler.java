@@ -1,7 +1,5 @@
 package chbachman.armour.handler;
 
-import java.util.List;
-
 import net.minecraft.item.ItemStack;
 import chbachman.api.IModularItem;
 import chbachman.api.IUpgrade;
@@ -51,11 +49,11 @@ public class UpgradeHandler {
             return false;
         }
         
-        if (iUpgrade.getDependencies() == null || iUpgrade.getDependencies().isEmpty()) {
+        if (iUpgrade.getDependencies() == null || iUpgrade.getDependencies().length == 0) {
             return true;
         }
         
-        List<IUpgrade> dependencies = iUpgrade.getDependencies();
+        IUpgrade[] dependencies = iUpgrade.getDependencies();
         
         for (IUpgrade dependency : dependencies) {
             if (!UpgradeUtil.doesItemStackContainUpgrade(stack, dependency)) {

@@ -1,13 +1,10 @@
 package chbachman.armour.upgrade.upgradeList;
 
-import java.util.List;
-
 import net.minecraft.item.ItemStack;
 import chbachman.api.IModularItem;
 import chbachman.api.IUpgrade;
 import chbachman.api.Upgrade;
 import chbachman.armour.util.ArmourSlot;
-import chbachman.armour.util.UpgradeUtil;
 
 public class UpgradeBasic extends Upgrade{
 
@@ -36,12 +33,12 @@ public class UpgradeBasic extends Upgrade{
         return armorType == slot.id;
     }
 	
-	public List<IUpgrade> getDependencies() {
+	public IUpgrade[] getDependencies() {
 		if(dependency == null){
 			return null;
 		}
 		
-        return UpgradeUtil.getDependencyList(dependency);
+        return new IUpgrade[]{this.dependency};
     }
 	
 	

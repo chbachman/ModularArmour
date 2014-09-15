@@ -1,7 +1,5 @@
 package chbachman.api;
 
-import java.util.List;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -20,8 +18,8 @@ public interface IUpgrade extends Comparable<IUpgrade>{
 	int getId();
 
 	/**
-	 * Gets the information string
-	 * @return information string
+	 * Gets the Localized information string
+	 * @return Localized information string
 	 */
 	String getInformation();
 	
@@ -38,7 +36,11 @@ public interface IUpgrade extends Comparable<IUpgrade>{
 	 */
 	boolean isCompatible(IModularItem item, ItemStack stack, int armorType);
 	
-	
+	/**
+	 * This equals method should be done using the ids of the Upgrades.
+	 * @param obj
+	 * @return equality
+	 */
 	boolean equals(Object obj);
 	
 	int hashCode();
@@ -47,7 +49,7 @@ public interface IUpgrade extends Comparable<IUpgrade>{
 	 * Gets the list of dependencies
 	 * @return list of string dependencies.
 	 */
-	List<IUpgrade> getDependencies();
+	IUpgrade[] getDependencies();
 	
 	/**
 	 * Called every tick, when equiped from the armour.

@@ -1,7 +1,5 @@
 package chbachman.armour.upgrade.upgradeList;
 
-import java.util.List;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -11,7 +9,6 @@ import chbachman.api.IUpgrade;
 import chbachman.api.Upgrade;
 import chbachman.armour.register.Vanilla;
 import chbachman.armour.util.ArmourSlot;
-import chbachman.armour.util.UpgradeUtil;
 
 public class UpgradePotion extends Upgrade {
 
@@ -29,9 +26,9 @@ public class UpgradePotion extends Upgrade {
 		return energyCost;
     }
 	
-	public List<IUpgrade> getDependencies() {
+	public IUpgrade[] getDependencies() {
 		
-        return UpgradeUtil.getDependencyList(Vanilla.basePotion);
+        return new IUpgrade[]{Vanilla.basePotion};
     }
 
 }
