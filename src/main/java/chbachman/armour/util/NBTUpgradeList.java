@@ -38,6 +38,25 @@ public class NBTUpgradeList implements List<IUpgrade>{
         return list.tagCount();
     }
     
+    private IUpgrade getUpgrade(NBTTagCompound nbt){
+    	try {
+
+    		IUpgrade upgrade = UpgradeList.list.get(nbt.getInteger("ID")).setDisabled(nbt.getBoolean("disabled"));
+    		
+			return upgrade;
+
+    	} catch (IndexOutOfBoundsException e) {
+    		return null;
+    	}
+    }
+    
+    private NBTTagCompound getNBTTagCompound(IUpgrade upgrade){
+    	NBTTagCompound nbt = new NBTTagCompound();
+        nbt.setInteger("ID", upgrade.getId());
+        nbt.setBoolean("disabled", upgrade.isDisabled());
+        return nbt;
+    }
+    
     public IUpgrade get(int index){
         NBTTagCompound nbt = list.getCompoundTagAt(index);
         
@@ -45,34 +64,30 @@ public class NBTUpgradeList implements List<IUpgrade>{
             return null;
         }
         
-        try {
-        	
-        	if(nbt.hasKey("ID")){
-        		IUpgrade upgrade = UpgradeList.list.get(nbt.getInteger("ID"));
-                
-        		if(upgrade == null){
-        			list.removeTag(index);
-        			return this.get(index);
-        		}
-        		
-                return upgrade;
-        	}else{
-        		return null;
-        	}
-        	
-            
-        } catch (IndexOutOfBoundsException e) {
-            return null;
-        }
+        IUpgrade upgrade =  this.getUpgrade(nbt);
+        
+        if(upgrade == null){
+			list.removeTag(index);
+			return this.get(index);
+		}
+        
+        return upgrade;
+        
     }
     
     public boolean add(IUpgrade upgrade){
-        NBTTagCompound nbt = new NBTTagCompound();
-        nbt.setInteger("ID", upgrade.getId());
         
-        list.appendTag(nbt);
+        list.appendTag(this.getNBTTagCompound(upgrade));
         
         return true;
+    }
+    
+    @Override
+    public IUpgrade set(int index, IUpgrade element) {
+        
+        this.list.func_150304_a(index, this.getNBTTagCompound(element));
+        
+        return element;
     }
     
     public IUpgrade remove(int index){
@@ -175,19 +190,6 @@ public class NBTUpgradeList implements List<IUpgrade>{
     @Override
     public boolean retainAll(Collection<?> c) {
         return false;
-    }
-
-    @Override
-    public IUpgrade set(int index, IUpgrade element) {
-        
-        NBTTagCompound nbt = new NBTTagCompound();
-        nbt.setInteger("ID", element.getId());
-        
-        list.appendTag(nbt);
-        
-        this.list.func_150304_a(index, nbt);
-        
-        return element;
     }
 
     @Override

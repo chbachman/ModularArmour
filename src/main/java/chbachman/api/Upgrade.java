@@ -18,6 +18,7 @@ public abstract class Upgrade implements IArmourUpgrade{
     
     protected final int id;
     protected String name;
+    protected boolean isDisabled;
     
     public Upgrade(String name) {
         this.id = this.getNextAvailableId();
@@ -45,6 +46,15 @@ public abstract class Upgrade implements IArmourUpgrade{
     
     public int getId() {
         return this.id;
+    }
+    
+    public boolean isDisabled(){
+    	return isDisabled;
+    }
+    
+    public IUpgrade setDisabled(boolean value){
+    	this.isDisabled = value;
+    	return this;
     }
     
     @Override

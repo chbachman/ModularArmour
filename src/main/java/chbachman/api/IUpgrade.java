@@ -85,5 +85,18 @@ public interface IUpgrade extends Comparable<IUpgrade>{
 	 * @param armourSlot
 	 */
 	void onDequip(World world, EntityPlayer player, ItemStack stack,ArmourSlot armourSlot);
+	
+	/**
+	 * checks to see if the upgrade is diabled.
+	 * @return whether the upgrade is disabled.
+	 */
+	boolean isDisabled();
+	
+	/**
+	 * set whether the upgrade is disabled
+	 * @param value
+	 * @return the Upgrade
+	 */
+	IUpgrade setDisabled(boolean value);
 
 }
