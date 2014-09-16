@@ -110,7 +110,11 @@ public class ItemModularArmour extends ItemArmorAdv implements ISpecialArmor, II
 
 		}
 
-		this.extractEnergy(stack, energy, false);
+		if(energy < 0){
+			this.receiveEnergy(stack, energy * -1, false);
+		}else{
+			this.extractEnergy(stack, energy, false);
+		}
 
 		if (!stack.stackTagCompound.getBoolean("HasPutOn")) {
 			stack.stackTagCompound.setBoolean("HasPutOn", true);
@@ -221,6 +225,10 @@ public class ItemModularArmour extends ItemArmorAdv implements ISpecialArmor, II
 		stack.stackTagCompound.setBoolean("HasPutOn", false);
 
 		for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
+			//if(upgrade == null){
+			//	continue;
+			//}
+			
 			upgrade.onDequip(world, player, stack, ArmourSlot.getArmourSlot(this.armorType));
 		}
 	}

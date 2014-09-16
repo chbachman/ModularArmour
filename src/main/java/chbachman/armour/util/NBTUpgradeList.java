@@ -50,6 +50,11 @@ public class NBTUpgradeList implements List<IUpgrade>{
         	if(nbt.hasKey("ID")){
         		IUpgrade upgrade = UpgradeList.list.get(nbt.getInteger("ID"));
                 
+        		if(upgrade == null){
+        			list.removeTag(index);
+        			return this.get(index);
+        		}
+        		
                 return upgrade;
         	}else{
         		return null;

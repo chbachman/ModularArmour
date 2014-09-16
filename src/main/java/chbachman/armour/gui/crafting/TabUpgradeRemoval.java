@@ -52,6 +52,8 @@ public class TabUpgradeRemoval extends TabBase {
                 this.gui.drawButton("IconCancel", this.currentShiftX + 2, this.currentShiftY + 22, 1, 0);
             }
             
+            //TODO: Add Upgrade Disabler Here
+            
             // gui.drawButton("IconCancel", this.currentShiftX + 2,
             // this.currentShiftY + 22, 1, 1);
             this.getFontRenderer().drawStringWithShadow("Remove this ", this.posXOffset() + 18, this.posY + 22, -1);
