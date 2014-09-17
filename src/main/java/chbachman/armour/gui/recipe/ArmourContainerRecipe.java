@@ -86,13 +86,17 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
         	}
         	
         	if(obj instanceof ItemStack){
-        		return (ItemStack) obj;
+        		ItemStack stack =  (ItemStack) obj;
+        		stack.stackSize = 1;
+        		return stack;
         	}
         	
         	if(obj instanceof ArrayList){
         		@SuppressWarnings("unchecked")
 				ArrayList<ItemStack> list = (ArrayList<ItemStack>) obj;
-        		return list.get(index % list.size());
+        		ItemStack stack = list.get(index % list.size());
+        		stack.stackSize = 1;
+        		return stack;
         		
         	}
         	
