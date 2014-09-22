@@ -244,7 +244,7 @@ public class NBTUpgradeList implements List<IUpgrade>{
         }
 
         public IUpgrade next() {
-            return list.get(++index);
+            return list.get(index++);
         }
 
         public boolean hasPrevious() {
@@ -252,8 +252,7 @@ public class NBTUpgradeList implements List<IUpgrade>{
         }
 
         public IUpgrade previous() {
-            this.index--;
-            return list.get(index);
+            return list.get(--index);
         }
 
         public int nextIndex() {
@@ -304,7 +303,9 @@ public class NBTUpgradeList implements List<IUpgrade>{
 
     @Override
     public ListIterator<IUpgrade> listIterator(int index) {
-        return new IteratorUpgradeList(this);
+    	IteratorUpgradeList list = new IteratorUpgradeList(this);
+    	list.index = index;
+    	return list;
     }
 
     

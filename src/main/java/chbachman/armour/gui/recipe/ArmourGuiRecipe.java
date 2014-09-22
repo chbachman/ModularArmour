@@ -72,7 +72,7 @@ public class ArmourGuiRecipe extends GuiBaseAdv {
             
             this.drawStringBounded(upgrade.getInformation(), 159, this.guiLeft + 11, this.guiTop + 80, 0xFFFFFF);
             
-            if(upgrade.isCompatible(this.container.item, this.container.stack, this.container.item.getSlot())){
+            if(!upgrade.isCompatible(this.container.item, this.container.stack, this.container.item.getSlot())){
             	this.drawStringBounded(StringHelper.localize("info.chbachman.doesWork"), 70, this.guiLeft + 100, this.guiTop + 50, 0xFFFFFF);
             }else{
             	this.drawStringBounded(StringHelper.localize("info.chbachman.doesntWork"), 70, this.guiLeft + 100, this.guiTop + 50, 0xFFFFFF);
