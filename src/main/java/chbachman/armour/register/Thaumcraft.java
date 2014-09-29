@@ -7,6 +7,7 @@ import thaumcraft.api.aspects.AspectList;
 import chbachman.api.IUpgrade;
 import chbachman.armour.crafting.Recipe;
 import chbachman.armour.upgrade.upgradeList.UpgradeBasic;
+import chbachman.armour.util.ArmourSlot;
 
 public class Thaumcraft extends Module{
 
@@ -36,7 +37,7 @@ public class Thaumcraft extends Module{
 	@Override
 	public void registerUpgrades() {
 		visDiscount = new UpgradeBasic("visDiscount");
-		gogglesOfRevealing = new UpgradeBasic("gogglesOfRevealing");
+		gogglesOfRevealing = new UpgradeBasic("gogglesOfRevealing").setArmourSlot(ArmourSlot.HELMET);
 	}
 
 	@Override

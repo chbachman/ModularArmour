@@ -258,7 +258,6 @@ public class ItemModularArmour extends ItemArmorAdv implements ISpecialArmor, II
 				case LEGS: return 4;
 				case PENDANT: return 3;
 				case RING: return 1;
-				case UNKNOWN: return 0;
 				default: return 0;
 				}
 			}

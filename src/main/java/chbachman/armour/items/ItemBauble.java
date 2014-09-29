@@ -138,7 +138,25 @@ public class ItemBauble extends Item implements IBauble, IModularItem{
 	public void onArmorDequip(World worldObj, EntityPlayer player, ItemStack stack) {
 
 	}
+	
+	@Override
+	public int getDisplayDamage(ItemStack stack) {
+		NBTHelper.createDefaultStackTag(stack);
+		return 1 + this.capacity.get(stack) - this.getEnergyStored(stack);
+	}
+	
+	@Override
+	public int getMaxDamage(ItemStack stack) {
 
+		return 1 + this.capacity.get(stack);
+	}
+
+	@Override
+	public boolean isDamaged(ItemStack stack) {
+
+		return stack.getItemDamage() != Short.MAX_VALUE;
+	}
+	
 	//IConfigurableElectric
 	@Override
 	public int getCapacity(ItemStack stack) {
