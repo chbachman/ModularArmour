@@ -37,19 +37,19 @@ public class ModularArmour extends BaseMod {
     public static GuiHandler guiHandler = new GuiHandler();
     public static ConfigHandler config = new ConfigHandler(Reference.VERSION);
     
-    public ModularArmour() {
+    public ModularArmour(){
         super(log);
     }
     
     @EventHandler
-    public static void preInit(FMLPreInitializationEvent event) {
+    public void preInit(FMLPreInitializationEvent event){
         config.setConfiguration(new Configuration(event.getSuggestedConfigurationFile()));
         ItemRegister.INSTANCE.preInit(event.getModConfigurationDirectory());
         ArmourPacket.initialize();
     }
     
     @EventHandler
-    public static void init(FMLInitializationEvent event) {
+    public void init(FMLInitializationEvent event){
         
         MinecraftForge.EVENT_BUS.register(new GenericEventHandler());
         MinecraftForge.EVENT_BUS.register(proxy);
@@ -59,11 +59,10 @@ public class ModularArmour extends BaseMod {
         
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, guiHandler);
         proxy.registerKeyBinds();
-        
     }
     
     @EventHandler
-    public static void postInit(FMLPostInitializationEvent event) {
+    public void postInit(FMLPostInitializationEvent event){
         config.cleanUp(false, true);
         ItemRegister.INSTANCE.postInit();
     }
