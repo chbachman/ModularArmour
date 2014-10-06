@@ -98,5 +98,6 @@ public interface IUpgrade extends Comparable<IUpgrade>{
 	 * @return the Upgrade
 	 */
 	IUpgrade setDisabled(boolean value);
+	
 
 }

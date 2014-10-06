@@ -19,6 +19,7 @@ import chbachman.armour.items.ItemModularArmour;
 import chbachman.armour.reference.Reference;
 import chbachman.armour.upgrade.upgradeList.UpgradeAutoFeeder;
 import chbachman.armour.upgrade.upgradeList.UpgradeBasic;
+import chbachman.armour.upgrade.upgradeList.UpgradeDecorative;
 import chbachman.armour.upgrade.upgradeList.UpgradeElectrolyzer;
 import chbachman.armour.upgrade.upgradeList.UpgradeEnergy;
 import chbachman.armour.upgrade.upgradeList.UpgradeFallDamage;
@@ -82,8 +83,7 @@ public class Vanilla extends Module{
 	public static IUpgrade nightVision;
 	public static IUpgrade invisibility;
 	public static IUpgrade magnet;
-
-	public static final String[] TEXTURE_MODULAR = { Reference.ARMOUR_LOATION + "Modular_1.png", Reference.ARMOUR_LOATION + "Modular_2.png" };
+	public static IUpgrade decorative;
 
 	public final void preInit() {
 
@@ -92,10 +92,10 @@ public class Vanilla extends Module{
 
 		materialModular = EnumHelper.addArmorMaterial("", 25, new int[] { 3, 7, 5, 3 }, 10);
 
-		helmetModular = new ItemModularArmour(materialModular, 0).setArmorTextures(TEXTURE_MODULAR).setUnlocalizedName("chbachman.armour.helmetModular").setTextureName(Reference.ITEM_LOCATION + "ModularHelmet");
-		chestplateModular = new ItemModularArmour(materialModular, 1).setArmorTextures(TEXTURE_MODULAR).setUnlocalizedName("chbachman.armour.chestplateModular").setTextureName(Reference.ITEM_LOCATION + "ModularChestplate");
-		leggingsModular = new ItemModularArmour(materialModular, 2).setArmorTextures(TEXTURE_MODULAR).setUnlocalizedName("chbachman.armour.leggingsModular").setTextureName(Reference.ITEM_LOCATION + "ModularLegs");
-		bootsModular = new ItemModularArmour(materialModular, 3).setArmorTextures(TEXTURE_MODULAR).setUnlocalizedName("chbachman.armour.bootsModular").setTextureName(Reference.ITEM_LOCATION + "ModularBoots");
+		helmetModular = new ItemModularArmour(materialModular, 0).setUnlocalizedName("chbachman.armour.helmetModular").setTextureName(Reference.ITEM_LOCATION + "ModularHelmet");
+		chestplateModular = new ItemModularArmour(materialModular, 1).setUnlocalizedName("chbachman.armour.chestplateModular").setTextureName(Reference.ITEM_LOCATION + "ModularChestplate");
+		leggingsModular = new ItemModularArmour(materialModular, 2).setUnlocalizedName("chbachman.armour.leggingsModular").setTextureName(Reference.ITEM_LOCATION + "ModularLegs");
+		bootsModular = new ItemModularArmour(materialModular, 3).setUnlocalizedName("chbachman.armour.bootsModular").setTextureName(Reference.ITEM_LOCATION + "ModularBoots");
 
 		GameRegistry.registerItem(helmetModular, "helmetModular");
 		GameRegistry.registerItem(chestplateModular, "chestplateModular");
@@ -124,6 +124,8 @@ public class Vanilla extends Module{
 		hardenedEnergy = new UpgradeEnergy("hardened", 400, 2000000).setDependencies(leadstoneEnergy);
 		reinforcedEnergy = new UpgradeEnergy("reinforced", 2000, 10000000).setDependencies(hardenedEnergy);
 		resonantEnergy = new UpgradeEnergy("resonant", 10000, 50000000).setDependencies(reinforcedEnergy);
+		
+		decorative = new UpgradeDecorative("thomazm").setTextureName("Thomaz");
 	}
 
 	public final void init() {
@@ -160,6 +162,7 @@ public class Vanilla extends Module{
 		Recipe.addRecipe(new Recipe(nightVision, "gig", "bpb" ,"gig", 'g', "ingotGold", 'b', "blockGlass", 'i', "ingotIron", 'p', new ItemStack(Items.potionitem, 1, 8198)));
 		Recipe.addRecipe(new Recipe(invisibility, "gig", "bpb" ,"gig", 'g', "ingotGold", 'b', "blockGlass", 'i', "ingotIron", 'p', new ItemStack(Items.potionitem, 1, 8206)));
 		Recipe.addRecipe(new Recipe(magnet, "g g", "i i", " i ", 'i', "ingotIron", 'g', "ingotGold"));
+		Recipe.addRecipe(new Recipe(decorative, "w w", "www", "www", 'w', Blocks.wool));
 	}
 
 	public final void postInit() {

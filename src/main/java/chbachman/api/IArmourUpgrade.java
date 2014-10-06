@@ -25,5 +25,13 @@ public interface IArmourUpgrade extends IUpgrade{
 	 * @return ArmorProperties describing what the Armour should protect against when this upgrade is equiped. 
 	 */
 	ArmorProperties getProperties(EntityLivingBase player, ItemStack armour, DamageSource source, double damage, ArmourSlot armourSlot);
+	
+	/**
+	 * Gets the name of the texture to load onto the armour. 
+	 * @param stack
+	 * @param slot
+	 * @return null if no change, otherwise name of texture.
+	 */
+	String getArmourTexture(ItemStack stack, int slot);
 
 }

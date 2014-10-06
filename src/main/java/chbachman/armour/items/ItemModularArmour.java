@@ -7,6 +7,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
+import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
@@ -20,24 +21,24 @@ import chbachman.api.IModularItem;
 import chbachman.api.IUpgrade;
 import chbachman.armour.ModularArmour;
 import chbachman.armour.gui.GuiHandler;
+import chbachman.armour.reference.Reference;
 import chbachman.armour.register.Thaumcraft;
 import chbachman.armour.util.ArmourSlot;
 import chbachman.armour.util.NBTHelper;
 import chbachman.armour.util.NBTUpgradeList;
 import chbachman.armour.util.VariableInt;
 import cofh.api.item.IInventoryContainerItem;
-import cofh.core.item.ItemArmorAdv;
 import cofh.core.util.CoreUtils;
 import cofh.lib.util.helpers.StringHelper;
 
-public class ItemModularArmour extends ItemArmorAdv implements ISpecialArmor, IInventoryContainerItem, IModularItem, IGoggles, IVisDiscountGear, IRevealer{
+public class ItemModularArmour extends ItemArmor implements ISpecialArmor, IInventoryContainerItem, IModularItem, IGoggles, IVisDiscountGear, IRevealer{
 
 	private VariableInt capacity = new VariableInt("capacity", 100);
 	private VariableInt maxTransfer = new VariableInt("maxTransfer", 100);
 	private VariableInt energyPerDamage = new VariableInt("energyPerDamage", 100);
 	
 	public ItemModularArmour(ArmorMaterial material, int type) {
-		super(material, type);
+		super(material, 0, type);
 		this.setCreativeTab(CreativeTabs.tabCombat);
 	}
 
@@ -151,6 +152,28 @@ public class ItemModularArmour extends ItemArmorAdv implements ISpecialArmor, II
 		stack.stackTagCompound.setBoolean("HasPutOn", false);
 	}
 	
+	@Override
+	public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
+		
+		String texture = "Modular";
+		
+		for(IUpgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)){
+			
+			if(!(upgrade instanceof IArmourUpgrade)){
+				continue;
+			}
+			
+			String textureLocation = ((IArmourUpgrade) upgrade).getArmourTexture(stack, slot);
+			
+			if(textureLocation == null){
+				continue;
+			}
+			
+			texture = textureLocation;
+		}
+		
+		return Reference.ARMOUR_LOATION + texture + (slot == 2 ? "_2" : "_1") + ".png";
+	}
 	
 	//ISpecialArmor
 	@Override
@@ -160,15 +183,11 @@ public class ItemModularArmour extends ItemArmorAdv implements ISpecialArmor, II
 
 	@Override
 	public int getArmorDisplay(EntityPlayer player, ItemStack stack, int slot) {
-		if (this.shouldShowArmour(stack)) {
-			int sum = 0;
-			for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
-				sum += upgrade instanceof IArmourUpgrade ? ((IArmourUpgrade) upgrade).getArmourDisplay() : 0;
-			}
-			return sum;
-		} else {
-			return 0;
+		int sum = 0;
+		for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
+			sum += upgrade instanceof IArmourUpgrade ? ((IArmourUpgrade) upgrade).getArmourDisplay() : 0;
 		}
+		return sum;
 	}
 
 	@Override
@@ -196,10 +215,6 @@ public class ItemModularArmour extends ItemArmorAdv implements ISpecialArmor, II
 		}
 
 		return new ArmorProperties(output.Priority, output.AbsorbRatio, Integer.MAX_VALUE);
-	}
-	
-	public boolean shouldShowArmour(ItemStack stack){
-		return true;
 	}
 	
 	//IInventoryContainerItem

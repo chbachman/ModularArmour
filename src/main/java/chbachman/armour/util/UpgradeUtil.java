@@ -1,7 +1,6 @@
 package chbachman.armour.util;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
