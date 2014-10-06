@@ -3,7 +3,7 @@ item.chbachman.armour.helmetModular.name=模块化头盔
 item.chbachman.armour.chestplateModular.name=模块化胸甲
 item.chbachman.armour.leggingsModular.name=模块化护腿
 item.chbachman.armour.bootsModular.name=模块化鞋子
-item.chbachman.armour.itemRing.0.name=模块化指环
+item.chbachman.armour.itemRing.0.name=模块化戒指
 item.chbachman.armour.itemPendant.0.name=模块化护身符
 item.chbachman.armour.itemBelt.0.name=模块化腰带
 
@@ -14,20 +14,30 @@ item.modulararmour.material.temperedElectrum.name=冷却的金银合金
 info.chbachman.control=控制
 info.chbachman.upgradeList=升级模块列表
 info.chbachman.strong=强力
+info.chbachman.doesWork=不在运作
+info.chbachman.doesntWork=正在运作
 
 info.chbachman.noUpgrade=这个升级组件没有介绍!
 
 upgrade.chbachman.jetpack.name=飞行背包
 upgrade.chbachman.calfShields.name=小腿护盾
-upgrade.chbachman.potion.name=药水组件
+upgrade.chbachman.potion.name=药水装置
 upgrade.chbachman.fallDamage.name=下落减震器
 upgrade.chbachman.solar.name=太阳能头盔
 upgrade.chbachman.feeder.name=自动补食器
 upgrade.chbachman.stepAssist.name=步行辅助器
-upgrade.chbachman.speed.name=加速组件
-upgrade.chbachman.visDiscount.name=灵气减免组件
+upgrade.chbachman.speed.name=加速装置
+upgrade.chbachman.visDiscount.name=灵气减免装置
 upgrade.chbachman.gogglesOfRevealing.name=揭示护目镜升级组件
-
+upgrade.chbachman.jumpBoost.name=弹跳器
+upgrade.chbachman.leadstone.name=铅石电容
+upgrade.chbachman.hardened.name=硬化电容
+upgrade.chbachman.reinforced.name=红石电容
+upgrade.chbachman.resonant.name=谐振电容
+upgrade.chbachman.electrolyzer.name=电解器
+upgrade.chbachman.magnet.name=磁铁装置
+upgrade.chbachman.nightVision.name=夜视仪
+upgrade.chbachman.invisibility.name=隐身装置
 
 upgrade.chbachman.jetpack.information=让你像创造模式那样自由飞行. 建议配合小腿护盾组件使用
 upgrade.chbachman.calfShields.information=使用飞行背包十分容易. 但没了小腿护盾一切都是白搭
@@ -41,3 +51,12 @@ upgrade.chbachman.speed.information=使用活塞的力量加快你的速度. 别
 upgrade.chbachman.ironPlating.information=给予你铁制装备的保护
 upgrade.chbachman.visDiscount.information=让你更容易的制作法杖
 upgrade.chbachman.gogglesOfRevealing.information=天哪, 你是怎么将一副护目镜安装上头盔的?
+upgrade.chbachman.jumpBoost.information=跳得更高, 看的更远
+upgrade.chbachman.leadstone.information=借助铅石电容的力量, 你的装备现在能存储更多的能量了!
+upgrade.chbachman.hardened.information=借助硬化电容的力量, 你的装备现在能存储更多的能量了!
+upgrade.chbachman.reinforced.information=借助红石电容的力量, 你的装备现在能存储更多的能量了!
+upgrade.chbachman.resonant.information=借助谐振电容的力量, 你的装备现在能存储更多的能量了!
+upgrade.chbachman.electrolyzer.information=你曾经因溺水而死? 试试这台电解器! 它能在水下消耗能量来为你补足氧气, 科学实用!
+upgrade.chbachman.magnet.information=让所有掉落物迎你而来
+upgrade.chbachman.nightVision.information=让你在黑夜中也能看清楚周围的东西, 真是魔法!
+upgrade.chbachman.invisibility.information=让你隐身, 可以用来调戏朋友
