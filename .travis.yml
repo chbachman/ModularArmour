@@ -1,2 +1,2 @@
 language: java
-install: gradle setupCIWorkspace runClient
+install: gradle clean setupCIWorkspace build
