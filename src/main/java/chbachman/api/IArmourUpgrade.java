@@ -14,7 +14,6 @@ public interface IArmourUpgrade extends IUpgrade{
 	 */
 	int getArmourDisplay();
 	
-
 	/**
 	 * Called to check what the armour should protect against.
 	 * @param player
