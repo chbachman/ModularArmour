@@ -25,6 +25,7 @@ public interface IArmourUpgrade extends IUpgrade{
 	 */
 	ArmorProperties getProperties(EntityLivingBase player, ItemStack armour, DamageSource source, double damage, ArmourSlot armourSlot);
 	
+	
 	/**
 	 * Gets the name of the texture to load onto the armour. 
 	 * @param stack
