@@ -36,6 +36,7 @@ public class ItemModularArmour extends ItemArmor implements ISpecialArmor, IInve
 	private VariableInt capacity = new VariableInt("capacity", 100);
 	private VariableInt maxTransfer = new VariableInt("maxTransfer", 100);
 	private VariableInt energyPerDamage = new VariableInt("energyPerDamage", 100);
+	public VariableInt level = new VariableInt("level", 0);
 	
 	public ItemModularArmour(ArmorMaterial material, int type) {
 		super(material, 0, type);
@@ -48,7 +49,9 @@ public class ItemModularArmour extends ItemArmor implements ISpecialArmor, IInve
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean check) {
 		NBTHelper.createDefaultStackTag(stack);
-
+		
+		list.add(StringHelper.localize("info.chbachman.level") + level.get(stack));
+		
 		if (!StringHelper.isShiftKeyDown()) {
 			list.add(StringHelper.shiftForDetails());
 		} else {
@@ -106,7 +109,7 @@ public class ItemModularArmour extends ItemArmor implements ISpecialArmor, IInve
 		for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
 
 			if (upgrade != null) {
-				energy += upgrade.onTick(world, player, stack, ArmourSlot.getArmourSlot(this.armorType));
+				energy += upgrade.onTick(world, player, stack, ArmourSlot.getArmourSlot(this.armorType), level.get(stack));
 			}
 
 		}
@@ -123,7 +126,7 @@ public class ItemModularArmour extends ItemArmor implements ISpecialArmor, IInve
 			for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
 
 				if (upgrade != null) {
-					upgrade.onEquip(world, player, stack, ArmourSlot.getArmourSlot(this.armorType));
+					upgrade.onEquip(world, player, stack, ArmourSlot.getArmourSlot(this.armorType), level.get(stack));
 				}
 			}
 		}
@@ -244,7 +247,7 @@ public class ItemModularArmour extends ItemArmor implements ISpecialArmor, IInve
 			//	continue;
 			//}
 			
-			upgrade.onDequip(world, player, stack, ArmourSlot.getArmourSlot(this.armorType));
+			upgrade.onDequip(world, player, stack, ArmourSlot.getArmourSlot(this.armorType), level.get(stack));
 		}
 	}
 	
@@ -359,6 +362,12 @@ public class ItemModularArmour extends ItemArmor implements ISpecialArmor, IInve
 	@Override
 	public void setMaxTransfer(ItemStack stack, int amount) {
 		this.maxTransfer.set(stack, amount);
+	}
+
+
+	@Override
+	public int getLevel(ItemStack stack) {
+		return level.get(stack);
 	}
 
 }

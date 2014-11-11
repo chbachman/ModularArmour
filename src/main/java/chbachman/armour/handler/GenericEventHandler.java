@@ -72,7 +72,7 @@ public class GenericEventHandler {
                 		continue;
                 	}
                 	
-                    upgrade.onEquip(e.player.worldObj, e.player, stack, ArmourSlot.getArmourSlot(armour.getSlot()));
+                    upgrade.onEquip(e.player.worldObj, e.player, stack, ArmourSlot.getArmourSlot(armour.getSlot()), armour.getLevel(stack));
                 }
                 
             }

@@ -29,6 +29,7 @@ public class ItemBauble extends Item implements IBauble, IModularItem{
 	private VariableInt capacity = new VariableInt("capacity", 100);
 	private VariableInt maxTransfer = new VariableInt("maxTransfer", 100);
 	private VariableInt energyPerDamage = new VariableInt("energyPerDamage", 100);
+	public VariableInt level = new VariableInt("level", 0);
 
 	public ItemBauble(){
 		setCreativeTab(CreativeTabs.tabTools);
@@ -62,7 +63,7 @@ public class ItemBauble extends Item implements IBauble, IModularItem{
 	public void onWornTick(ItemStack itemstack, EntityLivingBase player) {
 		int energy = 0;
 		for(IUpgrade upgrade : NBTHelper.getNBTUpgradeList(itemstack)){
-			energy += upgrade.onTick(player.worldObj, (EntityPlayer) player, itemstack, ArmourSlot.getArmourSlot(this.getSlot()));
+			energy += upgrade.onTick(player.worldObj, (EntityPlayer) player, itemstack, ArmourSlot.getArmourSlot(this.getSlot()), level.get(itemstack));
 		}
 		this.extractEnergy(itemstack, energy, false);
 
@@ -108,14 +109,14 @@ public class ItemBauble extends Item implements IBauble, IModularItem{
 		}
 
 		for(IUpgrade upgrade : NBTHelper.getNBTUpgradeList(itemstack)){
-			upgrade.onEquip(player.worldObj, (EntityPlayer) player, itemstack, ArmourSlot.getArmourSlot(this.getSlot()));
+			upgrade.onEquip(player.worldObj, (EntityPlayer) player, itemstack, ArmourSlot.getArmourSlot(this.getSlot()), level.get(itemstack));
 		}
 	}
 
 	@Override
 	public void onUnequipped(ItemStack itemstack, EntityLivingBase player) {
 		for(IUpgrade upgrade : NBTHelper.getNBTUpgradeList(itemstack)){
-			upgrade.onDequip(player.worldObj, (EntityPlayer) player, itemstack, ArmourSlot.getArmourSlot(this.getSlot()));
+			upgrade.onDequip(player.worldObj, (EntityPlayer) player, itemstack, ArmourSlot.getArmourSlot(this.getSlot()), level.get(itemstack));
 		}
 	}
 
@@ -238,6 +239,11 @@ public class ItemBauble extends Item implements IBauble, IModularItem{
 	public int getMaxEnergyStored(ItemStack stack)
 	{
 		return this.capacity.get(stack);
+	}
+
+	@Override
+	public int getLevel(ItemStack stack) {
+		return level.get(stack);
 	}
 
 

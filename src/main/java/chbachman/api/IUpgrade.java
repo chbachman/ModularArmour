@@ -59,7 +59,7 @@ public interface IUpgrade extends Comparable<IUpgrade>{
 	 * @param armourSlot
 	 * @return energy to be subtracted from the armour, each tick.
 	 */
-	int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot armourSlot);
+	int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot armourSlot, int level);
 	
 	/**
 	 * Called when the Upgrade is added to the armour, usually used for editing the VariableInt classes that the object contains. 
@@ -75,7 +75,7 @@ public interface IUpgrade extends Comparable<IUpgrade>{
 	 * @param stack
 	 * @param armourSlot
 	 */
-	void onEquip(World world, EntityPlayer player, ItemStack stack, ArmourSlot armourSlot);
+	void onEquip(World world, EntityPlayer player, ItemStack stack, ArmourSlot armourSlot, int level);
 
 	/**
 	 * Called when the armour is dequiped.
@@ -84,7 +84,7 @@ public interface IUpgrade extends Comparable<IUpgrade>{
 	 * @param stack
 	 * @param armourSlot
 	 */
-	void onDequip(World world, EntityPlayer player, ItemStack stack,ArmourSlot armourSlot);
+	void onDequip(World world, EntityPlayer player, ItemStack stack,ArmourSlot armourSlot, int level);
 	
 	/**
 	 * checks to see if the upgrade is diabled.

@@ -24,7 +24,7 @@ public class UpgradeAutoFeeder extends Upgrade{
     }
     
     @Override
-    public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
+    public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot, int level) {
         
         if(storedFood.get(stack) < 20){
             for(ItemStack playerStack : player.inventory.mainInventory){
