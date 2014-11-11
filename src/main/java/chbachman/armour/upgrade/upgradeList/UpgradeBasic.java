@@ -25,6 +25,7 @@ public class UpgradeBasic extends Upgrade{
 		return this;
 	}
 	
+	@Override
 	public boolean isCompatible(IModularItem item, ItemStack stack, int armorType) {
 		if(this.slot == null){
 			return true;
@@ -33,6 +34,7 @@ public class UpgradeBasic extends Upgrade{
         return armorType == slot.id;
     }
 	
+	@Override
 	public IUpgrade[] getDependencies() {
 		if(dependency == null){
 			return null;

@@ -1,5 +1,7 @@
 package chbachman.armour.upgrade.upgradeList;
 
+import java.util.List;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
@@ -23,12 +25,17 @@ public class UpgradeJumpBoost extends Upgrade {
 		if(event.entityLiving instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.entityLiving;
 			
-			ItemStack stack = UpgradeUtil.getPlayerUpgrade(player, this);
+			List<ItemStack> list = UpgradeUtil.getPlayerUpgrades(player, this);
 			
-			if(stack != null && EnergyUtil.getEnergyStored(stack) > 1000){
-				((IModularItem) stack.getItem()).extractEnergy(stack, 1000, false);
-				player.motionY += .3;
-				
+			for(ItemStack stack : list){
+				if(stack != null && EnergyUtil.getEnergyStored(stack) > 1000){
+					IModularItem modularItem = (IModularItem) stack.getItem();
+					int level = modularItem.getLevel(stack);
+					
+					(modularItem).extractEnergy(stack, 1000 * level, false);
+					player.motionY += .3 * level;
+					
+				}
 			}
 		}
 	}

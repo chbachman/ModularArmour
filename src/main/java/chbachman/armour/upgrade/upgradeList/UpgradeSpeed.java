@@ -18,12 +18,14 @@ public class UpgradeSpeed extends Upgrade{
         return armourType == ArmourSlot.LEGS.id;
     }
     
-    public void onArmourEquip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
+    @Override
+    public void onEquip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot, int level) {
         player.capabilities.setPlayerWalkSpeed(0.2F);
         player.sendPlayerAbilities();
     }
     
-    public void onArmourDequip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
+    @Override
+    public void onDequip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot, int level) {
         player.capabilities.setPlayerWalkSpeed(0.1F);
         player.sendPlayerAbilities();
     }

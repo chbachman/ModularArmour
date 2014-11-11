@@ -18,11 +18,13 @@ public class UpgradeEnergy extends Upgrade{
 		this.capacity = capacity;
 	}
 	
+	@Override
 	public void onUpgradeAddition(IModularItem armour, ItemStack stack){
 		armour.setCapacity(stack, capacity);
 		armour.setMaxTransfer(stack, maxTransfer);
 	}
 	
+	@Override
 	public IUpgrade[] getDependencies() {
 		if(dependency == null){
 			return null;

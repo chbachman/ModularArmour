@@ -16,8 +16,9 @@ public class UpgradeMagnet extends Upgrade{
 		super("magnet");
 	}
 	
-	public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
-		AxisAlignedBB box = player.boundingBox.expand(5, 5, 5);
+	@Override
+	public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot, int level) {
+		AxisAlignedBB box = player.boundingBox.expand(5 * level, 5 * level, 5 * level);
 		
 		@SuppressWarnings("unchecked")
 		List<EntityItem> list = world.getEntitiesWithinAABB(EntityItem.class, box);
@@ -48,7 +49,7 @@ public class UpgradeMagnet extends Upgrade{
 					e.motionY += 1;
 				}
 				
-				energy += 100;
+				energy += 100 * level;
 			}
 		}
 		

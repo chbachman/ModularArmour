@@ -26,6 +26,7 @@ public class UpgradeSolar extends Upgrade {
         return 0;
     }
     
+    @Override
     public boolean isCompatible(IModularItem item, ItemStack stack, int armourType){
     	return EnergyHelper.isEnergyContainerItem(stack) && armourType == ArmourSlot.HELMET.id;
     }

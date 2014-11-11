@@ -103,8 +103,8 @@ public class Vanilla extends Module{
 		autoFeeder = new UpgradeAutoFeeder();
 		jumpBoost = new UpgradeJumpBoost();
 		electrolyzer = new UpgradeElectrolyzer();
-		nightVision = new UpgradePotion("nightVision", Potion.nightVision, 0, 0, 250);
-		invisibility = new UpgradePotion("invisibility", Potion.invisibility, 0, 10, 500);
+		nightVision = new UpgradePotion("nightVision", Potion.nightVision, 0, 250);
+		invisibility = new UpgradePotion("invisibility", Potion.invisibility, 10, 500);
 		magnet = new UpgradeMagnet();
 		
 		

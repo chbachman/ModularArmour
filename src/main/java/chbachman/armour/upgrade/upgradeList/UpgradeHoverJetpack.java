@@ -38,7 +38,7 @@ public class UpgradeHoverJetpack extends Upgrade {
         }
         
         if (player.capabilities.isFlying) {
-            return 500;
+            return 500 * level;
         } else {
             return 0;
         }

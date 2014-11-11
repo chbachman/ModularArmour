@@ -18,11 +18,13 @@ public class UpgradeStepAssist extends Upgrade{
         return armourType == ArmourSlot.LEGS.id;
     }
     
-    public void onArmourEquip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
+    @Override
+    public void onEquip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot, int level) {
         player.stepHeight = 1;
     }
     
-    public void onArmourDequip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
+    @Override
+    public void onDequip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot, int level) {
         player.stepHeight = .5F;
     }
     

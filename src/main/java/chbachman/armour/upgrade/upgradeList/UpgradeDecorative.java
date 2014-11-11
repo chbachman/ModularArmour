@@ -17,6 +17,7 @@ public class UpgradeDecorative extends UpgradeBasic{
 		return this;
 	}
 	
+	@Override
 	public String getArmourTexture(ItemStack stack, int slot){
     	return textureName;
     }

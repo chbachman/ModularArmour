@@ -38,12 +38,13 @@ public class UpgradeUtil {
 		return false;
 	}
 
-	public static ItemStack getPlayerUpgrade(EntityPlayer player, IUpgrade upgrade){
+	public static List<ItemStack> getPlayerUpgrades(EntityPlayer player, IUpgrade upgrade){
+		List<ItemStack> list = new ArrayList<ItemStack>(6);
 		ItemStack[] armourArray = player.inventory.armorInventory;
 
 		for (ItemStack armour : armourArray) {
 			if(doesItemStackContainUpgrade(armour, upgrade)){
-				return armour;
+				list.add(armour);
 			}
 
 		}
@@ -55,12 +56,12 @@ public class UpgradeUtil {
 				ItemStack bauble = inventory.getStackInSlot(i);
 
 				if(doesItemStackContainUpgrade(bauble, upgrade)){
-					return bauble;
+					list.add(bauble);
 				}
 			}
 		}
 
-		return null;
+		return list;
 	}
 
 	public static void removeUpgrade(ItemStack container, IUpgrade upgrade) {
