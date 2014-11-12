@@ -41,4 +41,6 @@ public interface IModularItem extends IEnergyContainerItem{
 	public void setMaxTransfer(ItemStack stack, int amount);
 	
 	public int getLevel(ItemStack stack);
+	
+	public ItemStack setLevel(ItemStack stack, int level);
 }

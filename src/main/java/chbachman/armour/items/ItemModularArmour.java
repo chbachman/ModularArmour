@@ -251,6 +251,12 @@ public class ItemModularArmour extends ItemArmor implements ISpecialArmor, IInve
 		}
 	}
 	
+	@Override
+	public ItemStack setLevel(ItemStack stack, int level) {
+		this.level.set(stack, level);
+		return stack;
+	}
+	
 	//IRevealer
 	@Override
 	public boolean showNodes(ItemStack itemstack, EntityLivingBase player) {

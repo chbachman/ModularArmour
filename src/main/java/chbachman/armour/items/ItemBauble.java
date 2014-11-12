@@ -246,5 +246,11 @@ public class ItemBauble extends Item implements IBauble, IModularItem{
 		return level.get(stack);
 	}
 
+	@Override
+	public ItemStack setLevel(ItemStack stack, int level) {
+		this.level.set(stack, level);
+		return stack;
+	}
+
 
 }
