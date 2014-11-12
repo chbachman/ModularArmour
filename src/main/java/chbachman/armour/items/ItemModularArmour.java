@@ -50,7 +50,7 @@ public class ItemModularArmour extends ItemArmor implements ISpecialArmor, IInve
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean check) {
 		NBTHelper.createDefaultStackTag(stack);
 		
-		list.add(StringHelper.localize("info.chbachman.level") + level.get(stack));
+		list.add(StringHelper.localize("info.chbachman.level") + " " + level.get(stack));
 		
 		if (!StringHelper.isShiftKeyDown()) {
 			list.add(StringHelper.shiftForDetails());

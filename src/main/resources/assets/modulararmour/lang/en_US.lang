@@ -16,6 +16,7 @@ info.chbachman.upgradeList=Upgrade List
 info.chbachman.strong=Strong
 info.chbachman.doesWork=Does not work.
 info.chbachman.doesntWork=Does work.
+info.chbachman.level=Level
 
 info.chbachman.noUpgrade=There is no description for this upgrade!
 
@@ -38,6 +39,7 @@ upgrade.chbachman.electrolyzer.name=Electrolyzer
 upgrade.chbachman.magnet.name=Magnet
 upgrade.chbachman.nightVision.name=Night Vision
 upgrade.chbachman.invisibility.name=Invisibility
+upgrade.chbachman.thomazm.name=Thomaz's Textures
 
 upgrade.chbachman.jetpack.information=Allows you to fly like you are in creative. It is reccomended to have Calf Shields
 upgrade.chbachman.calfShields.information=Rocket Packs are easy. The hard part is inventing Calf Shields.
@@ -60,3 +62,4 @@ upgrade.chbachman.electrolyzer.information=Have you ever drowned? Well this is t
 upgrade.chbachman.magnet.information=Pulls all items in towards you.
 upgrade.chbachman.nightVision.information=Makes you able to see during the night, and the day. Magic FTW!
 upgrade.chbachman.invisibility.information=Makes you invisible. Recommended use: Prank Friends. 
+upgrade.chbachman.thomazm.information=Changes the crappy texture of the current armour into textures from ThomazM. 
