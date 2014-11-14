@@ -19,8 +19,17 @@ public class UpgradeSpeed extends Upgrade{
     }
     
     @Override
+    public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot, int level){
+    	if(player.capabilities.getWalkSpeed() == .3F){
+    		return 100;
+    	}
+    	
+    	return 0;
+    }
+    
+    @Override
     public void onEquip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot, int level) {
-        player.capabilities.setPlayerWalkSpeed(0.2F);
+        player.capabilities.setPlayerWalkSpeed(0.3F);
         player.sendPlayerAbilities();
     }
     

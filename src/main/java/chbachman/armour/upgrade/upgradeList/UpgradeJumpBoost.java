@@ -32,8 +32,8 @@ public class UpgradeJumpBoost extends Upgrade {
 					IModularItem modularItem = (IModularItem) stack.getItem();
 					int level = modularItem.getLevel(stack);
 					
-					(modularItem).extractEnergy(stack, 1000 * level, false);
-					player.motionY += .3 * level;
+					(modularItem).extractEnergy(stack, 1000 * level + 1, false);
+					player.motionY += .3 * level + 1;
 					
 				}
 			}
