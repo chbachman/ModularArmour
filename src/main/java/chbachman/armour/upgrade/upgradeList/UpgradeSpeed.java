@@ -30,12 +30,14 @@ public class UpgradeSpeed extends Upgrade{
     @Override
     public void onEquip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot, int level) {
         player.capabilities.setPlayerWalkSpeed(0.3F);
+        player.capabilities.setFlySpeed(0.15F);
         player.sendPlayerAbilities();
     }
     
     @Override
     public void onDequip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot, int level) {
         player.capabilities.setPlayerWalkSpeed(0.1F);
+        player.capabilities.setFlySpeed(0.1F);
         player.sendPlayerAbilities();
     }
     
