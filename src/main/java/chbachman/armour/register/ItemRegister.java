@@ -27,21 +27,21 @@ public class ItemRegister {
 		vanillaList = new HashMap<String, Vanilla>();
 		vanillaList.put("Vanilla", new Vanilla());
 		
-		register(Baubles.class);
-		register(Thaumcraft.class);
+		register(Baubles.class, "Baubles");
+		register(Thaumcraft.class, "Thaumcraft");
 		//register(new ThermalExpansion());
 	}
 	
-	public void register(Class<? extends Module> clazz){
+	public void register(Class<? extends Module> clazz, String name){
+		
+		if(!Loader.isModLoaded(name)){
+			return;
+		}
 		
 		Module m = null;
 		try {
 			m = clazz.newInstance();
 		} catch (Exception e) {
-			return;
-		}
-		
-		if(!Loader.isModLoaded(m.modid)){
 			return;
 		}
 		
