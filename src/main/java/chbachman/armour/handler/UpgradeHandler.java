@@ -5,6 +5,7 @@ import chbachman.api.IModularItem;
 import chbachman.api.IUpgrade;
 import chbachman.armour.crafting.Recipe;
 import chbachman.armour.gui.ArmourContainerWrapper;
+import chbachman.armour.items.ItemUpgrade;
 import chbachman.armour.upgrade.UpgradeException;
 import chbachman.armour.util.NBTHelper;
 import chbachman.armour.util.NBTUpgradeList;
@@ -13,6 +14,15 @@ import chbachman.armour.util.UpgradeUtil;
 public class UpgradeHandler {
     
     public static IUpgrade getResult(ArmourContainerWrapper containerWrapper) {
+    	
+    	for(int i = 0; i < containerWrapper.getSizeInventory(); i++){
+    		ItemStack stack = containerWrapper.getStackInSlot(i);
+    		
+    		if(stack != null && stack.getItem() instanceof ItemUpgrade){
+    			return ((ItemUpgrade) stack.getItem()).getUpgrade(stack);
+    		}
+    	}
+    	
         return Recipe.getResult(containerWrapper);
     }
     

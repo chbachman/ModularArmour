@@ -4,19 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import baubles.api.BaublesApi;
 import chbachman.api.IModularItem;
 import chbachman.api.IUpgrade;
-import cpw.mods.fml.common.Loader;
 
-public class UpgradeUtil {
+public class BaublesUtil{
 
 	public static boolean doesPlayerHaveUpgrade(EntityPlayer player, IUpgrade upgrade) {
-		
-		if(Loader.isModLoaded("Baubles")){
-			return BaublesUtil.doesPlayerHaveUpgrade(player, upgrade);
-		}
-		
 		ItemStack[] armourArray = player.inventory.armorInventory;
 
 		for (ItemStack armour : armourArray) {
@@ -26,15 +22,20 @@ public class UpgradeUtil {
 
 		}
 
+		IInventory inventory = BaublesApi.getBaubles(player);
+
+		for(int i = 0; i < inventory.getSizeInventory(); i++){
+			ItemStack bauble = inventory.getStackInSlot(i);
+
+			if(doesItemStackContainUpgrade(bauble, upgrade)){
+				return true;
+			}
+		}
+
 		return false;
 	}
 
 	public static List<ItemStack> getPlayerUpgrades(EntityPlayer player, IUpgrade upgrade){
-		
-		if(Loader.isModLoaded("Baubles")){
-			return BaublesUtil.getPlayerUpgrades(player, upgrade);
-		}
-		
 		List<ItemStack> list = new ArrayList<ItemStack>(6);
 		ItemStack[] armourArray = player.inventory.armorInventory;
 
@@ -43,6 +44,16 @@ public class UpgradeUtil {
 				list.add(armour);
 			}
 
+		}
+
+		IInventory inventory = BaublesApi.getBaubles(player);
+
+		for(int i = 0; i < inventory.getSizeInventory(); i++){
+			ItemStack bauble = inventory.getStackInSlot(i);
+
+			if(doesItemStackContainUpgrade(bauble, upgrade)){
+				list.add(bauble);
+			}
 		}
 
 		return list;

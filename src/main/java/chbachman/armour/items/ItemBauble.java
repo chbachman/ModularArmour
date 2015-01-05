@@ -21,7 +21,9 @@ import chbachman.armour.util.NBTHelper;
 import chbachman.armour.util.VariableInt;
 import cofh.core.util.CoreUtils;
 import cofh.lib.util.helpers.StringHelper;
+import cpw.mods.fml.common.Optional;
 
+@Optional.Interface(iface = "baubles.api.IBauble", modid = "Baubles")
 public class ItemBauble extends Item implements IBauble, IModularItem{
 
 	private BaubleType type;

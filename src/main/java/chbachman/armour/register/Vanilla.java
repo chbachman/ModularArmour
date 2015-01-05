@@ -20,6 +20,7 @@ import chbachman.api.IUpgrade;
 import chbachman.armour.ModularArmour;
 import chbachman.armour.crafting.Recipe;
 import chbachman.armour.items.ItemModularArmour;
+import chbachman.armour.items.ItemUpgrade;
 import chbachman.armour.reference.Reference;
 import chbachman.armour.util.ArmourSlot;
 import chbachman.armour.util.NBTHelper;
@@ -46,7 +47,9 @@ public class Vanilla extends Module{
 	public static Item leggingsModular;
 	public static Item bootsModular;
 
+	public static ItemUpgrade itemUpgrade;
 	
+	public static ItemStack itemStackUpgrade;
 	
 	public static ItemStack[] stackHelmetModular;
 	public static ItemStack[] stackChestplateModular;
@@ -97,6 +100,10 @@ public class Vanilla extends Module{
 		leggingsModular = new ItemModularArmour(materialModular, 2).setUnlocalizedName("chbachman.armour.leggingsModular").setTextureName(Reference.ITEM_LOCATION + "ModularLegs");
 		bootsModular = new ItemModularArmour(materialModular, 3).setUnlocalizedName("chbachman.armour.bootsModular").setTextureName(Reference.ITEM_LOCATION + "ModularBoots");
 
+		itemUpgrade = (ItemUpgrade) new ItemUpgrade("modulararmour").setUnlocalizedName("upgrade").setCreativeTab(CreativeTabs.tabMaterials);
+		
+		
+		
 		GameRegistry.registerItem(helmetModular, "helmetModular");
 		GameRegistry.registerItem(chestplateModular, "chestplateModular");
 		GameRegistry.registerItem(leggingsModular, "leggingsModular");
@@ -152,6 +159,8 @@ public class Vanilla extends Module{
 
 		heatedElectrum = material.addOreDictItem(1, "heatedElectrum", 1);
 		temperedElectrum = material.addOreDictItem(0, "temperedElectrum", 1);
+		
+		itemStackUpgrade = itemUpgrade.addItem(0, "itemUpgrade", 1);
 
 		for(int i = 0; i < stackHelmetModular.length; i++){
 			stackHelmetModular[i] = ((IModularItem) helmetModular).setLevel(NBTHelper.createDefaultStackTag(new ItemStack(helmetModular)), i);
