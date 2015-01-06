@@ -37,6 +37,8 @@ public class ModularArmour extends BaseMod {
     public static GuiHandler guiHandler = new GuiHandler();
     public static ConfigHandler config = new ConfigHandler(Reference.VERSION);
     
+    public static boolean debug = false;
+    
     public ModularArmour(){
         super(log);
     }
@@ -44,6 +46,9 @@ public class ModularArmour extends BaseMod {
     @EventHandler
     public void preInit(FMLPreInitializationEvent event){
         config.setConfiguration(new Configuration(event.getSuggestedConfigurationFile()));
+        
+        debug = config.get("advanced", "debug", false, "Do not change this unless I tell you.");
+        
         ItemRegister.INSTANCE.preInit(event.getModConfigurationDirectory());
         ArmourPacket.initialize();
     }

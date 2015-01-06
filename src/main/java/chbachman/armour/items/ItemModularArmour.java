@@ -30,7 +30,10 @@ import chbachman.armour.util.VariableInt;
 import cofh.api.item.IInventoryContainerItem;
 import cofh.core.util.CoreUtils;
 import cofh.lib.util.helpers.StringHelper;
+import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.common.Optional.Interface;
 
+@Optional.InterfaceList(value = { @Interface(iface = "thaumcraft.api.IGoggles", modid = "Thaumcraft"), @Interface(iface = "thaumcraft.api.IVisDiscountGear", modid = "Thaumcraft"), @Interface(iface = "thaumcraft.api.nodes.IRevealer", modid = "Thaumcraft") })
 public class ItemModularArmour extends ItemArmor implements ISpecialArmor, IInventoryContainerItem, IModularItem, IGoggles, IVisDiscountGear, IRevealer{
 
 	private VariableInt capacity = new VariableInt("capacity", 100);
@@ -267,6 +270,7 @@ public class ItemModularArmour extends ItemArmor implements ISpecialArmor, IInve
 
 	//IVisDiscountGear
 	@Override
+	@Optional.Method(modid = "Thaumcraft")
 	public int getVisDiscount(ItemStack stack, EntityPlayer player, Aspect aspect) {
 		NBTUpgradeList list = NBTHelper.getNBTUpgradeList(stack);
 		

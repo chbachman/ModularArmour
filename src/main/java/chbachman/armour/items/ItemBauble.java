@@ -50,11 +50,10 @@ public class ItemBauble extends Item implements IBauble, IModularItem{
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
 
-
 		if (CoreUtils.isFakePlayer(player)) {
 			return stack;
 		}
-
+		
 		if (world.isRemote == false) {
 			player.openGui(ModularArmour.instance, GuiHandler.ARMOUR_ID, world, 0, 0, 0);
 		}
