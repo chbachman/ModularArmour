@@ -249,6 +249,16 @@ public class Recipe
     	craftingList.add(recipe);
     }
     
+    public static void removeRecipe(IUpgrade upgrade){
+    	Iterator<Recipe> iterator = craftingList.iterator();
+    	
+    	while(iterator.hasNext()){
+    		if(iterator.next().output.equals(upgrade)){
+    			iterator.remove();
+    		}
+    	}
+    }
+    
     public String toString(){
     	return "Output: " + this.output + "Input: " + Arrays.toString(this.input);
     }

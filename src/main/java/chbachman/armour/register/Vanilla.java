@@ -1,7 +1,5 @@
 package chbachman.armour.register;
 
-import chbachman.armour.upgrade.upgradeList.*;
-import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -22,6 +20,20 @@ import chbachman.armour.crafting.Recipe;
 import chbachman.armour.items.ItemModularArmour;
 import chbachman.armour.items.ItemUpgrade;
 import chbachman.armour.reference.Reference;
+import chbachman.armour.upgrade.UpgradeList;
+import chbachman.armour.upgrade.upgradeList.UpgradeAutoFeeder;
+import chbachman.armour.upgrade.upgradeList.UpgradeBasic;
+import chbachman.armour.upgrade.upgradeList.UpgradeDecorative;
+import chbachman.armour.upgrade.upgradeList.UpgradeElectrolyzer;
+import chbachman.armour.upgrade.upgradeList.UpgradeEnergy;
+import chbachman.armour.upgrade.upgradeList.UpgradeFallDamage;
+import chbachman.armour.upgrade.upgradeList.UpgradeHoverJetpack;
+import chbachman.armour.upgrade.upgradeList.UpgradeJumpBoost;
+import chbachman.armour.upgrade.upgradeList.UpgradeMagnet;
+import chbachman.armour.upgrade.upgradeList.UpgradePotion;
+import chbachman.armour.upgrade.upgradeList.UpgradeSolar;
+import chbachman.armour.upgrade.upgradeList.UpgradeSpeed;
+import chbachman.armour.upgrade.upgradeList.UpgradeStepAssist;
 import chbachman.armour.util.ArmourSlot;
 import chbachman.armour.util.NBTHelper;
 import cofh.api.modhelpers.ThermalExpansionHelper;
@@ -79,14 +91,7 @@ public class Vanilla extends Module{
 	public static IUpgrade invisibility;
 	public static IUpgrade magnet;
 	public static IUpgrade decorative;
-	public static IUpgrade invisibleArmor;
-
-	public static IUpgrade solarLeadstone;
-	public static IUpgrade solarHardened;
-	public static IUpgrade solarRedstone;
-	public static IUpgrade solarResonant;
-	public static IUpgrade solarAdvanced;
-	public static IUpgrade solarUltimate;
+	public static IUpgrade invisible;
 	
 	public final void preInit() {
 
@@ -138,29 +143,15 @@ public class Vanilla extends Module{
 		resonantEnergy = new UpgradeEnergy("resonant", 10000, 50000000).setDependencies(reinforcedEnergy);
 		
 		decorative = new UpgradeDecorative("thomazm").setTextureName("Thomaz");
-		invisibleArmor = new UpgradeDecorative("sb").setTextureName("Shad0wB1ade");
+		invisible = new UpgradeDecorative("sb").setTextureName("Shad0wB1ade");
 
-		if (Loader.isModLoaded("SolarExpansion"))
-		{
-			solarLeadstone = new UpgradeSolar("solarLeadstone", 1);
-			solarHardened = new UpgradeSolar("solarHardened", 8);
-			solarRedstone = new UpgradeSolar("solarRedstone", 64);
-			solarResonant = new UpgradeSolar("solarResonant", 512);
-			solarAdvanced = new UpgradeSolar("solarAdvanced", 4096);
-			solarUltimate = new UpgradeSolar("solarUltimate", 32768);
-		}
-		else
-		{
-			solar = new UpgradeSolar("solar", 1);
-		}
+		solar = new UpgradeSolar("solar", 1);
 	}
 
 	public final void init() {
 
 		heatedElectrum = material.addOreDictItem(1, "heatedElectrum", 1);
 		temperedElectrum = material.addOreDictItem(0, "temperedElectrum", 1);
-		
-		itemStackUpgrade = itemUpgrade.addItem(0, "itemUpgrade", 1);
 
 		for(int i = 0; i < stackHelmetModular.length; i++){
 			stackHelmetModular[i] = ((IModularItem) helmetModular).setLevel(NBTHelper.createDefaultStackTag(new ItemStack(helmetModular)), i);
@@ -193,28 +184,8 @@ public class Vanilla extends Module{
 		Recipe.addRecipe(new Recipe(invisibility, "gig", "bpb" ,"gig", 'g', "ingotGold", 'b', "blockGlass", 'i', "ingotIron", 'p', new ItemStack(Items.potionitem, 1, 8206)));
 		Recipe.addRecipe(new Recipe(magnet, "g g", "i i", " i ", 'i', "ingotIron", 'g', "ingotGold"));
 		Recipe.addRecipe(new Recipe(decorative, "w w", "www", "www", 'w', Blocks.wool));
-		Recipe.addRecipe(new Recipe(invisibleArmor, "A  ", "   ", "   ", 'A', new ItemStack(Items.potionitem, 1, 8206)));
-
-		if (Loader.isModLoaded("SolarExpansion"))
-		{
-			Block solarT1 = (Block) Block.blockRegistry.getObject("SolarExpansion:solarPanelLeadstone");
-			Block solarT2 = (Block) Block.blockRegistry.getObject("SolarExpansion:solarPanelHardened");
-			Block solarT3 = (Block) Block.blockRegistry.getObject("SolarExpansion:solarPanelRedstone");
-			Block solarT4 = (Block) Block.blockRegistry.getObject("SolarExpansion:solarPanelResonant");
-			Block solarT5 = (Block) Block.blockRegistry.getObject("SolarExpansion:solarPanelAdvanced");
-			Block solarT6 = (Block) Block.blockRegistry.getObject("SolarExpansion:solarPanelUltimate");
-
-			Recipe.addRecipe(new Recipe(solarLeadstone, "A  ", "   ", "   ", 'A', solarT1));
-			Recipe.addRecipe(new Recipe(solarHardened, "A  ", "   ", "   ", 'A', solarT2));
-			Recipe.addRecipe(new Recipe(solarRedstone, "A  ", "   ", "   ", 'A', solarT3));
-			Recipe.addRecipe(new Recipe(solarResonant, "A  ", "   ", "   ", 'A', solarT4));
-			Recipe.addRecipe(new Recipe(solarAdvanced, "A  ", "   ", "   ", 'A', solarT5));
-			Recipe.addRecipe(new Recipe(solarUltimate, "A  ", "   ", "   ", 'A', solarT6));
-		}
-		else
-		{
-			Recipe.addRecipe(new Recipe(solar, "ggg", "ici", "iii", 'g', "blockGlass", 'i', "ingotIron", 'c', Items.coal));
-		}
+		Recipe.addRecipe(new Recipe(invisible, "A  ", "   ", "   ", 'A', new ItemStack(Items.potionitem, 1, 8206)));
+		Recipe.addRecipe(new Recipe(solar, "ggg", "ici", "iii", 'g', "blockGlass", 'i', "ingotIron", 'c', Items.coal));
 	}
 
 	public final void postInit() {
@@ -245,6 +216,19 @@ public class Vanilla extends Module{
 			GameRegistry.addRecipe(new ShapedOreRecipe(stackBootsModular[i], new Object[] { "I I", "IAI", 'I', temperedElectrum, 'A', stackBootsModular[i-1]}));
 		}
 		
+		
+		int i = 0;
+		
+		for(IUpgrade upgrade : UpgradeList.list){
+			
+			ItemStack stack = itemUpgrade.addItem(i++, "itemUpgrade", 1, false);
+			
+			itemUpgrade.setUpgrade(stack, upgrade);
+			
+			System.out.println(upgrade.getName());
+			
+			GameRegistry.registerCustomItemStack(upgrade.getName(), stack);
+		}
 		
 	}
 

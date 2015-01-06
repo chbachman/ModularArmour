@@ -1,5 +1,8 @@
 package chbachman.armour.items;
 
+import java.util.List;
+
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import chbachman.api.IUpgrade;
@@ -13,6 +16,15 @@ public class ItemUpgrade extends ItemBase{
 		super(string);
 	}
 
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Override
+	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
+		//super.addInformation(stack, player, list, bool);
+		
+		list.add(getUpgrade(stack).getName());
+	}
+	
 	public ItemUpgrade setUpgrade(ItemStack stack, IUpgrade upgrade){
 		if(stack.stackTagCompound == null){
 			stack.stackTagCompound = new NBTTagCompound();

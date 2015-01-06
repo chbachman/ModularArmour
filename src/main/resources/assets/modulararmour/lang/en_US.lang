@@ -1,4 +1,4 @@
-#en_US
+ #en_US
 item.chbachman.armour.helmetModular.name=Modular Helmet
 item.chbachman.armour.chestplateModular.name=Modular Chestplate
 item.chbachman.armour.leggingsModular.name=Modular Leggings
@@ -9,7 +9,7 @@ item.chbachman.armour.itemBelt.0.name=Modular Belt
 
 item.modulararmour.material.heatedElectrum.name=Heated Electrum
 item.modulararmour.material.temperedElectrum.name=Tempered Electrum
-
+item.modulararmour.upgrade.itemUpgrade.name=Upgrade
 
 info.chbachman.control=Control
 info.chbachman.upgradeList=Upgrade List

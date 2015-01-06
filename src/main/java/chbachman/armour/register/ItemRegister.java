@@ -120,12 +120,14 @@ public class ItemRegister {
 		base.registerUpgradeRecipes();
 		
 		for(Module module : list){
-			module.postInit();
+			module.registerUpgradeRecipes();
 		}
 		
 		for(Module module : list){
-			module.registerUpgradeRecipes();
+			module.postInit();
 		}
+		
+		
 	}
 
 }
