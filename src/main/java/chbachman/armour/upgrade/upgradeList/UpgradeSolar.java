@@ -11,12 +11,12 @@ import cofh.lib.util.helpers.EnergyHelper;
 
 public class UpgradeSolar extends Upgrade
 {
-    private int generationA;
+    private int generation;
 
-    public UpgradeSolar(String name, int generationB)
+    public UpgradeSolar(String name, int generation)
     {
         super(name);
-        generationA = generationB;
+        this.generation = generation;
     }
     
     @Override
@@ -24,7 +24,7 @@ public class UpgradeSolar extends Upgrade
     {
         if (15 == world.getBlockLightValue(MathHelper.floor_double(player.posX), MathHelper.floor_double(player.posY), MathHelper.floor_double(player.posZ)))
         {
-            return -generationA;
+            return -generation;
         }
         
         return 0;

@@ -9,6 +9,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import chbachman.api.Upgrade;
 import chbachman.armour.util.ArmourSlot;
+import chbachman.armour.util.ConfigHelper;
 
 public class UpgradeMagnet extends Upgrade{
 
@@ -49,7 +50,7 @@ public class UpgradeMagnet extends Upgrade{
 					e.motionY += 1;
 				}
 				
-				energy += 100 * level;
+				energy += ConfigHelper.getEnergyCost(this, "energy cost to drag items in, per item", 100) * level;
 			}
 		}
 		

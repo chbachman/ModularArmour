@@ -8,6 +8,7 @@ import net.minecraft.world.World;
 import chbachman.api.IModularItem;
 import chbachman.api.Upgrade;
 import chbachman.armour.util.ArmourSlot;
+import chbachman.armour.util.ConfigHelper;
 import chbachman.armour.util.VariableInt;
 
 public class UpgradeAutoFeeder extends Upgrade{
@@ -45,7 +46,7 @@ public class UpgradeAutoFeeder extends Upgrade{
                             playerStack = null;
                         }
                     }
-                    return 100;
+                    return ConfigHelper.getEnergyCost(this, "cost for absorbing food", 100);
                 }
             }
         }
@@ -60,7 +61,7 @@ public class UpgradeAutoFeeder extends Upgrade{
             
             this.storedFood.set(stack, this.storedFood.get(stack) - foodNeeded);
             
-            return 100;
+            return ConfigHelper.getEnergyCost(this, "cost for eating food", 100);
         }
         
         return 0;

@@ -8,6 +8,7 @@ import chbachman.api.IModularItem;
 import chbachman.api.Upgrade;
 import chbachman.armour.register.Vanilla;
 import chbachman.armour.util.ArmourSlot;
+import chbachman.armour.util.ConfigHelper;
 import chbachman.armour.util.EnergyUtil;
 import chbachman.armour.util.UpgradeUtil;
 
@@ -27,9 +28,7 @@ public class UpgradeHoverJetpack extends Upgrade {
         
     	if(EnergyUtil.getEnergyStored(stack) != 0){
     		setFlying(player, true);
-    	}
-    	
-    	if(EnergyUtil.getEnergyStored(stack) == 0){
+    	}else if(EnergyUtil.getEnergyStored(stack) == 0){
     		setFlying(player, false);
     	}
     	
@@ -38,7 +37,7 @@ public class UpgradeHoverJetpack extends Upgrade {
         }
         
         if (player.capabilities.isFlying) {
-            return 500 * level;
+            return ConfigHelper.getEnergyCost(this, "cost to fly each tick", 500) * level;
         } else {
             return 0;
         }

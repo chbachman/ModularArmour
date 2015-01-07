@@ -6,6 +6,7 @@ import net.minecraft.world.World;
 import chbachman.api.IModularItem;
 import chbachman.api.Upgrade;
 import chbachman.armour.util.ArmourSlot;
+import chbachman.armour.util.ConfigHelper;
 
 public class UpgradeSpeed extends Upgrade{
 
@@ -21,7 +22,7 @@ public class UpgradeSpeed extends Upgrade{
     @Override
     public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot, int level){
     	if(player.capabilities.getWalkSpeed() == .3F){
-    		return 100;
+    		return ConfigHelper.getEnergyCost(this, "cost to walk faster, per tick", 100);
     	}
     	
     	return 0;

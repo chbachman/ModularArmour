@@ -8,9 +8,11 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import chbachman.api.IModularItem;
 import chbachman.api.Upgrade;
+import chbachman.armour.util.ConfigHelper;
 import chbachman.armour.util.EnergyUtil;
 import chbachman.armour.util.UpgradeUtil;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+
 import org.lwjgl.input.Keyboard;
 
 public class UpgradeJumpBoost extends Upgrade {
@@ -28,13 +30,15 @@ public class UpgradeJumpBoost extends Upgrade {
 			
 			List<ItemStack> list = UpgradeUtil.getPlayerUpgrades(player, this);
 			
+			int energyCost = ConfigHelper.getEnergyCost(this, "cost to jump high", 1000);
+			
 			for(ItemStack stack : list){
 				// You might not always want to jump 10 blocks high :P
-				if(stack != null && EnergyUtil.getEnergyStored(stack) > 1000 && !Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)){
+				if(stack != null && EnergyUtil.getEnergyStored(stack) > energyCost && !Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)){
 					IModularItem modularItem = (IModularItem) stack.getItem();
 					int level = modularItem.getLevel(stack);
 					
-					(modularItem).extractEnergy(stack, 1000 * level + 1, false);
+					(modularItem).extractEnergy(stack, energyCost * level + 1, false);
 					player.motionY += .3 * level + 1;
 					
 				}
