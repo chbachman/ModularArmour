@@ -5,7 +5,7 @@ import chbachman.api.IUpgrade;
 import chbachman.armour.crafting.Recipe;
 import chbachman.armour.upgrade.upgradeList.UpgradeSolar;
 
-public class SolarExpansion extends Module{
+public class SolarExpansion implements Module{
 
 	public static IUpgrade solarLeadstone;
 	public static IUpgrade solarHardened;
@@ -13,10 +13,6 @@ public class SolarExpansion extends Module{
 	public static IUpgrade solarResonant;
 	public static IUpgrade solarAdvanced;
 	public static IUpgrade solarUltimate;
-	
-	public SolarExpansion() {
-		super("SolarExpansion");
-	}
 
 	@Override
 	public void preInit() {

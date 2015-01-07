@@ -1,22 +1,16 @@
 package chbachman.armour.register;
 
 
-public abstract class Module {
+public interface Module {
 
-	public final String modid;
+	public void preInit();
 
-	public Module(String modid){
-		this.modid = modid;
-	}
+	public void init();
 
-	public abstract void preInit();
+	public void postInit();
 
-	public abstract void init();
+	public void registerUpgrades();
 
-	public abstract void postInit();
-
-	public abstract void registerUpgrades();
-
-	public abstract void registerUpgradeRecipes();
+	public void registerUpgradeRecipes();
 
 }

@@ -9,10 +9,6 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class ThermalExpansion extends Vanilla{
 	
 	public static final String TE = "ThermalExpansion";
-	
-	public ThermalExpansion() {
-		super("ThermalExpansion");
-	}
 
 	ItemStack tesseract;
 	ItemStack electrumCoil;

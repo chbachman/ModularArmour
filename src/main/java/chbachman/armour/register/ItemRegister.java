@@ -29,6 +29,7 @@ public class ItemRegister {
 		
 		register(Baubles.class, "Baubles");
 		register(Thaumcraft.class, "Thaumcraft");
+		register(Enviromine.class, "enviromine");
 		//register(new ThermalExpansion());
 	}
 	
@@ -46,7 +47,7 @@ public class ItemRegister {
 		}
 		
 		if(m instanceof Vanilla){
-			vanillaList.put(m.modid, (Vanilla) m);
+			vanillaList.put(name, (Vanilla) m);
 		}else{
 			list.add(m);
 		}

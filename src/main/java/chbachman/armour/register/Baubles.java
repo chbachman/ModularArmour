@@ -10,7 +10,7 @@ import chbachman.armour.reference.Reference;
 import chbachman.armour.util.NBTHelper;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class Baubles extends Module{
+public class Baubles implements Module{
 
     public static Item itemRing;
     public static Item itemPendant;
@@ -19,10 +19,6 @@ public class Baubles extends Module{
     public static ItemStack stackItemRing;
     public static ItemStack stackItemPendant;
     public static ItemStack stackItemBelt;
-	
-	public Baubles() {
-		super("Baubles");
-	}
 
 	@Override
 	public void preInit() {

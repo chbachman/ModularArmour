@@ -9,14 +9,10 @@ import chbachman.armour.crafting.Recipe;
 import chbachman.armour.upgrade.upgradeList.UpgradeBasic;
 import chbachman.armour.util.ArmourSlot;
 
-public class Thaumcraft extends Module{
+public class Thaumcraft implements Module{
 
 	public static IUpgrade visDiscount;
 	public static IUpgrade gogglesOfRevealing;
-	
-	public Thaumcraft() {
-		super("Thaumcraft");
-	}
 
 	@Override
 	public void preInit() {

@@ -42,15 +42,7 @@ import cofh.lib.util.helpers.ItemHelper;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class Vanilla extends Module{
-
-	public Vanilla() {
-		super("Vanilla");
-	}
-	
-	public Vanilla(String modid){
-		super(modid);
-	}
+public class Vanilla implements Module{
 
 	public static ArmorMaterial materialModular;
 

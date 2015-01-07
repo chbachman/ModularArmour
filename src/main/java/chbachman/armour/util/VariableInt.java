@@ -33,6 +33,12 @@ public class VariableInt {
         stack.stackTagCompound.setInteger(this.key, data);
     }
     
+    public void increment(ItemStack stack, int amount){
+    	
+    	this.set(stack, this.get(stack) + amount);
+    	
+    }
+    
     public String toString(){
         return key;
     }
