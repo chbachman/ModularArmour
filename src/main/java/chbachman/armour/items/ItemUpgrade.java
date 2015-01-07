@@ -20,8 +20,6 @@ public class ItemUpgrade extends ItemBase{
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean bool) {
-		//super.addInformation(stack, player, list, bool);
-		
 		list.add(getUpgrade(stack).getName());
 	}
 	
@@ -43,9 +41,7 @@ public class ItemUpgrade extends ItemBase{
 	}
 	
 	public IUpgrade getUpgrade(ItemStack stack) {
-		if(stack.stackTagCompound == null){
-			stack.stackTagCompound = new NBTTagCompound();
-		}
+		NBTHelper.createDefaultStackTag(stack);
 		
 		NBTUpgradeList list = NBTHelper.getNBTUpgradeList(stack);
 		

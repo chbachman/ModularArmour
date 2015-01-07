@@ -16,14 +16,22 @@ buildscript {
 }
 
 
-
+apply plugin: "curseforge"
 apply plugin: 'forge'
 
-version = "1.7.10-0.1.3"
+//This is where we increment the version
+def Properties versionProps = new Properties()
+    def versionPropsFile = file('version.properties')
+    if(versionPropsFile.exists())
+        versionProps.load(new FileInputStream(versionPropsFile))
+    def code = (versionProps['VERSION_CODE'] ?: "0").toInteger() + 1
+    versionProps['VERSION_CODE'] = code.toString()
+    versionProps.store(versionPropsFile.newWriter(), null)
+
+//Add the version number to the regular version
+version = "1.7.10-0.1." + code
 group= "io.github.chbachman.ModularArmour"
 archivesBaseName = "ModularArmour"
-
-//applicationDefaultJvmArgs = ["-Xms3G -Xmx3G -XX:PermSize=1024m"]
 
 minecraft {
     version = "1.7.10-10.13.2.1230"
@@ -33,6 +41,24 @@ minecraft {
      assetDir = "/assets"
     }
 
+}
+
+task deobfJar(type: Jar, dependsOn: 'classes') {
+    from sourceSets.main.output
+    classifier = 'deobf'
+}
+tasks.assemble.dependsOn deobfJar
+
+curse {
+    apiKey = "a70e20e1-8d48-446b-8040-d08b83bb6793"
+    projectId = "224011"
+    changelog = """
+    
+    """
+    releaseType = "beta"
+
+    additionalArtifact deobfJar
+    
 }
 
 processResources
