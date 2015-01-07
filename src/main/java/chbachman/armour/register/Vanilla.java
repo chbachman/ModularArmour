@@ -97,7 +97,7 @@ public class Vanilla implements Module{
 		leggingsModular = new ItemModularArmour(materialModular, 2).setUnlocalizedName("chbachman.armour.leggingsModular").setTextureName(Reference.ITEM_LOCATION + "ModularLegs");
 		bootsModular = new ItemModularArmour(materialModular, 3).setUnlocalizedName("chbachman.armour.bootsModular").setTextureName(Reference.ITEM_LOCATION + "ModularBoots");
 
-		itemUpgrade = (ItemUpgrade) new ItemUpgrade("modulararmour").setUnlocalizedName("upgrade").setCreativeTab(CreativeTabs.tabMaterials);
+		//itemUpgrade = (ItemUpgrade) new ItemUpgrade("modulararmour").setUnlocalizedName("upgrade").setCreativeTab(CreativeTabs.tabMaterials);
 		
 		
 		
@@ -211,6 +211,7 @@ public class Vanilla implements Module{
 		
 		int i = 0;
 		
+		/*
 		for(IUpgrade upgrade : UpgradeList.list){
 			
 			ItemStack stack = itemUpgrade.addItem(i++, "itemUpgrade", 1, false);
@@ -221,6 +222,7 @@ public class Vanilla implements Module{
 			
 			GameRegistry.registerCustomItemStack(upgrade.getName(), stack);
 		}
+		*/
 		
 	}
 

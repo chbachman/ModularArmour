@@ -6,7 +6,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import chbachman.api.IUpgrade;
-import chbachman.armour.util.NBTHelper;
 import chbachman.armour.util.NBTUpgradeList;
 import cofh.core.item.ItemBase;
 
@@ -28,28 +27,18 @@ public class ItemUpgrade extends ItemBase{
 			stack.stackTagCompound = new NBTTagCompound();
 		}
 		
-		NBTUpgradeList list = NBTHelper.getNBTUpgradeList(stack);
-		
-		if(!list.isEmpty()){
-			list.clear();
-		}
-		
-		list.add(upgrade);
+		stack.stackTagCompound = NBTUpgradeList.getNBTTagCompound(upgrade);
 		
 		return this;
 		
 	}
 	
 	public IUpgrade getUpgrade(ItemStack stack) {
-		NBTHelper.createDefaultStackTag(stack);
-		
-		NBTUpgradeList list = NBTHelper.getNBTUpgradeList(stack);
-		
-		if(list.isEmpty()){
-			return null;
+		if(stack.stackTagCompound == null){
+			stack.stackTagCompound = new NBTTagCompound();
 		}
 		
-		return list.get(0);
+		return NBTUpgradeList.getUpgrade(stack.stackTagCompound);
 	}
 
 }

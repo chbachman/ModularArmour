@@ -38,7 +38,7 @@ public class NBTUpgradeList implements List<IUpgrade>{
         return list.tagCount();
     }
     
-    private IUpgrade getUpgrade(NBTTagCompound nbt){
+    public static IUpgrade getUpgrade(NBTTagCompound nbt){
     	try {
 
     		IUpgrade upgrade = UpgradeList.list.get(nbt.getInteger("ID")).setDisabled(nbt.getBoolean("disabled"));
@@ -50,7 +50,7 @@ public class NBTUpgradeList implements List<IUpgrade>{
     	}
     }
     
-    private NBTTagCompound getNBTTagCompound(IUpgrade upgrade){
+    public static NBTTagCompound getNBTTagCompound(IUpgrade upgrade){
     	NBTTagCompound nbt = new NBTTagCompound();
         nbt.setInteger("ID", upgrade.getId());
         nbt.setBoolean("disabled", upgrade.isDisabled());
@@ -64,7 +64,7 @@ public class NBTUpgradeList implements List<IUpgrade>{
             return null;
         }
         
-        IUpgrade upgrade =  this.getUpgrade(nbt);
+        IUpgrade upgrade =  getUpgrade(nbt);
         
         if(upgrade == null){
 			list.removeTag(index);
@@ -77,7 +77,7 @@ public class NBTUpgradeList implements List<IUpgrade>{
     
     public boolean add(IUpgrade upgrade){
         
-        list.appendTag(this.getNBTTagCompound(upgrade));
+        list.appendTag(getNBTTagCompound(upgrade));
         
         return true;
     }
@@ -85,7 +85,7 @@ public class NBTUpgradeList implements List<IUpgrade>{
     @Override
     public IUpgrade set(int index, IUpgrade element) {
         
-        this.list.func_150304_a(index, this.getNBTTagCompound(element));
+        this.list.func_150304_a(index, getNBTTagCompound(element));
         
         return element;
     }
@@ -240,7 +240,7 @@ public class NBTUpgradeList implements List<IUpgrade>{
         }
         
         public boolean hasNext() {
-            return index != list.size();
+            return index <= list.size();
         }
 
         public IUpgrade next() {
