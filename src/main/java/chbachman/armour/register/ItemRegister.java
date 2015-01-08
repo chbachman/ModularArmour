@@ -68,17 +68,20 @@ public class ItemRegister {
 		
 		this.base = vanilla;
 		
-		
-		base.preInit();
-		base.registerUpgrades();
+		for(Module module : list){
+			module.registerUpgrades();
+		}
 		
 		for(Module module : list){
 			module.preInit();
 		}
 		
-		for(Module module : list){
-			module.registerUpgrades();
-		}
+		base.registerUpgrades();
+		base.preInit();
+		
+		
+		
+		
 	}
 	
 	private void createRecipeList(File file){
