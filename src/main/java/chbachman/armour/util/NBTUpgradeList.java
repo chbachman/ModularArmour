@@ -41,7 +41,7 @@ public class NBTUpgradeList implements List<IUpgrade>{
     public static IUpgrade getUpgrade(NBTTagCompound nbt){
     	try {
 
-    		IUpgrade upgrade = UpgradeList.list.get(nbt.getInteger("ID")).setDisabled(nbt.getBoolean("disabled"));
+    		IUpgrade upgrade = UpgradeList.INSTANCE.get(nbt.getInteger("ID")).setDisabled(nbt.getBoolean("disabled"));
     		
 			return upgrade;
 

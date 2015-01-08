@@ -30,6 +30,7 @@ public class ItemRegister {
 		register(Baubles.class, "Baubles");
 		register(Thaumcraft.class, "Thaumcraft");
 		register(Enviromine.class, "enviromine");
+		register(MineTweaker.class, "MineTweaker3");
 		//register(new ThermalExpansion());
 	}
 	

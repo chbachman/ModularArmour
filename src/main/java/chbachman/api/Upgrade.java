@@ -27,11 +27,11 @@ public abstract class Upgrade implements IArmourUpgrade {
 
 		this.name = name;
 
-		UpgradeList.list.add(this);
+		UpgradeList.INSTANCE.add(this);
 	}
 
 	private int getNextAvailableId() {
-		return UpgradeList.list.size();
+		return UpgradeList.INSTANCE.size();
 	}
 
 	@Override
@@ -45,6 +45,11 @@ public abstract class Upgrade implements IArmourUpgrade {
 		return StringHelper.localize(this.getLocalizationString() + ".name");
 	}
 
+	@Override
+	public String getBaseName(){
+		return this.name;
+	}
+	
 	protected String getLocalizationString() {
 		return "upgrade.chbachman."
 				+ StringHelper.camelCase(this.name).replace(" ", "");

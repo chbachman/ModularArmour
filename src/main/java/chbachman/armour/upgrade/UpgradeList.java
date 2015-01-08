@@ -11,13 +11,21 @@ import chbachman.armour.crafting.Recipe;
 @SuppressWarnings("serial")
 public class UpgradeList extends ArrayList<IUpgrade> {
     
-    public static final UpgradeList list = new UpgradeList();
+    public static final UpgradeList INSTANCE = new UpgradeList();
     
+    public IUpgrade get(String name){
+    	for (IUpgrade upgrade : this) {
+            if (upgrade.getBaseName().equals(name)) {
+                return upgrade;
+            }
+        }
+        
+        return null;
+    }
     
-    
-    public IUpgrade getByClass(Class<? extends Upgrade> clazz) {
+    public IUpgrade get(Class<? extends Upgrade> clazz) {
         for (IUpgrade upgrade : this) {
-            if (upgrade.getClass().getName().equals(clazz.getName())) {
+            if (upgrade.getClass() == clazz) {
                 return upgrade;
             }
         }
@@ -40,7 +48,7 @@ public class UpgradeList extends ArrayList<IUpgrade> {
             }
         }
         
-        return super.add(null);
+        return true;
     }
     
 }

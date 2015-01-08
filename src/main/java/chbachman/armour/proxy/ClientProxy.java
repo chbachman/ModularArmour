@@ -17,7 +17,7 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void registerKeyBinds() {
         super.registerKeyBinds();
-        for (IUpgrade normalUpgrade : UpgradeList.list) {
+        for (IUpgrade normalUpgrade : UpgradeList.INSTANCE) {
             if (normalUpgrade instanceof KeybindUpgrade) {
                 
                 KeybindUpgrade upgrade = (KeybindUpgrade) normalUpgrade;

@@ -28,6 +28,12 @@ public interface IUpgrade extends Comparable<IUpgrade>{
 	 * @return Localized Name of the Upgrade
 	 */
 	String getName();
+	
+	/**
+	 * Get the base name of the upgrade. e.g. camelPack
+	 * @return
+	 */
+	String getBaseName();
 
 	/**
 	 * whether the upgrade is compatible with the given armour type. 

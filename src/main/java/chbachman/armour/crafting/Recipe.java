@@ -123,6 +123,11 @@ public class Recipe
         }
     }
 
+    public Recipe(IUpgrade result, Object[] array, boolean flag){
+    	this.input = array;
+    	this.output = result;
+    }
+    
     /**
      * Returns an Item that is the result of this recipe
      */
@@ -216,13 +221,121 @@ public class Recipe
         return true;
     }
 
+    public boolean matches(Recipe inv)
+    {
+        for (int x = 0; x <= MAX_CRAFT_GRID_WIDTH - width; x++)
+        {
+            for (int y = 0; y <= MAX_CRAFT_GRID_HEIGHT - height; ++y)
+            {
+                if (checkMatch(inv, x, y, false))
+                {
+                    return true;
+                }
+
+                if (mirrored && checkMatch(inv, x, y, true))
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+    
+    @SuppressWarnings("unchecked")
+    private boolean checkMatch(Recipe inv, int startX, int startY, boolean mirror)
+    {
+        for (int x = 0; x < MAX_CRAFT_GRID_WIDTH; x++)
+        {
+            for (int y = 0; y < MAX_CRAFT_GRID_HEIGHT; y++)
+            {
+                int subX = x - startX;
+                int subY = y - startY;
+                Object target = null;
+
+                if (subX >= 0 && subY >= 0 && subX < width && subY < height)
+                {
+                    if (mirror)
+                    {
+                        target = input[width - subX - 1 + subY * width];
+                    }
+                    else
+                    {
+                        target = input[subX + subY * width];
+                    }
+                }
+                
+                Object slot = inv.input[(x - 1) * 3 + y];
+
+                if (target instanceof ItemStack)
+                {
+                	if(!(slot instanceof ItemStack)){
+                		return false;
+                	}
+                	
+                    if (!OreDictionary.itemMatches((ItemStack)target, (ItemStack)slot, false))
+                    {
+                        return false;
+                    }
+                }
+                else if (target instanceof ArrayList)
+                {
+                	
+                	if(!(slot instanceof ArrayList)){
+                		return false;
+                	}
+                	
+                    if(!slot.equals(target)){
+                    	return false;
+                    }
+                }
+                else if (target == null && slot != null)
+                {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+    
     public Recipe setMirrored(boolean mirror)
     {
         mirrored = mirror;
         return this;
     }
 
-    /**
+    @Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.hashCode(input);
+		result = prime * result + ((output == null) ? 0 : output.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Recipe))
+			return false;
+		Recipe other = (Recipe) obj;
+		
+		if(!this.matches(other)){
+			return false;
+		}
+		if (output == null) {
+			if (other.output != null)
+				return false;
+		} else if (!output.equals(other.output))
+			return false;
+		return true;
+	}
+
+	/**
      * Returns the input for this recipe, any mod accessing this value should never
      * manipulate the values in this array as it will effect the recipe itself.
      * @return The recipes input vales.
@@ -254,6 +367,16 @@ public class Recipe
     	
     	while(iterator.hasNext()){
     		if(iterator.next().output.equals(upgrade)){
+    			iterator.remove();
+    		}
+    	}
+    }
+    
+    public static void removeRecipe(Recipe upgrade){
+    	Iterator<Recipe> iterator = craftingList.iterator();
+    	
+    	while(iterator.hasNext()){
+    		if(iterator.next().equals(upgrade)){
     			iterator.remove();
     		}
     	}
