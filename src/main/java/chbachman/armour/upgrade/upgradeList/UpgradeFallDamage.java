@@ -14,11 +14,18 @@ public class UpgradeFallDamage extends Upgrade {
 		super("fallDamage");
 	}
 
+	private int cost;
+
+	@Override
+	public void registerConfigOptions(){
+		cost = ConfigHelper.getEnergyCost(this, "cost to fall for every 2 blocks", 100);
+	}
+	
 	@Override
 	public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot, int level) {
 		if (player.fallDistance > 2 && EnergyUtil.getEnergyStored(stack) > 100) {
 			player.fallDistance = 0;
-			return ConfigHelper.getEnergyCost(this, "cost to fall for every 2 blocks", 100);
+			return cost;
 		}
 
 		return 0;

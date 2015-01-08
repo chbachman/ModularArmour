@@ -13,13 +13,20 @@ public class UpgradeElectrolyzer extends Upgrade{
 	public UpgradeElectrolyzer() {
 		super("electrolyzer");
 	}
+
+	private int cost;
+
+	@Override
+	public void registerConfigOptions(){
+		cost = ConfigHelper.getEnergyCost(this, "cost for air to be refilled.", 100);
+	}
 	
 	@Override
 	public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot, int level) {
         if(player.getAir() <= 90 && EnergyUtil.getEnergyStored(stack) > 1000){
         	
         	player.setAir(300);
-        	return ConfigHelper.getEnergyCost(this, "cost for air to be refilled.", 100);
+        	return cost;
         }
         
         return 0;

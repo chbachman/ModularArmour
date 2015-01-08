@@ -105,5 +105,10 @@ public interface IUpgrade extends Comparable<IUpgrade>{
 	 */
 	IUpgrade setDisabled(boolean value);
 	
+	/**
+	 * Register config options here. Called during init.
+	 */
+	public void registerConfigOptions();
+	
 
 }

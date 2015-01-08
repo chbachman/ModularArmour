@@ -6,12 +6,14 @@ import net.minecraftforge.common.config.Configuration;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import chbachman.api.IUpgrade;
 import chbachman.armour.gui.GuiHandler;
 import chbachman.armour.handler.GenericEventHandler;
 import chbachman.armour.network.ArmourPacket;
 import chbachman.armour.proxy.IProxy;
 import chbachman.armour.reference.Reference;
 import chbachman.armour.register.ItemRegister;
+import chbachman.armour.upgrade.UpgradeList;
 import cofh.core.util.ConfigHandler;
 import cofh.mod.BaseMod;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -61,6 +63,11 @@ public class ModularArmour extends BaseMod {
         FMLCommonHandler.instance().bus().register(new GenericEventHandler());
         
         ItemRegister.INSTANCE.init();
+        
+		
+		for(IUpgrade upgrade : UpgradeList.INSTANCE){
+			upgrade.registerConfigOptions();
+		}
         
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, guiHandler);
         proxy.registerKeyBinds();

@@ -15,9 +15,16 @@ import chbachman.armour.util.UpgradeUtil;
 public class UpgradeHoverJetpack extends Upgrade {
     
     public UpgradeHoverJetpack() {
-        super("Jetpack");
+    	super("Jetpack");
     }
-    
+
+    private int cost;
+
+    @Override
+    public void registerConfigOptions(){
+    	cost = ConfigHelper.getEnergyCost(this, "cost to fly each tick", 500);
+    }
+
     @Override
     public boolean isCompatible(IModularItem item, ItemStack stack, int armourType) {
         return armourType == ArmourSlot.CHESTPLATE.id;
@@ -37,7 +44,7 @@ public class UpgradeHoverJetpack extends Upgrade {
         }
         
         if (player.capabilities.isFlying) {
-            return ConfigHelper.getEnergyCost(this, "cost to fly each tick", 500) * level;
+            return cost * level;
         } else {
             return 0;
         }

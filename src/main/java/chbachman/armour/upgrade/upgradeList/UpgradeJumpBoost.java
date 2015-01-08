@@ -20,9 +20,16 @@ public class UpgradeJumpBoost extends Upgrade {
 	public UpgradeJumpBoost() {
 		super("jumpBoost");
 		MinecraftForge.EVENT_BUS.register(this);
-		
+
 	}
-	
+
+	private int cost;
+
+	@Override
+	public void registerConfigOptions(){
+		cost = ConfigHelper.getEnergyCost(this, "cost to jump high", 1000);
+	}
+
 	@SubscribeEvent
 	public void onPlayerJump(LivingJumpEvent event) {
 		if(event.entityLiving instanceof EntityPlayer) {
@@ -30,7 +37,7 @@ public class UpgradeJumpBoost extends Upgrade {
 			
 			List<ItemStack> list = UpgradeUtil.getPlayerUpgrades(player, this);
 			
-			int energyCost = ConfigHelper.getEnergyCost(this, "cost to jump high", 1000);
+			int energyCost = cost;
 			
 			for(ItemStack stack : list){
 				// You might not always want to jump 10 blocks high :P

@@ -115,6 +115,7 @@ public class ItemRegister {
 		for(Module module : list){
 			module.init();
 		}
+
 	}
 	
 	public void postInit(){

@@ -9,6 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
@@ -16,16 +17,21 @@ import thaumcraft.api.IGoggles;
 import thaumcraft.api.IVisDiscountGear;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.nodes.IRevealer;
+import vazkii.botania.api.item.IPixieSpawner;
+import vazkii.botania.api.mana.IManaItem;
 import chbachman.api.IArmourUpgrade;
 import chbachman.api.IModularItem;
 import chbachman.api.IUpgrade;
 import chbachman.armour.ModularArmour;
 import chbachman.armour.gui.GuiHandler;
 import chbachman.armour.reference.Reference;
+import chbachman.armour.register.Botania;
 import chbachman.armour.register.Thaumcraft;
 import chbachman.armour.util.ArmourSlot;
+import chbachman.armour.util.ConfigHelper;
 import chbachman.armour.util.NBTHelper;
 import chbachman.armour.util.NBTUpgradeList;
+import chbachman.armour.util.UpgradeUtil;
 import chbachman.armour.util.VariableInt;
 import cofh.api.item.IInventoryContainerItem;
 import cofh.core.util.CoreUtils;
@@ -33,12 +39,18 @@ import cofh.lib.util.helpers.StringHelper;
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.Optional.Interface;
 
-@Optional.InterfaceList(value = { @Interface(iface = "thaumcraft.api.IGoggles", modid = "Thaumcraft"), @Interface(iface = "thaumcraft.api.IVisDiscountGear", modid = "Thaumcraft"), @Interface(iface = "thaumcraft.api.nodes.IRevealer", modid = "Thaumcraft") })
-public class ItemModularArmour extends ItemArmor implements ISpecialArmor, IInventoryContainerItem, IModularItem, IGoggles, IVisDiscountGear, IRevealer{
+@Optional.InterfaceList(value = { @Interface(iface = "thaumcraft.api.IGoggles", modid = "Thaumcraft"), 
+		@Interface(iface = "thaumcraft.api.IVisDiscountGear", modid = "Thaumcraft"), 
+		@Interface(iface = "thaumcraft.api.nodes.IRevealer", modid = "Thaumcraft"), 
+		@Interface(iface = "vazkii.botania.api.mana.IManaItem", modid = "Botania"),
+		@Interface(iface = "vazkii.botania.api.item.IPixieSpawner", modid = "Botania"),
+		})
+public class ItemModularArmour extends ItemArmor implements ISpecialArmor, IInventoryContainerItem, IModularItem, IGoggles, IVisDiscountGear, IRevealer, IManaItem, IPixieSpawner{
 
 	private VariableInt capacity = new VariableInt("capacity", 100);
 	private VariableInt maxTransfer = new VariableInt("maxTransfer", 100);
 	private VariableInt energyPerDamage = new VariableInt("energyPerDamage", 100);
+	
 	public VariableInt level = new VariableInt("level", 0);
 	
 	public ItemModularArmour(ArmorMaterial material, int type) {
@@ -378,6 +390,78 @@ public class ItemModularArmour extends ItemArmor implements ISpecialArmor, IInve
 	@Override
 	public int getLevel(ItemStack stack) {
 		return level.get(stack);
+	}
+	
+	static int rfToMana = ConfigHelper.getEnergyCost(Botania.manaConverter, "RF to Mana Conversion Factor", 10);
+
+	//IManaItem
+	@Override
+	public int getMana(ItemStack stack) {
+		if(!UpgradeUtil.doesItemStackContainUpgrade(stack, Botania.manaConverter)){
+			return 0;
+		}
+		return this.getEnergyStored(stack) / rfToMana;
+	}
+
+
+	@Override
+	public int getMaxMana(ItemStack stack) {
+		if(!UpgradeUtil.doesItemStackContainUpgrade(stack, Botania.manaConverter)){
+			return 0;
+		}
+		return this.getCapacity(stack) / rfToMana;
+	}
+
+
+	@Override
+	public void addMana(ItemStack stack, int mana) {
+		if(!UpgradeUtil.doesItemStackContainUpgrade(stack, Botania.manaConverter)){
+			return;
+		}
+		this.receiveEnergy(stack, mana * rfToMana, false);
+	}
+
+
+	@Override
+	public boolean canReceiveManaFromPool(ItemStack stack, TileEntity pool) {
+		if(!UpgradeUtil.doesItemStackContainUpgrade(stack, Botania.manaConverter)){
+			return false;
+		}
+		return this.getCapacity(stack) == this.getEnergyStored(stack);
+	}
+
+
+	@Override
+	public boolean canReceiveManaFromItem(ItemStack stack, ItemStack otherStack) {
+		if(!UpgradeUtil.doesItemStackContainUpgrade(stack, Botania.manaConverter)){
+			return false;
+		}
+		return this.getCapacity(stack) == this.getEnergyStored(stack);
+	}
+
+
+	@Override
+	public boolean canExportManaToPool(ItemStack stack, TileEntity pool) {
+		return false;
+	}
+
+
+	@Override
+	public boolean canExportManaToItem(ItemStack stack, ItemStack otherStack) {
+		return false;
+	}
+
+
+	@Override
+	public boolean isNoExport(ItemStack stack) {
+		return true;
+	}
+	
+	
+	//IPixieSpawner
+	@Override
+	public float getPixieChance(ItemStack stack) {
+		return ConfigHelper.getEnergyCost(Botania.pixie, "Pixie Chance", .05F);
 	}
 
 }

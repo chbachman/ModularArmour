@@ -16,6 +16,13 @@ public class UpgradeBloodMagic extends Upgrade{
 		super("blood");
 	}
 
+	private int cost;
+
+	@Override
+	public void registerConfigOptions(){
+		cost = ConfigHelper.getEnergyCost(this, "LP cost per RF", 1);
+	}
+	
 	@Override
 	public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot, int level) {
 		
@@ -36,7 +43,7 @@ public class UpgradeBloodMagic extends Upgrade{
 
         if (!player.capabilities.isCreativeMode)
         {
-            if(SoulNetworkHandler.syphonAndDamageFromNetwork(stack, player, maxEnergy - currentEnergy * ConfigHelper.getEnergyCost(this, "LP cost per RF", 1)));
+            if(SoulNetworkHandler.syphonAndDamageFromNetwork(stack, player, maxEnergy - currentEnergy * cost));
             {
         	   return currentEnergy - maxEnergy; //Oppisite to return negative.
             }

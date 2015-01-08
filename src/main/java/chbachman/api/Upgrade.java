@@ -152,5 +152,10 @@ public abstract class Upgrade implements IArmourUpgrade {
 	public String getArmourTexture(ItemStack stack, int slot) {
 		return null;
 	}
+	
+	@Override
+	public void registerConfigOptions(){
+		
+	}
 
 }

@@ -14,6 +14,13 @@ public class UpgradeSpeed extends Upgrade{
         super("speed");
     }
 
+    private int cost;
+    
+    @Override
+    public void registerConfigOptions(){
+    	cost = ConfigHelper.getEnergyCost(this, "cost to walk faster, per tick", 100);
+    }
+    
     @Override
     public boolean isCompatible(IModularItem item, ItemStack stack, int armourType) {
         return armourType == ArmourSlot.LEGS.id;
@@ -22,7 +29,7 @@ public class UpgradeSpeed extends Upgrade{
     @Override
     public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot, int level){
     	if(player.capabilities.getWalkSpeed() == .3F){
-    		return ConfigHelper.getEnergyCost(this, "cost to walk faster, per tick", 100);
+    		return cost;
     	}
     	
     	return 0;

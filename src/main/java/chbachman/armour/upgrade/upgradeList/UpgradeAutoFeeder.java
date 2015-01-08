@@ -13,12 +13,21 @@ import chbachman.armour.util.VariableInt;
 
 public class UpgradeAutoFeeder extends Upgrade{
     
-    private VariableInt storedFood = new VariableInt("foodLevel", 0);
-    
-    public UpgradeAutoFeeder() {
-        super("feeder");
-    }
+	private VariableInt storedFood = new VariableInt("foodLevel", 0);
 
+	public UpgradeAutoFeeder() {
+		super("feeder");
+	}
+
+	private int absorbing;
+	private int eating;
+
+	@Override
+	public void registerConfigOptions(){
+		absorbing = ConfigHelper.getEnergyCost(this, "cost for absorbing food", 100);
+		eating = ConfigHelper.getEnergyCost(this, "cost for eating food", 100);
+	}
+    
     @Override
     public boolean isCompatible(IModularItem item, ItemStack stack, int armourType) {
         return armourType == ArmourSlot.HELMET.id;
@@ -46,7 +55,7 @@ public class UpgradeAutoFeeder extends Upgrade{
                             playerStack = null;
                         }
                     }
-                    return ConfigHelper.getEnergyCost(this, "cost for absorbing food", 100);
+                    return absorbing;
                 }
             }
         }
@@ -61,7 +70,7 @@ public class UpgradeAutoFeeder extends Upgrade{
             
             this.storedFood.set(stack, this.storedFood.get(stack) - foodNeeded);
             
-            return ConfigHelper.getEnergyCost(this, "cost for eating food", 100);
+            return eating;
         }
         
         return 0;
