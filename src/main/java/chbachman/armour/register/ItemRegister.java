@@ -31,6 +31,7 @@ public class ItemRegister {
 		register(Thaumcraft.class, "Thaumcraft");
 		register(Enviromine.class, "enviromine");
 		register(MineTweaker.class, "MineTweaker3");
+		register(BloodMagic.class, "AWWayofTime");
 		//register(new ThermalExpansion());
 	}
 	

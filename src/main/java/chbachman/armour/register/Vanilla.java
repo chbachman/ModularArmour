@@ -18,9 +18,7 @@ import chbachman.api.IUpgrade;
 import chbachman.armour.ModularArmour;
 import chbachman.armour.crafting.Recipe;
 import chbachman.armour.items.ItemModularArmour;
-import chbachman.armour.items.ItemUpgrade;
 import chbachman.armour.reference.Reference;
-import chbachman.armour.upgrade.UpgradeList;
 import chbachman.armour.upgrade.upgradeList.UpgradeAutoFeeder;
 import chbachman.armour.upgrade.upgradeList.UpgradeBasic;
 import chbachman.armour.upgrade.upgradeList.UpgradeDecorative;
@@ -50,8 +48,6 @@ public class Vanilla implements Module{
 	public static Item chestplateModular;
 	public static Item leggingsModular;
 	public static Item bootsModular;
-
-	public static ItemUpgrade itemUpgrade;
 	
 	public static ItemStack itemStackUpgrade;
 	
@@ -96,8 +92,6 @@ public class Vanilla implements Module{
 		chestplateModular = new ItemModularArmour(materialModular, 1).setUnlocalizedName("chbachman.armour.chestplateModular").setTextureName(Reference.ITEM_LOCATION + "ModularChestplate");
 		leggingsModular = new ItemModularArmour(materialModular, 2).setUnlocalizedName("chbachman.armour.leggingsModular").setTextureName(Reference.ITEM_LOCATION + "ModularLegs");
 		bootsModular = new ItemModularArmour(materialModular, 3).setUnlocalizedName("chbachman.armour.bootsModular").setTextureName(Reference.ITEM_LOCATION + "ModularBoots");
-
-		//itemUpgrade = (ItemUpgrade) new ItemUpgrade("modulararmour").setUnlocalizedName("upgrade").setCreativeTab(CreativeTabs.tabMaterials);
 		
 		
 		
@@ -207,22 +201,6 @@ public class Vanilla implements Module{
 			GameRegistry.addRecipe(new ShapedOreRecipe(stackLeggingsModular[i], new Object[] { "IAI", "I I", "I I", 'I', temperedElectrum, 'A', stackLeggingsModular[i-1]}));
 			GameRegistry.addRecipe(new ShapedOreRecipe(stackBootsModular[i], new Object[] { "I I", "IAI", 'I', temperedElectrum, 'A', stackBootsModular[i-1]}));
 		}
-		
-		
-		int i = 0;
-		
-		/*
-		for(IUpgrade upgrade : UpgradeList.list){
-			
-			ItemStack stack = itemUpgrade.addItem(i++, "itemUpgrade", 1, false);
-			
-			itemUpgrade.setUpgrade(stack, upgrade);
-			
-			System.out.println(upgrade.getName());
-			
-			GameRegistry.registerCustomItemStack(upgrade.getName(), stack);
-		}
-		*/
 		
 	}
 
