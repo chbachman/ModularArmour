@@ -16,8 +16,8 @@ info.chbachman.upgradeList=Upgrade List
 info.chbachman.strong=Strong
 info.chbachman.doesWork=Does not work.
 info.chbachman.doesntWork=Does work.
-info.chbachman.level=Level
 
+info.chbachman.level=Level
 info.chbachman.noUpgrade=There is no description for this upgrade!
 
 upgrade.chbachman.jetpack.name=Jetpack
