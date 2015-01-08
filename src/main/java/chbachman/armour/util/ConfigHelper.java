@@ -26,10 +26,20 @@ public final class ConfigHelper{
 	}
 	
 	public static int getEnergyCost(IUpgrade upgrade, String description, int defaul){
+		
+		if(upgrade == null){
+			return defaul;
+		}
+		
 		return ModularArmour.config.get("energy values", new StringBuilder(upgrade.getName()).append(":").append(description).toString(), defaul, "");
 	}
 	
 	public static float getEnergyCost(IUpgrade upgrade, String description, float defaul){
+		
+		if(upgrade == null){
+			return defaul;
+		}
+		
 		return (float) ModularArmour.config.get("energy values", new StringBuilder(upgrade.getName()).append(":").append(description).toString(), defaul, "");
 	}
 
