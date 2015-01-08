@@ -36,6 +36,7 @@ import chbachman.armour.util.VariableInt;
 import cofh.api.item.IInventoryContainerItem;
 import cofh.core.util.CoreUtils;
 import cofh.lib.util.helpers.StringHelper;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.Optional.Interface;
 
@@ -392,7 +393,7 @@ public class ItemModularArmour extends ItemArmor implements ISpecialArmor, IInve
 		return level.get(stack);
 	}
 	
-	static int rfToMana = ConfigHelper.getEnergyCost(Botania.manaConverter, "RF to Mana Conversion Factor", 10);
+	static int rfToMana = Loader.isModLoaded("Botania") ? ConfigHelper.getEnergyCost(Botania.manaConverter, "RF to Mana Conversion Factor", 10) : 0;
 
 	//IManaItem
 	@Override
