@@ -14,7 +14,8 @@ import java.util.List;
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
-import scala.actors.threadpool.Arrays;
+import minetweaker.mc1710.item.MCItemStack;
+import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
@@ -28,10 +29,10 @@ import chbachman.armour.upgrade.UpgradeList;
  */
 @ZenClass("modularArmour.recipe")
 public class MineTweaker implements Module{
-	 
+	
 	@ZenMethod
-	public static void addRecipe(String output, IIngredient[] ingredients) {
-		MineTweakerAPI.apply(new AddRecipeAction(output, ingredients));
+	public static void addRecipe(String output, IIngredient[][] params) {
+		MineTweakerAPI.apply(new AddRecipeAction(output, params));
 	}
 	
 	@ZenMethod
@@ -40,12 +41,12 @@ public class MineTweaker implements Module{
 	}
 	
 	@ZenMethod
-	public static void removeRecipe(String output, @Optional IIngredient[] ingredients) {
+	public static void removeRecipe(String output, @Optional IIngredient[][] ingredients) {
 		
 		IUpgrade upgrade = UpgradeList.INSTANCE.get(output);
 		
 		if(upgrade == null){
-			MineTweakerAPI.logError("Not an valid Upgrade");
+			MineTweakerAPI.logError("Not an valid upgrade: " + output);
 		}
 		
 		List<Recipe> toRemove = new ArrayList<Recipe>();
@@ -62,17 +63,18 @@ public class MineTweaker implements Module{
 			
 			
 			if(ingredients == null){
-				iterator.remove();
+				toRemove.add(recipe);
+				continue;
 			}else{
 				
-				Object[] mcIngredients = new Object[ingredients.length];
-				
-				for (int i = 0; i < ingredients.length; i++) {
-					mcIngredients[i] = ingredients[i].getInternal();
-				}
-				
-				if(Arrays.equals(recipe.getInput(), mcIngredients)){
-					iterator.remove();
+				for(int i = 0; i < ingredients.length; i++){
+					for(int g = 0; g < ingredients[i].length; g++){
+						
+						if(ingredients[i][g].matches(new MCItemStack(getStackInSlot(recipe, i * g)))){
+							
+						}
+						
+					}
 				}
 			}
 			
@@ -83,6 +85,28 @@ public class MineTweaker implements Module{
 		}
 	}
 	
+    private static ItemStack getStackInSlot(Recipe recipe, int slot) {
+    	
+    	Object obj = recipe.getInput()[slot];
+    	
+    	if(obj instanceof ItemStack){
+    		ItemStack stack =  (ItemStack) obj;
+    		stack.stackSize = 1;
+    		return stack;
+    	}
+    	
+    	if(obj instanceof ArrayList){
+    		@SuppressWarnings("unchecked")
+			ArrayList<ItemStack> list = (ArrayList<ItemStack>) obj;
+    		
+    		return list.get(0);
+    		
+    	}
+    	
+    	return null;
+    	
+    }
+	
 	// ######################
 	// ### Action classes ###
 	// ######################
@@ -90,12 +114,16 @@ public class MineTweaker implements Module{
 	private static class AddRecipeAction implements IUndoableAction {
 		private final Recipe recipe;
 		
-		public AddRecipeAction(String output, IIngredient[] ingredients) {
+		public AddRecipeAction(String output, IIngredient[][] ingredients) {
 			
-			Object[] mcIngredients = new Object[ingredients.length];
+			
+			
+			Object[] mcIngredients = new Object[ingredients.length * ingredients[0].length];
 			
 			for (int i = 0; i < ingredients.length; i++) {
-				mcIngredients[i] = ingredients[i].getInternal();
+				for(int g = 0; g < ingredients.length; g++){
+					mcIngredients[i] = ingredients[i][i].getInternal();
+				}
 			}
 			
 			IUpgrade upgrade = UpgradeList.INSTANCE.get(output);

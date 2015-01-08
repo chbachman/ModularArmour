@@ -32,7 +32,6 @@ public class ItemRegister {
 		register(Enviromine.class, "enviromine");
 		register(MineTweaker.class, "MineTweaker3");
 		register(BloodMagic.class, "AWWayofTime");
-		//register(new ThermalExpansion());
 	}
 	
 	public void register(Class<? extends Module> clazz, String name){
