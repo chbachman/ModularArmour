@@ -22,6 +22,7 @@ public class ArmourGui extends GuiBaseAdv {
     public ArmourContainer container;
     
     public UpgradeComponent list;
+    
     public TabCrafting tabCrafting;
     public TabError scrolledText;
     public TabUpgradeRemoval removal;

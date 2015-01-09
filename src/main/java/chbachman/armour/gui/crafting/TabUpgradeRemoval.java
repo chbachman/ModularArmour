@@ -2,23 +2,21 @@ package chbachman.armour.gui.crafting;
 
 import java.util.List;
 
+import chbachman.armour.gui.GuiHelper;
 import cofh.lib.gui.element.TabBase;
 
 public class TabUpgradeRemoval extends TabBase {
-    
-    public static final int defaultSide = 1;
-    public static int defaultBackgroundColor = 0x088A68;
     
     public final ArmourGui gui;
     public final ArmourContainer container;
     
     public TabUpgradeRemoval(ArmourGui gui) {
-        super(gui, defaultSide);
+        super(gui, 1);
         
         this.gui = gui;
         this.container = gui.container;
         
-        this.backgroundColor = defaultBackgroundColor;
+        this.backgroundColor = 0x088A68;
         
         this.maxHeight = 100;
         this.maxWidth = 110;
@@ -46,7 +44,7 @@ public class TabUpgradeRemoval extends TabBase {
             
         } else {
             
-            if (this.isCoordsInBorders(this.gui.getMouseX() - this.currentShiftX, this.gui.getMouseY() - this.currentShiftY, 2, 2 + 16, 22, 22 + 16)) {
+            if (GuiHelper.isCoordsInBorders(this.gui.getMouseX() - this.currentShiftX, this.gui.getMouseY() - this.currentShiftY, 2, 2 + 16, 22, 22 + 16)) {
                 this.gui.drawButton("IconCancel", this.currentShiftX + 2, this.currentShiftY + 22, 1, 1);
             } else {
                 this.gui.drawButton("IconCancel", this.currentShiftX + 2, this.currentShiftY + 22, 1, 0);
@@ -71,7 +69,7 @@ public class TabUpgradeRemoval extends TabBase {
             list.add("Upgrade Removal");
         }
         
-        if (this.isCoordsInBorders(this.gui.getMouseX() - this.currentShiftX, this.gui.getMouseY() - this.currentShiftY, 2, 2 + 16, 22, 22 + 16)) {
+        if (GuiHelper.isCoordsInBorders(this.gui.getMouseX() - this.currentShiftX, this.gui.getMouseY() - this.currentShiftY, 2, 2 + 16, 22, 22 + 16)) {
             list.add("Remove Upgrade");
         }
     }
@@ -86,19 +84,15 @@ public class TabUpgradeRemoval extends TabBase {
         mouseX -= this.currentShiftX;
         mouseY -= this.currentShiftY;
         
-        if (this.isCoordsInBorders(mouseX, mouseY, 2, 2 + 16, 22, 22 + 16)) {
+        if (GuiHelper.isCoordsInBorders(mouseX, mouseY, 2, 2 + 16, 22, 22 + 16)) {
             this.gui.onButtonClick("RemoveUpgrade");
         }
         
-        if (this.isCoordsInBorders(mouseX, mouseY, 0, 22, 0, 22)) {
+        if (GuiHelper.isCoordsInBorders(mouseX, mouseY, 0, 22, 0, 22)) {
             return false;
         }
         
         return true;
-    }
-    
-    public boolean isCoordsInBorders(int xCoord, int yCoord, int x, int x2, int y, int y2) {
-        return xCoord > x && xCoord < x2 && yCoord > y && yCoord < y2;
     }
     
 }

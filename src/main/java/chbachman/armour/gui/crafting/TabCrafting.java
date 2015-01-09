@@ -14,21 +14,18 @@ import cofh.lib.render.RenderHelper;
 
 public class TabCrafting extends TabBase {
     
-    public static int defaultSide = 1;
-    public static int defaultBackgroundColor = 0x0033FF;
-    
     public static ResourceLocation GRID_TEXTURE = new ResourceLocation(GuiProps.PATH_ELEMENTS + "Slot_Grid_Augment.png");
     
-    ArmourGui myContainer;
+    ArmourGui armourGui;
     
     int slotsBorderX1 = 7;
     int slotsBorderY1 = 20;
     
-    public TabCrafting(ArmourGui container) {
-        super(container, defaultSide);
-        this.backgroundColor = defaultBackgroundColor;
+    public TabCrafting(ArmourGui gui) {
+        super(gui, 1);
+        this.backgroundColor = 0x0033FF;
         
-        this.myContainer = container;
+        this.armourGui = gui;
         
         this.maxHeight = 110;
         this.maxWidth = 93;
@@ -47,10 +44,10 @@ public class TabCrafting extends TabBase {
             return;
         }
         
-        if (this.myContainer.container.upgrade != null) {
+        if (this.armourGui.container.upgrade != null) {
             
             @SuppressWarnings("unchecked")
-            List<String> list = this.getFontRenderer().listFormattedStringToWidth(this.myContainer.container.upgrade.getName(), 70);
+            List<String> list = this.getFontRenderer().listFormattedStringToWidth(this.armourGui.container.upgrade.getName(), 70);
             
             for (int i = 0; i < list.size(); i++) {
                 String lineToDraw = this.getFontRenderer().trimStringToWidth(list.get(i), 90);
@@ -81,7 +78,7 @@ public class TabCrafting extends TabBase {
             list.add("Upgrade");
         }
         
-        if (this.myContainer.container.upgrade != null && this.isCoordsInBorders(this.gui.getMouseX() - this.currentShiftX, this.gui.getMouseY() - this.currentShiftY, 70, 70 + 16, 24, 24 + 16)) {
+        if (this.armourGui.container.upgrade != null && this.isCoordsInBorders(this.gui.getMouseX() - this.currentShiftX, this.gui.getMouseY() - this.currentShiftY, 70, 70 + 16, 24, 24 + 16)) {
             list.add("Add Upgrade");
         }
         
@@ -108,17 +105,17 @@ public class TabCrafting extends TabBase {
         }
         
         if (this.isCoordsInBorders(mouseX, mouseY, 70, 70 + 16, 24, 24 + 16)) {
-            this.myContainer.onButtonClick("UpgradeAddition");
+            this.armourGui.onButtonClick("UpgradeAddition");
             GuiBase.playSound("random.click", 1.0F, 0.4F);
         }
         
         if (this.isCoordsInBorders(mouseX, mouseY, 70, 70 + 16, 42, 42 + 16)) {
-            this.myContainer.onButtonClick("RemoveItems");
+            this.armourGui.onButtonClick("RemoveItems");
             GuiBase.playSound("random.click", 1.0F, 0.4F);
         }
         
         if (this.isCoordsInBorders(mouseX, mouseY, 70, 70 + 16, 60, 60 + 16)) {
-            this.myContainer.onButtonClick("Recipe");
+            this.armourGui.onButtonClick("Recipe");
             GuiBase.playSound("random.click", 1.0F, 0.4F);
         }
         
@@ -151,8 +148,8 @@ public class TabCrafting extends TabBase {
         super.setFullyOpen();
         
         for (int i = 0; i < 9; i++) {
-            ((Slot) this.myContainer.container.inventorySlots.get(i)).xDisplayPosition = this.posXOffset() + this.slotsBorderX1 + 4 + 18 * (i % 3);
-            ((Slot) this.myContainer.container.inventorySlots.get(i)).yDisplayPosition = this.posY + this.slotsBorderY1 + 4 + 18 * (i / 3);
+            ((Slot) this.armourGui.container.inventorySlots.get(i)).xDisplayPosition = this.posXOffset() + this.slotsBorderX1 + 4 + 18 * (i % 3);
+            ((Slot) this.armourGui.container.inventorySlots.get(i)).yDisplayPosition = this.posY + this.slotsBorderY1 + 4 + 18 * (i / 3);
         }
     }
     
@@ -160,8 +157,8 @@ public class TabCrafting extends TabBase {
     public void toggleOpen() {
         if (this.open) {
             for (int i = 0; i < 9; i++) {
-                ((Slot) this.myContainer.container.inventorySlots.get(i)).xDisplayPosition = -this.gui.getGuiLeft() - 16;
-                ((Slot) this.myContainer.container.inventorySlots.get(i)).yDisplayPosition = -this.gui.getGuiTop() - 16;
+                ((Slot) this.armourGui.container.inventorySlots.get(i)).xDisplayPosition = -this.gui.getGuiLeft() - 16;
+                ((Slot) this.armourGui.container.inventorySlots.get(i)).yDisplayPosition = -this.gui.getGuiTop() - 16;
             }
             
         }

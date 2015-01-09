@@ -14,6 +14,7 @@ import chbachman.armour.crafting.Recipe;
 import chbachman.armour.gui.GuiHandler;
 import chbachman.armour.gui.IInputHandler;
 import chbachman.armour.network.ArmourPacket;
+import chbachman.armour.util.ModularItemUtil;
 import cofh.lib.gui.slot.SlotViewOnly;
 
 public class ArmourContainerRecipe extends Container implements IInputHandler{
@@ -21,9 +22,13 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
     public final IModularItem item;
     public final EntityPlayer player;
     public final ItemStack stack;
+    
     public Inventory inventory;
+    public static Inventory2 inventory2;
     public Recipe recipe;
     public int index = 0;
+    
+    public static ItemStack[] modularItems = ModularItemUtil.getListOfItems();
     
     public ArmourContainerRecipe(ItemStack stack, InventoryPlayer inventory, World world) {
         this.item = (IModularItem) stack.getItem();
@@ -31,18 +36,23 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
         this.player = inventory.player;
         this.recipe = Recipe.craftingList.get(0);
         this.inventory = new Inventory();
+        inventory2 = new Inventory2(modularItems);
         
         
-        
-        this.bindCraftingGrid();
+        this.bindSlots();
     }
     
-    protected void bindCraftingGrid() {
+    protected void bindSlots() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 this.addSlotToContainer(new SlotViewOnly(inventory, i * 3 + j, 9 + j * 18, 17 + i * 18));
             }
         }
+        
+        for(int i = 9; i < 9 + modularItems.length; i++){
+        	this.addSlotToContainer(new SlotViewOnly(inventory2, i, 9, 17 + i * 18));
+        }
+        
     }
     
     @Override
@@ -53,7 +63,7 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
     @Override
     public void onButtonClick(ArmourPacket packet, String name) {
         this.index = packet.getInt();
-        this.recipe = Recipe.craftingList.get(index);
+        this.recipe = Recipe.craftingList.get(index % Recipe.craftingList.size());
     }
 
     @Override
@@ -152,5 +162,75 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
         }
 
     }
+    
+
+	private class Inventory2 implements IInventory{
+
+		ItemStack[] stacks;
+		
+		public Inventory2(ItemStack[] stacks){
+			this.stacks = stacks;
+		}
+		
+		@Override
+		public int getSizeInventory() {
+			return stacks.length;
+		}
+
+		@Override
+		public ItemStack getStackInSlot(int slot) {
+
+			return stacks[slot - 9];
+
+		}
+
+		@Override
+		public ItemStack decrStackSize(int p_70298_1_, int p_70298_2_) {
+			return null;
+		}
+
+		@Override
+		public ItemStack getStackInSlotOnClosing(int p_70304_1_) {
+			return null;
+		}
+
+		@Override
+		public void setInventorySlotContents(int slot, ItemStack stack) {}
+
+		@Override
+		public String getInventoryName() {
+			return "inventory";
+		}
+
+		@Override
+		public boolean hasCustomInventoryName() {
+			return false;
+		}
+
+		@Override
+		public int getInventoryStackLimit() {
+			return 1;
+		}
+
+		@Override
+		public void markDirty() {}
+
+		@Override
+		public boolean isUseableByPlayer(EntityPlayer p_70300_1_) {
+			return true;
+		}
+
+		@Override
+		public void openInventory() {}
+
+		@Override
+		public void closeInventory() {}
+
+		@Override
+		public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_) {
+			return true;
+		}
+
+	}
     
 }
