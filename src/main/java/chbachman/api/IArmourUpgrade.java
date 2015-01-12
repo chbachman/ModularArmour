@@ -16,14 +16,14 @@ public interface IArmourUpgrade extends IUpgrade{
 	
 	/**
 	 * Called to check what the armour should protect against.
-	 * @param player
+	 * @param attacker
 	 * @param armour
 	 * @param source
 	 * @param damage
 	 * @param armourSlot
 	 * @return ArmorProperties describing what the Armour should protect against when this upgrade is equiped. 
 	 */
-	ArmorProperties getProperties(EntityLivingBase player, ItemStack armour, DamageSource source, double damage, ArmourSlot armourSlot);
+	ArmorProperties getProperties(EntityLivingBase attacker, ItemStack armour, DamageSource source, double damage, ArmourSlot armourSlot);
 	
 	
 	/**

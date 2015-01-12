@@ -1,5 +1,7 @@
 package chbachman.armour;
 
+import java.io.File;
+
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 
@@ -14,6 +16,7 @@ import chbachman.armour.proxy.IProxy;
 import chbachman.armour.reference.Reference;
 import chbachman.armour.register.ItemRegister;
 import chbachman.armour.upgrade.UpgradeList;
+import chbachman.armour.util.OutputHandler;
 import cofh.core.util.ConfigHandler;
 import cofh.mod.BaseMod;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -38,6 +41,7 @@ public class ModularArmour extends BaseMod {
     public static Logger log = LogManager.getLogger(Reference.MODID);
     public static GuiHandler guiHandler = new GuiHandler();
     public static ConfigHandler config = new ConfigHandler(Reference.VERSION);
+    public static OutputHandler output;
     
     public static boolean debug = false;
     
@@ -48,10 +52,11 @@ public class ModularArmour extends BaseMod {
     @EventHandler
     public void preInit(FMLPreInitializationEvent event){
         config.setConfiguration(new Configuration(event.getSuggestedConfigurationFile()));
+        output = new OutputHandler(new File(event.getModConfigurationDirectory(), "ModularRecipes.txt"));
         
         debug = config.get("advanced", "debug", false, "Do not change this unless I tell you.");
         
-        ItemRegister.INSTANCE.preInit(event.getModConfigurationDirectory());
+        ItemRegister.INSTANCE.preInit();
         ArmourPacket.initialize();
     }
     
@@ -77,6 +82,7 @@ public class ModularArmour extends BaseMod {
     public void postInit(FMLPostInitializationEvent event){
         config.cleanUp(false, true);
         ItemRegister.INSTANCE.postInit();
+        output.save();
     }
     
     @Override

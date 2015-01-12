@@ -1,15 +1,13 @@
 package chbachman.armour.register;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import chbachman.api.IUpgrade;
 import chbachman.armour.ModularArmour;
+import chbachman.armour.upgrade.UpgradeList;
 import cpw.mods.fml.common.Loader;
 
 public class ItemRegister {
@@ -30,8 +28,9 @@ public class ItemRegister {
 		register(Baubles.class, "Baubles");
 		register(Thaumcraft.class, "Thaumcraft");
 		register(Enviromine.class, "enviromine");
-		register(MineTweaker.class, "MineTweaker3");
+		//register(MineTweaker.class, "MineTweaker3"); Disabled until Minetweaker 3.1 comes out. 
 		register(BloodMagic.class, "AWWayofTime");
+		register(Botania.class, "Botania");
 	}
 	
 	public void register(Class<? extends Module> clazz, String name){
@@ -55,9 +54,9 @@ public class ItemRegister {
 		
 	}
 	
-	public void preInit(File file){
+	public void preInit(){
 		
-		createRecipeList(file);
+		
 		
 		Vanilla vanilla = vanillaList.get(ModularArmour.config.get("Change to change the recipes", "Recipes:", "Vanilla"));
 		
@@ -78,38 +77,27 @@ public class ItemRegister {
 		base.registerUpgrades();
 		base.preInit();
 		
-		
+		this.createRecipeList();
 		
 		
 	}
 	
-	private void createRecipeList(File file){
-		File out = new File(file.getAbsoluteFile(), "ModularRecipes.txt");
-		try {
-			if(out.exists()){
-				out.delete();
-			}
-			
-			out.createNewFile();
+	private void createRecipeList(){
 
+		StringBuilder builder = new StringBuilder();
 
-			BufferedWriter output = new BufferedWriter(new FileWriter(out));
-			
-			StringBuilder builder = new StringBuilder();
-			
-			for(String string : vanillaList.keySet()){
-				builder.append(string + ",");
-			}
-			
-			output.append(builder.toString());
-			
-			output.close();
-			
-		} catch (IOException e) {
-			e.printStackTrace();
+		for(String string : vanillaList.keySet()){
+			builder.append(string + ",");
+		}
+
+		ModularArmour.output.write("Recipe Types", builder.toString());
+
+		for(IUpgrade upgrade : UpgradeList.INSTANCE){
+
+			ModularArmour.output.write("upgrade names", new StringBuilder().append(upgrade.getBaseName()).append(" = ").append(upgrade.getName()).toString());
 		}
 	}
-	
+
 	public void init(){
 		
 		base.init();

@@ -115,7 +115,7 @@ public abstract class Upgrade implements IArmourUpgrade {
 	}
 
 	@Override
-	public ArmorProperties getProperties(EntityLivingBase player,
+	public ArmorProperties getProperties(EntityLivingBase attacker,
 			ItemStack armor, DamageSource source, double damage, ArmourSlot slot) {
 		return null;
 	}

@@ -19,19 +19,8 @@ import chbachman.armour.ModularArmour;
 import chbachman.armour.crafting.Recipe;
 import chbachman.armour.items.ItemModularArmour;
 import chbachman.armour.reference.Reference;
-import chbachman.armour.upgrade.upgradeList.UpgradeAutoFeeder;
-import chbachman.armour.upgrade.upgradeList.UpgradeBasic;
-import chbachman.armour.upgrade.upgradeList.UpgradeDecorative;
-import chbachman.armour.upgrade.upgradeList.UpgradeElectrolyzer;
-import chbachman.armour.upgrade.upgradeList.UpgradeEnergy;
-import chbachman.armour.upgrade.upgradeList.UpgradeFallDamage;
-import chbachman.armour.upgrade.upgradeList.UpgradeHoverJetpack;
-import chbachman.armour.upgrade.upgradeList.UpgradeJumpBoost;
-import chbachman.armour.upgrade.upgradeList.UpgradeMagnet;
-import chbachman.armour.upgrade.upgradeList.UpgradePotion;
-import chbachman.armour.upgrade.upgradeList.UpgradeSolar;
-import chbachman.armour.upgrade.upgradeList.UpgradeSpeed;
-import chbachman.armour.upgrade.upgradeList.UpgradeStepAssist;
+import chbachman.armour.upgrade.upgradeList.*;
+import chbachman.armour.upgrade.upgradeList.UpgradeProtective.*;
 import chbachman.armour.util.ArmourSlot;
 import chbachman.armour.util.NBTHelper;
 import cofh.api.modhelpers.ThermalExpansionHelper;
@@ -70,16 +59,29 @@ public class Vanilla implements Module{
 	public static IUpgrade stepAssist;
 	public static IUpgrade autoFeeder;
 	public static IUpgrade jumpBoost;
-	public static IUpgrade leadstoneEnergy;
-	public static IUpgrade hardenedEnergy;
-	public static IUpgrade reinforcedEnergy;
-	public static IUpgrade resonantEnergy;
 	public static IUpgrade electrolyzer;
 	public static IUpgrade nightVision;
 	public static IUpgrade invisibility;
 	public static IUpgrade magnet;
+	
+	public static IUpgrade leadstoneEnergy;
+	public static IUpgrade hardenedEnergy;
+	public static IUpgrade reinforcedEnergy;
+	public static IUpgrade resonantEnergy;
+
 	public static IUpgrade decorative;
 	public static IUpgrade invisible;
+	
+	public static IUpgrade undeadProtection;
+	public static IUpgrade arthropodProtection;
+	public static IUpgrade projectileProtection;
+	public static IUpgrade fireProtection;
+	public static IUpgrade explosionProtection;
+	public static IUpgrade unblockableProtection;
+	public static IUpgrade magicalProtection;
+	public static IUpgrade witherProtection;
+	public static IUpgrade lavaProtection;
+	public static IUpgrade playerProtection;
 	
 	public final void preInit() {
 
@@ -131,6 +133,16 @@ public class Vanilla implements Module{
 		decorative = new UpgradeDecorative("thomazm").setTextureName("Thomaz");
 		invisible = new UpgradeDecorative("sb").setTextureName("Shad0wB1ade");
 
+		undeadProtection = new UpgradeUndead();
+		arthropodProtection = new UpgradeArthropod();
+		fireProtection = new UpgradeFire();
+		explosionProtection = new UpgradeExplosion();
+		unblockableProtection = new UpgradeUnblockable();
+		magicalProtection = new UpgradeMagic();
+		witherProtection = new UpgradeWither();
+		lavaProtection = new UpgradeLava();
+		playerProtection = new UpgradePlayerProtection();
+		
 		solar = new UpgradeSolar("solar", 1);
 	}
 
@@ -172,6 +184,14 @@ public class Vanilla implements Module{
 		Recipe.addRecipe(new Recipe(decorative, "w w", "www", "www", 'w', Blocks.wool));
 		Recipe.addRecipe(new Recipe(invisible, "A  ", "   ", "   ", 'A', new ItemStack(Items.potionitem, 1, 8206)));
 		Recipe.addRecipe(new Recipe(solar, "ggg", "ici", "iii", 'g', "blockGlass", 'i', "ingotIron", 'c', Items.coal));
+		Recipe.addRecipe(new Recipe(undeadProtection, "zzz", "zzz", "zzz", 'z', Items.rotten_flesh));
+		Recipe.addRecipe(new Recipe(arthropodProtection, "sps", "psp", "sps", 's', Items.string, 'p', Items.spider_eye));
+		Recipe.addRecipe(new Recipe(fireProtection, "lgl", "lgl", "lgl", 'l', Items.leather, 'g', Items.gold_ingot));
+		Recipe.addRecipe(new Recipe(unblockableProtection, "d d", "ddd", "ddd", 'd', Items.diamond));
+		Recipe.addRecipe(new Recipe(magicalProtection, "gig", "igi", "gig", 'g', "ingotGold", 'i', "ingotIron"));
+		Recipe.addRecipe(new Recipe(lavaProtection, "oio", "ooo", "oio", 'o', Blocks.obsidian, 'i', "ingotIron"));
+		Recipe.addRecipe(new Recipe(playerProtection, "cih", "iii", "iii", 'i', "ingotIron", 'c', Blocks.crafting_table, 'h', Blocks.chest));
+		Recipe.addRecipe(new Recipe(witherProtection, "cic", "cwc", "cic", 'i', "ingotIron", 'w', Items.skull, 'c', Items.coal));
 	}
 
 	public final void postInit() {

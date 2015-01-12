@@ -121,7 +121,7 @@ public class MineTweaker implements Module{
 			Object[] mcIngredients = new Object[ingredients.length * ingredients[0].length];
 			
 			for (int i = 0; i < ingredients.length; i++) {
-				for(int g = 0; g < ingredients.length; g++){
+				for(int g = 0; g < ingredients[i].length; g++){
 					mcIngredients[i] = ingredients[i][i].getInternal();
 				}
 			}
