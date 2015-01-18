@@ -53,6 +53,16 @@ upgrade.chbachman.solarResonant.name=Resonant Solar Helmet
 upgrade.chbachman.solarAdvanced.name=Advanced Solar Helmet
 upgrade.chbachman.solarUltimate.name=Ultimate Solar Helmet
 
+upgrade.chbachman.undead.name=Undead Protection
+upgrade.chbachman.arthropod.name=Arthropod Protection
+upgrade.chbachman.fireProtector.name=Fire Protection
+upgrade.chbachman.unblockableProtector.name=Unblockable Protector
+upgrade.chbachman.magicProtector.name=Magic Protector
+upgrade.chbachman.lavaProtector.name=Lava Protection
+upgrade.chbachman.playerProtection.name=Player Protector
+upgrade.chbachman.witherProtector.name=Wither Protector
+
+
 upgrade.chbachman.jetpack.information=Allows you to fly like you are in creative. It is reccomended to have Calf Shields
 upgrade.chbachman.calfShields.information=Rocket Packs are easy.  >--o __ Ow  The hard part is inventing the Calf Shields.
 upgrade.chbachman.potion.information=Allows your suit of armor to give you potion effects. This upgrade does nothing, only allows it from other upgrades.
@@ -87,3 +97,12 @@ upgrade.chbachman.solarRedstone.information=A solar helmet. Makes energy. (64RF/
 upgrade.chbachman.solarResonant.information=A solar helmet. Makes energy. (512RF/t)
 upgrade.chbachman.solarAdvanced.information=A solar helmet. Makes energy. (4096RF/t)
 upgrade.chbachman.solarUltimate.information=A solar helmet. Makes energy. (32768RF/t)
+
+upgrade.chbachman.undead.information=Protects you from attacks from the undead.
+upgrade.chbachman.arthropod.information=Protects you from attacks from the undead.
+upgrade.chbachman.fireProtector.information=Uses the insulating power of leather, and the conducting power of gold to protect you from heat. 
+upgrade.chbachman.unblockableProtector.information=This protects against unblockable things. I don't know how it works either. 
+upgrade.chbachman.magicProtector.information=Uses the mixture of gold and iron to conduct magical energy away from you.
+upgrade.chbachman.lavaProtector.information=Contains the Red Orb. Do not put near Groudon. 
+upgrade.chbachman.playerProtection.information=Protects against attacks by players.
+upgrade.chbachman.witherProtector.information=Withers are just not as mean anymore.
