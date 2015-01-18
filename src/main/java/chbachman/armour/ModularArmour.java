@@ -2,6 +2,7 @@ package chbachman.armour;
 
 import java.io.File;
 
+import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 
@@ -10,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 
 import chbachman.api.IUpgrade;
 import chbachman.armour.gui.GuiHandler;
+import chbachman.armour.handler.DamageEventHandler;
 import chbachman.armour.handler.GenericEventHandler;
 import chbachman.armour.network.ArmourPacket;
 import chbachman.armour.proxy.IProxy;
@@ -38,6 +40,7 @@ public class ModularArmour extends BaseMod {
     @SidedProxy(clientSide = "chbachman.armour.proxy.ClientProxy", serverSide = "chbachman.armour.proxy.ServerProxy")
     public static IProxy proxy;
     
+    public static final boolean developmentEnvironment = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
     public static Logger log = LogManager.getLogger(Reference.MODID);
     public static GuiHandler guiHandler = new GuiHandler();
     public static ConfigHandler config = new ConfigHandler(Reference.VERSION);
@@ -63,6 +66,10 @@ public class ModularArmour extends BaseMod {
     @EventHandler
     public void init(FMLInitializationEvent event){
         
+    	if(developmentEnvironment){
+    		MinecraftForge.EVENT_BUS.register(new DamageEventHandler());
+    	}
+    	
         MinecraftForge.EVENT_BUS.register(new GenericEventHandler());
         MinecraftForge.EVENT_BUS.register(proxy);
         FMLCommonHandler.instance().bus().register(new GenericEventHandler());

@@ -81,57 +81,6 @@ public class GenericEventHandler {
         }
     }
 
-    HashMap<EntityPlayer, Float> otherMap = new HashMap<EntityPlayer, Float>();
-    
-    @SubscribeEvent
-    public void onEntityDamaged(LivingHurtEvent e){
-    	if(e.entityLiving instanceof EntityPlayer){
-    		EntityPlayer player = (EntityPlayer) e.entityLiving;
-    		player.addChatMessage(new ChatComponentText(String.format("Damage is %s.", e.ammount)));
-    		otherMap.put(player, e.ammount);
-    	}
-    }
-    
-    HashMap<EntityPlayer, Float> map = new HashMap<EntityPlayer, Float>();
-    
-    @SubscribeEvent
-    public void onEntityUpdate(LivingUpdateEvent e){
-    	if(e.entityLiving instanceof EntityPlayer){
-    		EntityPlayer player = (EntityPlayer) e.entityLiving;
-    		
-    		if(player == null){
-    			return;
-    		}
-    		
-    		Float f = map.get(player);
-    		
-    		Float health = player.getHealth();
-    		
-    		if(f == null){
-    			map.put(player, health);
-    			return;
-    		}
-    		
-    		if(f.floatValue() == health.floatValue()){
-    			return;
-    		}else{
-    			
-    			System.out.println(f);
-    			
-    			System.out.println(health);
-    			player.addChatMessage(new ChatComponentText(String.format("Damage is %s", f - health)));
-    			map.put(player, health);
-    			
-    			Float damage = otherMap.get(player);
-    			
-    			if(damage == null){
-    				return;
-    			}
-    			player.addChatMessage(new ChatComponentText(String.format("Percentage is %s", (1 - ((f - health) / damage)) * 100)));
-    			
-    		}
-    	}
-    }
     
     private class PlayerArmourSlot {
         
