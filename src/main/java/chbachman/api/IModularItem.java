@@ -26,8 +26,12 @@ public interface IModularItem extends IEnergyContainerItem{
 	 * @param player
 	 * @param stack2
 	 */
-	public void onArmorDequip(World worldObj, EntityPlayer player, ItemStack stack);
+	public void onArmourDequip(World worldObj, EntityPlayer player, ItemStack stack);
 
+	public void onArmourEquip(World worldObj, EntityPlayer player, ItemStack stack);
+	
+	public boolean isArmour();
+	
 	public int getCapacity(ItemStack stack);
 	
 	public void setCapacity(ItemStack stack, int amount);

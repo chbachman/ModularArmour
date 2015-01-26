@@ -13,6 +13,7 @@ import chbachman.api.IUpgrade;
 import chbachman.armour.gui.GuiHandler;
 import chbachman.armour.handler.DamageEventHandler;
 import chbachman.armour.handler.GenericEventHandler;
+import chbachman.armour.handler.ModularArmourHandler;
 import chbachman.armour.network.ArmourPacket;
 import chbachman.armour.proxy.IProxy;
 import chbachman.armour.reference.Reference;
@@ -45,6 +46,7 @@ public class ModularArmour extends BaseMod {
     public static GuiHandler guiHandler = new GuiHandler();
     public static ConfigHandler config = new ConfigHandler(Reference.VERSION);
     public static OutputHandler output;
+    public static ModularArmourHandler modularHandler;
     
     public static boolean debug = false;
     
@@ -56,6 +58,7 @@ public class ModularArmour extends BaseMod {
     public void preInit(FMLPreInitializationEvent event){
         config.setConfiguration(new Configuration(event.getSuggestedConfigurationFile()));
         output = new OutputHandler(new File(event.getModConfigurationDirectory(), "ModularRecipes.txt"));
+        modularHandler = new ModularArmourHandler();
         
         debug = config.get("advanced", "debug", false, "Do not change this unless I tell you.");
         

@@ -3,6 +3,7 @@ package chbachman.armour.upgrade.upgradeList;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import chbachman.api.IModularItem;
 import chbachman.api.Upgrade;
 import chbachman.armour.util.ArmourSlot;
 import chbachman.armour.util.ConfigHelper;
@@ -31,5 +32,10 @@ public class UpgradeElectrolyzer extends Upgrade{
         
         return 0;
     }
+	
+	@Override
+	public boolean isCompatible(IModularItem item, ItemStack stack, int armorType) {
+		return armorType == ArmourSlot.HELMET.id;
+	}
 
 }

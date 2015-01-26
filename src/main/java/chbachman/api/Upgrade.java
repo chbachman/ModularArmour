@@ -137,8 +137,7 @@ public abstract class Upgrade implements IArmourUpgrade {
 	}
 
 	@Override
-	public int onTick(World world, EntityPlayer player, ItemStack stack,
-			ArmourSlot slot, int level) {
+	public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot, int level) {
 		return 0;
 	}
 

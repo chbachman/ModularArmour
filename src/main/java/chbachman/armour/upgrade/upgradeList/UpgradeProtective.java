@@ -40,6 +40,11 @@ public abstract class UpgradeProtective extends UpgradeBasic{
 		return new ArmorProperties(0,0,0);
 	}
 	
+	@Override
+	public boolean isCompatible(IModularItem item, ItemStack stack, int armorType) {
+		return item.isArmour();
+	}
+	
 	public abstract boolean shouldDefend(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, ArmourSlot slot);
 	
 	

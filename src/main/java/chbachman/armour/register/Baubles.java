@@ -5,6 +5,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import baubles.api.BaubleType;
+import chbachman.api.IModularItem;
+import chbachman.armour.ModularArmour;
 import chbachman.armour.items.ItemBauble;
 import chbachman.armour.reference.Reference;
 import chbachman.armour.util.NBTHelper;
@@ -28,6 +30,7 @@ public class Baubles implements Module{
         GameRegistry.registerItem(itemRing, "itemRing");
         GameRegistry.registerItem(itemPendant, "itemPendant");
         GameRegistry.registerItem(itemBelt, "itemBelt");
+        
 	}
 
 	@Override
@@ -35,6 +38,10 @@ public class Baubles implements Module{
         stackItemRing = NBTHelper.createDefaultStackTag(new ItemStack(itemRing));
         stackItemBelt = NBTHelper.createDefaultStackTag(new ItemStack(itemBelt));
         stackItemPendant = NBTHelper.createDefaultStackTag(new ItemStack(itemPendant));
+        
+        ModularArmour.modularHandler.register((IModularItem) itemPendant, stackItemPendant);
+        ModularArmour.modularHandler.register((IModularItem) itemRing, stackItemRing);
+        ModularArmour.modularHandler.register((IModularItem) itemBelt, stackItemBelt);
 	}
 
 	@Override

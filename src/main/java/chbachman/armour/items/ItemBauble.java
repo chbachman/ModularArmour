@@ -137,7 +137,7 @@ public class ItemBauble extends Item implements IBauble, IModularItem{
 	}
 
 	@Override
-	public void onArmorDequip(World worldObj, EntityPlayer player, ItemStack stack) {
+	public void onArmourDequip(World worldObj, EntityPlayer player, ItemStack stack) {
 
 	}
 	
@@ -159,7 +159,6 @@ public class ItemBauble extends Item implements IBauble, IModularItem{
 		return stack.getItemDamage() != Short.MAX_VALUE;
 	}
 	
-	//IConfigurableElectric
 	@Override
 	public int getCapacity(ItemStack stack) {
 		return capacity.get(stack);
@@ -192,6 +191,23 @@ public class ItemBauble extends Item implements IBauble, IModularItem{
 
 	}
 
+
+	@Override
+	public int getLevel(ItemStack stack) {
+		return level.get(stack);
+	}
+
+	@Override
+	public ItemStack setLevel(ItemStack stack, int level) {
+		this.level.set(stack, level);
+		return stack;
+	}
+
+	@Override
+	public void onArmourEquip(World worldObj, EntityPlayer player, ItemStack stack) {
+		
+	}
+	
 	//IEnergyContainerItem
 
 
@@ -243,15 +259,10 @@ public class ItemBauble extends Item implements IBauble, IModularItem{
 	}
 
 	@Override
-	public int getLevel(ItemStack stack) {
-		return level.get(stack);
+	public boolean isArmour() {
+		return false;
 	}
 
-	@Override
-	public ItemStack setLevel(ItemStack stack, int level) {
-		this.level.set(stack, level);
-		return stack;
-	}
 
 
 }

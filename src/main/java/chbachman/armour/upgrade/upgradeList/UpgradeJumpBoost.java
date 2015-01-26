@@ -8,6 +8,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import chbachman.api.IModularItem;
 import chbachman.api.Upgrade;
+import chbachman.armour.util.ArmourSlot;
 import chbachman.armour.util.ConfigHelper;
 import chbachman.armour.util.EnergyUtil;
 import chbachman.armour.util.UpgradeUtil;
@@ -51,6 +52,11 @@ public class UpgradeJumpBoost extends Upgrade {
 				}
 			}
 		}
+	}
+	
+	@Override
+	public boolean isCompatible(IModularItem item, ItemStack stack, int armorType) {
+		return armorType == ArmourSlot.LEGS.id;
 	}
 
 }

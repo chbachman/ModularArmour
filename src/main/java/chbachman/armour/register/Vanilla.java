@@ -157,7 +157,13 @@ public class Vanilla implements Module{
 			stackLeggingsModular[i] = ((IModularItem) leggingsModular).setLevel(NBTHelper.createDefaultStackTag(new ItemStack(leggingsModular)), i);
 			stackBootsModular[i] = ((IModularItem) bootsModular).setLevel(NBTHelper.createDefaultStackTag(new ItemStack(bootsModular)), i);
 		}
-
+		
+		ModularArmour.modularHandler.register((IModularItem) helmetModular, stackHelmetModular[0]);
+		ModularArmour.modularHandler.register((IModularItem) chestplateModular, stackChestplateModular[0]);
+		ModularArmour.modularHandler.register((IModularItem) leggingsModular, stackLeggingsModular[0]);
+		ModularArmour.modularHandler.register((IModularItem) bootsModular, stackBootsModular[0]);
+		
+		
 		if(Loader.isModLoaded("ThermalFoundation")){
 			ThermalExpansionHelper.addTransposerFill(4000, GameRegistry.findItemStack("ThermalFoundation", "ingotElectrum", 1), heatedElectrum, new FluidStack(FluidRegistry.getFluid("pyrotheum"), 500), false);
 			ThermalExpansionHelper.addTransposerFill(4000, heatedElectrum, temperedElectrum, new FluidStack(FluidRegistry.getFluid("cryotheum"), 500), false);

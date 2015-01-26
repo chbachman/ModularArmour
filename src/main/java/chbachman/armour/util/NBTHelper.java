@@ -1,8 +1,12 @@
 package chbachman.armour.util;
 
+import java.util.Collection;
+import java.util.Iterator;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraftforge.common.util.Constants;
 
 public class NBTHelper {
     
@@ -47,9 +51,45 @@ public class NBTHelper {
             nbt.setTag("UpgradeList", new NBTTagList());
         }
         
-        NBTUpgradeList tagList = new NBTUpgradeList((NBTTagList) nbt.getTag("UpgradeList"));
+        NBTUpgradeList tagList = new NBTUpgradeList(nbt.getTagList("UpgradeList", Constants.NBT.TAG_COMPOUND));
         
         return tagList;
         
+    }
+
+    public static <E> void save(NBTTagCompound nbt, String identifier, Collection<E> c, NBTAble<E> n){
+    	NBTTagList list = new NBTTagList();
+    	Iterator<E> iterator = c.iterator();
+    	
+    	while(iterator.hasNext()){
+    		NBTTagCompound local = new NBTTagCompound();
+    		n.save(iterator.next(), local);
+    		
+    		list.appendTag(local);
+    	}
+    	
+    	nbt.setTag(identifier, list);
+
+    }
+    
+    public static <E> void save(NBTTagCompound nbt, Collection<E> c, NBTAble<E> n){
+    	save(nbt, "list", c, n);
+    	
+    }
+
+    public static <E> void load(NBTTagCompound nbt, String identifier, Collection<E> toFill, NBTAble<E> n){
+    	
+    	NBTTagList list = nbt.getTagList(identifier, Constants.NBT.TAG_COMPOUND);
+    	
+    	for(int i = 0; i < list.tagCount(); i++){
+    		toFill.add(n.get(list.getCompoundTagAt(i)));
+    	}
+    	
+    }
+
+    public static <E> void load(NBTTagCompound nbt, Collection<E> toFill, NBTAble<E> n){
+    	
+    	load(nbt, "list",toFill, n);
+    	
     }
 }

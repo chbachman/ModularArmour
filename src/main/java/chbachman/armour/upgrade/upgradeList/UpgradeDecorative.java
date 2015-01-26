@@ -1,8 +1,14 @@
 package chbachman.armour.upgrade.upgradeList;
 
+import chbachman.api.IModularItem;
 import net.minecraft.item.ItemStack;
 
 public class UpgradeDecorative extends UpgradeBasic{
+
+	@Override
+	public boolean isCompatible(IModularItem item, ItemStack stack, int armorType) {
+		return super.isCompatible(item, stack, armorType) && item.isArmour();
+	}
 
 	String textureName;
 	

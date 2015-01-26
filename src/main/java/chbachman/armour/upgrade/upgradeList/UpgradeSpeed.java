@@ -7,6 +7,7 @@ import chbachman.api.IModularItem;
 import chbachman.api.Upgrade;
 import chbachman.armour.util.ArmourSlot;
 import chbachman.armour.util.ConfigHelper;
+import chbachman.armour.util.EnergyUtil;
 
 public class UpgradeSpeed extends Upgrade{
 
@@ -28,12 +29,22 @@ public class UpgradeSpeed extends Upgrade{
     
     @Override
     public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot, int level){
+    	
+    	if(EnergyUtil.getEnergyStored(stack) == 0){
+    		player.capabilities.setPlayerWalkSpeed(.1F);
+    		player.capabilities.setFlySpeed(.1F);
+    		player.sendPlayerAbilities();
+    	}
     	if(player.capabilities.getWalkSpeed() == .3F){
     		return cost;
     	}
     	
+    	
+    	
     	return 0;
     }
+    
+    
     
     @Override
     public void onEquip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot, int level) {

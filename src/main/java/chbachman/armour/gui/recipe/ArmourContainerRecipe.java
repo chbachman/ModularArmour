@@ -14,7 +14,6 @@ import chbachman.armour.crafting.Recipe;
 import chbachman.armour.gui.GuiHandler;
 import chbachman.armour.gui.IInputHandler;
 import chbachman.armour.network.ArmourPacket;
-import chbachman.armour.util.ModularItemUtil;
 import cofh.lib.gui.slot.SlotViewOnly;
 
 public class ArmourContainerRecipe extends Container implements IInputHandler{
@@ -28,7 +27,7 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
     public Recipe recipe;
     public int index = 0;
     
-    public static ItemStack[] modularItems = ModularItemUtil.getListOfItems();
+    public static ItemStack[] modularItems = ModularArmour.modularHandler.getListOfItems();
     
     public ArmourContainerRecipe(ItemStack stack, InventoryPlayer inventory, World world) {
         this.item = (IModularItem) stack.getItem();

@@ -6,7 +6,6 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.input.Keyboard;
 
-import chbachman.api.IModularItem;
 import chbachman.api.IUpgrade;
 import chbachman.armour.crafting.Recipe;
 import chbachman.armour.gui.GuiHelper;

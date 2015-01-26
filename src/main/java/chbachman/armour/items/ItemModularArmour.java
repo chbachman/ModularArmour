@@ -136,17 +136,6 @@ public class ItemModularArmour extends ItemArmor implements ISpecialArmor, IInve
 			this.extractEnergy(stack, energy, false);
 		}
 
-		if (!stack.stackTagCompound.getBoolean("HasPutOn")) {
-			stack.stackTagCompound.setBoolean("HasPutOn", true);
-
-			for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
-
-				if (upgrade != null) {
-					upgrade.onEquip(world, player, stack, ArmourSlot.getArmourSlot(this.armorType), level.get(stack));
-				}
-			}
-		}
-
 	}
 
 	@Override
@@ -164,11 +153,6 @@ public class ItemModularArmour extends ItemArmor implements ISpecialArmor, IInve
 			player.openGui(ModularArmour.instance, GuiHandler.ARMOUR_ID, world, 0, 0, 0);
 		}
 		return stack;
-	}
-
-	@Override
-	public void onUpdate(ItemStack stack, World world, Entity player, int x, boolean y) {
-		stack.stackTagCompound.setBoolean("HasPutOn", false);
 	}
 	
 	@Override
@@ -248,22 +232,19 @@ public class ItemModularArmour extends ItemArmor implements ISpecialArmor, IInve
 		return this.armorType;
 	}
 	
-	public void onArmorDequip(World world, EntityPlayer player, ItemStack stack) {
-
-		if (stack == null) {
-			return;
-		}
-
-		NBTHelper.createDefaultStackTag(stack);
-
-		stack.stackTagCompound.setBoolean("HasPutOn", false);
-
+	public boolean isArmour(){
+		return true;
+	}
+	
+	public void onArmourDequip(World world, EntityPlayer player, ItemStack stack) {
 		for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
-			//if(upgrade == null){
-			//	continue;
-			//}
-			
 			upgrade.onDequip(world, player, stack, ArmourSlot.getArmourSlot(this.armorType), level.get(stack));
+		}
+	}
+	
+	public void onArmourEquip(World world, EntityPlayer player, ItemStack stack){
+		for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
+			upgrade.onEquip(world, player, stack, ArmourSlot.getArmourSlot(this.armorType), level.get(stack));
 		}
 	}
 	
