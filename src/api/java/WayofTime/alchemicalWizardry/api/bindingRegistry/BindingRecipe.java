@@ -23,11 +23,6 @@ public class BindingRecipe
 		return this.requiredItem.isItemEqual(testStack);
 	}
 	
-	public ItemStack getResult(ItemStack inputItem)
-	{
-		return this.getResult();
-	}
-	
 	public ItemStack getResult()
 	{
 		return this.outputItem;
