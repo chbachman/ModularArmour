@@ -99,10 +99,6 @@ public class MineTweaker implements Module{
     	
     }
 	
-	// ######################
-	// ### Action classes ###
-	// ######################
-	
 	private static class AddRecipeAction implements IUndoableAction {
 		private final Recipe recipe;
 		
