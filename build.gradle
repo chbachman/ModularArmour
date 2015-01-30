@@ -17,7 +17,7 @@ buildscript {
 
 
 apply plugin: "curseforge"
-apply plugin: 'forge'
+apply plugin: "forge"
 
 //This is where we increment the version
 def Properties versionProps = new Properties()

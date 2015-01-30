@@ -43,7 +43,7 @@ public class UpgradeBloodMagic extends Upgrade{
 
         if (!player.capabilities.isCreativeMode)
         {
-            if(SoulNetworkHandler.syphonAndDamageFromNetwork(stack, player, maxEnergy - currentEnergy * cost));
+            if(SoulNetworkHandler.syphonAndDamageFromNetwork(stack, player, (maxEnergy - currentEnergy) * cost));
             {
         	   return currentEnergy - maxEnergy; //Oppisite to return negative.
             }

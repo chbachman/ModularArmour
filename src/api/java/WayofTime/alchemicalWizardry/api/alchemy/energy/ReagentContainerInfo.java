@@ -1,5 +1,8 @@
 package WayofTime.alchemicalWizardry.api.alchemy.energy;
 
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.IFluidTank;
+
 public final class ReagentContainerInfo
 {
     public final ReagentStack reagent;

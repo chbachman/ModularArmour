@@ -264,7 +264,7 @@ public class Recipe
                     }
                 }
                 
-                Object slot = inv.input[(x - 1) * 3 + y];
+                Object slot = inv.input[(x) * 3 + y];
 
                 if (target instanceof ItemStack)
                 {

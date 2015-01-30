@@ -5,16 +5,16 @@ import net.minecraft.world.World;
 
 public abstract class SummoningHelper
 {
-    protected String id;
+	protected int id;
 
-    public SummoningHelper(String id)
+    public SummoningHelper(int id)
     {
         this.id = id;
     }
 
     public abstract EntityLivingBase getEntity(World worldObj);
 
-    public String getSummoningHelperID()
+    public int getSummoningHelperID()
     {
         return id;
     }

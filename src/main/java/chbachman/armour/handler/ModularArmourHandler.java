@@ -5,9 +5,6 @@ import java.util.List;
 
 import net.minecraft.item.ItemStack;
 import chbachman.api.IModularItem;
-import chbachman.armour.register.Baubles;
-import chbachman.armour.register.Vanilla;
-import cpw.mods.fml.common.Loader;
 
 public class ModularArmourHandler {
 	

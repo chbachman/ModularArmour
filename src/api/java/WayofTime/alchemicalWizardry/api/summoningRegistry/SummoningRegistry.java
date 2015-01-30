@@ -55,11 +55,11 @@ public class SummoningRegistry
         return null;
     }
 
-    public static EntityLivingBase getEntityWithID(World worldObj, String id)
+    public static EntityLivingBase getEntityWithID(World worldObj, int id)
     {
         for (SummoningRegistryComponent src : summoningList)
         {
-            if (src.getSummoningHelperID().equals(id))
+            if (src.getSummoningHelperID() == id)
             {
                 return src.getEntity(worldObj);
             }

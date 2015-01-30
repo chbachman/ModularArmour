@@ -59,15 +59,12 @@ public class GenericEventHandler {
 
 				IModularItem armour = (IModularItem) stack.getItem();
 
-				for (IUpgrade upgrade : NBTHelper
-						.getNBTUpgradeList(stack.stackTagCompound)) {
+				for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
 					if (upgrade == null) {
 						continue;
 					}
 
-					upgrade.onEquip(e.player.worldObj, e.player, stack,
-							ArmourSlot.getArmourSlot(armour.getSlot()),
-							armour.getLevel(stack));
+					upgrade.onEquip(e.player.worldObj, e.player, stack, ArmourSlot.getArmourSlot(armour.getSlot()), armour.getLevel(stack));
 				}
 
 			}

@@ -1,10 +1,3 @@
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package chbachman.armour.register;
 
 import java.util.ArrayList;
@@ -14,6 +7,7 @@ import java.util.List;
 import minetweaker.IUndoableAction;
 import minetweaker.MineTweakerAPI;
 import minetweaker.api.item.IIngredient;
+import minetweaker.api.item.IItemStack;
 import minetweaker.mc1710.item.MCItemStack;
 import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.Optional;
@@ -23,11 +17,7 @@ import chbachman.api.IUpgrade;
 import chbachman.armour.crafting.Recipe;
 import chbachman.armour.upgrade.UpgradeList;
 
-/**
- *
- * @author Stan
- */
-@ZenClass("modularArmour.recipe")
+@ZenClass("mods.modularArmour")
 public class MineTweaker implements Module{
 	
 	@ZenMethod
@@ -45,9 +35,13 @@ public class MineTweaker implements Module{
 		
 		IUpgrade upgrade = UpgradeList.INSTANCE.get(output);
 		
+		
+		
 		if(upgrade == null){
 			MineTweakerAPI.logError("Not an valid upgrade: " + output);
 		}
+		
+		MineTweakerAPI.logInfo("Removing Recipe for: " + upgrade.getName());
 		
 		List<Recipe> toRemove = new ArrayList<Recipe>();
 		
@@ -60,8 +54,6 @@ public class MineTweaker implements Module{
 				continue;
 			}
 			
-			
-			
 			if(ingredients == null){
 				toRemove.add(recipe);
 				continue;
@@ -70,8 +62,8 @@ public class MineTweaker implements Module{
 				for(int i = 0; i < ingredients.length; i++){
 					for(int g = 0; g < ingredients[i].length; g++){
 						
-						if(ingredients[i][g].matches(new MCItemStack(getStackInSlot(recipe, i * g)))){
-							
+						if(ingredients[i][g].matches(new MCItemStack(getStackInSlot(recipe, i * 3 + g)))){
+							toRemove.add(recipe);
 						}
 						
 					}
@@ -116,13 +108,30 @@ public class MineTweaker implements Module{
 		
 		public AddRecipeAction(String output, IIngredient[][] ingredients) {
 			
+			if(ingredients.length != 3 || ingredients[0].length != 3){
+				MineTweakerAPI.logError("Recipe must be a 3x3");
+			}
 			
-			
-			Object[] mcIngredients = new Object[ingredients.length * ingredients[0].length];
+			Object[] mcIngredients = new Object[9];
 			
 			for (int i = 0; i < ingredients.length; i++) {
 				for(int g = 0; g < ingredients[i].length; g++){
-					mcIngredients[i] = ingredients[i][i].getInternal();
+					
+					List<IItemStack> stack = ingredients[i][g].getItems();
+					
+					List<ItemStack> stacks = new ArrayList<ItemStack>();
+					
+					for(int f = 0; f < stack.size(); f++){
+						stacks.add((ItemStack) stack.get(f).getInternal());
+					}
+					
+					if(stacks.size() == 1){
+						mcIngredients[i * 3 + g] = stacks.get(0);
+					}else{
+						mcIngredients[i * 3 + g] = stacks;
+					}
+					
+					
 				}
 			}
 			
@@ -212,12 +221,12 @@ public class MineTweaker implements Module{
 
 	@Override
 	public void init() {
-		
+		MineTweakerAPI.registerClass(MineTweaker.class);
 	}
 
 	@Override
 	public void postInit() {
-		MineTweakerAPI.registerClass(this.getClass());
+		
 	}
 
 	@Override
