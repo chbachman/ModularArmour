@@ -23,28 +23,15 @@ apply plugin: 'maven-publish'
 def build_number = 'CUSTOM'
 
 if (System.getenv('BUILD_NUMBER') != null)
-
     build_number = System.getenv('BUILD_NUMBER')
 
 version = "${mc_version}-${mod_version}-${build_number}"
-
-
 group= package_group
-
-
 archivesBaseName = mod_name
-
-
-
 
 minecraft {
     version = "${mc_version}-${forge_version}"
-
-    if(file('../run').exists()){
-     runDir = "../run/assets"
-    } else {
-     runDir = "/assets"
-    }
+    runDir = "run"
 	
     if (project.hasProperty('mappings_version'))
 
@@ -52,8 +39,7 @@ minecraft {
 
 }
 
-processResources
-{
+processResources {
     // this will ensure that this task is redone when the versions change.
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
@@ -72,32 +58,52 @@ processResources
     }
 }
 
+repositories {
+	ivy {
+		name "CoFHLib"
+		artifactPattern "http://addons.cursecdn.com/files/2225/949/[module]-[revision].[ext]"
+	}
+	ivy {
+		name "CoFHCore"
+        artifactPattern "http://addons.cursecdn.com/files/2225/952/[module]-[revision].[ext]"
+    }
+	ivy {
+		name "MineTweaker3"
+        artifactPattern "http://minetweaker3.powerofbytes.com/download/[module]-[revision].[ext]"
+    }
+}
 
 dependencies {
+	compile name: 'CoFHLib', version: "${cofhlib_version}", ext: 'jar'
+	compile name: 'CoFHCore', version: "${cofhcore_version}", ext: 'jar'
+	compile name: 'MineTweaker3', version: minetweaker_version, ext: 'jar'
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }
 
+jar {
+    classifier = ''
+}
+
 task sourceJar(type: Jar) {
-
     from sourceSets.main.allSource
-
     classifier = 'sources'
-
 }
 
 task javadocJar(type: Jar, dependsOn: javadoc) {
-
     from javadoc.destinationDir
-
     classifier = 'javadoc'
-
 }
 
-task deobfJar(type: Jar, dependsOn: 'classes') {
+task deobfJar(type: Jar) {
     from sourceSets.main.output
     classifier = 'deobf'
 }
-tasks.assemble.dependsOn deobfJar
+
+tasks.build.dependsOn sourceJar, deobfJar
+
+tasks.withType(JavaCompile) { task ->
+    task.options.encoding = 'UTF-8'
+}
 
 
 curse {
@@ -113,37 +119,24 @@ curse {
 }
 
 publishing {
-
     tasks.publish.dependsOn 'build'
 
     publications {
-
         mavenJava(MavenPublication) {
-
             from components.java
-
+			
             artifact sourceJar
-
             artifact javadocJar
-
             artifact deobfJar
-
         }
-
     }
 
     repositories {
 
         if (project.hasProperty('maven_repo')) {
-
             maven { url maven_repo }
-
         } else {
-
             mavenLocal()
-
         }
-
     }
-
 }
