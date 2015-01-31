@@ -120,19 +120,15 @@ curse {
 
 publishing {
     tasks.publish.dependsOn 'build'
-
     publications {
         mavenJava(MavenPublication) {
-            from components.java
-			
+            artifact jar
             artifact sourceJar
             artifact javadocJar
             artifact deobfJar
         }
     }
-
     repositories {
-
         if (project.hasProperty('maven_repo')) {
             maven { url maven_repo }
         } else {
