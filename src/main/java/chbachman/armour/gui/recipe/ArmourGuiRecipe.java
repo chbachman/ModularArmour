@@ -5,6 +5,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.input.Keyboard;
+import org.lwjgl.opengl.GL11;
 
 import chbachman.api.IUpgrade;
 import chbachman.armour.crafting.Recipe;
@@ -27,7 +28,7 @@ public class ArmourGuiRecipe extends GuiBaseAdv {
     
     
     public ArmourGuiRecipe(ArmourContainerRecipe container, InventoryPlayer inventory) {
-        super(container);
+        super(container, TEXTURE);
         
         this.container = container;
         
@@ -61,17 +62,37 @@ public class ArmourGuiRecipe extends GuiBaseAdv {
         }
     }
     
+    
     @Override
-    protected void drawGuiContainerBackgroundLayer(float f, int x, int y) {
+    protected void drawGuiContainerForegroundLayer(int x, int y) {
+    	super.drawGuiContainerForegroundLayer(x, y);
+    	
+    }
+    
+    @Override
+    protected void drawGuiContainerBackgroundLayer(float partialTick, int x, int y) {
         
-        if(this.container.recipe != null){
-            
-        	IUpgrade upgrade = this.container.recipe.getRecipeOutput();
-        	
-        	GuiHelper.drawStringBounded(this, upgrade.getName(), 70, this.guiLeft + 100, this.guiTop + 18, 0xFFFFFF);
-            
-        	GuiHelper.drawStringBounded(this, upgrade.getInformation(), 159, this.guiLeft + 11, this.guiTop + 80, 0xFFFFFF);
-        }
+    	GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		bindTexture(texture);
+		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
+
+		mouseX = x - guiLeft;
+		mouseY = y - guiTop;
+
+		GL11.glPushMatrix();
+		GL11.glTranslatef(guiLeft, guiTop, 0.0F);
+		drawElements(partialTick, false);
+		drawTabs(partialTick, false);
+		GL11.glPopMatrix();
+        
+		if(this.container.recipe != null){
+
+    		IUpgrade upgrade = this.container.recipe.getRecipeOutput();
+
+    		GuiHelper.drawStringBounded(this, upgrade.getName(), 70, this.guiLeft + 100, this.guiTop + 18, 0xFFFFFF);
+
+    		GuiHelper.drawStringBounded(this, upgrade.getInformation(), 159, this.guiLeft + 11, this.guiTop + 80, 0xFFFFFF);
+    	}
     }
     
     @Override

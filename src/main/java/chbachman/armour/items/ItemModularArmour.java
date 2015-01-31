@@ -40,7 +40,8 @@ import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.Optional.Interface;
 
-@Optional.InterfaceList(value = { @Interface(iface = "thaumcraft.api.IGoggles", modid = "Thaumcraft"), 
+@Optional.InterfaceList(value = { 
+		@Interface(iface = "thaumcraft.api.IGoggles", modid = "Thaumcraft"), 
 		@Interface(iface = "thaumcraft.api.IVisDiscountGear", modid = "Thaumcraft"), 
 		@Interface(iface = "thaumcraft.api.nodes.IRevealer", modid = "Thaumcraft"), 
 		@Interface(iface = "vazkii.botania.api.mana.IManaItem", modid = "Botania"),
@@ -257,7 +258,7 @@ public class ItemModularArmour extends ItemArmor implements ISpecialArmor, IInve
 	//IRevealer
 	@Override
 	public boolean showNodes(ItemStack itemstack, EntityLivingBase player) {
-		NBTList list = NBTHelper.getNBTUpgradeList(itemstack);
+		NBTList<IUpgrade> list = NBTHelper.getNBTUpgradeList(itemstack);
 
 		return list.contains(Thaumcraft.gogglesOfRevealing);
 	}
@@ -266,7 +267,7 @@ public class ItemModularArmour extends ItemArmor implements ISpecialArmor, IInve
 	@Override
 	@Optional.Method(modid = "Thaumcraft")
 	public int getVisDiscount(ItemStack stack, EntityPlayer player, Aspect aspect) {
-		NBTList list = NBTHelper.getNBTUpgradeList(stack);
+		NBTList<IUpgrade> list = NBTHelper.getNBTUpgradeList(stack);
 		
 		if(list.contains(Thaumcraft.visDiscount)){
 			if(stack.getItem() instanceof IModularItem){
@@ -290,8 +291,9 @@ public class ItemModularArmour extends ItemArmor implements ISpecialArmor, IInve
 
 	//IGoggles
 	@Override
+	@Optional.Method(modid = "Thaumcraft")
 	public boolean showIngamePopups(ItemStack itemstack, EntityLivingBase player) {
-		NBTList list = NBTHelper.getNBTUpgradeList(itemstack);
+		NBTList<?> list = NBTHelper.getNBTUpgradeList(itemstack);
 
 		return list.contains(Thaumcraft.gogglesOfRevealing);
 	}
@@ -378,6 +380,7 @@ public class ItemModularArmour extends ItemArmor implements ISpecialArmor, IInve
 
 	//IManaItem
 	@Override
+	@Optional.Method(modid = "Botania")
 	public int getMana(ItemStack stack) {
 		if(!UpgradeUtil.doesItemStackContainUpgrade(stack, Botania.manaConverter)){
 			return 0;
@@ -387,6 +390,7 @@ public class ItemModularArmour extends ItemArmor implements ISpecialArmor, IInve
 
 
 	@Override
+	@Optional.Method(modid = "Botania")
 	public int getMaxMana(ItemStack stack) {
 		if(!UpgradeUtil.doesItemStackContainUpgrade(stack, Botania.manaConverter)){
 			return 0;
@@ -396,6 +400,7 @@ public class ItemModularArmour extends ItemArmor implements ISpecialArmor, IInve
 
 
 	@Override
+	@Optional.Method(modid = "Botania")
 	public void addMana(ItemStack stack, int mana) {
 		if(!UpgradeUtil.doesItemStackContainUpgrade(stack, Botania.manaConverter)){
 			return;
@@ -405,36 +410,41 @@ public class ItemModularArmour extends ItemArmor implements ISpecialArmor, IInve
 
 
 	@Override
+	@Optional.Method(modid = "Botania")
 	public boolean canReceiveManaFromPool(ItemStack stack, TileEntity pool) {
 		if(!UpgradeUtil.doesItemStackContainUpgrade(stack, Botania.manaConverter)){
 			return false;
 		}
-		return this.getCapacity(stack) == this.getEnergyStored(stack);
+		return this.getMaxEnergyStored(stack) != this.getEnergyStored(stack);
 	}
 
 
 	@Override
+	@Optional.Method(modid = "Botania")
 	public boolean canReceiveManaFromItem(ItemStack stack, ItemStack otherStack) {
 		if(!UpgradeUtil.doesItemStackContainUpgrade(stack, Botania.manaConverter)){
 			return false;
 		}
-		return this.getCapacity(stack) == this.getEnergyStored(stack);
+		return this.getCapacity(stack) != this.getEnergyStored(stack);
 	}
 
 
 	@Override
+	@Optional.Method(modid = "Botania")
 	public boolean canExportManaToPool(ItemStack stack, TileEntity pool) {
 		return false;
 	}
 
 
 	@Override
+	@Optional.Method(modid = "Botania")
 	public boolean canExportManaToItem(ItemStack stack, ItemStack otherStack) {
 		return false;
 	}
 
 
 	@Override
+	@Optional.Method(modid = "Botania")
 	public boolean isNoExport(ItemStack stack) {
 		return true;
 	}
@@ -442,6 +452,7 @@ public class ItemModularArmour extends ItemArmor implements ISpecialArmor, IInve
 	
 	//IPixieSpawner
 	@Override
+	@Optional.Method(modid = "Botania")
 	public float getPixieChance(ItemStack stack) {
 		return ConfigHelper.getEnergyCost(Botania.pixie, "Pixie Chance", .05F);
 	}

@@ -3,6 +3,9 @@ package chbachman.armour.gui.crafting;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+
+import org.lwjgl.opengl.GL11;
+
 import chbachman.api.IUpgrade;
 import chbachman.armour.ModularArmour;
 import chbachman.armour.gui.GuiHandler;
@@ -32,7 +35,7 @@ public class ArmourGui extends GuiBaseAdv {
     public ItemStack stack;
     
     public ArmourGui(ArmourContainer container, InventoryPlayer inventory) {
-        super(container);
+        super(container, TEXTURE);
         
         this.container = container;
         this.stack = inventory.getCurrentItem();
@@ -76,10 +79,29 @@ public class ArmourGui extends GuiBaseAdv {
     }
     
     @Override
-    protected void drawGuiContainerBackgroundLayer(float f, int x, int y) {
+    protected void drawGuiContainerBackgroundLayer(float partialTick, int x, int y) {
+    	GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		bindTexture(texture);
+		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
+
+		mouseX = x - guiLeft;
+		mouseY = y - guiTop;
+
+		GL11.glPushMatrix();
+		GL11.glTranslatef(guiLeft, guiTop, 0.0F);
+		drawElements(partialTick, false);
+		drawTabs(partialTick, false);
+		GL11.glPopMatrix();
         
         this.getUpgradeList();
         this.list.drawText();
+    }
+    
+    @Override
+    protected void drawGuiContainerForegroundLayer(int x, int y) {
+        
+        super.drawGuiContainerForegroundLayer(x, y);
+        
     }
     
     public void onButtonClick(String name) {
