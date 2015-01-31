@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
+import chbachman.api.IModularItem;
 import chbachman.api.Upgrade;
 import chbachman.armour.util.ArmourSlot;
 import chbachman.armour.util.ConfigHelper;
@@ -31,6 +32,7 @@ public class UpgradeBloodMagic extends Upgrade{
 		}
 		
 		IEnergyContainerItem item = EnergyUtil.getItem(stack);
+		IModularItem modularItem = (IModularItem) stack.getItem();
 		
 		int currentEnergy = item.getEnergyStored(stack);
 		int maxEnergy = item.getMaxEnergyStored(stack);
@@ -48,7 +50,7 @@ public class UpgradeBloodMagic extends Upgrade{
 			System.out.println(amount);
 		}
 		
-		int toDrain = (int) Math.min(amount, (maxEnergy - currentEnergy) / cost);
+		int toDrain = (int) Math.min(Math.min(amount, (maxEnergy - currentEnergy) / cost), modularItem.getMaxTransfer(stack) / cost);
 		
 		if(toDrain != 0){
 			System.out.println(toDrain);
