@@ -72,17 +72,6 @@ processResources
     }
 }
 
-curse {
-    apiKey = "a70e20e1-8d48-446b-8040-d08b83bb6793"
-    projectId = "224011"
-    changelog = """
-    
-    """
-    releaseType = "beta"
-
-    additionalArtifact deobfJar
-    
-}
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -108,8 +97,20 @@ task deobfJar(type: Jar, dependsOn: 'classes') {
     from sourceSets.main.output
     classifier = 'deobf'
 }
-
 tasks.assemble.dependsOn deobfJar
+
+
+curse {
+    apiKey = ""
+    projectId = "224011"
+    changelog = """
+    
+    """
+    releaseType = "beta"
+
+    additionalArtifact deobfJar
+    
+}
 
 publishing {
 
