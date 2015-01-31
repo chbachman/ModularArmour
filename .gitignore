@@ -1,9 +1,27 @@
-/build
-/bin
-/.gradle
-.classpath
-.project
-.settings
-/lib
-.DS_Store
-/run/
+#General use .gitignore for Minecraft modding.
+
+#Folders
+/.gradle/*
+/build/*
+/eclipse/*
+/run/*
+/out/*
+/asm/*
+/bin/*
+/libs/*
+/lib/*
+/assets/*
+
+#File Extensions
+*.psd
+*.iml
+*.ipr
+*.iws
+*.classpath
+*.settings
+*.project
+*.zip
+*.DS_Store
+
+#Specific files
+Thumbs.db
