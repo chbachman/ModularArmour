@@ -18,51 +18,38 @@ buildscript {
 
 apply plugin: "curseforge"
 apply plugin: "forge"
+apply plugin: 'maven-publish'
 
-//This is where we increment the version
-def Properties versionProps = new Properties()
-    def versionPropsFile = file('version.properties')
-    if(versionPropsFile.exists())
-        versionProps.load(new FileInputStream(versionPropsFile))
-    def code = (versionProps['VERSION_CODE'] ?: "0").toInteger() + 1
-    versionProps['VERSION_CODE'] = code.toString()
-    versionProps.store(versionPropsFile.newWriter(), null)
+def build_number = 'CUSTOM'
 
-//Add the version number to the regular version
-version = "1.7.10-0.1." + code
-group= "io.github.chbachman.ModularArmour"
-archivesBaseName = "ModularArmour"
+if (System.getenv('BUILD_NUMBER') != null)
+
+    build_number = System.getenv('BUILD_NUMBER')
+
+version = "${mc_version}-${mod_version}-${build_number}"
+
+
+group= package_group
+
+
+archivesBaseName = mod_name
+
+
+
 
 minecraft {
-    version = "1.7.10-10.13.2.1230"
+    version = "${mc_version}-${forge_version}"
+
     if(file('../run').exists()){
-     assetDir = "../run/assets"
+     runDir = "../run/assets"
     } else {
-     assetDir = "/assets"
+     runDir = "/assets"
     }
+	
+    if (project.hasProperty('mappings_version'))
 
-}
+        mappings = project.mappings_version
 
-task deobfJar(type: Jar, dependsOn: 'classes') {
-    from sourceSets.main.output
-    classifier = 'deobf'
-}
-tasks.assemble.dependsOn deobfJar
-
-curse {
-    apiKey = "a70e20e1-8d48-446b-8040-d08b83bb6793"
-    projectId = "224011"
-    changelog = """
-    
-    """
-    releaseType = "beta"
-
-    additionalArtifact deobfJar
-    
-}
-
-dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
 }
 
 processResources
@@ -83,4 +70,79 @@ processResources
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
+}
+
+curse {
+    apiKey = "a70e20e1-8d48-446b-8040-d08b83bb6793"
+    projectId = "224011"
+    changelog = """
+    
+    """
+    releaseType = "beta"
+
+    additionalArtifact deobfJar
+    
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+task sourceJar(type: Jar) {
+
+    from sourceSets.main.allSource
+
+    classifier = 'sources'
+
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+
+    from javadoc.destinationDir
+
+    classifier = 'javadoc'
+
+}
+
+task deobfJar(type: Jar, dependsOn: 'classes') {
+    from sourceSets.main.output
+    classifier = 'deobf'
+}
+
+tasks.assemble.dependsOn deobfJar
+
+publishing {
+
+    tasks.publish.dependsOn 'build'
+
+    publications {
+
+        mavenJava(MavenPublication) {
+
+            from components.java
+
+            artifact sourceJar
+
+            artifact javadocJar
+
+            artifact deobfJar
+
+        }
+
+    }
+
+    repositories {
+
+        if (project.hasProperty('maven_repo')) {
+
+            maven { url maven_repo }
+
+        } else {
+
+            mavenLocal()
+
+        }
+
+    }
+
 }

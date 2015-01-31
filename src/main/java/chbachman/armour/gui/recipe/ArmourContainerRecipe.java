@@ -77,6 +77,16 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
         private int counter = 0;
         private int index = 0;
         
+        
+        private int amountOfItems;
+        public Inventory(){
+        	for(int i = 0; i < 9; i++){
+        		if(this.getStackInSlot(i) != null){
+        			amountOfItems++;
+        		}
+        	}
+        }
+        
         @Override
         public int getSizeInventory() {
             return 9;
@@ -89,7 +99,7 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
         	
         	counter++;
         	
-        	if(counter == 500){
+        	if(counter == 500 * amountOfItems){
         		counter = 0;
         		index++;
         	}

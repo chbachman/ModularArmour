@@ -64,7 +64,7 @@ upgrade.chbachman.witherProtector.name=Wither Protector
 
 
 upgrade.chbachman.jetpack.information=Allows you to fly like you are in creative. It is reccomended to have Calf Shields
-upgrade.chbachman.calfShields.information=Rocket Packs are easy.  >--o __ Ow  The hard part is inventing the Calf Shields.
+upgrade.chbachman.calfShields.information=Rocket Packs are easy. The hard part is inventing the Calf Shields.
 upgrade.chbachman.potion.information=Allows your suit of armor to give you potion effects. This upgrade does nothing, only allows it from other upgrades.
 upgrade.chbachman.fallDamage.information=Ever heard of long fall boots. Well these are those.
 upgrade.chbachman.solar.information=A solar helmet. Makes energy.
@@ -99,7 +99,7 @@ upgrade.chbachman.solarAdvanced.information=A solar helmet. Makes energy. (4096R
 upgrade.chbachman.solarUltimate.information=A solar helmet. Makes energy. (32768RF/t)
 
 upgrade.chbachman.undead.information=Protects you from attacks from the undead.
-upgrade.chbachman.arthropod.information=Protects you from attacks from the undead.
+upgrade.chbachman.arthropod.information=Protects you from attacks from spiders.
 upgrade.chbachman.fireProtector.information=Uses the insulating power of leather, and the conducting power of gold to protect you from heat. 
 upgrade.chbachman.unblockableProtector.information=This protects against unblockable things. I don't know how it works either. 
 upgrade.chbachman.magicProtector.information=Uses the mixture of gold and iron to conduct magical energy away from you.

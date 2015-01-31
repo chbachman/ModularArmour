@@ -46,15 +46,7 @@ public class UpgradeBloodMagic extends Upgrade{
 		
 		int amount = SoulNetworkHandler.getCurrentEssence(SoulNetworkHandler.getOwnerName(stack));
 		
-		if(amount != 0){
-			System.out.println(amount);
-		}
-		
 		int toDrain = (int) Math.min(Math.min(amount, (maxEnergy - currentEnergy) / cost), modularItem.getMaxTransfer(stack) / cost);
-		
-		if(toDrain != 0){
-			System.out.println(toDrain);
-		}
 		
         if (!player.capabilities.isCreativeMode)
         {
