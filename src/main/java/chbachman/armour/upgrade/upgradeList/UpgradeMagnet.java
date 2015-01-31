@@ -26,7 +26,7 @@ public class UpgradeMagnet extends Upgrade{
 
 	@Override
 	public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot, int level) {
-		AxisAlignedBB box = player.boundingBox.expand(5 * level, 5 * level, 5 * level);
+		AxisAlignedBB box = player.boundingBox.expand(5 * (level + 1), 5 * (level + 1), 5 * (level + 1));
 
 		@SuppressWarnings("unchecked")
 		List<EntityItem> list = world.getEntitiesWithinAABB(EntityItem.class, box);

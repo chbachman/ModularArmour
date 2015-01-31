@@ -91,7 +91,7 @@ public class ArmourContainer extends Container implements IInputHandler{
             } else if (name.equals("RemoveItems")) {
                 this.onContainerClosed(this.player);
             } else if (name.equals("RemoveUpgrade")) {
-                UpgradeUtil.removeUpgrade(this.stack, UpgradeList.INSTANCE.get(packet.getInt()));
+                UpgradeUtil.removeUpgrade(this.stack, UpgradeList.INSTANCE.get(packet.getString()));
             } else if(name.equals("Recipe")){
                 if (this.player.worldObj.isRemote == false) {
                     this.player.openGui(ModularArmour.instance, GuiHandler.RECIPE_ID, this.player.worldObj, 0, 0, 0);

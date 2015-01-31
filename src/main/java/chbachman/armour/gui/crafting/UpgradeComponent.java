@@ -2,8 +2,10 @@ package chbachman.armour.gui.crafting;
 
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
+import net.minecraft.item.ItemStack;
 import chbachman.api.IUpgrade;
-import chbachman.armour.util.NBTUpgradeList;
+import chbachman.armour.util.NBTHelper;
+import chbachman.armour.util.NBTList;
 
 public class UpgradeComponent extends Gui {
     
@@ -32,13 +34,13 @@ public class UpgradeComponent extends Gui {
     public int displayLines = 0;
     public int lineHeight = 10;
     
-    public NBTUpgradeList textLines = new NBTUpgradeList();
+    public NBTList<IUpgrade> textLines;
     public int startLine = 0;
     public int selectedLine = -1;
     
     public boolean highlightSelectedLine = false;
     
-    public UpgradeComponent(FontRenderer fontRenderer, int x, int y, int w, int lines) {
+    public UpgradeComponent(FontRenderer fontRenderer, int x, int y, int w, int lines, ItemStack toLoad) {
         
         this.fRend = fontRenderer;
         
@@ -48,6 +50,8 @@ public class UpgradeComponent extends Gui {
         this.lineHeight = fontRenderer.FONT_HEIGHT + 1;
         this.width = w;
         this.height = this.displayLines * this.lineHeight + Y_OFFSET;
+        
+        textLines = NBTHelper.getNBTUpgradeList(toLoad);
     }
     
     public void drawText() {

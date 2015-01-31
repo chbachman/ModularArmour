@@ -7,6 +7,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.util.Constants;
+import chbachman.api.IUpgrade;
+import chbachman.api.UpgradeNBT;
 
 public class NBTHelper {
     
@@ -33,7 +35,7 @@ public class NBTHelper {
         return compound;
     }
     
-    public static NBTUpgradeList getNBTUpgradeList(ItemStack stack) {
+    public static NBTList<IUpgrade> getNBTUpgradeList(ItemStack stack) {
         
         createDefaultStackTag(stack);
         
@@ -41,7 +43,7 @@ public class NBTHelper {
         
     }
     
-    public static NBTUpgradeList getNBTUpgradeList(NBTTagCompound nbt) {
+    public static NBTList<IUpgrade> getNBTUpgradeList(NBTTagCompound nbt) {
         
         if (nbt == null) {
             nbt = createStackTagCompound();
@@ -51,7 +53,7 @@ public class NBTHelper {
             nbt.setTag("UpgradeList", new NBTTagList());
         }
         
-        NBTUpgradeList tagList = new NBTUpgradeList(nbt.getTagList("UpgradeList", Constants.NBT.TAG_COMPOUND));
+        NBTList<IUpgrade> tagList = new NBTList<IUpgrade>(UpgradeNBT.INSTANCE, nbt.getTagList("UpgradeList", Constants.NBT.TAG_COMPOUND));
         
         return tagList;
         
@@ -63,7 +65,7 @@ public class NBTHelper {
     	
     	while(iterator.hasNext()){
     		NBTTagCompound local = new NBTTagCompound();
-    		n.save(iterator.next(), local);
+    		n.saveToNBT(iterator.next(), local);
     		
     		list.appendTag(local);
     	}
@@ -82,7 +84,7 @@ public class NBTHelper {
     	NBTTagList list = nbt.getTagList(identifier, Constants.NBT.TAG_COMPOUND);
     	
     	for(int i = 0; i < list.tagCount(); i++){
-    		toFill.add(n.get(list.getCompoundTagAt(i)));
+    		toFill.add(n.loadFromNBT(list.getCompoundTagAt(i)));
     	}
     	
     }

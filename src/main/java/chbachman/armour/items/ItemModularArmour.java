@@ -30,7 +30,7 @@ import chbachman.armour.register.Thaumcraft;
 import chbachman.armour.util.ArmourSlot;
 import chbachman.armour.util.ConfigHelper;
 import chbachman.armour.util.NBTHelper;
-import chbachman.armour.util.NBTUpgradeList;
+import chbachman.armour.util.NBTList;
 import chbachman.armour.util.UpgradeUtil;
 import chbachman.armour.util.VariableInt;
 import cofh.api.item.IInventoryContainerItem;
@@ -257,7 +257,7 @@ public class ItemModularArmour extends ItemArmor implements ISpecialArmor, IInve
 	//IRevealer
 	@Override
 	public boolean showNodes(ItemStack itemstack, EntityLivingBase player) {
-		NBTUpgradeList list = NBTHelper.getNBTUpgradeList(itemstack);
+		NBTList list = NBTHelper.getNBTUpgradeList(itemstack);
 
 		return list.contains(Thaumcraft.gogglesOfRevealing);
 	}
@@ -266,7 +266,7 @@ public class ItemModularArmour extends ItemArmor implements ISpecialArmor, IInve
 	@Override
 	@Optional.Method(modid = "Thaumcraft")
 	public int getVisDiscount(ItemStack stack, EntityPlayer player, Aspect aspect) {
-		NBTUpgradeList list = NBTHelper.getNBTUpgradeList(stack);
+		NBTList list = NBTHelper.getNBTUpgradeList(stack);
 		
 		if(list.contains(Thaumcraft.visDiscount)){
 			if(stack.getItem() instanceof IModularItem){
@@ -291,7 +291,7 @@ public class ItemModularArmour extends ItemArmor implements ISpecialArmor, IInve
 	//IGoggles
 	@Override
 	public boolean showIngamePopups(ItemStack itemstack, EntityLivingBase player) {
-		NBTUpgradeList list = NBTHelper.getNBTUpgradeList(itemstack);
+		NBTList list = NBTHelper.getNBTUpgradeList(itemstack);
 
 		return list.contains(Thaumcraft.gogglesOfRevealing);
 	}

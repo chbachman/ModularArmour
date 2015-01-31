@@ -3,6 +3,7 @@ package chbachman.api;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor.ArmorProperties;
@@ -18,26 +19,18 @@ import cofh.lib.util.helpers.StringHelper;
  */
 public abstract class Upgrade implements IArmourUpgrade {
 
-	protected final int id;
 	protected String name;
 	protected boolean isDisabled;
 
 	public Upgrade(String name) {
-		this.id = this.getNextAvailableId();
-
 		this.name = name;
 
-		UpgradeList.INSTANCE.add(this);
-	}
-
-	private int getNextAvailableId() {
-		return UpgradeList.INSTANCE.size();
+		UpgradeList.INSTANCE.put(this);
 	}
 
 	@Override
 	public String getInformation() {
-		return StringHelper.localize(this.getLocalizationString()
-				+ ".information");
+		return StringHelper.localize(this.getLocalizationString() + ".information");
 	}
 
 	@Override
@@ -49,15 +42,9 @@ public abstract class Upgrade implements IArmourUpgrade {
 	public String getBaseName(){
 		return this.name;
 	}
-	
-	protected String getLocalizationString() {
-		return "upgrade.chbachman."
-				+ StringHelper.camelCase(this.name).replace(" ", "");
-	}
 
-	@Override
-	public int getId() {
-		return this.id;
+	protected String getLocalizationString() {
+		return "upgrade.chbachman." + this.name;
 	}
 
 	@Override
@@ -80,7 +67,7 @@ public abstract class Upgrade implements IArmourUpgrade {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + this.id;
+		result = prime * result + this.name.hashCode();
 		return result;
 	}
 
@@ -96,7 +83,7 @@ public abstract class Upgrade implements IArmourUpgrade {
 			return false;
 		}
 		Upgrade other = (Upgrade) obj;
-		if (this.id != other.id) {
+		if (this.name != other.name) {
 			return false;
 		}
 		return true;
@@ -104,8 +91,7 @@ public abstract class Upgrade implements IArmourUpgrade {
 
 	// Api for Upgrades here
 	@Override
-	public boolean isCompatible(IModularItem item, ItemStack stack,
-			int armorType) {
+	public boolean isCompatible(IModularItem item, ItemStack stack, int armorType) {
 		return true;
 	}
 
@@ -115,8 +101,7 @@ public abstract class Upgrade implements IArmourUpgrade {
 	}
 
 	@Override
-	public ArmorProperties getProperties(EntityLivingBase attacker,
-			ItemStack armor, DamageSource source, double damage, ArmourSlot slot) {
+	public ArmorProperties getProperties(EntityLivingBase attacker, ItemStack armor, DamageSource source, double damage, ArmourSlot slot) {
 		return null;
 	}
 
@@ -151,10 +136,10 @@ public abstract class Upgrade implements IArmourUpgrade {
 	public String getArmourTexture(ItemStack stack, int slot) {
 		return null;
 	}
-	
+
 	@Override
 	public void registerConfigOptions(){
-		
+
 	}
 
 }

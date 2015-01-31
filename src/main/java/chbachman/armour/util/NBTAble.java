@@ -4,8 +4,18 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public interface NBTAble<E>{
 	
-	public E get(NBTTagCompound d);
+	/**
+	 * Loads from NBTTagCompound
+	 * @param d
+	 * @return Data, or null if does not exist.
+	 */
+	public E loadFromNBT(NBTTagCompound d);
 	
-	public void save(E data, NBTTagCompound d);
+	/**
+	 * Saves to NBTTagCompound
+	 * @param data
+	 * @param d
+	 */
+	public void saveToNBT(E data, NBTTagCompound d);
 	
 }

@@ -70,7 +70,7 @@ public class BaublesUtil{
 
 		if (stack.getItem() instanceof IModularItem) {
 
-			NBTUpgradeList list = NBTHelper.getNBTUpgradeList(stack.stackTagCompound);
+			NBTList list = NBTHelper.getNBTUpgradeList(stack.stackTagCompound);
 
 			for(int i = 0; i < list.size(); i++){
 				if(list.get(i).equals(upgrade)){
@@ -98,7 +98,7 @@ public class BaublesUtil{
 
 		NBTHelper.createDefaultStackTag(stack);
 
-		NBTUpgradeList list = NBTHelper.getNBTUpgradeList(stack.stackTagCompound);
+		NBTList list = NBTHelper.getNBTUpgradeList(stack.stackTagCompound);
 
 		return list.contains(upgrade);
 	}

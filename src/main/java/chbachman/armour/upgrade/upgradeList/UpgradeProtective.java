@@ -32,6 +32,10 @@ public abstract class UpgradeProtective extends UpgradeBasic{
 		IEnergyContainerItem energy = EnergyUtil.getItem(armor);
 		IModularItem modularItem = (IModularItem) armor.getItem();
 		
+		if(EnergyUtil.isEmpty(armor)){
+			return new ArmorProperties(0,0,0);
+		}
+		
 		if(this.shouldDefend(player, armor, source, damage, slot)){
 			energy.extractEnergy(armor, (int) (modularItem.getEnergyPerDamage(armor) * damage), false);
 			return new ArmorProperties(0, protection, Integer.MAX_VALUE);

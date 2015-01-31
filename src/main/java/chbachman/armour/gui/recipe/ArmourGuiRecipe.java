@@ -61,16 +61,8 @@ public class ArmourGuiRecipe extends GuiBaseAdv {
         }
     }
     
-    
-    @Override
-    protected void drawGuiContainerForegroundLayer(int x, int y) {
-        super.drawGuiContainerForegroundLayer(x, y);
-    }
-    
     @Override
     protected void drawGuiContainerBackgroundLayer(float f, int x, int y) {
-        
-        super.drawGuiContainerBackgroundLayer(f, x, y);
         
         if(this.container.recipe != null){
             

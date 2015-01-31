@@ -1,6 +1,6 @@
 package chbachman.armour.upgrade;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import chbachman.api.IUpgrade;
@@ -9,22 +9,12 @@ import chbachman.armour.ModularArmour;
 import chbachman.armour.crafting.Recipe;
 
 @SuppressWarnings("serial")
-public class UpgradeList extends ArrayList<IUpgrade> {
+public class UpgradeList extends HashMap<String, IUpgrade> implements Iterable<IUpgrade>{
     
     public static final UpgradeList INSTANCE = new UpgradeList();
     
-    public IUpgrade get(String name){
-    	for (IUpgrade upgrade : this) {
-            if (upgrade.getBaseName().equals(name)) {
-                return upgrade;
-            }
-        }
-        
-        return null;
-    }
-    
     public IUpgrade get(Class<? extends Upgrade> clazz) {
-        for (IUpgrade upgrade : this) {
+        for (IUpgrade upgrade : this.values()) {
             if (upgrade.getClass() == clazz) {
                 return upgrade;
             }
@@ -33,10 +23,14 @@ public class UpgradeList extends ArrayList<IUpgrade> {
         return null;
     }
     
-    @Override
-    public boolean add(IUpgrade upgrade) {
-        if (ModularArmour.config.get("Command Enabling", upgrade.getName(), true)) {
-            return super.add(upgrade);
+    public IUpgrade put(IUpgrade upgrade) {
+    	return this.put(upgrade.getBaseName(), upgrade);
+    }
+    
+    public IUpgrade put(String name, IUpgrade upgrade){
+    	if (ModularArmour.config.get("Command Enabling", upgrade.getName(), true)) {
+            
+        	return super.put(name, upgrade);
         }
         
         Iterator<Recipe> iterator = Recipe.craftingList.iterator();
@@ -48,7 +42,12 @@ public class UpgradeList extends ArrayList<IUpgrade> {
             }
         }
         
-        return true;
+        return upgrade;
     }
+
+	@Override
+	public Iterator<IUpgrade> iterator() {
+		return this.values().iterator();
+	}
     
 }

@@ -15,7 +15,7 @@ import chbachman.armour.util.UpgradeUtil;
 public class UpgradeHoverJetpack extends Upgrade {
     
     public UpgradeHoverJetpack() {
-    	super("Jetpack");
+    	super("jetpack");
     }
 
     private int cost;

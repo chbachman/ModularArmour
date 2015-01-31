@@ -7,7 +7,7 @@ import chbachman.armour.crafting.Recipe;
 import chbachman.armour.gui.ArmourContainerWrapper;
 import chbachman.armour.upgrade.UpgradeException;
 import chbachman.armour.util.NBTHelper;
-import chbachman.armour.util.NBTUpgradeList;
+import chbachman.armour.util.NBTList;
 import chbachman.armour.util.UpgradeUtil;
 
 public class UpgradeHandler {
@@ -28,7 +28,7 @@ public class UpgradeHandler {
                 
                 upgrade.onUpgradeAddition(armour, stack);
                 
-                NBTUpgradeList list = NBTHelper.getNBTUpgradeList(stack.stackTagCompound);
+                NBTList list = NBTHelper.getNBTUpgradeList(stack.stackTagCompound);
                 
                 list.add(upgrade);
                 

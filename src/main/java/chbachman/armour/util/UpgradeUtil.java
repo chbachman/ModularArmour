@@ -48,9 +48,7 @@ public class UpgradeUtil {
 		return list;
 	}
 
-	public static void removeUpgrade(ItemStack container, IUpgrade upgrade) {
-
-		ItemStack stack = container.copy();
+	public static void removeUpgrade(ItemStack stack, IUpgrade upgrade) {
 
 		if (stack.stackTagCompound == null) {
 			NBTHelper.createDefaultStackTag(stack);
@@ -59,16 +57,9 @@ public class UpgradeUtil {
 
 		if (stack.getItem() instanceof IModularItem) {
 
-			NBTUpgradeList list = NBTHelper.getNBTUpgradeList(stack.stackTagCompound);
+			NBTList<IUpgrade> list = NBTHelper.getNBTUpgradeList(stack.stackTagCompound);
 
-			for(int i = 0; i < list.size(); i++){
-				if(list.get(i).equals(upgrade)){
-					list.remove(i);
-					break;
-				}
-			}
-
-			container.stackTagCompound = stack.stackTagCompound;
+			list.remove(upgrade);
 		}
 
 	}
@@ -87,7 +78,7 @@ public class UpgradeUtil {
 
 		NBTHelper.createDefaultStackTag(stack);
 
-		NBTUpgradeList list = NBTHelper.getNBTUpgradeList(stack.stackTagCompound);
+		NBTList list = NBTHelper.getNBTUpgradeList(stack.stackTagCompound);
 
 		return list.contains(upgrade);
 	}

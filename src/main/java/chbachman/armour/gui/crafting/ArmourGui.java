@@ -1,6 +1,7 @@
 package chbachman.armour.gui.crafting;
 
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import chbachman.api.IUpgrade;
 import chbachman.armour.ModularArmour;
@@ -28,12 +29,13 @@ public class ArmourGui extends GuiBaseAdv {
     public TabUpgradeRemoval removal;
     
     public IUpgrade selectedUpgrade;
+    public ItemStack stack;
     
     public ArmourGui(ArmourContainer container, InventoryPlayer inventory) {
         super(container);
         
         this.container = container;
-        
+        this.stack = inventory.getCurrentItem();
         this.texture = TEXTURE;
         this.drawInventory = false;
         this.drawTitle = true;
@@ -45,7 +47,7 @@ public class ArmourGui extends GuiBaseAdv {
     public void initGui() {
         super.initGui();
         
-        this.list = new UpgradeComponent(this.fontRendererObj, this.guiLeft + 8, this.guiTop + 5, 160, 20);
+        this.list = new UpgradeComponent(this.fontRendererObj, this.guiLeft + 8, this.guiTop + 5, 160, 20, stack);
         
         this.getUpgradeList();
         
@@ -76,17 +78,8 @@ public class ArmourGui extends GuiBaseAdv {
     @Override
     protected void drawGuiContainerBackgroundLayer(float f, int x, int y) {
         
-        super.drawGuiContainerBackgroundLayer(f, x, y);
-        
         this.getUpgradeList();
         this.list.drawText();
-    }
-    
-    @Override
-    protected void drawGuiContainerForegroundLayer(int x, int y) {
-        
-        super.drawGuiContainerForegroundLayer(x, y);
-        
     }
     
     public void onButtonClick(String name) {
@@ -115,7 +108,7 @@ public class ArmourGui extends GuiBaseAdv {
                 this.container.onContainerClosed(this.container.player);
             } else if (name.equals("RemoveUpgrade")) {
                 UpgradeUtil.removeUpgrade(this.container.stack, this.selectedUpgrade);
-                PacketHandler.sendToServer(ArmourPacket.getPacket(PacketTypes.BUTTON).addString(name).addInt(this.selectedUpgrade.getId()));
+                PacketHandler.sendToServer(ArmourPacket.getPacket(PacketTypes.BUTTON).addString(name).addString(this.selectedUpgrade.getBaseName()));
                 return;
             } else if(name.equals("Recipe")){
                 if (this.container.player.worldObj.isRemote == false) {

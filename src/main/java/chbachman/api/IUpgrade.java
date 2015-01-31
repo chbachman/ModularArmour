@@ -12,12 +12,6 @@ import chbachman.armour.util.ArmourSlot;
 public interface IUpgrade extends Comparable<IUpgrade>{
 
 	/**
-	 * Gets the unique id of the Upgrade, used for saving and loading from NBT.
-	 * @return id
-	 */
-	int getId();
-
-	/**
 	 * Gets the Localized information string
 	 * @return Localized information string
 	 */
@@ -108,7 +102,7 @@ public interface IUpgrade extends Comparable<IUpgrade>{
 	/**
 	 * Register config options here. Called during init.
 	 */
-	public void registerConfigOptions();
+	void registerConfigOptions();
 	
 
 }
