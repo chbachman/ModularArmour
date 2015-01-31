@@ -16,11 +16,11 @@ public class UpgradeBloodMagic extends Upgrade{
 		super("blood");
 	}
 
-	private int cost;
+	private double cost;
 
 	@Override
 	public void registerConfigOptions(){
-		cost = ConfigHelper.getEnergyCost(this, "LP cost per RF", 1);
+		cost = ConfigHelper.getEnergyCost(this, "1LP = ?RF", 1D);
 	}
 	
 	@Override
@@ -40,12 +40,25 @@ public class UpgradeBloodMagic extends Upgrade{
 		}
 		
 		SoulNetworkHandler.checkAndSetItemOwner(stack, player);
-
+		
+		
+		int amount = SoulNetworkHandler.getCurrentEssence(SoulNetworkHandler.getOwnerName(stack));
+		
+		if(amount != 0){
+			System.out.println(amount);
+		}
+		
+		int toDrain = (int) Math.min(amount, (maxEnergy - currentEnergy) / cost);
+		
+		if(toDrain != 0){
+			System.out.println(toDrain);
+		}
+		
         if (!player.capabilities.isCreativeMode)
         {
-            if(SoulNetworkHandler.syphonAndDamageFromNetwork(stack, player, (maxEnergy - currentEnergy) * cost));
+            if(SoulNetworkHandler.syphonAndDamageFromNetwork(stack, player, toDrain));
             {
-        	   return currentEnergy - maxEnergy; //Oppisite to return negative.
+        	   return (int) -(toDrain * cost);
             }
         }
         
