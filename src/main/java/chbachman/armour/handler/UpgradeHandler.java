@@ -28,7 +28,7 @@ public class UpgradeHandler {
                 
                 upgrade.onUpgradeAddition(armour, stack);
                 
-                NBTList list = NBTHelper.getNBTUpgradeList(stack.stackTagCompound);
+                NBTList<IUpgrade> list = NBTHelper.getNBTUpgradeList(stack.stackTagCompound);
                 
                 list.add(upgrade);
                 

@@ -78,7 +78,7 @@ public class UpgradeUtil {
 
 		NBTHelper.createDefaultStackTag(stack);
 
-		NBTList list = NBTHelper.getNBTUpgradeList(stack.stackTagCompound);
+		NBTList<IUpgrade> list = NBTHelper.getNBTUpgradeList(stack.stackTagCompound);
 
 		return list.contains(upgrade);
 	}

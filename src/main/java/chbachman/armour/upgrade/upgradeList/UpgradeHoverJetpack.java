@@ -34,9 +34,9 @@ public class UpgradeHoverJetpack extends Upgrade {
     public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot, int level) {
         
     	if(EnergyUtil.getEnergyStored(stack) != 0){
-    		setFlying(player, true);
+    		setFlying(player, true, world);
     	}else if(EnergyUtil.getEnergyStored(stack) == 0){
-    		setFlying(player, false);
+    		setFlying(player, false, world);
     	}
     	
         if (!UpgradeUtil.doesPlayerHaveUpgrade(player, Vanilla.calfShields) && player.capabilities.isFlying) {
@@ -52,10 +52,14 @@ public class UpgradeHoverJetpack extends Upgrade {
     
     @Override
     public void onDequip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot, int level) {
-        setFlying(player, false);
+        setFlying(player, false, world);
     }
     
-    private void setFlying(EntityPlayer player, boolean bool){
+    private void setFlying(EntityPlayer player, boolean bool, World world){
+    	if(!world.isRemote){
+    		return;
+    	}
+    	
     	if(bool){
     		player.capabilities.allowFlying = true;
             player.sendPlayerAbilities();
