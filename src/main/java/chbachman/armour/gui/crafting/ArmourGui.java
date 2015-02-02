@@ -50,7 +50,7 @@ public class ArmourGui extends GuiBaseAdv {
     public void initGui() {
         super.initGui();
         
-        this.list = new UpgradeComponent(this.fontRendererObj, this.guiLeft + 8, this.guiTop + 5, 160, 20, stack);
+        this.list = new UpgradeComponent(this.fontRendererObj, this.guiLeft + 8, this.guiTop + 5, 160, 14, stack);
         
         this.getUpgradeList();
         
