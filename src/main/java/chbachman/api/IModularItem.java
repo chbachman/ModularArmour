@@ -21,24 +21,40 @@ public interface IModularItem extends IEnergyContainerItem{
 	public int getSlot();
 
 	/**
-	 * One of those called methods. Useful for when you want to know when it has been taken off.
+	 * One of those called methods. Called when the armour is taken off.
 	 * @param worldObj
 	 * @param player
 	 * @param stack2
 	 */
 	public void onArmourDequip(World worldObj, EntityPlayer player, ItemStack stack);
 
+	/**
+	 * Another of those called methods. Called when the armour is put on.
+	 * @param worldObj
+	 * @param player
+	 * @param stack
+	 */
 	public void onArmourEquip(World worldObj, EntityPlayer player, ItemStack stack);
 	
+	/**
+	 * 
+	 * @return whether the current armour piece is calling the {@linkIArmourUpgrade} methods.
+	 */
 	public boolean isArmour();
 	
+	/**
+	 * Get current capacity/max energy (in RF) of the armour.
+	 * @param stack
+	 * @return current capacity;
+	 */
 	public int getCapacity(ItemStack stack);
 	
+	/**
+	 * Set the capacity/max energy (in RF) of the armour.
+	 * @param stack
+	 * @param amount
+	 */
 	public void setCapacity(ItemStack stack, int amount);
-	
-	public int getEnergyPerDamage(ItemStack stack);
-	
-	public void setEnergyPerDamage(ItemStack stack, int amount);
 	
 	public int getMaxTransfer(ItemStack stack);
 	

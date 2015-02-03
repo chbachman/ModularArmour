@@ -32,6 +32,10 @@ public class UpgradeUndead extends UpgradeProtective{
 		return entityMob.getCreatureAttribute() == EnumCreatureAttribute.UNDEAD;
 	}
 	
+	public int getEnergyPerDamage(ItemStack stack){
+		return 100;
+	}
+	
 	
 
 }

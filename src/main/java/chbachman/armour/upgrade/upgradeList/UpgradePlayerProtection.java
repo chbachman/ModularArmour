@@ -24,5 +24,9 @@ public class UpgradePlayerProtection extends UpgradeProtective{
 		return entity instanceof EntityPlayer;
 
 	}
+	
+	public int getEnergyPerDamage(ItemStack stack){
+		return 100;
+	}
 
 }

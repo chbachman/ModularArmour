@@ -51,7 +51,6 @@ public class ItemModularArmour extends ItemArmor implements ISpecialArmor, IInve
 
 	private VariableInt capacity = new VariableInt("capacity", 100);
 	private VariableInt maxTransfer = new VariableInt("maxTransfer", 100);
-	private VariableInt energyPerDamage = new VariableInt("energyPerDamage", 100);
 	
 	public VariableInt level = new VariableInt("level", 0);
 	
@@ -182,7 +181,7 @@ public class ItemModularArmour extends ItemArmor implements ISpecialArmor, IInve
 	//ISpecialArmor
 	@Override
 	public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot) {
-		this.extractEnergy(stack, this.energyPerDamage.get(stack) * damage, false);
+		this.extractEnergy(stack, damage, false);
 	}
 
 	@Override
@@ -257,6 +256,7 @@ public class ItemModularArmour extends ItemArmor implements ISpecialArmor, IInve
 	
 	//IRevealer
 	@Override
+	@Optional.Method(modid = "Thaumcraft")
 	public boolean showNodes(ItemStack itemstack, EntityLivingBase player) {
 		NBTList<IUpgrade> list = NBTHelper.getNBTUpgradeList(itemstack);
 
@@ -348,16 +348,6 @@ public class ItemModularArmour extends ItemArmor implements ISpecialArmor, IInve
 	@Override
 	public void setCapacity(ItemStack stack, int amount) {
 		this.capacity.set(stack, amount);
-	}
-
-	@Override
-	public int getEnergyPerDamage(ItemStack stack) {
-		return this.energyPerDamage.get(stack);
-	}
-
-	@Override
-	public void setEnergyPerDamage(ItemStack stack, int amount) {
-		this.energyPerDamage.set(stack, amount);
 	}
 
 	@Override

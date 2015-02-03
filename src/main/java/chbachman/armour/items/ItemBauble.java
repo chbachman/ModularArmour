@@ -30,7 +30,6 @@ public class ItemBauble extends Item implements IBauble, IModularItem{
 
 	private VariableInt capacity = new VariableInt("capacity", 100);
 	private VariableInt maxTransfer = new VariableInt("maxTransfer", 100);
-	private VariableInt energyPerDamage = new VariableInt("energyPerDamage", 100);
 	public VariableInt level = new VariableInt("level", 0);
 
 	public ItemBauble(){
@@ -167,17 +166,6 @@ public class ItemBauble extends Item implements IBauble, IModularItem{
 	@Override
 	public void setCapacity(ItemStack stack, int amount) {
 		capacity.set(stack, amount);
-	}
-
-	@Override
-	public int getEnergyPerDamage(ItemStack stack) {
-		return energyPerDamage.get(stack);
-	}
-
-	@Override
-	public void setEnergyPerDamage(ItemStack stack, int amount) {
-		energyPerDamage.set(stack, amount);
-
 	}
 
 	@Override
