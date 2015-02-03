@@ -28,7 +28,7 @@ public class UpgradeJumpBoost extends Upgrade {
 
 	@Override
 	public void registerConfigOptions(){
-		cost = ConfigHelper.getEnergyCost(this, "cost to jump high", 1000);
+		cost = ConfigHelper.get(ConfigHelper.SPEED,this, "cost to jump high", 1000);
 	}
 
 	@SubscribeEvent

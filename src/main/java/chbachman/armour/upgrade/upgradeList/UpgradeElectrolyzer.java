@@ -19,7 +19,7 @@ public class UpgradeElectrolyzer extends Upgrade{
 
 	@Override
 	public void registerConfigOptions(){
-		cost = ConfigHelper.getEnergyCost(this, "cost for air to be refilled.", 100);
+		cost = ConfigHelper.get(ConfigHelper.SPEED,this, "cost for air to be refilled.", 100);
 	}
 	
 	@Override

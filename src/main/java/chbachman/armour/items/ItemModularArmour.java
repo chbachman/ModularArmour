@@ -376,7 +376,7 @@ public class ItemModularArmour extends ItemArmor implements ISpecialArmor, IInve
 		return level.get(stack);
 	}
 	
-	static int rfToMana = Loader.isModLoaded("Botania") ? ConfigHelper.getEnergyCost(Botania.manaConverter, "RF to Mana Conversion Factor", 10) : 0;
+	static int rfToMana = Loader.isModLoaded("Botania") ? ConfigHelper.get(ConfigHelper.SPEED,Botania.manaConverter, "RF to Mana Conversion Factor", 10) : 0;
 
 	//IManaItem
 	@Override
@@ -454,7 +454,7 @@ public class ItemModularArmour extends ItemArmor implements ISpecialArmor, IInve
 	@Override
 	@Optional.Method(modid = "Botania")
 	public float getPixieChance(ItemStack stack) {
-		return ConfigHelper.getEnergyCost(Botania.pixie, "Pixie Chance", .05F);
+		return ConfigHelper.get(ConfigHelper.SPEED,Botania.pixie, "Pixie Chance", .05F);
 	}
 
 }

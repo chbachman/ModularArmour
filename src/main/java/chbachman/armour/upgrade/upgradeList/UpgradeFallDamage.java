@@ -19,7 +19,7 @@ public class UpgradeFallDamage extends Upgrade {
 
 	@Override
 	public void registerConfigOptions(){
-		cost = ConfigHelper.getEnergyCost(this, "cost to fall for every 2 blocks", 100);
+		cost = ConfigHelper.get(ConfigHelper.SPEED,this, "cost to fall for every 2 blocks", 100);
 	}
 	
 	@Override

@@ -17,9 +17,13 @@ public class UpgradeSpeed extends Upgrade{
 
     private int cost;
     
+    //private float speed;
+    
     @Override
     public void registerConfigOptions(){
-    	cost = ConfigHelper.getEnergyCost(this, "cost to walk faster, per tick", 100);
+    	cost = ConfigHelper.get(ConfigHelper.ENERGY, this, "cost to walk faster, per tick", 100);
+    	
+    	//cost = ModularArmour.config.get("S", arg1, arg2);
     }
     
     @Override
@@ -30,16 +34,15 @@ public class UpgradeSpeed extends Upgrade{
     @Override
     public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot, int level){
     	
-    	if(EnergyUtil.getEnergyStored(stack) == 0){
-    		player.capabilities.setPlayerWalkSpeed(.1F);
-    		player.capabilities.setFlySpeed(.1F);
-    		player.sendPlayerAbilities();
+    	if(EnergyUtil.isEmpty(stack)){
+    		runSlow(player);
+    	}else{
+    		runFast(player);
     	}
+    	
     	if(player.capabilities.getWalkSpeed() == .3F){
     		return cost;
     	}
-    	
-    	
     	
     	return 0;
     }
@@ -48,24 +51,31 @@ public class UpgradeSpeed extends Upgrade{
     
     @Override
     public void onEquip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot, int level) {
-        if(world.isRemote){
-        	player.capabilities.setPlayerWalkSpeed(0.3F);
-            player.capabilities.setFlySpeed(0.15F);
-            player.sendPlayerAbilities();
-        }
+        runFast(player);
     	
     	
     }
     
     @Override
     public void onDequip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot, int level) {
-    	if(world.isRemote){
-        	player.capabilities.setPlayerWalkSpeed(0.3F);
-            player.capabilities.setFlySpeed(0.15F);
-            player.sendPlayerAbilities();
-        }
+    	runSlow(player);
     }
     
+    public void runFast(EntityPlayer player){
+    	if(player.worldObj.isRemote){
+    		player.capabilities.setPlayerWalkSpeed(0.3F);
+            player.capabilities.setFlySpeed(0.15F);
+            player.sendPlayerAbilities();
+    	}
+    }
+    
+    public void runSlow(EntityPlayer player){
+    	if(player.worldObj.isRemote){
+    		player.capabilities.setPlayerWalkSpeed(0.1F);
+            player.capabilities.setFlySpeed(0.1F);
+            player.sendPlayerAbilities();
+    	}
+    }
     
     
 }

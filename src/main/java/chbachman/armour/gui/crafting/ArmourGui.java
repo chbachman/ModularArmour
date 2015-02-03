@@ -136,6 +136,10 @@ public class ArmourGui extends GuiBaseAdv {
                 if (this.container.player.worldObj.isRemote == false) {
                     this.container.player.openGui(ModularArmour.instance, GuiHandler.ARMOUR_ID, this.container.player.worldObj, 0, 0, 0);
                 }
+            }else if(name.equals("ScrollDown")){
+            	this.list.scrollDown();
+            }else if(name.equals("ScrollUp")){
+            	this.list.scrollUp();
             }
             
             PacketHandler.sendToServer(ArmourPacket.getPacket(PacketTypes.BUTTON).addString(name));

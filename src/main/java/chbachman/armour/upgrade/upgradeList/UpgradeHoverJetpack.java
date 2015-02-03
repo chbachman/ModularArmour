@@ -22,7 +22,7 @@ public class UpgradeHoverJetpack extends Upgrade {
 
     @Override
     public void registerConfigOptions(){
-    	cost = ConfigHelper.getEnergyCost(this, "cost to fly each tick", 500);
+    	cost = ConfigHelper.get(ConfigHelper.SPEED,this, "cost to fly each tick", 500);
     }
 
     @Override

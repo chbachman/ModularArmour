@@ -21,7 +21,7 @@ public class UpgradeMagnet extends Upgrade{
 
 	@Override
 	public void registerConfigOptions(){
-		cost = ConfigHelper.getEnergyCost(this, "energy cost to drag items in, per item", 100);
+		cost = ConfigHelper.get(ConfigHelper.SPEED,this, "energy cost to drag items in, per item", 100);
 	}
 
 	@Override

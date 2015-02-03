@@ -1,55 +1,36 @@
 package chbachman.armour.util;
 
+import static chbachman.armour.ModularArmour.config;
 import chbachman.api.IUpgrade;
-import chbachman.armour.ModularArmour;
 
 public final class ConfigHelper{
 
-	private ConfigHelper(){
+	private ConfigHelper(){}
 
-	}
+	public static final String ENERGY = "energy values";
+	public static final String SPEED = "speed values";
 
-	public static void preInit(){
-
-	}
-
-	public static void init(){
-
-	}
-
-	public static void postInit(){
-
-	}
-
-	public static void onClose(){
-
-	}
-
-	public static int getEnergyCost(IUpgrade upgrade, String description, int defaul){
-
+	
+	
+	public static int get(String category, IUpgrade upgrade, String description, int def){
 		if(upgrade == null){
-			return defaul;
+			return def;
 		}
-
-		return ModularArmour.config.get("energy values", new StringBuilder(upgrade.getName()).append(":").append(description).toString(), defaul, "");
+		
+		return config.get(category, new StringBuilder(upgrade.getName()).append(":").append(description).toString(), def);
 	}
 
-	public static float getEnergyCost(IUpgrade upgrade, String description, float defaul){
-
+	public static double get(String category, IUpgrade upgrade, String description, double def){
 		if(upgrade == null){
-			return defaul;
+			return def;
 		}
-
-		return (float) ModularArmour.config.get("energy values", new StringBuilder(upgrade.getName()).append(":").append(description).toString(), defaul, "");
+		
+		return config.get(category, new StringBuilder(upgrade.getName()).append(":").append(description).toString(), def);
+		
 	}
 
-	public static double getEnergyCost(IUpgrade upgrade, String description, double defaul){
-
-		if(upgrade == null){
-			return defaul;
-		}
-
-		return ModularArmour.config.get("energy values", new StringBuilder(upgrade.getName()).append(":").append(description).toString(), defaul, "");
+	public static float get(String category, IUpgrade upgrade, String description, float def){
+		return (float) get(category, upgrade, description, def);
 	}
 
 }

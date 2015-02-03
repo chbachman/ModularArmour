@@ -21,7 +21,7 @@ public class UpgradeBloodMagic extends Upgrade{
 
 	@Override
 	public void registerConfigOptions(){
-		cost = ConfigHelper.getEnergyCost(this, "1LP = ?RF", 1D);
+		cost = ConfigHelper.get(ConfigHelper.SPEED,this, "1LP = ?RF", 1D);
 	}
 	
 	@Override
