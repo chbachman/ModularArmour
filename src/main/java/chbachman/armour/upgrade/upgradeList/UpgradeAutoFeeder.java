@@ -24,8 +24,8 @@ public class UpgradeAutoFeeder extends Upgrade{
 
 	@Override
 	public void registerConfigOptions(){
-		absorbing = ConfigHelper.getEnergyCost(this, "cost for absorbing food", 100);
-		eating = ConfigHelper.getEnergyCost(this, "cost for eating food", 100);
+		absorbing = ConfigHelper.get(ConfigHelper.ENERGY, this, "cost for absorbing food", 100);
+		eating = ConfigHelper.get(ConfigHelper.ENERGY, this, "cost for eating food", 100);
 	}
     
     @Override
