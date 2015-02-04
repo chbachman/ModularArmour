@@ -25,6 +25,11 @@ public class Recipe
     private int height = 0;
     private boolean mirrored = true;
     
+    /**
+     * Construct the recipe with a contructor identical to {@link ShapedOreRecipe}.
+     * @param result
+     * @param recipe
+     */
     public Recipe(IUpgrade result, Object... recipe)
     {
     	
@@ -123,6 +128,13 @@ public class Recipe
         }
     }
 
+    /**
+     * Constructs the Recipe with the array for the input and the result for the output. 
+     * The flag does not matter, it just differentaties it from the Recipe(IUpgrade result, Object...) constructor.
+     * @param result
+     * @param array
+     * @param flag
+     */
     public Recipe(IUpgrade result, Object[] array, boolean flag){
     	this.input = array;
     	this.output = result;
@@ -138,6 +150,10 @@ public class Recipe
      */
     public int getRecipeSize(){ return input.length; }
 
+    /**
+     * Get the output of the recipe.
+     * @return
+     */
     public IUpgrade getRecipeOutput(){ return output; }
 
     /**
@@ -165,6 +181,14 @@ public class Recipe
     }
 
     @SuppressWarnings("unchecked")
+    /**
+     * Checks whether the inventory matches the current recipe.
+     * @param inv
+     * @param startX
+     * @param startY
+     * @param mirror
+     * @return
+     */
     private boolean checkMatch(ArmourContainerWrapper inv, int startX, int startY, boolean mirror)
     {
         for (int x = 0; x < MAX_CRAFT_GRID_WIDTH; x++)
@@ -221,6 +245,11 @@ public class Recipe
         return true;
     }
 
+    /**
+     * Checks the match with another recipe.
+     * @param inv
+     * @return
+     */
     public boolean matches(Recipe inv)
     {
         for (int x = 0; x <= MAX_CRAFT_GRID_WIDTH - width; x++)
@@ -242,6 +271,14 @@ public class Recipe
         return false;
     }
     
+    /**
+     * Checks the match with the recipe with the start and whether the mirror works.
+     * @param inv
+     * @param startX
+     * @param startY
+     * @param mirror
+     * @return
+     */
     private boolean checkMatch(Recipe inv, int startX, int startY, boolean mirror)
     {
         for (int x = 0; x < MAX_CRAFT_GRID_WIDTH; x++)
@@ -297,12 +334,6 @@ public class Recipe
 
         return true;
     }
-    
-    public Recipe setMirrored(boolean mirror)
-    {
-        mirrored = mirror;
-        return this;
-    }
 
     @Override
 	public int hashCode() {
@@ -357,10 +388,18 @@ public class Recipe
     	return null;
     }
     
+    /**
+     * Adds the recipe to the current list;
+     * @param recipe
+     */
     public static void addRecipe(Recipe recipe){
     	craftingList.add(recipe);
     }
     
+    /**
+     * Removes the upgrade from the recipe list.
+     * @param upgrade
+     */
     public static void removeRecipe(IUpgrade upgrade){
     	Iterator<Recipe> iterator = craftingList.iterator();
     	
@@ -371,14 +410,12 @@ public class Recipe
     	}
     }
     
+    /**
+     * Removes the recipe from the recipe list;
+     * @param upgrade
+     */
     public static void removeRecipe(Recipe upgrade){
-    	Iterator<Recipe> iterator = craftingList.iterator();
-    	
-    	while(iterator.hasNext()){
-    		if(iterator.next().equals(upgrade)){
-    			iterator.remove();
-    		}
-    	}
+    	craftingList.remove(upgrade);
     }
     
     public String toString(){

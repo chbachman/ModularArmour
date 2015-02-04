@@ -32,6 +32,10 @@ public class ModularArmourHandler {
 		
 	}
 	
+	/**
+	 * Returns a list of modular items that exist in the game. Used for gui work.
+	 * @return
+	 */
 	public ItemStack[] getListOfItems(){
 		
 		ItemStack[] stacks = new ItemStack[this.getNumberOfItems()];
@@ -44,6 +48,10 @@ public class ModularArmourHandler {
 		
 	}
 	
+	/**
+	 * Returns the number of items.
+	 * @return
+	 */
 	public int getNumberOfItems(){
 		return list.size();
 	}

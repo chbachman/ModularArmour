@@ -7,8 +7,8 @@ import chbachman.armour.util.ArmourSlot;
 import cofh.api.energy.IEnergyContainerItem;
 
 /**
- * This class has a lot around it that must be implemented. You must call every single method in the {@link IUpgrade} class when appropriate. 
- * This is not optional. This Interface allows you to have some methods called, and also makes sure that upgrades can get into your data when necesary. 
+ * The interface that must be implemented for upgrades to work on your armour. You must call every single method in the {@link IUpgrade} class when appropriate. 
+ * This is not optional. This interface allows you to have some methods called, and also makes sure that upgrades can get into your data when necesary. 
  * @author CBachman
  *
  */
@@ -56,11 +56,32 @@ public interface IModularItem extends IEnergyContainerItem{
 	 */
 	public void setCapacity(ItemStack stack, int amount);
 	
+	/**
+	 * Get the max transfer of the energy (in RF) of the armour.
+	 * @param stack
+	 * @return
+	 */
 	public int getMaxTransfer(ItemStack stack);
 	
+	/**
+	 * Get the max transfer of the energy (in RF) of the armour.
+	 * @param stack
+	 * @param amount
+	 */
 	public void setMaxTransfer(ItemStack stack, int amount);
 	
+	/**
+	 * Get the "level" of the armour. This is used by upgrades to increase abilites.
+	 * @param stack
+	 * @return
+	 */
 	public int getLevel(ItemStack stack);
 	
+	/**
+	 * Set the level of the armour. 
+	 * @param stack
+	 * @param level
+	 * @return the stack that is passed in.
+	 */
 	public ItemStack setLevel(ItemStack stack, int level);
 }

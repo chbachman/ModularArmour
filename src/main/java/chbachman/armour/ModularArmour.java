@@ -41,11 +41,19 @@ public class ModularArmour extends BaseMod {
     @SidedProxy(clientSide = "chbachman.armour.proxy.ClientProxy", serverSide = "chbachman.armour.proxy.ServerProxy")
     public static IProxy proxy;
     
+    //Whether we are in a development method.
     public static final boolean developmentEnvironment = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
+    
+    //The log method
     public static Logger log = LogManager.getLogger(Reference.MODID);
+    
     public static GuiHandler guiHandler = new GuiHandler();
+    
+    //The config, use this between preInit and postInit.
     public static ConfigHandler config = new ConfigHandler(Reference.VERSION);
     public static OutputHandler output;
+    
+    //Register the different Modular Items here.
     public static ModularArmourHandler modularHandler;
     
     public static boolean debug = false;

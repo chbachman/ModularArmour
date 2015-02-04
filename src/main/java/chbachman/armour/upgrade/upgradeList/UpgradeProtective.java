@@ -48,8 +48,28 @@ public abstract class UpgradeProtective extends UpgradeBasic{
 		return item.isArmour();
 	}
 	
+	
+	@Override
+	public int getArmourDisplay() {
+		return (int) (protection / .25);
+	}
+
+	/**
+	 * Return whether the upgrade should defend against the current situation.
+	 * @param player
+	 * @param armor
+	 * @param source
+	 * @param damage
+	 * @param slot
+	 * @return
+	 */
 	public abstract boolean shouldDefend(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, ArmourSlot slot);
 	
+	/**
+	 * Return the energy drained per damage.
+	 * @param stack
+	 * @return
+	 */
 	public abstract int getEnergyPerDamage(ItemStack stack);
 	
 	//Simple Subclasses Follow

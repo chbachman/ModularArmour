@@ -11,6 +11,11 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.PlayerTickEvent;
 
+/**
+ * Generic event handler, used for onEquip and onDequip methods.
+ * @author Chbachman
+ *
+ */
 public class GenericEventHandler {
 
 	@SubscribeEvent

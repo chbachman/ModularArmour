@@ -7,7 +7,11 @@ import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-
+/**
+ * This class is used during development to detail the amount of damage dealt with each hit.
+ * @author CBachman
+ *
+ */
 public class DamageEventHandler {
 
     HashMap<EntityPlayer, Float> otherMap = new HashMap<EntityPlayer, Float>();

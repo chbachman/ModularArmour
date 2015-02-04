@@ -12,11 +12,22 @@ import chbachman.armour.util.UpgradeUtil;
 
 public class UpgradeHandler {
     
+	/**
+	 * Get the result for the current wrapper.
+	 * @param containerWrapper
+	 * @return
+	 */
     public static IUpgrade getResult(ArmourContainerWrapper containerWrapper) {
     	
         return Recipe.getResult(containerWrapper);
     }
     
+    /**
+     * Add the upgrade to the ItemStack. Calls the correct methods.
+     * @param stack
+     * @param upgrade
+     * @return
+     */
     public static boolean addUpgrade(ItemStack stack, IUpgrade upgrade) {
         NBTHelper.createDefaultStackTag(stack);
         
@@ -40,10 +51,23 @@ public class UpgradeHandler {
         return false;
     }
     
+    /**
+     * Checks if the ItemStack contains the given upgrade.
+     * @param stack
+     * @param upgrade
+     * @return
+     */
     public static boolean checkContain(ItemStack stack, IUpgrade upgrade) {
     	return !UpgradeUtil.doesItemStackContainUpgrade(stack, upgrade);
     }
     
+    /**
+     * Checks the dependcies for the given ItemStack and Upgrade
+     * @param stack
+     * @param iUpgrade
+     * @return
+     * @throws UpgradeException if the stack need an upgrade.
+     */
     public static boolean checkDependencies(ItemStack stack, IUpgrade iUpgrade) {
         
         if (iUpgrade == null) {

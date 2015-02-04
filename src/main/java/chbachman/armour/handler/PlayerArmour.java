@@ -9,12 +9,22 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
 import net.minecraftforge.common.util.Constants;
 
+/**
+ * This class stores the previous Armour that the person had worn. Used to call onArmourEquip and Deuip.
+ * @author CBachman
+ *
+ */
 public class PlayerArmour implements IExtendedEntityProperties{
 	
+	//The identifier that is used for saving and loading.
 	public static final String IDENTIFIER = "ModularArmour:ArmourSaving";
 	
 	ItemStack[] stacks;
 	
+	/**
+	 * Called every tick to update the player's worn armour.
+	 * @param armourList
+	 */
 	public void update(ItemStack[] armourList){
 		stacks = armourList.clone();
 	}
@@ -58,10 +68,19 @@ public class PlayerArmour implements IExtendedEntityProperties{
 		stacks = new ItemStack[4];
 	}
 	
+	/**
+	 * Gets the storage instance for the given player.
+	 * @param player
+	 * @return
+	 */
 	public static PlayerArmour getFor(EntityPlayer player){
 		return (PlayerArmour) player.getExtendedProperties(IDENTIFIER);
 	}
 	
+	/**
+	 * Registers the storage instance for the player.
+	 * @param player
+	 */
 	public static void register(EntityPlayer player){
 		player.registerExtendedProperties(IDENTIFIER, new PlayerArmour());
 	}

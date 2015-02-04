@@ -33,6 +33,11 @@ public class ItemRegister {
 		register(Botania.class, "Botania");
 	}
 	
+	/**
+	 * Call to register a Module or Vanilla-Replacement, pass in the modid to be loaded on.
+	 * @param clazz
+	 * @param name
+	 */
 	public void register(Class<? extends Module> clazz, String name){
 		
 		if(!Loader.isModLoaded(name)){
@@ -54,9 +59,10 @@ public class ItemRegister {
 		
 	}
 	
+	/**
+	 * Called during preInit;
+	 */
 	public void preInit(){
-		
-		
 		
 		Vanilla vanilla = vanillaList.get(ModularArmour.config.get("Change to change the recipes", "Recipes:", "Vanilla"));
 		

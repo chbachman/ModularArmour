@@ -33,7 +33,6 @@ import chbachman.armour.util.NBTHelper;
 import chbachman.armour.util.NBTList;
 import chbachman.armour.util.UpgradeUtil;
 import chbachman.armour.util.VariableInt;
-import cofh.api.item.IInventoryContainerItem;
 import cofh.core.util.CoreUtils;
 import cofh.lib.util.helpers.StringHelper;
 import cpw.mods.fml.common.Loader;
@@ -47,7 +46,7 @@ import cpw.mods.fml.common.Optional.Interface;
 		@Interface(iface = "vazkii.botania.api.mana.IManaItem", modid = "Botania"),
 		@Interface(iface = "vazkii.botania.api.item.IPixieSpawner", modid = "Botania"),
 		})
-public class ItemModularArmour extends ItemArmor implements ISpecialArmor, IInventoryContainerItem, IModularItem, IGoggles, IVisDiscountGear, IRevealer, IManaItem, IPixieSpawner{
+public class ItemModularArmour extends ItemArmor implements ISpecialArmor, IModularItem, IGoggles, IVisDiscountGear, IRevealer, IManaItem, IPixieSpawner{
 
 	private VariableInt capacity = new VariableInt("capacity", 100);
 	private VariableInt maxTransfer = new VariableInt("maxTransfer", 100);
@@ -218,12 +217,6 @@ public class ItemModularArmour extends ItemArmor implements ISpecialArmor, IInve
 		}
 
 		return new ArmorProperties(output.Priority, output.AbsorbRatio, Integer.MAX_VALUE);
-	}
-	
-	//IInventoryContainerItem
-	@Override
-	public int getSizeInventory(ItemStack container) {
-		return 9;
 	}
 	
 	//IModularItem

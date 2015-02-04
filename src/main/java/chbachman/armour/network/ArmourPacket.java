@@ -50,6 +50,11 @@ public class ArmourPacket extends PacketCoFHBase {
         }
     }
     
+    /**
+     * Get the packet for the given type.
+     * @param type
+     * @return
+     */
     public static PacketCoFHBase getPacket(PacketTypes type) {
         
         return new ArmourPacket().addByte(type.ordinal());

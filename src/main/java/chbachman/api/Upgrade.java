@@ -18,9 +18,21 @@ import cofh.lib.util.helpers.StringHelper;
  */
 public abstract class Upgrade implements IArmourUpgrade {
 
+	/**
+	 * The unlocalized, base name of the upgrade.
+	 */
 	protected String name;
+	
+	/**
+	 * Whether the upgrade is disabled.
+	 */
 	protected boolean isDisabled;
 
+	/**
+	 * Passes in the base name of the upgrade. The base name must be unique. 
+	 * This also registers the upgrade in the UpgradeList.
+	 * @param name
+	 */
 	public Upgrade(String name) {
 		this.name = name;
 
@@ -42,6 +54,10 @@ public abstract class Upgrade implements IArmourUpgrade {
 		return this.name;
 	}
 
+	/**
+	 * Get the localization String for the upgrade. Append the ending to get the correct localization.
+	 * @return
+	 */
 	protected String getLocalizationString() {
 		return "upgrade.chbachman." + this.name;
 	}

@@ -1,6 +1,5 @@
 package chbachman.armour.util;
 
-import baubles.api.BaubleType;
 
 public enum ArmourSlot {
     
@@ -12,6 +11,12 @@ public enum ArmourSlot {
         this.id = id;
     }
     
+    
+    /**
+     * Get the ArmourSlot for the given id;
+     * @param id
+     * @return
+     */
     public static ArmourSlot getArmourSlot(int id) {
         for(ArmourSlot slot : ArmourSlot.values()){
         	if(slot.id == id){
@@ -20,17 +25,6 @@ public enum ArmourSlot {
         }
         
         return ArmourSlot.UNKNOWN;
-    }
-    
-    public static ArmourSlot getArmourSlot(BaubleType type){
-    	switch(type){
-    	
-    	case BELT: return BELT;
-    	case RING: return RING;
-    	case AMULET: return PENDANT;
-    	default: return UNKNOWN;
-    	
-    	}
     }
     
 }

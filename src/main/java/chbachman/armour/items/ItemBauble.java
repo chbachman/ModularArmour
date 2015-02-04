@@ -2,6 +2,7 @@ package chbachman.armour.items;
 
 import java.util.List;
 
+import static chbachman.armour.items.ItemModularArmour.rfToMana;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -9,22 +10,32 @@ import net.minecraft.item.EnumRarity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import thaumcraft.api.IVisDiscountGear;
+import thaumcraft.api.aspects.Aspect;
+import vazkii.botania.api.item.IPixieSpawner;
+import vazkii.botania.api.mana.IManaItem;
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
 import chbachman.api.IModularItem;
 import chbachman.api.IUpgrade;
 import chbachman.armour.ModularArmour;
 import chbachman.armour.gui.GuiHandler;
+import chbachman.armour.register.Botania;
+import chbachman.armour.register.Thaumcraft;
 import chbachman.armour.util.ArmourSlot;
+import chbachman.armour.util.ConfigHelper;
 import chbachman.armour.util.NBTHelper;
+import chbachman.armour.util.NBTList;
+import chbachman.armour.util.UpgradeUtil;
 import chbachman.armour.util.VariableInt;
 import cofh.core.util.CoreUtils;
 import cofh.lib.util.helpers.StringHelper;
 import cpw.mods.fml.common.Optional;
 
 @Optional.Interface(iface = "baubles.api.IBauble", modid = "Baubles")
-public class ItemBauble extends Item implements IBauble, IModularItem{
+public class ItemBauble extends Item implements IBauble, IModularItem, IVisDiscountGear, IManaItem, IPixieSpawner{
 
 	private BaubleType type;
 
@@ -36,6 +47,11 @@ public class ItemBauble extends Item implements IBauble, IModularItem{
 		setCreativeTab(CreativeTabs.tabTools);
 	}
 
+	/**
+	 * Sets the type of the bauble. 
+	 * @param type
+	 * @return The bauble, for chaining.
+	 */
 	public ItemBauble setBaubleType(BaubleType type){
 		this.type = type;
 		return this;
@@ -132,7 +148,15 @@ public class ItemBauble extends Item implements IBauble, IModularItem{
 
 	@Override
 	public int getSlot() {
-		return ArmourSlot.getArmourSlot(this.type).id;
+
+		switch(type){
+
+		case BELT: return 4;
+		case RING: return 5;
+		case AMULET: return 6;
+		default: return 7;
+
+		}
 	}
 
 	@Override
@@ -250,6 +274,112 @@ public class ItemBauble extends Item implements IBauble, IModularItem{
 	public boolean isArmour() {
 		return false;
 	}
+
+
+	//IManaItem
+	@Override
+	@Optional.Method(modid = "Botania")
+	public int getMana(ItemStack stack) {
+		if(!UpgradeUtil.doesItemStackContainUpgrade(stack, Botania.manaConverter)){
+			return 0;
+		}
+		return this.getEnergyStored(stack) / rfToMana;
+	}
+
+
+	@Override
+	@Optional.Method(modid = "Botania")
+	public int getMaxMana(ItemStack stack) {
+		if(!UpgradeUtil.doesItemStackContainUpgrade(stack, Botania.manaConverter)){
+			return 0;
+		}
+		return this.getCapacity(stack) / rfToMana;
+	}
+
+
+	@Override
+	@Optional.Method(modid = "Botania")
+	public void addMana(ItemStack stack, int mana) {
+		if(!UpgradeUtil.doesItemStackContainUpgrade(stack, Botania.manaConverter)){
+			return;
+		}
+		this.receiveEnergy(stack, mana * rfToMana, false);
+	}
+
+
+	@Override
+	@Optional.Method(modid = "Botania")
+	public boolean canReceiveManaFromPool(ItemStack stack, TileEntity pool) {
+		if(!UpgradeUtil.doesItemStackContainUpgrade(stack, Botania.manaConverter)){
+			return false;
+		}
+		return this.getMaxEnergyStored(stack) != this.getEnergyStored(stack);
+	}
+
+
+	@Override
+	@Optional.Method(modid = "Botania")
+	public boolean canReceiveManaFromItem(ItemStack stack, ItemStack otherStack) {
+		if(!UpgradeUtil.doesItemStackContainUpgrade(stack, Botania.manaConverter)){
+			return false;
+		}
+		return this.getCapacity(stack) != this.getEnergyStored(stack);
+	}
+
+
+	@Override
+	@Optional.Method(modid = "Botania")
+	public boolean canExportManaToPool(ItemStack stack, TileEntity pool) {
+		return false;
+	}
+
+
+	@Override
+	@Optional.Method(modid = "Botania")
+	public boolean canExportManaToItem(ItemStack stack, ItemStack otherStack) {
+		return false;
+	}
+
+
+	@Override
+	@Optional.Method(modid = "Botania")
+	public boolean isNoExport(ItemStack stack) {
+		return true;
+	}
+	
+	
+	//IPixieSpawner
+	@Override
+	@Optional.Method(modid = "Botania")
+	public float getPixieChance(ItemStack stack) {
+		return ConfigHelper.get(ConfigHelper.SPEED,Botania.pixie, "Pixie Chance", .05F);
+	}
+
+	//IVisDiscountGear
+		@Override
+		@Optional.Method(modid = "Thaumcraft")
+		public int getVisDiscount(ItemStack stack, EntityPlayer player, Aspect aspect) {
+			NBTList<IUpgrade> list = NBTHelper.getNBTUpgradeList(stack);
+			
+			if(list.contains(Thaumcraft.visDiscount)){
+				if(stack.getItem() instanceof IModularItem){
+					IModularItem armour = (IModularItem) stack.getItem();
+					
+					switch(ArmourSlot.getArmourSlot(armour.getSlot())){
+					case BELT: return 4;
+					case BOOTS: return 2;
+					case CHESTPLATE: return 5;
+					case HELMET: return 3;
+					case LEGS: return 4;
+					case PENDANT: return 3;
+					case RING: return 1;
+					default: return 0;
+					}
+				}
+			}
+			
+			return 0;
+		}
 
 
 
