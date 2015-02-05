@@ -15,6 +15,10 @@ public class ArmourContainerWrapper implements IInventory {
         this.container = container;
     }
     
+    public void setInventory(ItemStack[] inventory){
+    	this.inventory = inventory;
+    }
+    
     @Override
     public int getSizeInventory() {
         return 9;

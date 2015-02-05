@@ -1,5 +1,6 @@
 package chbachman.armour.upgrade.upgradeList;
 
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -8,6 +9,7 @@ import chbachman.api.Upgrade;
 import chbachman.armour.util.ArmourSlot;
 import chbachman.armour.util.ConfigHelper;
 import chbachman.armour.util.EnergyUtil;
+import cpw.mods.fml.common.FMLCommonHandler;
 
 public class UpgradeSpeed extends Upgrade{
 
@@ -34,47 +36,12 @@ public class UpgradeSpeed extends Upgrade{
     @Override
     public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot, int level){
     	
-    	if(EnergyUtil.isEmpty(stack)){
-    		runSlow(player);
-    	}else{
-    		runFast(player);
-    	}
-    	
-    	if(player.capabilities.getWalkSpeed() == .3F){
-    		return cost;
-    	}
+    	if(!EnergyUtil.isEmpty(stack) && (player.onGround || player.capabilities.isFlying) && player.moveForward > 0F && !player.isInsideOfMaterial(Material.water)){
+			player.moveFlying(0F, 1F, player.capabilities.isFlying ? .15F : .15F * 2);
+			return cost;
+		}
     	
     	return 0;
-    }
-    
-    
-    
-    @Override
-    public void onEquip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot, int level) {
-        runFast(player);
-    	
-    	
-    }
-    
-    @Override
-    public void onDequip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot, int level) {
-    	runSlow(player);
-    }
-    
-    public void runFast(EntityPlayer player){
-    	if(player.worldObj.isRemote){
-    		player.capabilities.setPlayerWalkSpeed(0.3F);
-            player.capabilities.setFlySpeed(0.15F);
-            player.sendPlayerAbilities();
-    	}
-    }
-    
-    public void runSlow(EntityPlayer player){
-    	if(player.worldObj.isRemote){
-    		player.capabilities.setPlayerWalkSpeed(0.1F);
-            player.capabilities.setFlySpeed(0.1F);
-            player.sendPlayerAbilities();
-    	}
     }
     
     
