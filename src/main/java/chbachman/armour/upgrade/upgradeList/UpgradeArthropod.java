@@ -11,7 +11,7 @@ import chbachman.armour.util.ArmourSlot;
 public class UpgradeArthropod extends UpgradeProtective {
 
 	public UpgradeArthropod() {
-		super("arthropod", 0.75F);
+		super("arthropod", 75);
 	}
 
 	@Override

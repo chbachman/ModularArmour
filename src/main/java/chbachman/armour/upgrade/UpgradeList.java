@@ -27,6 +27,7 @@ public class UpgradeList extends HashMap<String, IUpgrade> implements Iterable<I
     	return this.put(upgrade.getBaseName(), upgrade);
     }
     
+    @Override
     public IUpgrade put(String name, IUpgrade upgrade){
     	if (ModularArmour.config.get("Command Enabling", upgrade.getName(), true)) {
             

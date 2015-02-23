@@ -30,9 +30,12 @@ public class ArmourGui extends GuiBaseAdv {
     public TabCrafting tabCrafting;
     public TabError scrolledText;
     public TabUpgradeRemoval removal;
+    public TabConfig config;
     
     public IUpgrade selectedUpgrade;
     public ItemStack stack;
+    
+    public float gameTick;
     
     public ArmourGui(ArmourContainer container, InventoryPlayer inventory) {
         super(container, TEXTURE);
@@ -65,6 +68,11 @@ public class ArmourGui extends GuiBaseAdv {
         this.removal = new TabUpgradeRemoval(this);
         this.addTab(this.removal);
         
+        this.config = new TabConfig(this);
+        this.addTab(this.config);
+        
+        this.addElement(new UpgradeSlider(this, 100, 100, 5, 100, 100, 0));
+        
         this.list.setEnabled(true);
     }
     
@@ -74,12 +82,15 @@ public class ArmourGui extends GuiBaseAdv {
         
         if (mX > 5 + this.guiLeft && mX < 165 + this.guiLeft && mY > 5) {
             this.selectedUpgrade = this.list.mouseClicked(mX, mY, mouseButton, this.guiTop + 5);
+            this.config.onUpgradeSelected();
+            
         }
         
     }
     
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTick, int x, int y) {
+    	this.gameTick = partialTick;
     	GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		bindTexture(texture);
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
@@ -95,6 +106,8 @@ public class ArmourGui extends GuiBaseAdv {
         
         this.getUpgradeList();
         this.list.drawText();
+        
+        
     }
     
     @Override
