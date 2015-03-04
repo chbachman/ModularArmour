@@ -61,7 +61,7 @@ public class ArmourPacket extends PacketCoFHBase {
     }
     
     public void handleKeyTyped(EntityPlayer player){
-        
+    	
         Container container = player.openContainer;
         
         if (container instanceof IInputHandler) {

@@ -30,7 +30,7 @@ public final class ConfigHelper{
 	}
 
 	public static float get(String category, IUpgrade upgrade, String description, float def){
-		return (float) get(category, upgrade, description, def);
+		return (float) get(category, upgrade, description, (double) def);
 	}
 
 }

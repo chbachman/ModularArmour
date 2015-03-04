@@ -56,9 +56,9 @@ public class UpgradeHoverJetpack extends Upgrade {
     }
     
     private void setFlying(EntityPlayer player, boolean bool, World world){
-    	if(!world.isRemote){
-    		return;
-    	}
+    	//if(!world.isRemote){
+    	//	return;
+    	//}
     	
     	if(bool){
     		player.capabilities.allowFlying = true;
