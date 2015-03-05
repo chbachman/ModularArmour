@@ -71,8 +71,6 @@ public class ArmourGui extends GuiBaseAdv {
         this.config = new TabConfig(this);
         this.addTab(this.config);
         
-        this.addElement(new UpgradeSlider(this, 100, 100, 5, 100, 100, 0));
-        
         this.list.setEnabled(true);
     }
     

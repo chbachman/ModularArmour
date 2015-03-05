@@ -10,64 +10,35 @@ import chbachman.api.Configurable;
 import chbachman.api.IUpgrade;
 
 public class FieldList{
-	
-	public static Map<IUpgrade, Storage[]> fieldList = new HashMap<IUpgrade, Storage[]>();
-	
+
+	public static Map<IUpgrade, ConfigurableField[]> fieldList = new HashMap<IUpgrade, ConfigurableField[]>();
+
 	public static void register(IUpgrade upgrade){
-		
+
 		Class<?> upgradeClass = upgrade.getClass();
-		
-		List<Storage> storageList = new ArrayList<Storage>();
-		
-		for(Field field : upgradeClass.getFields()){
-			
-			if(!field.isAnnotationPresent(Configurable.class)){
+
+		List<ConfigurableField> storageList = new ArrayList<ConfigurableField>();
+
+		for (Field field : upgradeClass.getFields()){
+
+			if (!field.isAnnotationPresent(Configurable.class)){
 				continue;
 			}
-			
+
 			Configurable c = field.getAnnotation(Configurable.class);
-			
-			Storage s = new Storage();
-			
+
+			ConfigurableField s = new ConfigurableField();
+
 			s.field = field;
 			s.min = c.min();
 			s.max = c.max();
-			
-			s.check(upgrade);
-			
-			storageList.add(s);	
-		}
-		
-		fieldList.put(upgrade, storageList.toArray(new Storage[0]));
-	}
-	
-	public static class Storage{
-		
-		Field field;
-		int min;
-		int max;
-		
-		public void check(IUpgrade upgrade){
-			
-			try{
-				int f = (Integer) field.get(upgrade);
-				
-				if(f > max){
-					f = max;
-				}
-				
-				if(f < min){
-					f = min;
-				}
-				
-				field.set(upgrade, f);
-				
-			}catch (Exception e){
-				
-			}
-				
-			
-		}
-	}
 
+			s.check(upgrade);
+
+			storageList.add(s);
+		}
+
+		fieldList.put(upgrade, storageList.toArray(new ConfigurableField[0]));
+
+	}
 }

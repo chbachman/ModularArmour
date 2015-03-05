@@ -6,6 +6,7 @@ import java.util.Iterator;
 import chbachman.api.IUpgrade;
 import chbachman.api.Upgrade;
 import chbachman.armour.ModularArmour;
+import chbachman.armour.configurability.FieldList;
 import chbachman.armour.crafting.Recipe;
 
 @SuppressWarnings("serial")
@@ -30,18 +31,11 @@ public class UpgradeList extends HashMap<String, IUpgrade> implements Iterable<I
     @Override
     public IUpgrade put(String name, IUpgrade upgrade){
     	if (ModularArmour.config.get("Command Enabling", upgrade.getName(), true)) {
-            
+    		FieldList.register(upgrade);
         	return super.put(name, upgrade);
         }
         
-        Iterator<Recipe> iterator = Recipe.craftingList.iterator();
-        
-        while (iterator.hasNext()) {
-            Recipe recipe = iterator.next();
-            if (recipe.getRecipeOutput() == upgrade) {
-                iterator.remove();
-            }
-        }
+        Recipe.removeRecipe(upgrade);
         
         return upgrade;
     }

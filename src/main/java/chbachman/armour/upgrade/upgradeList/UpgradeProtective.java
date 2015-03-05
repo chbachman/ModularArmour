@@ -15,7 +15,7 @@ import cofh.api.energy.IEnergyContainerItem;
 public abstract class UpgradeProtective extends UpgradeBasic{
 
 	@Configurable(min = 0, max = 100)
-	int protection;
+	public int protection;
 	
 	public UpgradeProtective(String name, int protection) {
 		super(name);
