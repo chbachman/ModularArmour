@@ -1,8 +1,9 @@
 package chbachman.armour.items;
 
+import static chbachman.armour.items.ItemModularArmour.rfToMana;
+
 import java.util.List;
 
-import static chbachman.armour.items.ItemModularArmour.rfToMana;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -33,8 +34,14 @@ import chbachman.armour.util.VariableInt;
 import cofh.core.util.CoreUtils;
 import cofh.lib.util.helpers.StringHelper;
 import cpw.mods.fml.common.Optional;
+import cpw.mods.fml.common.Optional.Interface;
 
-@Optional.Interface(iface = "baubles.api.IBauble", modid = "Baubles")
+@Optional.InterfaceList(value = { 
+		@Interface(iface = "baubles.api.IBauble", modid = "Baubles"),
+		@Interface(iface = "thaumcraft.api.IVisDiscountGear", modid = "Thaumcraft"), 
+		@Interface(iface = "vazkii.botania.api.mana.IManaItem", modid = "Botania"),
+		@Interface(iface = "vazkii.botania.api.item.IPixieSpawner", modid = "Botania"),
+		})
 public class ItemBauble extends Item implements IBauble, IModularItem, IVisDiscountGear, IManaItem, IPixieSpawner{
 
 	private BaubleType type;
