@@ -31,6 +31,9 @@ public class PlayerArmour implements IExtendedEntityProperties{
 	
 	@Override
 	public void saveNBTData(NBTTagCompound compound) {
+		
+		
+		
 		NBTTagList list = new NBTTagList();
 		for(ItemStack stack : stacks){
 			
