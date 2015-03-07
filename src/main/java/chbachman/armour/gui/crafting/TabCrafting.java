@@ -9,6 +9,7 @@ import org.lwjgl.opengl.GL11;
 
 import cofh.lib.gui.GuiBase;
 import cofh.lib.gui.GuiProps;
+import cofh.lib.gui.element.ElementSlider;
 import cofh.lib.gui.element.TabBase;
 import cofh.lib.render.RenderHelper;
 
@@ -20,6 +21,7 @@ public class TabCrafting extends TabBase {
     
     int slotsBorderX1 = 7;
     int slotsBorderY1 = 20;
+
     
     public TabCrafting(ArmourGui gui) {
         super(gui, 1);

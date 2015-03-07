@@ -11,7 +11,7 @@ import chbachman.armour.util.ArmourSlot;
 public class UpgradeUndead extends UpgradeProtective{
 
 	public UpgradeUndead() {
-		super("undead", .75F);
+		super("undead", 75);
 	}
 
 	@Override

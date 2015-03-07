@@ -10,7 +10,7 @@ import chbachman.armour.util.ArmourSlot;
 public class UpgradePlayerProtection extends UpgradeProtective{
 
 	public UpgradePlayerProtection() {
-		super("playerProtection", .9F);
+		super("playerProtection", 90);
 	}
 
 	@Override
