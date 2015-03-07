@@ -53,7 +53,7 @@ public abstract class UpgradeProtective extends UpgradeBasic{
 	
 	@Override
 	public int getArmourDisplay() {
-		return (int) (protection / .25);
+		return (int) (protection / 4);
 	}
 
 	/**

@@ -9,7 +9,6 @@ import chbachman.api.Upgrade;
 import chbachman.armour.util.ArmourSlot;
 import chbachman.armour.util.ConfigHelper;
 import chbachman.armour.util.EnergyUtil;
-import cpw.mods.fml.common.FMLCommonHandler;
 
 public class UpgradeSpeed extends Upgrade{
 
@@ -24,8 +23,6 @@ public class UpgradeSpeed extends Upgrade{
     @Override
     public void registerConfigOptions(){
     	cost = ConfigHelper.get(ConfigHelper.ENERGY, this, "cost to walk faster, per tick", 100);
-    	
-    	//cost = ModularArmour.config.get("S", arg1, arg2);
     }
     
     @Override

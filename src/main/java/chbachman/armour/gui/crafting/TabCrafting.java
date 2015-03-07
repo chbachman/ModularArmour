@@ -31,7 +31,7 @@ public class TabCrafting extends TabBase {
         
         this.maxHeight = 110;
         this.maxWidth = 93;
-
+        this.moveSlots(open);
     }
     
     @Override
@@ -150,19 +150,13 @@ public class TabCrafting extends TabBase {
     public void setFullyOpen() {
         super.setFullyOpen();
         
-        for (int i = 0; i < 9; i++) {
-            ((Slot) this.armourGui.container.inventorySlots.get(i)).xDisplayPosition = this.posXOffset() + this.slotsBorderX1 + 4 + 18 * (i % 3);
-            ((Slot) this.armourGui.container.inventorySlots.get(i)).yDisplayPosition = this.posY + this.slotsBorderY1 + 4 + 18 * (i / 3);
-        }
+        this.moveSlots(true);
     }
     
     @Override
     public void toggleOpen() {
         if (this.open) {
-            for (int i = 0; i < 9; i++) {
-                ((Slot) this.armourGui.container.inventorySlots.get(i)).xDisplayPosition = -this.gui.getGuiLeft() - 16;
-                ((Slot) this.armourGui.container.inventorySlots.get(i)).yDisplayPosition = -this.gui.getGuiTop() - 16;
-            }
+            this.moveSlots(false);
             
         }
         super.toggleOpen();
@@ -180,6 +174,21 @@ public class TabCrafting extends TabBase {
         }
         
         
+    }
+    
+    private void moveSlots(boolean isOpen){
+    	if (!isOpen) {
+            for (int i = 0; i < 9; i++) {
+                ((Slot) this.armourGui.container.inventorySlots.get(i)).xDisplayPosition = -this.gui.getGuiLeft() - 16;
+                ((Slot) this.armourGui.container.inventorySlots.get(i)).yDisplayPosition = -this.gui.getGuiTop() - 16;
+            }
+            
+        }else{
+        	for (int i = 0; i < 9; i++) {
+                ((Slot) this.armourGui.container.inventorySlots.get(i)).xDisplayPosition = this.posXOffset() + this.slotsBorderX1 + 4 + 18 * (i % 3);
+                ((Slot) this.armourGui.container.inventorySlots.get(i)).yDisplayPosition = this.posY + this.slotsBorderY1 + 4 + 18 * (i / 3);
+            }
+        }
     }
     
     private void drawSlots(int xOffset, int yOffset, int slots) {
