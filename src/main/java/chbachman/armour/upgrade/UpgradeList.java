@@ -35,8 +35,6 @@ public class UpgradeList extends HashMap<String, IUpgrade> implements Iterable<I
         	return super.put(name, upgrade);
         }
         
-        Recipe.removeRecipe(upgrade);
-        
         return upgrade;
     }
 

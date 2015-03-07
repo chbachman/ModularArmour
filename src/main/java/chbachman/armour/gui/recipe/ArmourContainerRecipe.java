@@ -36,7 +36,7 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
 		this.item = (IModularItem) stack.getItem();
 		this.stack = stack;
 		this.player = inventory.player;
-		this.recipe = Recipe.craftingList.get(0);
+		this.recipe = Recipe.recipeList.get(0);
 		this.inventory = new Inventory();
 		inventory2 = new Inventory2(modularItems);
 
@@ -85,7 +85,7 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
 
 		}else{
 			this.index = packet.getInt();
-			this.recipe = Recipe.craftingList.get(index % Recipe.craftingList.size());
+			this.recipe = Recipe.recipeList.get(index % Recipe.recipeList.size());
 		}
 
 	}

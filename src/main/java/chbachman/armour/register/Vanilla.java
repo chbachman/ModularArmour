@@ -171,33 +171,33 @@ public class Vanilla implements Module{
 	}
 
 	public void registerUpgradeRecipes(){
-		Recipe.addRecipe(new Recipe(autoFeeder, "igi", "igi", "iii", 'i', "ingotIron", 'g', Items.golden_apple));
-		Recipe.addRecipe(new Recipe(basePotion, "iri", "gwg", "igi", 'i', "ingotIron", 'g', "blockGlass", 'r', "dustRedstone", 'w', Items.water_bucket));
-		Recipe.addRecipe(new Recipe(calfShields, "i i", "i i", "i i", 'i', "ingotIron"));
-		Recipe.addRecipe(new Recipe(fallDamage, "   ", "   ", "iwi", 'w', Blocks.wool, 'i', "ingotIron"));
-		Recipe.addRecipe(new Recipe(hoverJetpack, "igi", "ini", "r r", 'i', "ingotIron", 'g', "ingotGold", 'r', "dustRedstone", 'n', Items.nether_star));
-		Recipe.addRecipe(new Recipe(speed, "pip", "i i", "i i", 'i', "ingotIron", 'p', Blocks.piston));
-		Recipe.addRecipe(new Recipe(stepAssist, "pip", "i i", "   ", 'i', "ingotIron", 'p', Blocks.piston));
-		Recipe.addRecipe(new Recipe(jumpBoost, "i i", "i i", "p p", 'i', "ingotIron", 'p', Blocks.piston));
-		Recipe.addRecipe(new Recipe(leadstoneEnergy, "iri", "rbr", "iri", 'i', "ingotIron", 'r', "dustRedstone", 'b', "blockIron"));
-		Recipe.addRecipe(new Recipe(hardenedEnergy, "lrl", "rbr", "lrl", 'l', "gemLapis", 'r', "dustRedstone", 'b', "blockLapis"));
-		Recipe.addRecipe(new Recipe(reinforcedEnergy, "grg", "rbr", "grg", 'g', "ingotGold", 'r', "dustRedstone", 'b', "blockGold"));
-		Recipe.addRecipe(new Recipe(resonantEnergy, "drd", "rbr", "drd", 'd', "gemDiamond", 'r', "dustRedstone", 'b', "blockDiamond"));
-		Recipe.addRecipe(new Recipe(electrolyzer, "iii", "g g", "iii", 'i', "ingotIron", 'g', "blockGlass"));
-		Recipe.addRecipe(new Recipe(nightVision, "gig", "bpb" ,"gig", 'g', "ingotGold", 'b', "blockGlass", 'i', "ingotIron", 'p', new ItemStack(Items.potionitem, 1, 8198)));
-		Recipe.addRecipe(new Recipe(invisibility, "gig", "bpb" ,"gig", 'g', "ingotGold", 'b', "blockGlass", 'i', "ingotIron", 'p', new ItemStack(Items.potionitem, 1, 8206)));
-		Recipe.addRecipe(new Recipe(magnet, "g g", "i i", " i ", 'i', "ingotIron", 'g', "ingotGold"));
-		Recipe.addRecipe(new Recipe(decorative, "w w", "www", "www", 'w', Blocks.wool));
-		Recipe.addRecipe(new Recipe(invisible, "A  ", "   ", "   ", 'A', new ItemStack(Items.potionitem, 1, 8206)));
-		Recipe.addRecipe(new Recipe(solar, "ggg", "ici", "iii", 'g', "blockGlass", 'i', "ingotIron", 'c', Items.coal));
-		Recipe.addRecipe(new Recipe(undeadProtection, "zzz", "zzz", "zzz", 'z', Items.rotten_flesh));
-		Recipe.addRecipe(new Recipe(arthropodProtection, "sps", "psp", "sps", 's', Items.string, 'p', Items.spider_eye));
-		Recipe.addRecipe(new Recipe(fireProtection, "lgl", "lgl", "lgl", 'l', Items.leather, 'g', Items.gold_ingot));
-		Recipe.addRecipe(new Recipe(unblockableProtection, "d d", "ddd", "ddd", 'd', Items.diamond));
-		Recipe.addRecipe(new Recipe(magicalProtection, "gig", "igi", "gig", 'g', "ingotGold", 'i', "ingotIron"));
-		Recipe.addRecipe(new Recipe(lavaProtection, "oio", "ooo", "oio", 'o', Blocks.obsidian, 'i', "ingotIron"));
-		Recipe.addRecipe(new Recipe(playerProtection, "cih", "iii", "iii", 'i', "ingotIron", 'c', Blocks.crafting_table, 'h', Blocks.chest));
-		Recipe.addRecipe(new Recipe(witherProtection, "cic", "cwc", "cic", 'i', "ingotIron", 'w', Items.skull, 'c', Items.coal));
+		Recipe.recipeList.add(new Recipe(autoFeeder, "igi", "igi", "iii", 'i', "ingotIron", 'g', Items.golden_apple));
+		Recipe.recipeList.add(new Recipe(basePotion, "iri", "gwg", "igi", 'i', "ingotIron", 'g', "blockGlass", 'r', "dustRedstone", 'w', Items.water_bucket));
+		Recipe.recipeList.add(new Recipe(calfShields, "i i", "i i", "i i", 'i', "ingotIron"));
+		Recipe.recipeList.add(new Recipe(fallDamage, "   ", "   ", "iwi", 'w', Blocks.wool, 'i', "ingotIron"));
+		Recipe.recipeList.add(new Recipe(hoverJetpack, "igi", "ini", "r r", 'i', "ingotIron", 'g', "ingotGold", 'r', "dustRedstone", 'n', Items.nether_star));
+		Recipe.recipeList.add(new Recipe(speed, "pip", "i i", "i i", 'i', "ingotIron", 'p', Blocks.piston));
+		Recipe.recipeList.add(new Recipe(stepAssist, "pip", "i i", "   ", 'i', "ingotIron", 'p', Blocks.piston));
+		Recipe.recipeList.add(new Recipe(jumpBoost, "i i", "i i", "p p", 'i', "ingotIron", 'p', Blocks.piston));
+		Recipe.recipeList.add(new Recipe(leadstoneEnergy, "iri", "rbr", "iri", 'i', "ingotIron", 'r', "dustRedstone", 'b', "blockIron"));
+		Recipe.recipeList.add(new Recipe(hardenedEnergy, "lrl", "rbr", "lrl", 'l', "gemLapis", 'r', "dustRedstone", 'b', "blockLapis"));
+		Recipe.recipeList.add(new Recipe(reinforcedEnergy, "grg", "rbr", "grg", 'g', "ingotGold", 'r', "dustRedstone", 'b', "blockGold"));
+		Recipe.recipeList.add(new Recipe(resonantEnergy, "drd", "rbr", "drd", 'd', "gemDiamond", 'r', "dustRedstone", 'b', "blockDiamond"));
+		Recipe.recipeList.add(new Recipe(electrolyzer, "iii", "g g", "iii", 'i', "ingotIron", 'g', "blockGlass"));
+		Recipe.recipeList.add(new Recipe(nightVision, "gig", "bpb" ,"gig", 'g', "ingotGold", 'b', "blockGlass", 'i', "ingotIron", 'p', new ItemStack(Items.potionitem, 1, 8198)));
+		Recipe.recipeList.add(new Recipe(invisibility, "gig", "bpb" ,"gig", 'g', "ingotGold", 'b', "blockGlass", 'i', "ingotIron", 'p', new ItemStack(Items.potionitem, 1, 8206)));
+		Recipe.recipeList.add(new Recipe(magnet, "g g", "i i", " i ", 'i', "ingotIron", 'g', "ingotGold"));
+		Recipe.recipeList.add(new Recipe(decorative, "w w", "www", "www", 'w', Blocks.wool));
+		Recipe.recipeList.add(new Recipe(invisible, "A  ", "   ", "   ", 'A', new ItemStack(Items.potionitem, 1, 8206)));
+		Recipe.recipeList.add(new Recipe(solar, "ggg", "ici", "iii", 'g', "blockGlass", 'i', "ingotIron", 'c', Items.coal));
+		Recipe.recipeList.add(new Recipe(undeadProtection, "zzz", "zzz", "zzz", 'z', Items.rotten_flesh));
+		Recipe.recipeList.add(new Recipe(arthropodProtection, "sps", "psp", "sps", 's', Items.string, 'p', Items.spider_eye));
+		Recipe.recipeList.add(new Recipe(fireProtection, "lgl", "lgl", "lgl", 'l', Items.leather, 'g', Items.gold_ingot));
+		Recipe.recipeList.add(new Recipe(unblockableProtection, "d d", "ddd", "ddd", 'd', Items.diamond));
+		Recipe.recipeList.add(new Recipe(magicalProtection, "gig", "igi", "gig", 'g', "ingotGold", 'i', "ingotIron"));
+		Recipe.recipeList.add(new Recipe(lavaProtection, "oio", "ooo", "oio", 'o', Blocks.obsidian, 'i', "ingotIron"));
+		Recipe.recipeList.add(new Recipe(playerProtection, "cih", "iii", "iii", 'i', "ingotIron", 'c', Blocks.crafting_table, 'h', Blocks.chest));
+		Recipe.recipeList.add(new Recipe(witherProtection, "cic", "cwc", "cic", 'i', "ingotIron", 'w', Items.skull, 'c', Items.coal));
 	}
 
 	public final void postInit() {

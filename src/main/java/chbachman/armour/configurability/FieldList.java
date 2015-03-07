@@ -8,37 +8,37 @@ import java.util.Map;
 
 import chbachman.api.Configurable;
 import chbachman.api.IUpgrade;
+import chbachman.armour.util.VariableInt;
 
 public class FieldList{
 
-	public static Map<IUpgrade, ConfigurableField[]> fieldList = new HashMap<IUpgrade, ConfigurableField[]>();
+	public static Map<IUpgrade, VariableInt[]> fieldList = new HashMap<IUpgrade, VariableInt[]>();
 
 	public static void register(IUpgrade upgrade){
 
 		Class<?> upgradeClass = upgrade.getClass();
 
-		List<ConfigurableField> storageList = new ArrayList<ConfigurableField>();
+		List<VariableInt> storageList = new ArrayList<VariableInt>();
 
 		for (Field field : upgradeClass.getFields()){
 
 			if (!field.isAnnotationPresent(Configurable.class)){
 				continue;
 			}
+			
+			if(field.getType() != VariableInt.class){
+				continue;
+			}
 
-			Configurable c = field.getAnnotation(Configurable.class);
-
-			ConfigurableField s = new ConfigurableField();
-
-			s.field = field;
-			s.min = c.min();
-			s.max = c.max();
-
-			s.check(upgrade);
-
-			storageList.add(s);
+			try{
+				storageList.add((VariableInt) field.get(upgrade));
+			}catch (Exception e){
+				e.printStackTrace();
+				continue;
+			}
 		}
 
-		fieldList.put(upgrade, storageList.toArray(new ConfigurableField[0]));
+		fieldList.put(upgrade, storageList.toArray(new VariableInt[0]));
 
 	}
 }

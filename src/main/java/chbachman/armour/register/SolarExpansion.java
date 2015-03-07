@@ -43,7 +43,7 @@ public class SolarExpansion implements Module{
 	@Override
 	public void registerUpgradeRecipes() {
 		
-		Recipe.removeRecipe(Vanilla.solar);
+		Recipe.recipeList.remove(Vanilla.solar);
 		
 		Block solarT1 = (Block) Block.blockRegistry.getObject("SolarExpansion:solarPanelLeadstone");
 		Block solarT2 = (Block) Block.blockRegistry.getObject("SolarExpansion:solarPanelHardened");
@@ -52,12 +52,12 @@ public class SolarExpansion implements Module{
 		Block solarT5 = (Block) Block.blockRegistry.getObject("SolarExpansion:solarPanelAdvanced");
 		Block solarT6 = (Block) Block.blockRegistry.getObject("SolarExpansion:solarPanelUltimate");
 
-		Recipe.addRecipe(new Recipe(solarLeadstone, "A  ", "   ", "   ", 'A', solarT1));
-		Recipe.addRecipe(new Recipe(solarHardened, "A  ", "   ", "   ", 'A', solarT2));
-		Recipe.addRecipe(new Recipe(solarRedstone, "A  ", "   ", "   ", 'A', solarT3));
-		Recipe.addRecipe(new Recipe(solarResonant, "A  ", "   ", "   ", 'A', solarT4));
-		Recipe.addRecipe(new Recipe(solarAdvanced, "A  ", "   ", "   ", 'A', solarT5));
-		Recipe.addRecipe(new Recipe(solarUltimate, "A  ", "   ", "   ", 'A', solarT6));
+		Recipe.recipeList.add(new Recipe(solarLeadstone, "A  ", "   ", "   ", 'A', solarT1));
+		Recipe.recipeList.add(new Recipe(solarHardened, "A  ", "   ", "   ", 'A', solarT2));
+		Recipe.recipeList.add(new Recipe(solarRedstone, "A  ", "   ", "   ", 'A', solarT3));
+		Recipe.recipeList.add(new Recipe(solarResonant, "A  ", "   ", "   ", 'A', solarT4));
+		Recipe.recipeList.add(new Recipe(solarAdvanced, "A  ", "   ", "   ", 'A', solarT5));
+		Recipe.recipeList.add(new Recipe(solarUltimate, "A  ", "   ", "   ", 'A', solarT6));
 	}
 
 }

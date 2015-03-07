@@ -31,7 +31,7 @@ public class BloodMagic implements Module{
 
 	@Override
 	public void registerUpgradeRecipes() {
-		Recipe.addRecipe(new Recipe(bloodConverter, "iii", "ioi", "iii", 'i', "ingotIron", 'o', GameRegistry.findItemStack("AWWayofTime", "magicianBloodOrb", 1)));
+		Recipe.recipeList.add(new Recipe(bloodConverter, "iii", "ioi", "iii", 'i', "ingotIron", 'o', GameRegistry.findItemStack("AWWayofTime", "magicianBloodOrb", 1)));
 	}
 
 }

@@ -9,7 +9,6 @@ import org.lwjgl.opengl.GL11;
 
 import cofh.lib.gui.GuiBase;
 import cofh.lib.gui.GuiProps;
-import cofh.lib.gui.element.ElementSlider;
 import cofh.lib.gui.element.TabBase;
 import cofh.lib.render.RenderHelper;
 

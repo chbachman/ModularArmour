@@ -45,7 +45,7 @@ public class MineTweaker implements Module{
 		
 		List<Recipe> toRemove = new ArrayList<Recipe>();
 		
-		Iterator<Recipe> iterator = Recipe.craftingList.iterator();
+		Iterator<Recipe> iterator = Recipe.recipeList.iterator();
 		
 		while(iterator.hasNext()){
 			Recipe recipe = iterator.next();
@@ -142,7 +142,7 @@ public class MineTweaker implements Module{
 
 		@Override
 		public void apply() {
-			Recipe.addRecipe(recipe);
+			Recipe.recipeList.add(recipe);
 		}
 
 		@Override
@@ -152,7 +152,7 @@ public class MineTweaker implements Module{
 
 		@Override
 		public void undo() {
-			Recipe.removeRecipe(recipe);
+			Recipe.recipeList.remove(recipe);
 		}
 
 		@Override
@@ -180,7 +180,7 @@ public class MineTweaker implements Module{
 
 		@Override
 		public void apply() {
-			Recipe.removeRecipe(recipe);
+			Recipe.recipeList.remove(recipe);
 		}
 
 		@Override
@@ -190,7 +190,7 @@ public class MineTweaker implements Module{
 
 		@Override
 		public void undo() {
-			Recipe.addRecipe(recipe);
+			Recipe.recipeList.add(recipe);
 		}
 
 		@Override

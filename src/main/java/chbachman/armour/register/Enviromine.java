@@ -34,8 +34,8 @@ public class Enviromine implements Module{
 
 	@Override
 	public void registerUpgradeRecipes() {
-		Recipe.addRecipe(new Recipe(camelPack, "iii", "ici", "iii", 'i', "ingotIron", 'c', GameRegistry.findItemStack("enviromine", "camelPack", 1)));
-		Recipe.addRecipe(new Recipe(gasMask, "iii", "ici", "iii", 'i', "ingotIron", 'c', GameRegistry.findItemStack("enviromine", "gasMask", 1)));
+		Recipe.recipeList.add(new Recipe(camelPack, "iii", "ici", "iii", 'i', "ingotIron", 'c', GameRegistry.findItemStack("enviromine", "camelPack", 1)));
+		Recipe.recipeList.add(new Recipe(gasMask, "iii", "ici", "iii", 'i', "ingotIron", 'c', GameRegistry.findItemStack("enviromine", "gasMask", 1)));
 	}
 
 }

@@ -1,10 +1,7 @@
 package chbachman.armour.gui.recipe;
 
-import java.util.List;
-
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.input.Keyboard;
@@ -16,7 +13,6 @@ import chbachman.armour.gui.GuiHelper;
 import chbachman.armour.network.ArmourPacket;
 import chbachman.armour.network.ArmourPacket.PacketTypes;
 import chbachman.armour.reference.ResourceLocationHelper;
-import chbachman.armour.util.InventoryUtil;
 import cofh.core.gui.GuiBaseAdv;
 import cofh.core.network.PacketHandler;
 import cofh.lib.gui.element.ElementButton;
@@ -45,7 +41,7 @@ public class ArmourGuiRecipe extends GuiBaseAdv{
 		this.leftArrow = new ElementButton(this, 5, 5, "Go Back", 227, 12, 227, 12, 227, 12, 7, 7, TEXTURE.toString());
 		this.rightArrow = new ElementButton(this, 164, 5, "Next", 235, 12, 235, 12, 235, 12, 7, 7, TEXTURE.toString());
 
-		this.upgrade = new ElementButton(this, 71, 18, "Upgrade", 100, 20, 10, 10, 16, 16, TEXTURE.toString());
+		this.upgrade = new ElementButton(this, 71, 18, "Upgrade", 227, 23, 227, 23, 16, 16, TEXTURE.toString());
 
 		this.compatible = new TabCompatible(this);
 
@@ -107,127 +103,20 @@ public class ArmourGuiRecipe extends GuiBaseAdv{
 		if (buttonName.equals("Go Back")){
 			this.container.index--;
 			try{
-				this.container.recipe = Recipe.craftingList.get(this.container.index);
+				this.container.recipe = Recipe.recipeList.get(this.container.index);
 			}catch (IndexOutOfBoundsException e){
-				this.container.index = Recipe.craftingList.size() - 1;
-				this.container.recipe = Recipe.craftingList.get(this.container.index);
+				this.container.index = Recipe.recipeList.size() - 1;
+				this.container.recipe = Recipe.recipeList.get(this.container.index);
 			}
 		}else if (buttonName.equals("Next")){
 			this.container.index++;
-			this.container.recipe = Recipe.craftingList.get(this.container.index % Recipe.craftingList.size());
+			this.container.recipe = Recipe.recipeList.get(this.container.index % Recipe.recipeList.size());
 
 		}else if (buttonName.equals("Upgrade")){
 
 		}
 
 		PacketHandler.sendToServer(ArmourPacket.getPacket(PacketTypes.BUTTON).addString(buttonName).addInt(this.container.index));
-	}
-
-	private ItemStack[] grabInventory(){
-		ItemStack[] playerInventory = this.container.player.inventory.mainInventory;
-
-		ItemStack[] toReturn = new ItemStack[this.container.recipe.getInput().length];
-		int i = 0;
-
-		for (Object obj : this.container.recipe.getInput()){
-
-			if (obj == null){
-				toReturn[i] = null;
-			}
-
-			if (obj instanceof ItemStack){
-				ItemStack toCheck = (ItemStack) obj;
-
-				ItemStack playerStack = InventoryUtil.getItemStackFromInventory(playerInventory, toCheck);
-
-				ItemStack output = playerStack.copy();
-
-				output.stackSize = 1;
-
-				playerStack.stackSize--;
-
-				if (playerStack.stackSize == 0){
-					playerStack = null;
-				}
-
-				toReturn[i] = output;
-
-			}
-
-			if (obj instanceof List){
-				@SuppressWarnings("unchecked")
-				List<ItemStack> list = (List<ItemStack>) obj;
-
-				for (ItemStack stack : list){
-
-					ItemStack playerStack = InventoryUtil.getItemStackFromInventory(playerInventory, stack);
-
-					if (playerStack == null){
-						continue;
-					}
-
-					ItemStack output = playerStack.copy();
-
-					output.stackSize = 1;
-
-					playerStack.stackSize--;
-
-					if (playerStack.stackSize == 0){
-						playerStack = null;
-					}
-
-					toReturn[i] = output;
-
-				}
-			}
-
-			i++;
-		}
-
-		return toReturn;
-	}
-
-	private boolean checkInventory(){
-		ItemStack[] playerInventory = this.container.player.inventory.mainInventory;
-
-		for (Object obj : this.container.recipe.getInput()){
-
-			if (obj == null){
-				continue;
-			}
-
-			if (obj instanceof ItemStack){
-				ItemStack toCheck = (ItemStack) obj;
-
-				if (!InventoryUtil.doesInventoryContainItemStack(playerInventory, toCheck)){
-					return false;
-				}
-
-				continue;
-			}
-
-			if (obj instanceof List){
-				@SuppressWarnings("unchecked")
-				List<ItemStack> list = (List<ItemStack>) obj;
-
-				boolean matched = false;
-
-				for (ItemStack stack : list){
-
-					if (InventoryUtil.doesInventoryContainItemStack(playerInventory, stack)){
-						matched = true;
-					}
-
-				}
-
-				if (!matched){
-					return false;
-				}
-			}
-
-		}
-
-		return true;
 	}
 
 	@Override

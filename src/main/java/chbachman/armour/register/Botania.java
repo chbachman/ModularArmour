@@ -33,8 +33,8 @@ public class Botania implements Module{
 
 	@Override
 	public void registerUpgradeRecipes() {
-		Recipe.addRecipe(new Recipe(pixie, "tet", "e e", "tet", 'e', "ingotElvenElementium", 't', "ingotManasteel"));
-		Recipe.addRecipe(new Recipe(manaConverter, "ttt", "tpt", "ttt", 't', "ingotManasteel", 'p', GameRegistry.findItemStack("Botania", "pool", 1)));
+		Recipe.recipeList.add(new Recipe(pixie, "tet", "e e", "tet", 'e', "ingotElvenElementium", 't', "ingotManasteel"));
+		Recipe.recipeList.add(new Recipe(manaConverter, "ttt", "tpt", "ttt", 't', "ingotManasteel", 'p', GameRegistry.findItemStack("Botania", "pool", 1)));
 	}
 
 	

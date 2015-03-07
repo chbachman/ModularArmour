@@ -5,8 +5,7 @@ import java.lang.annotation.RetentionPolicy;
 
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Configurable{
-	
-	int min();
-	int max();
 
+	String name();
+	
 }

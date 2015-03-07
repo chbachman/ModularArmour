@@ -1,10 +1,10 @@
 package chbachman.armour.handler;
 
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import chbachman.api.IModularItem;
 import chbachman.api.IUpgrade;
 import chbachman.armour.crafting.Recipe;
-import chbachman.armour.gui.ArmourContainerWrapper;
 import chbachman.armour.upgrade.UpgradeException;
 import chbachman.armour.util.NBTHelper;
 import chbachman.armour.util.NBTList;
@@ -17,9 +17,9 @@ public class UpgradeHandler {
 	 * @param containerWrapper
 	 * @return
 	 */
-    public static IUpgrade getResult(ArmourContainerWrapper containerWrapper) {
+    public static IUpgrade getResult(IInventory containerWrapper) {
     	
-        return Recipe.getResult(containerWrapper);
+        return Recipe.recipeList.getResult(containerWrapper);
     }
     
     /**

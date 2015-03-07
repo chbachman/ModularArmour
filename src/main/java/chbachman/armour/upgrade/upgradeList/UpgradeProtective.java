@@ -9,23 +9,17 @@ import chbachman.api.IModularItem;
 import chbachman.armour.ModularArmour;
 import chbachman.armour.util.ArmourSlot;
 import chbachman.armour.util.EnergyUtil;
+import chbachman.armour.util.VariableInt;
 import cofh.api.energy.IEnergyContainerItem;
 
 
 public abstract class UpgradeProtective extends UpgradeBasic{
 
-	@Configurable(min = 0, max = 100)
-	public int protection;
+	@Configurable(name = "Protection")
+	public VariableInt protection;
 	
 	public UpgradeProtective(String name, int protection) {
 		super(name);
-		this.protection = protection;
-		
-	}
-
-	@Override
-	public void registerConfigOptions() {
-		protection = ModularArmour.config.get("defensive values", this.getName(), protection);
 	}
 
 	@Override
@@ -39,7 +33,7 @@ public abstract class UpgradeProtective extends UpgradeBasic{
 		
 		if(this.shouldDefend(player, armor, source, damage, slot)){
 			energy.extractEnergy(armor, (int) (this.getEnergyPerDamage(armor) * damage), false);
-			return new ArmorProperties(0, protection / 100, Integer.MAX_VALUE);
+			return new ArmorProperties(0, protection.get(armor) / 100, Integer.MAX_VALUE);
 		}
 		
 		return new ArmorProperties(0,0,0);
@@ -53,7 +47,7 @@ public abstract class UpgradeProtective extends UpgradeBasic{
 	
 	@Override
 	public int getArmourDisplay() {
-		return (int) (protection / 4);
+		return (int) (protection.defaultData / 4);
 	}
 
 	/**

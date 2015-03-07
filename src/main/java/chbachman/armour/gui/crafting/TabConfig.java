@@ -2,10 +2,11 @@ package chbachman.armour.gui.crafting;
 
 import java.util.List;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import chbachman.api.IUpgrade;
-import chbachman.armour.configurability.ConfigurableField;
 import chbachman.armour.configurability.FieldList;
+import chbachman.armour.util.VariableInt;
 import cofh.lib.gui.GuiBase;
 import cofh.lib.gui.GuiProps;
 import cofh.lib.gui.element.TabBase;
@@ -17,7 +18,7 @@ public class TabConfig extends TabBase{
 
 	ArmourGui armourGui;
 
-	ConfigurableField[] storages;
+	VariableInt[] storages;
 
 	public TabConfig(ArmourGui gui) {
 		super(gui, 0);
@@ -28,7 +29,7 @@ public class TabConfig extends TabBase{
 		this.maxHeight = 110;
 		this.maxWidth = 93;
 
-		this.storages = new ConfigurableField[0];
+		this.storages = new VariableInt[0];
 
 		// this.addElement(new SliderHorizontal(this.gui, 10, 30, 60, 10, 100));
 	}
@@ -88,37 +89,37 @@ public class TabConfig extends TabBase{
 		this.storages = FieldList.fieldList.get(upgrade);
 
 		if (storages == null){
-			storages = new ConfigurableField[0];
+			storages = new VariableInt[0];
 		}
 
 		this.elements.clear();
 
 		for (int i = 0; i < storages.length; i++){
-			ConfigurableField s = storages[i];
-			this.addElement(new SliderUpgrade(this.gui, s, upgrade, 10, 30 + 20 * i, 60, 10, s.max - s.min));
+			VariableInt s = storages[i];
+			this.addElement(new SliderUpgrade(this.gui, s, this.armourGui.stack, 10, 30 + 20 * i, 60, 10, 100));
 		}
 
 	}
 
 	private static class SliderUpgrade extends SliderHorizontal{
 
-		ConfigurableField field;
-		IUpgrade u;
-
-		public SliderUpgrade(GuiBase containerScreen, ConfigurableField field, IUpgrade u, int x, int y, int width, int height, int maxValue) {
+		final VariableInt field;
+		final ItemStack armourPiece;
+		
+		public SliderUpgrade(GuiBase containerScreen, VariableInt field, ItemStack armour, int x, int y, int width, int height, int maxValue) {
 			super(containerScreen, x, y, width, height, maxValue);
 			this.field = field;
-			this.u = u;
+			this.armourPiece = armour;
 		}
 
-		public SliderUpgrade(GuiBase containerScreen, ConfigurableField field, IUpgrade u, int x, int y, int width, int height, int maxValue, int minValue) {
+		public SliderUpgrade(GuiBase containerScreen, VariableInt field, ItemStack armour, int x, int y, int width, int height, int maxValue, int minValue) {
 			super(containerScreen, x, y, width, height, maxValue, minValue);
 			this.field = field;
-			this.u = u;
+			this.armourPiece = armour;
 		}
 
 		public void onValueChanged(int value){
-			field.set(u, value);
+			field.set(armourPiece, value);
 		}
 
 	}
