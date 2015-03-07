@@ -1,4 +1,4 @@
-package chbachman.api;
+package chbachman.api.configurability;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

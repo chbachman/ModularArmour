@@ -3,7 +3,7 @@ package chbachman.armour.gui.crafting;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.item.ItemStack;
-import chbachman.api.IUpgrade;
+import chbachman.api.upgrade.IUpgrade;
 import chbachman.armour.util.NBTHelper;
 import chbachman.armour.util.NBTList;
 

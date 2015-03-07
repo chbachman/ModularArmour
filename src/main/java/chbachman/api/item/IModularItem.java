@@ -1,9 +1,10 @@
-package chbachman.api;
+package chbachman.api.item;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import chbachman.armour.util.ArmourSlot;
+import chbachman.api.upgrade.IUpgrade;
+import chbachman.api.util.ArmourSlot;
 import cofh.api.energy.IEnergyContainerItem;
 
 /**

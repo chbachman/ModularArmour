@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import net.minecraft.inventory.IInventory;
-import chbachman.api.IUpgrade;
+import chbachman.api.upgrade.IUpgrade;
 import chbachman.armour.ModularArmour;
 
 public class RecipeList extends ArrayList<Recipe>{

@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import chbachman.api.IUpgrade;
+import chbachman.api.upgrade.IUpgrade;
+import chbachman.api.upgrade.UpgradeList;
 import chbachman.armour.ModularArmour;
-import chbachman.armour.upgrade.UpgradeList;
 import cpw.mods.fml.common.Loader;
 
 public class ItemRegister {

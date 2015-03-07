@@ -1,9 +1,10 @@
-package chbachman.api;
+package chbachman.api.upgrade;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import chbachman.armour.util.ArmourSlot;
+import chbachman.api.item.IModularItem;
+import chbachman.api.util.ArmourSlot;
 /**
  * Interface for adding upgrades. Any armour that can hold these must call each of these methods when appropriate.
  * @author chbachman

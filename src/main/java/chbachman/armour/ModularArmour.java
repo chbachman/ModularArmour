@@ -9,7 +9,8 @@ import net.minecraftforge.common.config.Configuration;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import chbachman.api.IUpgrade;
+import chbachman.api.upgrade.IUpgrade;
+import chbachman.api.upgrade.UpgradeList;
 import chbachman.armour.gui.GuiHandler;
 import chbachman.armour.handler.DamageEventHandler;
 import chbachman.armour.handler.GenericEventHandler;
@@ -18,7 +19,6 @@ import chbachman.armour.network.ArmourPacket;
 import chbachman.armour.proxy.IProxy;
 import chbachman.armour.reference.Reference;
 import chbachman.armour.register.ItemRegister;
-import chbachman.armour.upgrade.UpgradeList;
 import chbachman.armour.util.OutputHandler;
 import cofh.core.util.ConfigHandler;
 import cofh.mod.BaseMod;

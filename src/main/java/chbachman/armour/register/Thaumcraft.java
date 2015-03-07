@@ -4,10 +4,10 @@ import thaumcraft.api.ItemApi;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
-import chbachman.api.IUpgrade;
+import chbachman.api.upgrade.IUpgrade;
+import chbachman.api.util.ArmourSlot;
 import chbachman.armour.crafting.Recipe;
 import chbachman.armour.upgrade.upgradeList.UpgradeBasic;
-import chbachman.armour.util.ArmourSlot;
 
 public class Thaumcraft implements Module{
 

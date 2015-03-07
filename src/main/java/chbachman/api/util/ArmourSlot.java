@@ -1,4 +1,4 @@
-package chbachman.armour.util;
+package chbachman.api.util;
 
 
 public enum ArmourSlot {

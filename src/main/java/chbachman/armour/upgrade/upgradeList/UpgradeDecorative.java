@@ -1,6 +1,6 @@
 package chbachman.armour.upgrade.upgradeList;
 
-import chbachman.api.IModularItem;
+import chbachman.api.item.IModularItem;
 import net.minecraft.item.ItemStack;
 
 public class UpgradeDecorative extends UpgradeBasic{

@@ -2,8 +2,8 @@ package chbachman.armour.handler;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import chbachman.api.IModularItem;
-import chbachman.api.IUpgrade;
+import chbachman.api.item.IModularItem;
+import chbachman.api.upgrade.IUpgrade;
 import chbachman.armour.crafting.Recipe;
 import chbachman.armour.upgrade.UpgradeException;
 import chbachman.armour.util.NBTHelper;

@@ -4,12 +4,12 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.ISpecialArmor.ArmorProperties;
-import chbachman.api.Configurable;
-import chbachman.api.IModularItem;
+import chbachman.api.configurability.Configurable;
+import chbachman.api.item.IModularItem;
+import chbachman.api.util.ArmourSlot;
+import chbachman.api.util.VariableInt;
 import chbachman.armour.ModularArmour;
-import chbachman.armour.util.ArmourSlot;
 import chbachman.armour.util.EnergyUtil;
-import chbachman.armour.util.VariableInt;
 import cofh.api.energy.IEnergyContainerItem;
 
 

@@ -1,4 +1,4 @@
-package chbachman.api;
+package chbachman.api.upgrade;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -6,8 +6,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor.ArmorProperties;
-import chbachman.armour.upgrade.UpgradeList;
-import chbachman.armour.util.ArmourSlot;
+import chbachman.api.item.IModularItem;
+import chbachman.api.util.ArmourSlot;
 import cofh.lib.util.helpers.StringHelper;
 
 /**

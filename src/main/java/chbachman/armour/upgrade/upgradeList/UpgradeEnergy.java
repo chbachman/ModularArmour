@@ -1,9 +1,9 @@
 package chbachman.armour.upgrade.upgradeList;
 
 import net.minecraft.item.ItemStack;
-import chbachman.api.IModularItem;
-import chbachman.api.IUpgrade;
-import chbachman.api.Upgrade;
+import chbachman.api.item.IModularItem;
+import chbachman.api.upgrade.IUpgrade;
+import chbachman.api.upgrade.Upgrade;
 
 public class UpgradeEnergy extends Upgrade{
 

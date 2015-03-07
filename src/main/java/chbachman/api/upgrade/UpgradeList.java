@@ -1,13 +1,10 @@
-package chbachman.armour.upgrade;
+package chbachman.api.upgrade;
 
 import java.util.HashMap;
 import java.util.Iterator;
 
-import chbachman.api.IUpgrade;
-import chbachman.api.Upgrade;
+import chbachman.api.configurability.FieldList;
 import chbachman.armour.ModularArmour;
-import chbachman.armour.configurability.FieldList;
-import chbachman.armour.crafting.Recipe;
 
 @SuppressWarnings("serial")
 public class UpgradeList extends HashMap<String, IUpgrade> implements Iterable<IUpgrade>{

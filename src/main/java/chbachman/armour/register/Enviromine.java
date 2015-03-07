@@ -1,6 +1,6 @@
 package chbachman.armour.register;
 
-import chbachman.api.IUpgrade;
+import chbachman.api.upgrade.IUpgrade;
 import chbachman.armour.crafting.Recipe;
 import chbachman.armour.upgrade.upgradeList.UpgradeCamelPack;
 import chbachman.armour.upgrade.upgradeList.UpgradeGasMask;

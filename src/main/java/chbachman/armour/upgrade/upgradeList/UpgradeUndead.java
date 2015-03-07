@@ -6,7 +6,7 @@ import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
-import chbachman.armour.util.ArmourSlot;
+import chbachman.api.util.ArmourSlot;
 
 public class UpgradeUndead extends UpgradeProtective{
 

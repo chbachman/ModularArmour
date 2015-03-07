@@ -13,9 +13,9 @@ import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import chbachman.api.IUpgrade;
+import chbachman.api.upgrade.IUpgrade;
+import chbachman.api.upgrade.UpgradeList;
 import chbachman.armour.crafting.Recipe;
-import chbachman.armour.upgrade.UpgradeList;
 
 @ZenClass("mods.modularArmour")
 public class MineTweaker implements Module{

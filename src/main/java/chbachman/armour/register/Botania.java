@@ -1,7 +1,7 @@
 package chbachman.armour.register;
 
 import cpw.mods.fml.common.registry.GameRegistry;
-import chbachman.api.IUpgrade;
+import chbachman.api.upgrade.IUpgrade;
 import chbachman.armour.crafting.Recipe;
 import chbachman.armour.upgrade.upgradeList.UpgradeBasic;
 

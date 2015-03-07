@@ -2,7 +2,7 @@ package chbachman.armour.util;
 
 import java.util.AbstractList;
 
-import chbachman.api.NBTAble;
+import chbachman.api.nbt.NBTAble;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.util.Constants;

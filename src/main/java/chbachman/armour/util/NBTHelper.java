@@ -7,9 +7,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.util.Constants;
-import chbachman.api.IUpgrade;
-import chbachman.api.NBTAble;
-import chbachman.api.UpgradeNBT;
+import chbachman.api.nbt.NBTAble;
+import chbachman.api.nbt.UpgradeNBT;
+import chbachman.api.upgrade.IUpgrade;
 
 public class NBTHelper {
     

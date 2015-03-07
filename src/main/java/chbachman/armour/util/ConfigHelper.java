@@ -1,7 +1,7 @@
 package chbachman.armour.util;
 
 import static chbachman.armour.ModularArmour.config;
-import chbachman.api.IUpgrade;
+import chbachman.api.upgrade.IUpgrade;
 
 public final class ConfigHelper{
 

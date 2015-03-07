@@ -5,7 +5,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import baubles.api.BaubleType;
-import chbachman.api.IModularItem;
+import chbachman.api.item.IModularItem;
 import chbachman.armour.ModularArmour;
 import chbachman.armour.items.ItemBauble;
 import chbachman.armour.reference.Reference;

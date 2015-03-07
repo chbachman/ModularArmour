@@ -1,10 +1,10 @@
-package chbachman.api;
+package chbachman.api.upgrade;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.ISpecialArmor.ArmorProperties;
-import chbachman.armour.util.ArmourSlot;
+import chbachman.api.util.ArmourSlot;
 
 public interface IArmourUpgrade extends IUpgrade{
 	

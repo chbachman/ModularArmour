@@ -4,9 +4,9 @@ import java.util.List;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import chbachman.api.IUpgrade;
-import chbachman.armour.configurability.FieldList;
-import chbachman.armour.util.VariableInt;
+import chbachman.api.configurability.FieldList;
+import chbachman.api.upgrade.IUpgrade;
+import chbachman.api.util.VariableInt;
 import cofh.lib.gui.GuiBase;
 import cofh.lib.gui.GuiProps;
 import cofh.lib.gui.element.TabBase;

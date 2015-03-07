@@ -1,4 +1,4 @@
-package chbachman.armour.configurability;
+package chbachman.api.configurability;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -6,9 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import chbachman.api.Configurable;
-import chbachman.api.IUpgrade;
-import chbachman.armour.util.VariableInt;
+import chbachman.api.upgrade.IUpgrade;
+import chbachman.api.util.VariableInt;
 
 public class FieldList{
 

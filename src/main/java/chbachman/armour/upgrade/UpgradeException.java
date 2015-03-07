@@ -1,6 +1,6 @@
 package chbachman.armour.upgrade;
 
-import chbachman.api.Upgrade;
+import chbachman.api.upgrade.Upgrade;
 
 @SuppressWarnings("serial")
 public class UpgradeException extends RuntimeException {

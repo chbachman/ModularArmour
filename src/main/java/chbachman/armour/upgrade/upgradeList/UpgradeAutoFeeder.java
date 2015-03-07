@@ -5,11 +5,11 @@ import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.FoodStats;
 import net.minecraft.world.World;
-import chbachman.api.IModularItem;
-import chbachman.api.Upgrade;
-import chbachman.armour.util.ArmourSlot;
+import chbachman.api.item.IModularItem;
+import chbachman.api.upgrade.Upgrade;
+import chbachman.api.util.ArmourSlot;
+import chbachman.api.util.VariableInt;
 import chbachman.armour.util.ConfigHelper;
-import chbachman.armour.util.VariableInt;
 
 public class UpgradeAutoFeeder extends Upgrade{
     

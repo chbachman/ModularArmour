@@ -5,10 +5,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
-import chbachman.api.IUpgrade;
-import chbachman.api.Upgrade;
+import chbachman.api.upgrade.IUpgrade;
+import chbachman.api.upgrade.Upgrade;
+import chbachman.api.util.ArmourSlot;
 import chbachman.armour.register.Vanilla;
-import chbachman.armour.util.ArmourSlot;
 import chbachman.armour.util.EnergyUtil;
 
 public class UpgradePotion extends Upgrade {

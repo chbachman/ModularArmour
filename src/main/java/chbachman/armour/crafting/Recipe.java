@@ -11,7 +11,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
-import chbachman.api.IUpgrade;
+import chbachman.api.upgrade.IUpgrade;
 
 public class Recipe
 {
