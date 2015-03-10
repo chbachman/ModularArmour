@@ -6,10 +6,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import baubles.api.BaubleType;
 import chbachman.api.item.IModularItem;
+import chbachman.api.nbt.NBTHelper;
 import chbachman.armour.ModularArmour;
 import chbachman.armour.items.ItemBauble;
 import chbachman.armour.reference.Reference;
-import chbachman.armour.util.NBTHelper;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class Baubles implements Module{

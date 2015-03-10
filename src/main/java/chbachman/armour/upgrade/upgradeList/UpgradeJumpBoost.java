@@ -6,6 +6,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
+import chbachman.api.configurability.Configurable;
+import chbachman.api.configurability.ConfigurableField;
 import chbachman.api.item.IModularItem;
 import chbachman.api.upgrade.Upgrade;
 import chbachman.api.util.ArmourSlot;
@@ -26,9 +28,12 @@ public class UpgradeJumpBoost extends Upgrade {
 
 	private int cost;
 
+	@Configurable
+	public ConfigurableField f = new ConfigurableField(this, "jumpHeight");
+	
 	@Override
 	public void registerConfigOptions(){
-		cost = ConfigHelper.get(ConfigHelper.SPEED,this, "cost to jump high", 1000);
+		cost = ConfigHelper.get(ConfigHelper.SPEED, this, "cost to jump high", 1000);
 	}
 
 	@SubscribeEvent
@@ -47,7 +52,7 @@ public class UpgradeJumpBoost extends Upgrade {
 					int level = modularItem.getLevel(stack);
 					
 					(modularItem).extractEnergy(stack, energyCost * level + 1, false);
-					player.motionY += .3 * level + 1;
+					player.motionY += .3 * f.getPercentage(stack) + 1;
 					
 				}
 			}

@@ -4,11 +4,11 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor.ArmorProperties;
 import chbachman.api.item.IModularItem;
 import chbachman.api.util.ArmourSlot;
-import cofh.lib.util.helpers.StringHelper;
 
 /**
  * Default implementation of IUpgrade. Use this or make your own.
@@ -41,12 +41,12 @@ public abstract class Upgrade implements IArmourUpgrade {
 
 	@Override
 	public String getInformation() {
-		return StringHelper.localize(this.getLocalizationString() + ".information");
+		return StatCollector.translateToLocal(this.getLocalizationString() + ".information");
 	}
 
 	@Override
 	public String getName() {
-		return StringHelper.localize(this.getLocalizationString() + ".name");
+		return StatCollector.translateToLocal(this.getLocalizationString() + ".name");
 	}
 
 	@Override

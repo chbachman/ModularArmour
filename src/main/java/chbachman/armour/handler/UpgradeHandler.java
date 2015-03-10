@@ -3,11 +3,11 @@ package chbachman.armour.handler;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import chbachman.api.item.IModularItem;
+import chbachman.api.nbt.NBTHelper;
+import chbachman.api.nbt.NBTList;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.armour.crafting.Recipe;
 import chbachman.armour.upgrade.UpgradeException;
-import chbachman.armour.util.NBTHelper;
-import chbachman.armour.util.NBTList;
 import chbachman.armour.util.UpgradeUtil;
 
 public class UpgradeHandler {

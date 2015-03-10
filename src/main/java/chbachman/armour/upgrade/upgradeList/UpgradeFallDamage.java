@@ -3,6 +3,8 @@ package chbachman.armour.upgrade.upgradeList;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import chbachman.api.configurability.Configurable;
+import chbachman.api.configurability.ConfigurableField;
 import chbachman.api.item.IModularItem;
 import chbachman.api.upgrade.Upgrade;
 import chbachman.api.util.ArmourSlot;
@@ -15,6 +17,9 @@ public class UpgradeFallDamage extends Upgrade {
 		super("fallDamage");
 	}
 
+	@Configurable
+	public ConfigurableField f = new ConfigurableField(this, "fallDamage");
+	
 	private int cost;
 
 	@Override
@@ -24,7 +29,7 @@ public class UpgradeFallDamage extends Upgrade {
 	
 	@Override
 	public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot, int level) {
-		if (player.fallDistance > 2 && EnergyUtil.getEnergyStored(stack) > 100) {
+		if (player.fallDistance > (30 - 28 * f.getPercentage(stack)) && EnergyUtil.getEnergyStored(stack) > 100) {
 			player.fallDistance = 0;
 			return cost;
 		}

@@ -1,6 +1,6 @@
 package chbachman.api.util;
 
-import chbachman.armour.util.NBTHelper;
+import chbachman.api.nbt.NBTHelper;
 import net.minecraft.item.ItemStack;
 
 public class VariableInt {

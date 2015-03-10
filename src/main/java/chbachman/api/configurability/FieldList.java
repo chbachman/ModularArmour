@@ -7,37 +7,60 @@ import java.util.List;
 import java.util.Map;
 
 import chbachman.api.upgrade.IUpgrade;
-import chbachman.api.util.VariableInt;
 
 public class FieldList{
 
-	public static Map<IUpgrade, VariableInt[]> fieldList = new HashMap<IUpgrade, VariableInt[]>();
+	private static Map<IUpgrade, Field[]> fieldList = new HashMap<IUpgrade, Field[]>();
+
+	public static void refreshFields(IUpgrade upgrade, ConfigurableField[] f){
+		Field[] fields = fieldList.get(upgrade);
+
+		for (int i = 0; i < fields.length; i++){
+			try{
+				fields[i].set(upgrade, f.length);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public static ConfigurableField[] getFieldList(IUpgrade upgrade){
+
+		Field[] fields = fieldList.get(upgrade);
+		ConfigurableField[] config = new ConfigurableField[fields.length];
+		
+		for (int i = 0; i < fields.length; i++){
+			try{
+				config[i] = (ConfigurableField) fields[i].get(upgrade);
+			}catch (Exception e){
+				e.printStackTrace();
+			}
+
+		}
+
+		return config;
+	}
 
 	public static void register(IUpgrade upgrade){
 
 		Class<?> upgradeClass = upgrade.getClass();
 
-		List<VariableInt> storageList = new ArrayList<VariableInt>();
+		List<Field> storageList = new ArrayList<Field>();
 
 		for (Field field : upgradeClass.getFields()){
 
 			if (!field.isAnnotationPresent(Configurable.class)){
 				continue;
 			}
-			
-			if(field.getType() != VariableInt.class){
+
+			if (field.getType() != ConfigurableField.class){
 				continue;
 			}
 
-			try{
-				storageList.add((VariableInt) field.get(upgrade));
-			}catch (Exception e){
-				e.printStackTrace();
-				continue;
-			}
+			storageList.add(field);
 		}
 
-		fieldList.put(upgrade, storageList.toArray(new VariableInt[0]));
+		fieldList.put(upgrade, storageList.toArray(new Field[0]));
 
 	}
 }

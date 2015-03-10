@@ -8,6 +8,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import chbachman.api.item.IModularItem;
+import chbachman.api.nbt.NBTHelper;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.upgrade.UpgradeList;
 import chbachman.armour.ModularArmour;
@@ -19,6 +20,7 @@ import chbachman.armour.network.ArmourPacket;
 import chbachman.armour.upgrade.UpgradeException;
 import chbachman.armour.util.UpgradeUtil;
 import cofh.lib.util.helpers.ItemHelper;
+import cpw.mods.fml.common.FMLCommonHandler;
 
 public class ArmourContainer extends Container implements IInputHandler{
     
@@ -96,6 +98,12 @@ public class ArmourContainer extends Container implements IInputHandler{
                 if (this.player.worldObj.isRemote == false) {
                     this.player.openGui(ModularArmour.instance, GuiHandler.RECIPE_ID, this.player.worldObj, 0, 0, 0);
                 }
+            }else if(name.equals("ValueChanged")){
+            	NBTHelper.createDefaultStackTag(stack);
+            	
+                stack.stackTagCompound.setInteger(packet.getString(), packet.getInt());
+                
+                System.out.println();
             }
             
         } catch (UpgradeException e) {

@@ -1,10 +1,10 @@
 package chbachman.armour.upgrade;
 
-import chbachman.api.upgrade.Upgrade;
+import chbachman.api.upgrade.IUpgrade;
 
 @SuppressWarnings("serial")
 public class UpgradeException extends RuntimeException {
-    public Upgrade cause;
+    public IUpgrade cause;
     
     public UpgradeException() {
     }
@@ -13,7 +13,7 @@ public class UpgradeException extends RuntimeException {
         super(String.format(message, objects));
     }
     
-    public UpgradeException(String message, Upgrade cause) {
+    public UpgradeException(String message, IUpgrade cause) {
         this(message);
         
         this.cause = cause;

@@ -5,18 +5,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.ISpecialArmor.ArmorProperties;
 import chbachman.api.configurability.Configurable;
+import chbachman.api.configurability.ConfigurableField;
 import chbachman.api.item.IModularItem;
 import chbachman.api.util.ArmourSlot;
-import chbachman.api.util.VariableInt;
-import chbachman.armour.ModularArmour;
 import chbachman.armour.util.EnergyUtil;
 import cofh.api.energy.IEnergyContainerItem;
 
 
 public abstract class UpgradeProtective extends UpgradeBasic{
 
-	@Configurable(name = "Protection")
-	public VariableInt protection;
+	@Configurable
+	public ConfigurableField protection = new ConfigurableField(this.getBaseName() + "Protection", "upgrade.chbachman.protection.protection", 50);
 	
 	public UpgradeProtective(String name, int protection) {
 		super(name);
@@ -24,6 +23,8 @@ public abstract class UpgradeProtective extends UpgradeBasic{
 
 	@Override
 	public ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, ArmourSlot slot) {
+		
+		System.out.println(this.protection.get(armor));
 		
 		IEnergyContainerItem energy = EnergyUtil.getItem(armor);
 		
@@ -33,7 +34,7 @@ public abstract class UpgradeProtective extends UpgradeBasic{
 		
 		if(this.shouldDefend(player, armor, source, damage, slot)){
 			energy.extractEnergy(armor, (int) (this.getEnergyPerDamage(armor) * damage), false);
-			return new ArmorProperties(0, protection.get(armor) / 100, Integer.MAX_VALUE);
+			return new ArmorProperties(0, protection.get(armor) / 100D, Integer.MAX_VALUE);
 		}
 		
 		return new ArmorProperties(0,0,0);
@@ -44,10 +45,9 @@ public abstract class UpgradeProtective extends UpgradeBasic{
 		return item.isArmour();
 	}
 	
-	
 	@Override
 	public int getArmourDisplay() {
-		return (int) (protection.defaultData / 4);
+		return (int) (protection.defaultData / 25);
 	}
 
 	/**

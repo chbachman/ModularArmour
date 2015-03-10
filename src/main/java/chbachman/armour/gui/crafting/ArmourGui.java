@@ -6,6 +6,7 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
+import chbachman.api.nbt.NBTHelper;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.armour.ModularArmour;
 import chbachman.armour.gui.GuiHandler;
@@ -14,7 +15,6 @@ import chbachman.armour.network.ArmourPacket;
 import chbachman.armour.network.ArmourPacket.PacketTypes;
 import chbachman.armour.reference.ResourceLocationHelper;
 import chbachman.armour.upgrade.UpgradeException;
-import chbachman.armour.util.NBTHelper;
 import chbachman.armour.util.UpgradeUtil;
 import cofh.core.gui.GuiBaseAdv;
 import cofh.core.network.PacketHandler;
