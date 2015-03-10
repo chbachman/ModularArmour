@@ -90,7 +90,7 @@ public class ArmourPacket extends PacketCoFHBase {
             	IModularItem armour = (IModularItem) stack.getItem();
                 
                 for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
-                    upgrade.onEquip(player.worldObj, player, stack, ArmourSlot.getArmourSlot(armour.getSlot()), armour.getLevel(stack));
+                    upgrade.onEquip(player.worldObj, player, stack, ArmourSlot.getArmourSlot(armour.getSlot()));
                 }
                 
             }

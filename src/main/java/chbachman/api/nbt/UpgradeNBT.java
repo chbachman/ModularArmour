@@ -16,15 +16,12 @@ public class UpgradeNBT implements NBTAble<IUpgrade>{
 			return null;
 		}
 
-		upgrade.setDisabled(nbt.getBoolean("disabled"));
-
 		return upgrade;
 	}
 
 	@Override
 	public void saveToNBT(IUpgrade upgrade, NBTTagCompound nbt){
 		nbt.setString("ID", upgrade.getBaseName());
-		nbt.setBoolean("disabled", upgrade.isDisabled());
 	}
 
 }

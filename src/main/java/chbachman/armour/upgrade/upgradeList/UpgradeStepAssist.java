@@ -19,12 +19,12 @@ public class UpgradeStepAssist extends Upgrade{
     }
     
     @Override
-    public void onEquip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot, int level) {
+    public void onEquip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
         player.stepHeight = 1;
     }
     
     @Override
-    public void onDequip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot, int level) {
+    public void onDequip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
         player.stepHeight = .5F;
     }
     

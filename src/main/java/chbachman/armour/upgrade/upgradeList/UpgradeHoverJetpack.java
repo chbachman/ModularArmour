@@ -19,10 +19,10 @@ public class UpgradeHoverJetpack extends Upgrade {
     }
 
     private int cost;
-
+    
     @Override
     public void registerConfigOptions(){
-    	cost = ConfigHelper.get(ConfigHelper.SPEED,this, "cost to fly each tick", 500);
+    	cost = ConfigHelper.get(ConfigHelper.SPEED, this, "cost to fly each tick", 500);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class UpgradeHoverJetpack extends Upgrade {
     }
     
     @Override
-    public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot, int level) {
+    public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
         
     	if(EnergyUtil.getEnergyStored(stack) != 0){
     		setFlying(player, true, world);
@@ -44,14 +44,14 @@ public class UpgradeHoverJetpack extends Upgrade {
         }
         
         if (player.capabilities.isFlying) {
-            return cost * level;
+            return cost;
         } else {
             return 0;
         }
     }
     
     @Override
-    public void onDequip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot, int level) {
+    public void onDequip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
         setFlying(player, false, world);
     }
     

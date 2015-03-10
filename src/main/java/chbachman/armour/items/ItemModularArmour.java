@@ -51,8 +51,6 @@ public class ItemModularArmour extends ItemArmor implements ISpecialArmor, IModu
 	private VariableInt capacity = new VariableInt("capacity", 100);
 	private VariableInt maxTransfer = new VariableInt("maxTransfer", 100);
 	
-	public VariableInt level = new VariableInt("level", 0);
-	
 	public ItemModularArmour(ArmorMaterial material, int type) {
 		super(material, 0, type);
 		this.setCreativeTab(CreativeTabs.tabCombat);
@@ -64,8 +62,6 @@ public class ItemModularArmour extends ItemArmor implements ISpecialArmor, IModu
 	@Override
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean check) {
 		NBTHelper.createDefaultStackTag(stack);
-		
-		list.add(StringHelper.localize("info.chbachman.level") + " " + level.get(stack));
 		
 		if (!StringHelper.isShiftKeyDown()) {
 			list.add(StringHelper.shiftForDetails());
@@ -124,7 +120,7 @@ public class ItemModularArmour extends ItemArmor implements ISpecialArmor, IModu
 		for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
 
 			if (upgrade != null) {
-				energy += upgrade.onTick(world, player, stack, ArmourSlot.getArmourSlot(this.armorType), level.get(stack));
+				energy += upgrade.onTick(world, player, stack, ArmourSlot.getArmourSlot(this.armorType));
 			}
 
 		}
@@ -231,13 +227,13 @@ public class ItemModularArmour extends ItemArmor implements ISpecialArmor, IModu
 	
 	public void onArmourDequip(World world, EntityPlayer player, ItemStack stack) {
 		for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
-			upgrade.onDequip(world, player, stack, ArmourSlot.getArmourSlot(this.armorType), level.get(stack));
+			upgrade.onDequip(world, player, stack, ArmourSlot.getArmourSlot(this.armorType));
 		}
 	}
 	
 	public void onArmourEquip(World world, EntityPlayer player, ItemStack stack){
 		for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
-			upgrade.onEquip(world, player, stack, ArmourSlot.getArmourSlot(this.armorType), level.get(stack));
+			upgrade.onEquip(world, player, stack, ArmourSlot.getArmourSlot(this.armorType));
 		}
 	}
 	

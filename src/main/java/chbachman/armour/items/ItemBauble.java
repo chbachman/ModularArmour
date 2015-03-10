@@ -86,7 +86,7 @@ public class ItemBauble extends Item implements IBauble, IModularItem, IVisDisco
 	public void onWornTick(ItemStack itemstack, EntityLivingBase player) {
 		int energy = 0;
 		for(IUpgrade upgrade : NBTHelper.getNBTUpgradeList(itemstack)){
-			energy += upgrade.onTick(player.worldObj, (EntityPlayer) player, itemstack, ArmourSlot.getArmourSlot(this.getSlot()), level.get(itemstack));
+			energy += upgrade.onTick(player.worldObj, (EntityPlayer) player, itemstack, ArmourSlot.getArmourSlot(this.getSlot()));
 		}
 		this.extractEnergy(itemstack, energy, false);
 
@@ -132,14 +132,14 @@ public class ItemBauble extends Item implements IBauble, IModularItem, IVisDisco
 		}
 
 		for(IUpgrade upgrade : NBTHelper.getNBTUpgradeList(itemstack)){
-			upgrade.onEquip(player.worldObj, (EntityPlayer) player, itemstack, ArmourSlot.getArmourSlot(this.getSlot()), level.get(itemstack));
+			upgrade.onEquip(player.worldObj, (EntityPlayer) player, itemstack, ArmourSlot.getArmourSlot(this.getSlot()));
 		}
 	}
 
 	@Override
 	public void onUnequipped(ItemStack itemstack, EntityLivingBase player) {
 		for(IUpgrade upgrade : NBTHelper.getNBTUpgradeList(itemstack)){
-			upgrade.onDequip(player.worldObj, (EntityPlayer) player, itemstack, ArmourSlot.getArmourSlot(this.getSlot()), level.get(itemstack));
+			upgrade.onDequip(player.worldObj, (EntityPlayer) player, itemstack, ArmourSlot.getArmourSlot(this.getSlot()));
 		}
 	}
 

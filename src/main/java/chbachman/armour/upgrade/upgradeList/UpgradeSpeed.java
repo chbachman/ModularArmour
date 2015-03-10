@@ -34,7 +34,7 @@ public class UpgradeSpeed extends Upgrade{
     }
     
     @Override
-    public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot, int level){
+    public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot){
     	
     	System.out.println(this.f.getPercentage(stack));
     	

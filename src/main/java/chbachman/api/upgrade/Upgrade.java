@@ -16,21 +16,17 @@ import chbachman.api.util.ArmourSlot;
  * @author chbachman
  *
  */
-public abstract class Upgrade implements IArmourUpgrade {
+public abstract class Upgrade implements IArmourUpgrade{
 
 	/**
 	 * The unlocalized, base name of the upgrade.
 	 */
-	protected String name;
-	
-	/**
-	 * Whether the upgrade is disabled.
-	 */
-	protected boolean isDisabled;
+	protected final String name;
 
 	/**
-	 * Passes in the base name of the upgrade. The base name must be unique. 
+	 * Passes in the base name of the upgrade. The base name must be unique.
 	 * This also registers the upgrade in the UpgradeList.
+	 * 
 	 * @param name
 	 */
 	public Upgrade(String name) {
@@ -40,12 +36,12 @@ public abstract class Upgrade implements IArmourUpgrade {
 	}
 
 	@Override
-	public String getInformation() {
+	public String getInformation(){
 		return StatCollector.translateToLocal(this.getLocalizationString() + ".information");
 	}
 
 	@Override
-	public String getName() {
+	public String getName(){
 		return StatCollector.translateToLocal(this.getLocalizationString() + ".name");
 	}
 
@@ -55,31 +51,22 @@ public abstract class Upgrade implements IArmourUpgrade {
 	}
 
 	/**
-	 * Get the localization String for the upgrade. Append the ending to get the correct localization.
+	 * Get the localization String for the upgrade. Append the ending to get the
+	 * correct localization.
+	 * 
 	 * @return
 	 */
-	protected String getLocalizationString() {
+	protected String getLocalizationString(){
 		return "upgrade.chbachman." + this.name;
 	}
 
 	@Override
-	public boolean isDisabled() {
-		return this.isDisabled;
-	}
-
-	@Override
-	public IUpgrade setDisabled(boolean value) {
-		this.isDisabled = value;
-		return this;
-	}
-
-	@Override
-	public int compareTo(IUpgrade upgrade) {
+	public int compareTo(IUpgrade upgrade){
 		return this.getName().compareTo(upgrade.getName());
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode(){
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + this.name.hashCode();
@@ -87,18 +74,18 @@ public abstract class Upgrade implements IArmourUpgrade {
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
+	public boolean equals(Object obj){
+		if (this == obj){
 			return true;
 		}
-		if (obj == null) {
+		if (obj == null){
 			return false;
 		}
-		if (!(obj instanceof Upgrade)) {
+		if (!(obj instanceof Upgrade)){
 			return false;
 		}
 		Upgrade other = (Upgrade) obj;
-		if (this.name != other.name) {
+		if (this.name != other.name){
 			return false;
 		}
 		return true;
@@ -106,49 +93,41 @@ public abstract class Upgrade implements IArmourUpgrade {
 
 	// Api for Upgrades here
 	@Override
-	public boolean isCompatible(IModularItem item, ItemStack stack, int armorType) {
+	public boolean isCompatible(IModularItem item, ItemStack stack, int armorType){
 		return true;
 	}
 
 	@Override
-	public int getArmourDisplay() {
+	public int getArmourDisplay(){
 		return 0;
 	}
 
 	@Override
-	public ArmorProperties getProperties(EntityLivingBase attacker, ItemStack armor, DamageSource source, double damage, ArmourSlot slot) {
+	public ArmorProperties getProperties(EntityLivingBase attacker, ItemStack armor, DamageSource source, double damage, ArmourSlot slot){
 		return null;
 	}
 
 	@Override
-	public IUpgrade[] getDependencies() {
+	public IUpgrade[] getDependencies(){
 		return null;
 	}
 
 	@Override
-	public void onUpgradeAddition(IModularItem item, ItemStack stack) {
+	public void onUpgradeAddition(IModularItem item, ItemStack stack){
 
 	}
 
 	@Override
-	public void onEquip(World world, EntityPlayer player, ItemStack stack,
-			ArmourSlot slot, int level) {
-
-	}
+	public void onEquip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot){}
 
 	@Override
-	public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot, int level) {
-		return 0;
-	}
+	public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot){return 0;}
 
 	@Override
-	public void onDequip(World world, EntityPlayer player, ItemStack stack,
-			ArmourSlot slot, int level) {
-
-	}
+	public void onDequip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot){}
 
 	@Override
-	public String getArmourTexture(ItemStack stack, int slot) {
+	public String getArmourTexture(ItemStack stack, int slot){
 		return null;
 	}
 

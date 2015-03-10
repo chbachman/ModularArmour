@@ -25,7 +25,7 @@ public class UpgradeBloodMagic extends Upgrade{
 	}
 	
 	@Override
-	public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot, int level) {
+	public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
 		
 		if(world.isRemote){
 			return 0;
