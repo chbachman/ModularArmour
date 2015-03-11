@@ -12,7 +12,7 @@ public class RFModularArmour extends ItemModularArmour implements IEnergyContain
 	}
 
 	public RFHolder getHolder(){
-		return (RFHolder) this.getHolder();
+		return (RFHolder) this.holder;
 	}
 	
 	public int getCapacity(ItemStack stack) {

@@ -1,5 +1,6 @@
 package chbachman.api.item;
 
+import java.util.Iterator;
 import java.util.List;
 
 import net.minecraft.entity.Entity;
@@ -122,12 +123,16 @@ public abstract class UpgradeHolder implements Holder{
 	public void onArmourTick(World world, EntityPlayer player, ItemStack stack){
 		int energy = 0;
 
-		for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
-
-			if (upgrade != null) {
-				energy += upgrade.onTick(world, player, stack, ArmourSlot.getArmourSlot(this.item.getSlot()));
+		Iterator<IUpgrade> iterator = NBTHelper.getNBTUpgradeList(stack).iterator();
+		while (iterator.hasNext()) {
+			IUpgrade upgrade = iterator.next();
+			
+			if(upgrade == null){
+				iterator.remove();
+				continue;
 			}
-
+			
+			energy += upgrade.onTick(world, player, stack, ArmourSlot.getArmourSlot(this.item.getSlot()));
 		}
 
 		if(energy < 0){
@@ -144,7 +149,15 @@ public abstract class UpgradeHolder implements Holder{
 	 * @param stack
 	 */
 	public void onArmourEquip(World world, EntityPlayer player, ItemStack stack){
-		for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
+		Iterator<IUpgrade> iterator = NBTHelper.getNBTUpgradeList(stack).iterator();
+		while (iterator.hasNext()) {
+			IUpgrade upgrade = iterator.next();
+			
+			if(upgrade == null){
+				iterator.remove();
+				continue;
+			}
+			
 			upgrade.onEquip(world, player, stack, ArmourSlot.getArmourSlot(this.item.getSlot()));
 		}
 	}
@@ -156,7 +169,15 @@ public abstract class UpgradeHolder implements Holder{
 	 * @param stack
 	 */
 	public void onArmourDequip(World world, EntityPlayer player, ItemStack stack) {
-		for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
+		Iterator<IUpgrade> iterator = NBTHelper.getNBTUpgradeList(stack).iterator();
+		while (iterator.hasNext()) {
+			IUpgrade upgrade = iterator.next();
+			
+			if(upgrade == null){
+				iterator.remove();
+				continue;
+			}
+			
 			upgrade.onDequip(world, player, stack, ArmourSlot.getArmourSlot(this.item.getSlot()));
 		}
 	}

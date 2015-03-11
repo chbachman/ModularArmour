@@ -15,7 +15,7 @@ public class BotaniaModularArmour extends ItemModularArmour implements IManaItem
 	}
 
 	public ManaHolder getHolder(){
-		return (ManaHolder) this.getHolder();
+		return (ManaHolder) this.holder;
 	}
 
 	// IManaItem

@@ -1,14 +1,14 @@
 package chbachman.armour.register;
 
-import cpw.mods.fml.common.registry.GameRegistry;
-import chbachman.api.item.IModularItem;
-import chbachman.api.nbt.NBTHelper;
-import chbachman.armour.ModularArmour;
-import chbachman.armour.items.armour.RFModularArmour;
-import chbachman.armour.reference.Reference;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+import chbachman.api.item.IModularItem;
+import chbachman.api.nbt.NBTHelper;
+import chbachman.armour.ModularArmour;
+import chbachman.armour.items.armour.LPModularArmour;
+import chbachman.armour.reference.Reference;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class BloodMagic implements Module{
 
@@ -24,10 +24,10 @@ public class BloodMagic implements Module{
 	
 	@Override
 	public void preInit() {
-		helmetModular = new RFModularArmour(Vanilla.materialModular, 0).setUnlocalizedName("chbachman.armour.helmetModularLP").setTextureName(Reference.ITEM_LOCATION + "ModularHelmetLP");
-		chestplateModular = new RFModularArmour(Vanilla.materialModular, 1).setUnlocalizedName("chbachman.armour.chestplateModularLP").setTextureName(Reference.ITEM_LOCATION + "ModularChestplateLP");
-		leggingsModular = new RFModularArmour(Vanilla.materialModular, 2).setUnlocalizedName("chbachman.armour.leggingsModularLP").setTextureName(Reference.ITEM_LOCATION + "ModularLegsLP");
-		bootsModular = new RFModularArmour(Vanilla.materialModular, 3).setUnlocalizedName("chbachman.armour.bootsModularLP").setTextureName(Reference.ITEM_LOCATION + "ModularBootsLP");
+		helmetModular = new LPModularArmour(Vanilla.materialModular, 0).setUnlocalizedName("chbachman.armour.helmetModularLP").setTextureName(Reference.ITEM_LOCATION + "ModularHelmetLP");
+		chestplateModular = new LPModularArmour(Vanilla.materialModular, 1).setUnlocalizedName("chbachman.armour.chestplateModularLP").setTextureName(Reference.ITEM_LOCATION + "ModularChestplateLP");
+		leggingsModular = new LPModularArmour(Vanilla.materialModular, 2).setUnlocalizedName("chbachman.armour.leggingsModularLP").setTextureName(Reference.ITEM_LOCATION + "ModularLegsLP");
+		bootsModular = new LPModularArmour(Vanilla.materialModular, 3).setUnlocalizedName("chbachman.armour.bootsModularLP").setTextureName(Reference.ITEM_LOCATION + "ModularBootsLP");
 		
 		GameRegistry.registerItem(helmetModular, "helmetModularLP");
 		GameRegistry.registerItem(chestplateModular, "chestplateModularLP");
@@ -50,7 +50,7 @@ public class BloodMagic implements Module{
 
 	@Override
 	public void postInit() {
-		ItemStack bloodSocket = GameRegistry.findItemStack("AWayOfTime", "bloodSocket", 1);
+		ItemStack bloodSocket = GameRegistry.findItemStack("AWWayofTime", "bloodSocket", 1);
 		GameRegistry.addRecipe(new ShapedOreRecipe(stackHelmetModular, new Object[] { "III", "I I", 'I', bloodSocket }));
 		GameRegistry.addRecipe(new ShapedOreRecipe(stackChestplateModular, new Object[] { "I I", "III", "III", 'I', bloodSocket }));
 		GameRegistry.addRecipe(new ShapedOreRecipe(stackLeggingsModular, new Object[] { "III", "I I", "I I", 'I', bloodSocket }));

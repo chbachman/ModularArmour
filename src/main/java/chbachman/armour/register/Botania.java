@@ -3,15 +3,15 @@ package chbachman.armour.register;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.ShapedOreRecipe;
-import cpw.mods.fml.common.registry.GameRegistry;
 import chbachman.api.item.IModularItem;
 import chbachman.api.nbt.NBTHelper;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.armour.ModularArmour;
 import chbachman.armour.crafting.Recipe;
-import chbachman.armour.items.armour.RFModularArmour;
+import chbachman.armour.items.armour.BotaniaModularArmour;
 import chbachman.armour.reference.Reference;
 import chbachman.armour.upgrade.upgradeList.UpgradeBasic;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 public class Botania implements Module{
 
@@ -29,10 +29,10 @@ public class Botania implements Module{
 
 	@Override
 	public void preInit(){
-		helmetModular = new RFModularArmour(Vanilla.materialModular, 0).setUnlocalizedName("chbachman.armour.helmetModularMana").setTextureName(Reference.ITEM_LOCATION + "ModularHelmetMana");
-		chestplateModular = new RFModularArmour(Vanilla.materialModular, 1).setUnlocalizedName("chbachman.armour.chestplateModularMana").setTextureName(Reference.ITEM_LOCATION + "ModularChestplateMana");
-		leggingsModular = new RFModularArmour(Vanilla.materialModular, 2).setUnlocalizedName("chbachman.armour.leggingsModularMana").setTextureName(Reference.ITEM_LOCATION + "ModularLegsMana");
-		bootsModular = new RFModularArmour(Vanilla.materialModular, 3).setUnlocalizedName("chbachman.armour.bootsModularMana").setTextureName(Reference.ITEM_LOCATION + "ModularBootsMana");
+		helmetModular = new BotaniaModularArmour(Vanilla.materialModular, 0).setUnlocalizedName("chbachman.armour.helmetModularMana").setTextureName(Reference.ITEM_LOCATION + "ModularHelmetMana");
+		chestplateModular = new BotaniaModularArmour(Vanilla.materialModular, 1).setUnlocalizedName("chbachman.armour.chestplateModularMana").setTextureName(Reference.ITEM_LOCATION + "ModularChestplateMana");
+		leggingsModular = new BotaniaModularArmour(Vanilla.materialModular, 2).setUnlocalizedName("chbachman.armour.leggingsModularMana").setTextureName(Reference.ITEM_LOCATION + "ModularLegsMana");
+		bootsModular = new BotaniaModularArmour(Vanilla.materialModular, 3).setUnlocalizedName("chbachman.armour.bootsModularMana").setTextureName(Reference.ITEM_LOCATION + "ModularBootsMana");
 
 		GameRegistry.registerItem(helmetModular, "helmetModularMana");
 		GameRegistry.registerItem(chestplateModular, "chestplateModularMana");
@@ -56,7 +56,7 @@ public class Botania implements Module{
 	@Override
 	public void postInit(){
 		ItemStack manaTablet = GameRegistry.findItemStack("Botania", "manaTablet", 1);
-		ItemStack elementiumIngot = GameRegistry.findItemStack("Botania", "elementium", 1);
+		ItemStack elementiumIngot = GameRegistry.findItemStack("Botania", "manaResource", 1);
 		
 		GameRegistry.addRecipe(new ShapedOreRecipe(stackHelmetModular, "IVI", "I I", 'I', elementiumIngot, 'V', manaTablet));
 		GameRegistry.addRecipe(new ShapedOreRecipe(stackChestplateModular, "I I", "IVI", "III", 'I', elementiumIngot, 'V', manaTablet));

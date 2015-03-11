@@ -72,6 +72,9 @@ public class ItemRegister {
 		
 		this.base = vanilla;
 		
+		base.registerUpgrades();
+		base.preInit();
+		
 		for(Module module : list){
 			module.registerUpgrades();
 		}
@@ -79,9 +82,6 @@ public class ItemRegister {
 		for(Module module : list){
 			module.preInit();
 		}
-		
-		base.registerUpgrades();
-		base.preInit();
 		
 		this.createRecipeList();
 		
