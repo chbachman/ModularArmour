@@ -1,7 +1,8 @@
 package chbachman.armour.upgrade.upgradeList;
 
-import chbachman.api.item.IModularItem;
 import net.minecraft.item.ItemStack;
+import chbachman.api.item.IModularItem;
+import chbachman.api.util.ArmourSlot;
 
 public class UpgradeDecorative extends UpgradeBasic{
 
@@ -24,7 +25,7 @@ public class UpgradeDecorative extends UpgradeBasic{
 	}
 	
 	@Override
-	public String getArmourTexture(ItemStack stack, int slot){
+	public String getArmourTexture(ItemStack stack, ArmourSlot slot){
     	return textureName;
     }
 

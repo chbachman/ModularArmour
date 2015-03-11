@@ -49,9 +49,8 @@ public class UpgradeJumpBoost extends Upgrade {
 				// You might not always want to jump 10 blocks high :P
 				if(stack != null && EnergyUtil.getEnergyStored(stack) > energyCost && !Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)){
 					IModularItem modularItem = (IModularItem) stack.getItem();
-					int level = modularItem.getLevel(stack);
 					
-					(modularItem).extractEnergy(stack, energyCost * level + 1, false);
+					(modularItem).damageArmour(stack, energyCost + 1);
 					player.motionY += .3 * f.getPercentage(stack) + 1;
 					
 				}

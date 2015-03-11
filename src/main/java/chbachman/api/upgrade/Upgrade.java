@@ -98,7 +98,7 @@ public abstract class Upgrade implements IArmourUpgrade{
 	}
 
 	@Override
-	public int getArmourDisplay(){
+	public int getArmourDisplay(EntityPlayer player, ItemStack stack, ArmourSlot slot){
 		return 0;
 	}
 
@@ -127,7 +127,7 @@ public abstract class Upgrade implements IArmourUpgrade{
 	public void onDequip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot){}
 
 	@Override
-	public String getArmourTexture(ItemStack stack, int slot){
+	public String getArmourTexture(ItemStack stack, ArmourSlot slot){
 		return null;
 	}
 

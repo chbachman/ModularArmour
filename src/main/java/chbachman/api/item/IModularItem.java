@@ -5,7 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.util.ArmourSlot;
-import cofh.api.energy.IEnergyContainerItem;
+import chbachman.armour.items.holder.UpgradeHolderAdv;
 
 /**
  * The interface that must be implemented for upgrades to work on your armour. You must call every single method in the {@link IUpgrade} class when appropriate. 
@@ -13,7 +13,7 @@ import cofh.api.energy.IEnergyContainerItem;
  * @author CBachman
  *
  */
-public interface IModularItem extends IEnergyContainerItem{
+public interface IModularItem{
 	
 	/**
 	 * Gets the slot that the armour contains. See {@link ArmourSlot} for details about the armour numbers that chould be returned. 
@@ -39,50 +39,25 @@ public interface IModularItem extends IEnergyContainerItem{
 	
 	/**
 	 * 
-	 * @return whether the current armour piece is calling the {@linkIArmourUpgrade} methods.
+	 * @return whether the current armour piece is calling the {@link chbachman.api.upgrade.IArmourUpgrade} methods.
 	 */
 	public boolean isArmour();
 	
 	/**
-	 * Get current capacity/max energy (in RF) of the armour.
+	 * Called when a upgrade may need to damage outside of returning. Should be the same scale (RF) as the methods.
 	 * @param stack
-	 * @return current capacity;
+	 * @param damage
 	 */
-	public int getCapacity(ItemStack stack);
+	public void damageArmour(ItemStack stack, int damage);
 	
 	/**
-	 * Set the capacity/max energy (in RF) of the armour.
-	 * @param stack
-	 * @param amount
+	 * Called when a upgrade may need to heal damage outside of rendering. Should be the same scale (RF) as the methods.
 	 */
-	public void setCapacity(ItemStack stack, int amount);
+	public void healArmour(ItemStack stack, int damage);
 	
 	/**
-	 * Get the max transfer of the energy (in RF) of the armour.
-	 * @param stack
-	 * @return
+	 * Return the Holder instance that the upgrades may use to edit data.
 	 */
-	public int getMaxTransfer(ItemStack stack);
+	public UpgradeHolderAdv getHolder();
 	
-	/**
-	 * Get the max transfer of the energy (in RF) of the armour.
-	 * @param stack
-	 * @param amount
-	 */
-	public void setMaxTransfer(ItemStack stack, int amount);
-	
-	/**
-	 * Get the "level" of the armour. This is used by upgrades to increase abilites.
-	 * @param stack
-	 * @return
-	 */
-	public int getLevel(ItemStack stack);
-	
-	/**
-	 * Set the level of the armour. 
-	 * @param stack
-	 * @param level
-	 * @return the stack that is passed in.
-	 */
-	public ItemStack setLevel(ItemStack stack, int level);
 }

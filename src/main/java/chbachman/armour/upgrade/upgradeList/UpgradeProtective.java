@@ -1,6 +1,7 @@
 package chbachman.armour.upgrade.upgradeList;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.ISpecialArmor.ArmorProperties;
@@ -46,8 +47,8 @@ public abstract class UpgradeProtective extends UpgradeBasic{
 	}
 	
 	@Override
-	public int getArmourDisplay() {
-		return (int) (protection.defaultData / 25);
+	public int getArmourDisplay(EntityPlayer player, ItemStack stack, ArmourSlot slot) {
+		return (int) (protection.get(stack) / 25);
 	}
 
 	/**

@@ -4,6 +4,7 @@ import net.minecraft.item.ItemStack;
 import chbachman.api.item.IModularItem;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.upgrade.Upgrade;
+import chbachman.armour.items.holder.RFHolder;
 
 public class UpgradeEnergy extends Upgrade{
 
@@ -20,10 +21,18 @@ public class UpgradeEnergy extends Upgrade{
 	
 	@Override
 	public void onUpgradeAddition(IModularItem armour, ItemStack stack){
-		armour.setCapacity(stack, capacity);
-		armour.setMaxTransfer(stack, maxTransfer);
+		
+		RFHolder holder = (RFHolder) armour.getHolder();
+		
+		holder.setCapacity(stack, capacity);
+		holder.setMaxTransfer(stack, maxTransfer);
 	}
 	
+	@Override
+	public boolean isCompatible(IModularItem item, ItemStack stack, int armorType){
+		return item.getHolder() instanceof RFHolder;
+	}
+
 	@Override
 	public IUpgrade[] getDependencies() {
 		if(dependency == null){

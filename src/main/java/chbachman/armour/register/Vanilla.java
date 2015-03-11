@@ -19,10 +19,15 @@ import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.util.ArmourSlot;
 import chbachman.armour.ModularArmour;
 import chbachman.armour.crafting.Recipe;
-import chbachman.armour.items.ItemModularArmour;
+import chbachman.armour.items.armour.RFModularArmour;
 import chbachman.armour.reference.Reference;
 import chbachman.armour.upgrade.upgradeList.*;
-import chbachman.armour.upgrade.upgradeList.UpgradeProtective.*;
+import chbachman.armour.upgrade.upgradeList.UpgradeProtective.UpgradeExplosion;
+import chbachman.armour.upgrade.upgradeList.UpgradeProtective.UpgradeFire;
+import chbachman.armour.upgrade.upgradeList.UpgradeProtective.UpgradeLava;
+import chbachman.armour.upgrade.upgradeList.UpgradeProtective.UpgradeMagic;
+import chbachman.armour.upgrade.upgradeList.UpgradeProtective.UpgradeUnblockable;
+import chbachman.armour.upgrade.upgradeList.UpgradeProtective.UpgradeWither;
 import cofh.api.modhelpers.ThermalExpansionHelper;
 import cofh.core.item.ItemBase;
 import cofh.lib.util.helpers.ItemHelper;
@@ -38,12 +43,10 @@ public class Vanilla implements Module{
 	public static Item leggingsModular;
 	public static Item bootsModular;
 	
-	public static ItemStack itemStackUpgrade;
-	
-	public static ItemStack[] stackHelmetModular;
-	public static ItemStack[] stackChestplateModular;
-	public static ItemStack[] stackLeggingsModular;
-	public static ItemStack[] stackBootsModular;
+	public static ItemStack stackHelmetModular;
+	public static ItemStack stackChestplateModular;
+	public static ItemStack stackLeggingsModular;
+	public static ItemStack stackBootsModular;
 
 	public static ItemBase material;
 
@@ -90,10 +93,10 @@ public class Vanilla implements Module{
 
 		materialModular = EnumHelper.addArmorMaterial("", 25, new int[] { 3, 7, 5, 3 }, 10);
 
-		helmetModular = new ItemModularArmour(materialModular, 0).setUnlocalizedName("chbachman.armour.helmetModular").setTextureName(Reference.ITEM_LOCATION + "ModularHelmet");
-		chestplateModular = new ItemModularArmour(materialModular, 1).setUnlocalizedName("chbachman.armour.chestplateModular").setTextureName(Reference.ITEM_LOCATION + "ModularChestplate");
-		leggingsModular = new ItemModularArmour(materialModular, 2).setUnlocalizedName("chbachman.armour.leggingsModular").setTextureName(Reference.ITEM_LOCATION + "ModularLegs");
-		bootsModular = new ItemModularArmour(materialModular, 3).setUnlocalizedName("chbachman.armour.bootsModular").setTextureName(Reference.ITEM_LOCATION + "ModularBoots");
+		helmetModular = new RFModularArmour(materialModular, 0).setUnlocalizedName("chbachman.armour.helmetModular").setTextureName(Reference.ITEM_LOCATION + "ModularHelmet");
+		chestplateModular = new RFModularArmour(materialModular, 1).setUnlocalizedName("chbachman.armour.chestplateModular").setTextureName(Reference.ITEM_LOCATION + "ModularChestplate");
+		leggingsModular = new RFModularArmour(materialModular, 2).setUnlocalizedName("chbachman.armour.leggingsModular").setTextureName(Reference.ITEM_LOCATION + "ModularLegs");
+		bootsModular = new RFModularArmour(materialModular, 3).setUnlocalizedName("chbachman.armour.bootsModular").setTextureName(Reference.ITEM_LOCATION + "ModularBoots");
 		
 		
 		
@@ -101,13 +104,6 @@ public class Vanilla implements Module{
 		GameRegistry.registerItem(chestplateModular, "chestplateModular");
 		GameRegistry.registerItem(leggingsModular, "leggingsModular");
 		GameRegistry.registerItem(bootsModular, "bootsModular");
-		
-		int allowable = ModularArmour.config.get("main", "max level of armour to allow", 2);
-		
-		stackHelmetModular = new ItemStack[allowable];
-		stackChestplateModular = new ItemStack[allowable];
-		stackLeggingsModular = new ItemStack[allowable];
-		stackBootsModular = new ItemStack[allowable];
 
 	}
 
@@ -151,17 +147,15 @@ public class Vanilla implements Module{
 		heatedElectrum = material.addOreDictItem(1, "heatedElectrum", 1);
 		temperedElectrum = material.addOreDictItem(0, "temperedElectrum", 1);
 
-		for(int i = 0; i < stackHelmetModular.length; i++){
-			stackHelmetModular[i] = ((IModularItem) helmetModular).setLevel(NBTHelper.createDefaultStackTag(new ItemStack(helmetModular)), i);
-			stackChestplateModular[i] = ((IModularItem) chestplateModular).setLevel(NBTHelper.createDefaultStackTag(new ItemStack(chestplateModular)), i);
-			stackLeggingsModular[i] = ((IModularItem) leggingsModular).setLevel(NBTHelper.createDefaultStackTag(new ItemStack(leggingsModular)), i);
-			stackBootsModular[i] = ((IModularItem) bootsModular).setLevel(NBTHelper.createDefaultStackTag(new ItemStack(bootsModular)), i);
-		}
+		stackHelmetModular = NBTHelper.createDefaultStackTag(new ItemStack(helmetModular));
+		stackChestplateModular = NBTHelper.createDefaultStackTag(new ItemStack(chestplateModular));
+		stackLeggingsModular = NBTHelper.createDefaultStackTag(new ItemStack(leggingsModular));
+		stackBootsModular = NBTHelper.createDefaultStackTag(new ItemStack(bootsModular));
 		
-		ModularArmour.modularHandler.register((IModularItem) helmetModular, stackHelmetModular[0]);
-		ModularArmour.modularHandler.register((IModularItem) chestplateModular, stackChestplateModular[0]);
-		ModularArmour.modularHandler.register((IModularItem) leggingsModular, stackLeggingsModular[0]);
-		ModularArmour.modularHandler.register((IModularItem) bootsModular, stackBootsModular[0]);
+		ModularArmour.modularHandler.register((IModularItem) helmetModular, stackHelmetModular);
+		ModularArmour.modularHandler.register((IModularItem) chestplateModular, stackChestplateModular);
+		ModularArmour.modularHandler.register((IModularItem) leggingsModular, stackLeggingsModular);
+		ModularArmour.modularHandler.register((IModularItem) bootsModular, stackBootsModular);
 		
 		
 		if(Loader.isModLoaded("ThermalFoundation")){
@@ -216,17 +210,10 @@ public class Vanilla implements Module{
 			GameRegistry.addRecipe(new ShapelessOreRecipe(temperedElectrum, Items.water_bucket, "heatedElectrum"));
 		}
 
-		GameRegistry.addRecipe(new ShapedOreRecipe(stackHelmetModular[0], new Object[] { "III", "I I", 'I', temperedElectrum }));
-		GameRegistry.addRecipe(new ShapedOreRecipe(stackChestplateModular[0], new Object[] { "I I", "III", "III", 'I', temperedElectrum }));
-		GameRegistry.addRecipe(new ShapedOreRecipe(stackLeggingsModular[0], new Object[] { "III", "I I", "I I", 'I', temperedElectrum }));
-		GameRegistry.addRecipe(new ShapedOreRecipe(stackBootsModular[0], new Object[] { "I I", "I I", 'I', temperedElectrum }));
-		
-		for(int i = 1; i < stackHelmetModular.length; i++){
-			GameRegistry.addRecipe(new ShapedOreRecipe(stackHelmetModular[i], new Object[] { "IAI", "I I", 'I', temperedElectrum, 'A', stackHelmetModular[i-1]}));
-			GameRegistry.addRecipe(new ShapedOreRecipe(stackChestplateModular[i], new Object[] { "I I", "IAI", "III", 'I', temperedElectrum, 'A', stackChestplateModular[i-1]}));
-			GameRegistry.addRecipe(new ShapedOreRecipe(stackLeggingsModular[i], new Object[] { "IAI", "I I", "I I", 'I', temperedElectrum, 'A', stackLeggingsModular[i-1]}));
-			GameRegistry.addRecipe(new ShapedOreRecipe(stackBootsModular[i], new Object[] { "I I", "IAI", 'I', temperedElectrum, 'A', stackBootsModular[i-1]}));
-		}
+		GameRegistry.addRecipe(new ShapedOreRecipe(stackHelmetModular, new Object[] { "III", "I I", 'I', temperedElectrum }));
+		GameRegistry.addRecipe(new ShapedOreRecipe(stackChestplateModular, new Object[] { "I I", "III", "III", 'I', temperedElectrum }));
+		GameRegistry.addRecipe(new ShapedOreRecipe(stackLeggingsModular, new Object[] { "III", "I I", "I I", 'I', temperedElectrum }));
+		GameRegistry.addRecipe(new ShapedOreRecipe(stackBootsModular, new Object[] { "I I", "I I", 'I', temperedElectrum }));
 		
 	}
 
