@@ -11,7 +11,7 @@ public class RFBauble extends ItemBauble implements IEnergyContainerItem{
 	}
 
 	public RFHolder getHolder(){
-		return (RFHolder) this.getHolder();
+		return (RFHolder) this.holder;
 	}
 	
 	//IEnergyContainerItem

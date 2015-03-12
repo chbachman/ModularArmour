@@ -101,13 +101,8 @@ public class TabConfig extends TabBase{
 
 		for (int i = 0; i < storages.length; i++){
 			ConfigurableField s = storages[i];
-			if (s == null){
-				System.out.println("WHY ARE YOU NULL. GO KILL YOURSELF");
-			}else{
-
-				this.addElement(new SliderUpgrade(this.gui, s, this.armourGui.stack, 10, 30 + 20 * i, 60, 10, 100).setValue(s.get(this.armourGui.stack)));
-				this.addElement(new ElementText(this.gui, 10, 20 + 20 * i, 100, 10).setString(s.displayName));
-			}
+			this.addElement(new SliderUpgrade(this.gui, s, this.armourGui.stack, 10, 30 + 20 * i, 60, 10, 100).setValue(s.get(this.armourGui.stack)));
+			this.addElement(new ElementText(this.gui, 10, 20 + 20 * i, 100, 10).setString(s.displayName));
 		}
 
 	}

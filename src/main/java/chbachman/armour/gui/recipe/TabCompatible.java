@@ -20,13 +20,16 @@ public class TabCompatible extends TabBase{
 
 	ItemStack[] modularItems = ArmourContainerRecipe.modularItems;
 
+	private int startIndex = 0;
+	private int maxItems = 6;
+	
 	public static ResourceLocation GRID_TEXTURE = new ResourceLocation(GuiProps.PATH_ELEMENTS + "Slot_Grid_Augment.png");
 
 	public TabCompatible(ArmourGuiRecipe gui) {
 		super(gui, 1);
 
 		this.armourGui = gui;
-		this.maxHeight = modularItems.length * 18 + 28;
+		this.maxHeight = Math.min(modularItems.length * 18 + 28, 28 + 18 * maxItems);
 		this.maxWidth = 42;
 	}
 
@@ -60,14 +63,18 @@ public class TabCompatible extends TabBase{
             list.add("Compatible?");
         }
     }
-	
+
 	@Override
 	public void drawForeground(int arg0, int arg1) {
 		super.drawForeground(arg0, arg1);
 
-		for(int i = 0; i < modularItems.length; i++){
+		if(!this.isFullyOpened()){
+			return;
+		}
+		
+		for(int i = 0; i < this.maxItems; i++){
 
-			IModularItem modularItem = (IModularItem) modularItems[i].getItem();
+			IModularItem modularItem = (IModularItem) modularItems[startIndex + i].getItem();
 
 			String iconName;
 
@@ -94,7 +101,7 @@ public class TabCompatible extends TabBase{
 
 		RenderHelper.bindTexture(GRID_TEXTURE);
 
-		for(int i = 0; i < modularItems.length; i++){
+		for(int i = 0; i < Math.min(modularItems.length, this.maxItems); i++){
 			this.drawSlots(0, i, 1);
 		}
 	}
@@ -104,8 +111,7 @@ public class TabCompatible extends TabBase{
 		super.setFullyOpen();
 
 		for (int i = 9; i < 9 + modularItems.length; i++) {
-			((Slot) this.armourGui.container.inventorySlots.get(i)).xDisplayPosition = this.posXOffset() + this.slotsBorderX1 + 4;
-			((Slot) this.armourGui.container.inventorySlots.get(i)).yDisplayPosition = this.posY + this.slotsBorderY1 + 4 + 18 * (i - 9);
+			this.displaySlots(true);
 		}
 	}
 
@@ -113,8 +119,7 @@ public class TabCompatible extends TabBase{
 	public void toggleOpen() {
 		if (this.open) {
 			for (int i = 9; i < 9 + modularItems.length; i++) {
-				((Slot) this.armourGui.container.inventorySlots.get(i)).xDisplayPosition = -this.gui.getGuiLeft() - 16;
-				((Slot) this.armourGui.container.inventorySlots.get(i)).yDisplayPosition = -this.gui.getGuiTop() - 16;
+				this.displaySlots(false);
 			}
 
 		}
@@ -124,6 +129,62 @@ public class TabCompatible extends TabBase{
 	int slotsBorderX1 = -2;
 	int slotsBorderY1 = 20;
 
+	@Override
+	public boolean onMouseWheel(int mouseX, int mouseY, int movement){
+		if(!super.onMouseWheel(mouseX, mouseY, movement)){
+			return false;
+		}
+		
+		this.startIndex += movement / 12;
+		
+		if(startIndex > this.modularItems.length - this.maxItems){
+			this.startIndex = this.modularItems.length - this.maxItems;
+		}
+		
+		if(this.startIndex < 0){
+			this.startIndex = 0;
+		}
+		
+		displaySlots(this.open);
+		return true;
+		
+	}
+	
+	private void updateSlots(){
+		
+		for(int i = 0; i < this.maxItems; i++){
+			int slotNum = i + 9;
+			
+			((Slot) this.armourGui.container.inventorySlots.get(slotNum + startIndex)).xDisplayPosition = this.posXOffset() + this.slotsBorderX1 + 4;
+			((Slot) this.armourGui.container.inventorySlots.get(slotNum + startIndex)).yDisplayPosition = this.posY + this.slotsBorderY1 + 4 + 18 * i;
+		}
+		
+		for(int i = 0; i < this.modularItems.length; i++){
+			int slotNum = i + 9;
+			
+			if(i >= startIndex && i < startIndex + this.maxItems){
+				continue;
+			}
+			
+			((Slot) this.armourGui.container.inventorySlots.get(slotNum)).xDisplayPosition = -this.gui.getGuiLeft() - 16;
+			((Slot) this.armourGui.container.inventorySlots.get(slotNum)).yDisplayPosition = -this.gui.getGuiTop() - 16;
+			
+		}
+	}
+	
+	private void displaySlots(boolean shouldDisplay){
+		
+		if(shouldDisplay){
+			this.updateSlots();
+		}else{
+			for(int i = 0; i < modularItems.length; i++){
+				((Slot) this.armourGui.container.inventorySlots.get(i)).xDisplayPosition = -this.gui.getGuiLeft() - 16;
+				((Slot) this.armourGui.container.inventorySlots.get(i)).yDisplayPosition = -this.gui.getGuiTop() - 16;
+			}
+		}
+		
+	}
+	
 	private void drawSlots(int xOffset, int yOffset, int slots) {
 		this.gui.drawSizedTexturedModalRect(this.posXOffset() + this.slotsBorderX1 + 3 + 9 * xOffset, this.posY + this.slotsBorderY1 + 3 + 18 * yOffset, 0, 0, 18 * slots, 18, 72, 18);
 	}

@@ -48,10 +48,6 @@ public class DamageEventHandler {
     		if(f.floatValue() == health.floatValue()){
     			return;
     		}else{
-    			
-    			System.out.println(f);
-    			
-    			System.out.println(health);
     			player.addChatMessage(new ChatComponentText(String.format("Damage is %s", f - health)));
     			map.put(player, health);
     			

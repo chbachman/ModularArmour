@@ -102,8 +102,6 @@ public class ArmourContainer extends Container implements IInputHandler{
             	NBTHelper.createDefaultStackTag(stack);
             	
                 stack.stackTagCompound.setInteger(packet.getString(), packet.getInt());
-                
-                System.out.println();
             }
             
         } catch (UpgradeException e) {

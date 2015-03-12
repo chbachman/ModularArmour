@@ -25,8 +25,6 @@ public abstract class UpgradeProtective extends UpgradeBasic{
 	@Override
 	public ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, ArmourSlot slot) {
 		
-		System.out.println(this.protection.get(armor));
-		
 		IEnergyContainerItem energy = EnergyUtil.getItem(armor);
 		
 		if(EnergyUtil.isEmpty(armor)){
