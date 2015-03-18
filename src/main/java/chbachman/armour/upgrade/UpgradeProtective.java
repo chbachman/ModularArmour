@@ -1,4 +1,4 @@
-package chbachman.armour.upgrade.upgradeList;
+package chbachman.armour.upgrade;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -9,6 +9,7 @@ import chbachman.api.configurability.Configurable;
 import chbachman.api.configurability.ConfigurableField;
 import chbachman.api.item.IModularItem;
 import chbachman.api.util.ArmourSlot;
+import chbachman.armour.upgrade.upgradeList.UpgradeBasic;
 import chbachman.armour.util.EnergyUtil;
 import cofh.api.energy.IEnergyContainerItem;
 
