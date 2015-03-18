@@ -7,6 +7,7 @@ import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import chbachman.api.util.ArmourSlot;
+import chbachman.armour.upgrade.UpgradeProtective;
 
 public class UpgradeArthropod extends UpgradeProtective {
 

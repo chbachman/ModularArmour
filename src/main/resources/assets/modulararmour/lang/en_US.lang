@@ -3,9 +3,20 @@ item.chbachman.armour.helmetModular.name=Modular Helmet
 item.chbachman.armour.chestplateModular.name=Modular Chestplate
 item.chbachman.armour.leggingsModular.name=Modular Leggings
 item.chbachman.armour.bootsModular.name=Modular Boots
-item.chbachman.armour.itemRing.0.name=Modular Ring
-item.chbachman.armour.itemPendant.0.name=Modular Amulet
-item.chbachman.armour.itemBelt.0.name=Modular Belt
+
+item.chbachman.armour.helmetModularLP.name=LP-powered Modular Helmet
+item.chbachman.armour.chestplateModularLP.name=LP-powered Modular Chestplate
+item.chbachman.armour.leggingsModularLP.name=LP-powered Modular Leggings
+item.chbachman.armour.bootsModularLP.name=LP-powered Modular Boots
+
+item.chbachman.armour.helmetModularMana.name=Mana-powered Modular Helmet
+item.chbachman.armour.chestplateModularMana.name=Mana-powered Modular Chestplate
+item.chbachman.armour.leggingsModularMana.name=Mana-powered Modular Leggings
+item.chbachman.armour.bootsModularMana.name=Mana-powered Modular Boots
+
+item.chbachman.armour.itemRing.name=Modular Ring
+item.chbachman.armour.itemPendant.name=Modular Amulet
+item.chbachman.armour.itemBelt.name=Modular Belt
 
 item.modulararmour.material.heatedElectrum.name=Heated Electrum
 item.modulararmour.material.temperedElectrum.name=Tempered Electrum

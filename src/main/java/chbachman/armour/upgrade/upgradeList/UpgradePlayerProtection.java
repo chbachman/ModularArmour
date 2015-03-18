@@ -6,6 +6,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import chbachman.api.util.ArmourSlot;
+import chbachman.armour.upgrade.UpgradeProtective;
 
 public class UpgradePlayerProtection extends UpgradeProtective{
 

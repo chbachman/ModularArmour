@@ -135,7 +135,7 @@ public class TabCompatible extends TabBase{
 			return false;
 		}
 		
-		this.startIndex += movement / 12;
+		this.startIndex += movement / 96;
 		
 		if(startIndex > this.modularItems.length - this.maxItems){
 			this.startIndex = this.modularItems.length - this.maxItems;
@@ -147,7 +147,6 @@ public class TabCompatible extends TabBase{
 		
 		displaySlots(this.open);
 		return true;
-		
 	}
 	
 	private void updateSlots(){

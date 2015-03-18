@@ -13,8 +13,8 @@ import cpw.mods.fml.common.Optional;
 
 public class ManaHolder extends UpgradeHolderAdv implements IManaItem{
 	
-	VariableInt mana = new VariableInt("mana", 10);
-	VariableInt maxMana = new VariableInt("mana", 10);
+	public VariableInt mana = new VariableInt("mana", 10);
+	public VariableInt maxMana = new VariableInt("mana", 10);
 	
 	public ManaHolder(IModularItem item) {
 		super(item);

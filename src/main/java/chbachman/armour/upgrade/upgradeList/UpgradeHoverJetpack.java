@@ -61,9 +61,18 @@ public class UpgradeHoverJetpack extends Upgrade {
     	//}
     	
     	if(bool){
+    		if(player.capabilities.allowFlying == true){
+    			return;
+    		}
+    		
     		player.capabilities.allowFlying = true;
             player.sendPlayerAbilities();
     	}else{
+    		
+    		if(player.capabilities.allowFlying == false){
+    			return;
+    		}
+    		
     		player.capabilities.allowFlying = false;
             player.capabilities.isFlying = false;
             player.sendPlayerAbilities();

@@ -7,6 +7,7 @@ import chbachman.api.item.IModularItem;
 import chbachman.api.nbt.NBTHelper;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.util.ArmourSlot;
+import chbachman.armour.util.InventoryUtil;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.PlayerTickEvent;
@@ -38,7 +39,7 @@ public class GenericEventHandler {
 			ItemStack playerStack = armourList[i];
 			ItemStack storedStack = storage.stacks[i];
 			
-			if(!ItemStack.areItemStacksEqual(playerStack, storedStack)){
+			if(!InventoryUtil.areItemStacksEqual(playerStack, storedStack)){
 				
 				if(playerStack != null && playerStack.getItem() instanceof IModularItem){
 					((IModularItem) playerStack.getItem()).onArmourEquip(player.worldObj, player, playerStack);
@@ -54,7 +55,7 @@ public class GenericEventHandler {
 		
 		storage.update(armourList);
 	}
-
+	
 	@SubscribeEvent
 	public void onPlayerJoinWorld(PlayerEvent.PlayerLoggedInEvent e) {
 		for (ItemStack stack : e.player.inventory.armorInventory) {

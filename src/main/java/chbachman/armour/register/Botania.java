@@ -16,6 +16,10 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class Botania implements Module{
 
 	public static IUpgrade pixie;
+	public static IUpgrade woodenEnergy;
+	public static IUpgrade manaSteelEnergy;
+	public static IUpgrade terraSteelEnergy;
+	public static IUpgrade elvenEnergy;
 
 	public static Item helmetModular;
 	public static Item chestplateModular;
@@ -67,6 +71,14 @@ public class Botania implements Module{
 	@Override
 	public void registerUpgrades(){
 		pixie = new UpgradeBasic("pixie");
+		
+		//Character.isLetter(ch)
+		
+		//woodenEnergy = new UpgradeMana("woodenEnergy", );
+		//manaSteelEnergy = new UpgradeMana("manasteelEnergy", );
+		//terraSteelEnergy = new UpgradeMana("terrasteelEnergy", );
+		//elvenEnergy = new UpgradeMana("elvenEnergy", );
+		
 	}
 
 	@Override

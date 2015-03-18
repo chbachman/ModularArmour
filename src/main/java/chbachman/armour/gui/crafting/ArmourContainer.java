@@ -20,7 +20,6 @@ import chbachman.armour.network.ArmourPacket;
 import chbachman.armour.upgrade.UpgradeException;
 import chbachman.armour.util.UpgradeUtil;
 import cofh.lib.util.helpers.ItemHelper;
-import cpw.mods.fml.common.FMLCommonHandler;
 
 public class ArmourContainer extends Container implements IInputHandler{
     
