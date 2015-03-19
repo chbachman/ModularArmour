@@ -16,8 +16,6 @@ import chbachman.armour.util.EnergyUtil;
 import chbachman.armour.util.UpgradeUtil;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
-import org.lwjgl.input.Keyboard;
-
 public class UpgradeJumpBoost extends Upgrade {
 
 	public UpgradeJumpBoost() {
