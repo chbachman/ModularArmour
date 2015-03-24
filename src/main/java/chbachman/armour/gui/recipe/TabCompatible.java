@@ -65,6 +65,10 @@ public class TabCompatible extends TabBase{
 	public void drawForeground(int arg0, int arg1) {
 		super.drawForeground(arg0, arg1);
 
+		if(!this.isFullyOpened()){
+			return;
+		}
+		
 		for(int i = 0; i < modularItems.length; i++){
 
 			IModularItem modularItem = (IModularItem) modularItems[i].getItem();

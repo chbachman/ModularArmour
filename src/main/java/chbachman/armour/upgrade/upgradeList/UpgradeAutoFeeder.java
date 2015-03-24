@@ -22,10 +22,14 @@ public class UpgradeAutoFeeder extends Upgrade{
 	private int absorbing;
 	private int eating;
 
+	private int amountToHold;
+	
 	@Override
 	public void registerConfigOptions(){
 		absorbing = ConfigHelper.get(ConfigHelper.ENERGY, this, "cost for absorbing food", 100);
 		eating = ConfigHelper.get(ConfigHelper.ENERGY, this, "cost for eating food", 100);
+		
+		amountToHold = ConfigHelper.get(ConfigHelper.OTHER, this, "amount of food to hold", 20);
 	}
     
     @Override
@@ -36,7 +40,7 @@ public class UpgradeAutoFeeder extends Upgrade{
     @Override
     public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot, int level) {
         
-        if(storedFood.get(stack) < 20){
+        if(storedFood.get(stack) < amountToHold){ //Grab the food from the player's inventory.
             for(ItemStack playerStack : player.inventory.mainInventory){
                 
                 if(playerStack == null){
@@ -46,21 +50,23 @@ public class UpgradeAutoFeeder extends Upgrade{
                 if(playerStack.getItem() instanceof ItemFood){
                     ItemFood food = (ItemFood) playerStack.getItem();
                     
-                    if((20 - storedFood.get(stack)) < food.func_150905_g(playerStack)){
-                        storedFood.set(stack, food.func_150905_g(playerStack) + storedFood.get(stack));
+                    if((amountToHold - storedFood.get(stack)) > food.func_150905_g(playerStack)){
+                        storedFood.increment(stack, food.func_150905_g(playerStack));
                         
                         playerStack.stackSize--;
                         
                         if(playerStack.stackSize <= 0){
                             playerStack = null;
                         }
+                        
+                        return absorbing;
                     }
-                    return absorbing;
+                    
                 }
             }
         }
         
-        FoodStats food = player.getFoodStats();
+        FoodStats food = player.getFoodStats(); //Feed the player if necesary.
         
         if(food.needFood() && this.storedFood.get(stack) > 0){
             
