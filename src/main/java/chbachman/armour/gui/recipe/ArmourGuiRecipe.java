@@ -40,8 +40,8 @@ public class ArmourGuiRecipe extends GuiBaseAdv{
 
 		this.leftArrow = new ElementButton(this, 5, 5, "Go Back", 227, 12, 227, 12, 227, 12, 7, 7, TEXTURE.toString());
 		this.rightArrow = new ElementButton(this, 164, 5, "Next", 235, 12, 235, 12, 235, 12, 7, 7, TEXTURE.toString());
-
-		this.upgrade = new ElementButton(this, 71, 18, "Upgrade", 227, 23, 227, 23, 16, 16, TEXTURE.toString());
+		
+		this.upgrade = new ElementButton(this, 71, 18, "Upgrade", 71, 18, 71, 18, 16, 16, TEXTURE.toString());
 		this.upgrade.setToolTip("Add Upgrade?");
 		
 		this.compatible = new TabCompatible(this);

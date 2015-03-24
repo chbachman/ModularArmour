@@ -72,7 +72,7 @@ public class TabCompatible extends TabBase{
 			return;
 		}
 		
-		for(int i = 0; i < this.maxItems; i++){
+		for(int i = 0; i < modularItems.length; i++){
 
 			IModularItem modularItem = (IModularItem) modularItems[startIndex + i].getItem();
 

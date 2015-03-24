@@ -9,6 +9,7 @@ public final class ConfigHelper{
 
 	public static final String ENERGY = "energy values";
 	public static final String SPEED = "speed values";
+	public static final String OTHER = "other values";
 
 	
 	
