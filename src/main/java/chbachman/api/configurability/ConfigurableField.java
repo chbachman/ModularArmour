@@ -3,6 +3,7 @@ package chbachman.api.configurability;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import chbachman.api.upgrade.IUpgrade;
+import chbachman.api.util.Translator;
 import chbachman.api.util.VariableInt;
 
 public class ConfigurableField extends VariableInt{
@@ -45,7 +46,7 @@ public class ConfigurableField extends VariableInt{
 	 */
 	public ConfigurableField(String key, String displayName, int defaultData) {
 		super(key, defaultData);
-		this.displayName = StatCollector.translateToLocal(displayName);
+		this.displayName = Translator.translate(displayName);
 	}
 	
 	public float getPercentage(ItemStack stack){

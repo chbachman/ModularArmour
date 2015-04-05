@@ -7,7 +7,6 @@ import net.minecraft.util.ResourceLocation;
 import chbachman.api.configurability.ConfigurableField;
 import chbachman.api.configurability.FieldList;
 import chbachman.api.upgrade.IUpgrade;
-import chbachman.api.util.VariableInt;
 import chbachman.armour.gui.ElementText;
 import chbachman.armour.network.ArmourPacket;
 import chbachman.armour.network.ArmourPacket.PacketTypes;

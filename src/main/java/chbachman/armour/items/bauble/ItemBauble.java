@@ -16,14 +16,14 @@ import vazkii.botania.api.item.IPixieSpawner;
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
 import chbachman.api.item.IModularItem;
-import chbachman.armour.items.holder.UpgradeHolderAdv;
+import chbachman.armour.items.armour.logic.UpgradeLogicAdv;
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.Optional.Interface;
 
 @Optional.InterfaceList(value = { @Interface(iface = "thaumcraft.api.IVisDiscountGear", modid = "Thaumcraft"), @Interface(iface = "vazkii.botania.api.item.IPixieSpawner", modid = "Botania"), })
 public abstract class ItemBauble extends Item implements IBauble, IModularItem, IVisDiscountGear, IPixieSpawner{
 
-	protected UpgradeHolderAdv holder;
+	protected UpgradeLogicAdv holder;
 
 	BaubleType type;
 
@@ -127,7 +127,7 @@ public abstract class ItemBauble extends Item implements IBauble, IModularItem, 
 	}
 
 	@Override
-	public UpgradeHolderAdv getHolder(){
+	public UpgradeLogicAdv getHolder(){
 		return this.holder;
 	}
 

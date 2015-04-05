@@ -3,18 +3,18 @@ package chbachman.armour.items.bauble;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import vazkii.botania.api.mana.IManaItem;
-import chbachman.armour.items.holder.ManaHolder;
+import chbachman.armour.items.armour.logic.ManaUpgradeLogic;
 import cpw.mods.fml.common.Optional;
 
 @Optional.Interface(modid = "Botania", iface = "vazkii.botania.api.mana.IManaItem")
 public class BotaniaBauble extends ItemBauble implements IManaItem{
 
 	public BotaniaBauble() {
-		this.holder = new ManaHolder(this);
+		this.holder = new ManaUpgradeLogic(this);
 	}
 
-	public ManaHolder getHolder(){
-		return (ManaHolder) this.getHolder();
+	public ManaUpgradeLogic getHolder(){
+		return (ManaUpgradeLogic) this.getHolder();
 	}
 
 	// IManaItem

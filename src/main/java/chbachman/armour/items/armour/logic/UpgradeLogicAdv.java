@@ -1,4 +1,4 @@
-package chbachman.armour.items.holder;
+package chbachman.armour.items.armour.logic;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -10,7 +10,7 @@ import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.nodes.IRevealer;
 import vazkii.botania.api.item.IPixieSpawner;
 import chbachman.api.item.IModularItem;
-import chbachman.api.item.UpgradeHolder;
+import chbachman.api.item.UpgradeLogic;
 import chbachman.api.nbt.NBTHelper;
 import chbachman.api.nbt.NBTList;
 import chbachman.api.upgrade.IUpgrade;
@@ -30,9 +30,9 @@ import cpw.mods.fml.common.Optional.Interface;
 		@Interface(iface = "thaumcraft.api.nodes.IRevealer", modid = "Thaumcraft"), 
 		@Interface(iface = "vazkii.botania.api.item.IPixieSpawner", modid = "Botania"),
 		})
-public abstract class UpgradeHolderAdv extends UpgradeHolder implements IRevealer, IGoggles, IVisDiscountGear, IPixieSpawner{
+public abstract class UpgradeLogicAdv extends UpgradeLogic implements IRevealer, IGoggles, IVisDiscountGear, IPixieSpawner{
 	
-	public UpgradeHolderAdv(IModularItem item){
+	public UpgradeLogicAdv(IModularItem item){
 		super(item);
 	}
 	

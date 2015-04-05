@@ -1,4 +1,4 @@
-package chbachman.armour.items.holder;
+package chbachman.armour.items.armour.logic;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -7,11 +7,11 @@ import WayofTime.alchemicalWizardry.api.soulNetwork.SoulNetworkHandler;
 import chbachman.api.item.IModularItem;
 import chbachman.armour.ModularArmour;
 
-public class LPHolder extends UpgradeHolderAdv{
+public class LPUpgradeLogic extends UpgradeLogicAdv{
 
 	float cost;
 	
-	public LPHolder(IModularItem item) {
+	public LPUpgradeLogic(IModularItem item) {
 		super(item);
 		cost = ModularArmour.config.get("Conversions", "1LP = ?RF", 1);
 	}

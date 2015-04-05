@@ -3,7 +3,7 @@ package chbachman.armour.upgrade.upgradeList;
 import net.minecraft.item.ItemStack;
 import chbachman.api.item.IModularItem;
 import chbachman.api.upgrade.IUpgrade;
-import chbachman.armour.items.holder.ManaHolder;
+import chbachman.armour.items.armour.logic.ManaUpgradeLogic;
 
 public class UpgradeMana extends UpgradeBasic{
 	
@@ -19,14 +19,14 @@ public class UpgradeMana extends UpgradeBasic{
 	@Override
 	public void onUpgradeAddition(IModularItem armour, ItemStack stack){
 		
-		ManaHolder holder = (ManaHolder) armour.getHolder();
+		ManaUpgradeLogic holder = (ManaUpgradeLogic) armour.getHolder();
 		
 		holder.maxMana.set(stack, capacity);
 	}
 	
 	@Override
 	public boolean isCompatible(IModularItem item, ItemStack stack, int armorType){
-		return item.getHolder() instanceof ManaHolder;
+		return item.getHolder() instanceof ManaUpgradeLogic;
 	}
 
 	@Override

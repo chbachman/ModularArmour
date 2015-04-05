@@ -1,4 +1,4 @@
-package chbachman.armour.items.holder;
+package chbachman.armour.items.armour.logic;
 
 import java.util.List;
 
@@ -11,12 +11,12 @@ import chbachman.armour.ModularArmour;
 import cofh.lib.util.helpers.StringHelper;
 import cpw.mods.fml.common.Optional;
 
-public class ManaHolder extends UpgradeHolderAdv implements IManaItem{
+public class ManaUpgradeLogic extends UpgradeLogicAdv implements IManaItem{
 	
 	public VariableInt mana = new VariableInt("mana", 10);
 	public VariableInt maxMana = new VariableInt("mana", 10);
 	
-	public ManaHolder(IModularItem item) {
+	public ManaUpgradeLogic(IModularItem item) {
 		super(item);
 	}
 

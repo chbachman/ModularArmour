@@ -1,4 +1,4 @@
-package chbachman.armour.items.holder;
+package chbachman.armour.items.armour.logic;
 
 import java.util.List;
 
@@ -16,9 +16,9 @@ import cofh.api.energy.IEnergyContainerItem;
 import cofh.lib.util.helpers.StringHelper;
 import cpw.mods.fml.common.Optional;
 
-public class RFHolder extends UpgradeHolderAdv implements IEnergyContainerItem{
+public class RFUpgradeLogic extends UpgradeLogicAdv implements IEnergyContainerItem{
 
-	public RFHolder(IModularItem item) {
+	public RFUpgradeLogic(IModularItem item) {
 		super(item);
 	}
 

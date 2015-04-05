@@ -1,18 +1,18 @@
 package chbachman.armour.items.armour;
 
 import net.minecraft.item.ItemStack;
-import chbachman.armour.items.holder.RFHolder;
+import chbachman.armour.items.armour.logic.RFUpgradeLogic;
 import cofh.api.energy.IEnergyContainerItem;
 
 public class RFModularArmour extends ItemModularArmour implements IEnergyContainerItem{
 
 	public RFModularArmour(ArmorMaterial material, int type) {
 		super(material, type);
-		this.holder = new RFHolder(this);
+		this.holder = new RFUpgradeLogic(this);
 	}
 
-	public RFHolder getHolder(){
-		return (RFHolder) this.holder;
+	public RFUpgradeLogic getHolder(){
+		return (RFUpgradeLogic) this.holder;
 	}
 	
 	public int getCapacity(ItemStack stack) {

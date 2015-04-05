@@ -16,11 +16,11 @@ import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.util.ArmourSlot;
 import cofh.lib.util.helpers.StringHelper;
 
-public abstract class UpgradeHolder implements Holder{
+public abstract class UpgradeLogic implements ArmourLogic{
 	
 	protected final IModularItem item;
 	
-	public UpgradeHolder(IModularItem item){
+	public UpgradeLogic(IModularItem item){
 		this.item = item;
 	}
 	

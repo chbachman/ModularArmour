@@ -5,7 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.util.ArmourSlot;
-import chbachman.armour.items.holder.UpgradeHolderAdv;
+import chbachman.armour.items.armour.logic.UpgradeLogicAdv;
 
 /**
  * The interface that must be implemented for upgrades to work on your armour. You must call every single method in the {@link IUpgrade} class when appropriate. 
@@ -58,6 +58,6 @@ public interface IModularItem{
 	/**
 	 * Return the Holder instance that the upgrades may use to edit data.
 	 */
-	public UpgradeHolderAdv getHolder();
+	public UpgradeLogicAdv getHolder();
 	
 }

@@ -1,11 +1,11 @@
 package chbachman.armour.items.bauble;
 
-import chbachman.armour.items.holder.LPHolder;
+import chbachman.armour.items.armour.logic.LPUpgradeLogic;
 
 public class LPBauble extends ItemBauble{
 	
 	public LPBauble(){
-		this.holder = new LPHolder(this);
+		this.holder = new LPUpgradeLogic(this);
 	}
 	
 	

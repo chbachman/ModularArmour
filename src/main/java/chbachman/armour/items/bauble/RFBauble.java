@@ -1,17 +1,17 @@
 package chbachman.armour.items.bauble;
 
 import net.minecraft.item.ItemStack;
-import chbachman.armour.items.holder.RFHolder;
+import chbachman.armour.items.armour.logic.RFUpgradeLogic;
 import cofh.api.energy.IEnergyContainerItem;
 
 public class RFBauble extends ItemBauble implements IEnergyContainerItem{
 
 	public RFBauble() {
-		this.holder = new RFHolder(this);
+		this.holder = new RFUpgradeLogic(this);
 	}
 
-	public RFHolder getHolder(){
-		return (RFHolder) this.holder;
+	public RFUpgradeLogic getHolder(){
+		return (RFUpgradeLogic) this.holder;
 	}
 	
 	//IEnergyContainerItem

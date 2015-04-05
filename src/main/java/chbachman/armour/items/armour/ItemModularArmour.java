@@ -18,14 +18,14 @@ import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.nodes.IRevealer;
 import vazkii.botania.api.item.IPixieSpawner;
 import chbachman.api.item.IModularItem;
-import chbachman.armour.items.holder.UpgradeHolderAdv;
+import chbachman.armour.items.armour.logic.UpgradeLogicAdv;
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.Optional.Interface;
 
 @Optional.InterfaceList(value = { @Interface(iface = "thaumcraft.api.IGoggles", modid = "Thaumcraft"), @Interface(iface = "thaumcraft.api.IVisDiscountGear", modid = "Thaumcraft"), @Interface(iface = "thaumcraft.api.nodes.IRevealer", modid = "Thaumcraft"), @Interface(iface = "vazkii.botania.api.item.IPixieSpawner", modid = "Botania"), })
 public abstract class ItemModularArmour extends ItemArmor implements ISpecialArmor, IModularItem, IGoggles, IVisDiscountGear, IRevealer, IPixieSpawner{
 
-	protected UpgradeHolderAdv holder;
+	protected UpgradeLogicAdv holder;
 
 	public ItemModularArmour(ArmorMaterial material, int type) {
 		super(material, 0, type);
@@ -127,7 +127,7 @@ public abstract class ItemModularArmour extends ItemArmor implements ISpecialArm
 	}
 
 	@Override
-	public UpgradeHolderAdv getHolder(){
+	public UpgradeLogicAdv getHolder(){
 		return this.holder;
 	}
 
