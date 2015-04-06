@@ -19,14 +19,14 @@ public class UpgradeMana extends UpgradeBasic{
 	@Override
 	public void onUpgradeAddition(IModularItem armour, ItemStack stack){
 		
-		ManaUpgradeLogic holder = (ManaUpgradeLogic) armour.getHolder();
+		ManaUpgradeLogic holder = (ManaUpgradeLogic) armour.getLogic();
 		
 		holder.maxMana.set(stack, capacity);
 	}
 	
 	@Override
 	public boolean isCompatible(IModularItem item, ItemStack stack, int armorType){
-		return item.getHolder() instanceof ManaUpgradeLogic;
+		return item.getLogic() instanceof ManaUpgradeLogic;
 	}
 
 	@Override

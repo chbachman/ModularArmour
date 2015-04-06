@@ -16,6 +16,7 @@ import vazkii.botania.api.item.IPixieSpawner;
 import baubles.api.BaubleType;
 import baubles.api.IBauble;
 import chbachman.api.item.IModularItem;
+import chbachman.armour.ModularArmour;
 import chbachman.armour.items.armour.logic.UpgradeLogicAdv;
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.Optional.Interface;
@@ -28,7 +29,7 @@ public abstract class ItemBauble extends Item implements IBauble, IModularItem, 
 	BaubleType type;
 
 	public ItemBauble() {
-		this.setCreativeTab(CreativeTabs.tabCombat);
+		this.setCreativeTab(ModularArmour.creativeTab);
 	}
 
 	public ItemBauble setBaubleType(BaubleType type){
@@ -127,7 +128,7 @@ public abstract class ItemBauble extends Item implements IBauble, IModularItem, 
 	}
 
 	@Override
-	public UpgradeLogicAdv getHolder(){
+	public UpgradeLogicAdv getLogic(){
 		return this.holder;
 	}
 

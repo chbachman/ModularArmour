@@ -22,7 +22,7 @@ public class UpgradeEnergy extends Upgrade{
 	@Override
 	public void onUpgradeAddition(IModularItem armour, ItemStack stack){
 		
-		RFUpgradeLogic holder = (RFUpgradeLogic) armour.getHolder();
+		RFUpgradeLogic holder = (RFUpgradeLogic) armour.getLogic();
 		
 		holder.setCapacity(stack, capacity);
 		holder.setMaxTransfer(stack, maxTransfer);
@@ -30,7 +30,7 @@ public class UpgradeEnergy extends Upgrade{
 	
 	@Override
 	public boolean isCompatible(IModularItem item, ItemStack stack, int armorType){
-		return item.getHolder() instanceof RFUpgradeLogic;
+		return item.getLogic() instanceof RFUpgradeLogic;
 	}
 
 	@Override

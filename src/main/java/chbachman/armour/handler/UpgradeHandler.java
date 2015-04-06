@@ -23,7 +23,21 @@ public class UpgradeHandler {
     }
     
     /**
-     * Add the upgrade to the ItemStack. Calls the correct methods.
+     * Add the upgrade to the ItemStack. Calls the correct methods. Catches the UpgradeException and returns false if caught.
+     * @param stack
+     * @param upgrade
+     * @return
+     */
+    public static boolean addUpgradeChecked(ItemStack stack, IUpgrade upgrade){
+    	try{
+    		return addUpgrade(stack, upgrade);
+    	}catch(UpgradeException e){
+    		return false;
+    	}
+    }
+    
+    /**
+     * Add the upgrade to the ItemStack. Calls the correct methods. Can throw a Upgrade Exception.
      * @param stack
      * @param upgrade
      * @return
@@ -37,18 +51,28 @@ public class UpgradeHandler {
             
             if (upgrade != null && checkContain(stack, upgrade) && upgrade.isCompatible(armour, stack, armour.getSlot()) && checkDependencies(stack, upgrade)) {
                 
-                upgrade.onUpgradeAddition(armour, stack);
-                
-                NBTList<IUpgrade> list = NBTHelper.getNBTUpgradeList(stack.stackTagCompound);
-                
-                list.add(upgrade);
-                
-                return true;
+                addUpgradeInternal(stack, upgrade);
                 
             }
             
         }
         return false;
+    }
+    
+    /**
+     * Adds the upgrade to the given stack, with no checks.
+     * @return
+     */
+    public static void addUpgradeInternal(ItemStack stack, IUpgrade upgrade){
+    	if (upgrade != null) {
+            
+            upgrade.onUpgradeAddition((IModularItem) stack.getItem(), stack);
+            
+            NBTList<IUpgrade> list = NBTHelper.getNBTUpgradeList(stack.stackTagCompound);
+            
+            list.add(upgrade);
+            
+        }
     }
     
     /**

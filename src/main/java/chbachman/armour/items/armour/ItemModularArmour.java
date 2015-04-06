@@ -18,6 +18,7 @@ import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.nodes.IRevealer;
 import vazkii.botania.api.item.IPixieSpawner;
 import chbachman.api.item.IModularItem;
+import chbachman.armour.ModularArmour;
 import chbachman.armour.items.armour.logic.UpgradeLogicAdv;
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.Optional.Interface;
@@ -29,7 +30,7 @@ public abstract class ItemModularArmour extends ItemArmor implements ISpecialArm
 
 	public ItemModularArmour(ArmorMaterial material, int type) {
 		super(material, 0, type);
-		this.setCreativeTab(CreativeTabs.tabCombat);
+		this.setCreativeTab(ModularArmour.creativeTab);
 	}
 
 	// Item
@@ -127,7 +128,7 @@ public abstract class ItemModularArmour extends ItemArmor implements ISpecialArm
 	}
 
 	@Override
-	public UpgradeLogicAdv getHolder(){
+	public UpgradeLogicAdv getLogic(){
 		return this.holder;
 	}
 

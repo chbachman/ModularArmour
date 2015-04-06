@@ -58,6 +58,6 @@ public interface IModularItem{
 	/**
 	 * Return the Holder instance that the upgrades may use to edit data.
 	 */
-	public UpgradeLogicAdv getHolder();
+	public UpgradeLogic getLogic();
 	
 }

@@ -47,7 +47,11 @@ public class ConfigurableField extends VariableInt{
 		super(key, defaultData);
 		this.displayName = StatCollector.translateToLocal(displayName);
 	}
-	
+	/**
+	 * Get the user-defined percentage that the armour should work at.
+	 * @param stack
+	 * @return
+	 */
 	public float getPercentage(ItemStack stack){
 		return  (float) super.get(stack) / 100F;
 	}
