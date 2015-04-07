@@ -20,7 +20,8 @@ public abstract class UpgradeProjectile extends KeybindUpgrade{
 	public boolean keyPress(EntityPlayer player){
 		return false;
 	}
-
+	
+	@SuppressWarnings("unused")
 	private static class EntityBaseProjectile extends EntityThrowable{
 
 		public EntityBaseProjectile(World p_i1582_1_) {

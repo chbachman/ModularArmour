@@ -34,5 +34,13 @@ public interface IArmourUpgrade extends IUpgrade{
 	 * @return null if no change, otherwise name of texture.
 	 */
 	String getArmourTexture(ItemStack stack, ArmourSlot slot);
+	
+	/**
+	 * Gets the name of the color to load onto the armour.
+	 * @param stack
+	 * @param slot
+	 * @return null if no change, otherwise name of the color.
+	 */
+	String getArmourColor(ItemStack stack, ArmourSlot slot);
 
 }

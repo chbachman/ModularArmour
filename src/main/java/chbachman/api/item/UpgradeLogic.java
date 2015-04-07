@@ -95,6 +95,7 @@ public abstract class UpgradeLogic implements ArmourLogic{
 	 */
 	public String getArmourTexture(ItemStack stack, Entity entity, int slot, String type){
 		String texture = "Modular";
+		String color = "";
 	
 		for(IUpgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)){
 	
@@ -103,15 +104,19 @@ public abstract class UpgradeLogic implements ArmourLogic{
 			}
 	
 			String textureLocation = ((IArmourUpgrade) upgrade).getArmourTexture(stack, ArmourSlot.getArmourSlot(slot));
-	
-			if(textureLocation == null){
-				continue;
+			
+			if(textureLocation != null){
+				texture = textureLocation;
 			}
-	
-			texture = textureLocation;
+			
+			String newColor = ((IArmourUpgrade) upgrade).getArmourColor(stack, ArmourSlot.getArmourSlot(slot));
+			
+			if(newColor != null){
+				color = newColor;
+			}
 		}
 	
-		return "modulararmour:textures/armour/" + texture + (slot == 2 ? "_2" : "_1") + ".png";
+		return "modulararmour:textures/armour/" + texture + (slot == 2 ? "_2" : "_1") + color + ".png";
 	}
 
 	/**
