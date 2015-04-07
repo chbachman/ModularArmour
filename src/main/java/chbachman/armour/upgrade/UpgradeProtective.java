@@ -19,8 +19,11 @@ public abstract class UpgradeProtective extends UpgradeBasic{
 	@Configurable
 	public ConfigurableField protection = new ConfigurableField(this.getBaseName() + "Protection", "upgrade.chbachman.protection.protection", 50);
 	
+	final int maxProtection;
+	
 	public UpgradeProtective(String name, int protection) {
 		super(name);
+		this.maxProtection = protection;
 	}
 
 	@Override
@@ -34,7 +37,12 @@ public abstract class UpgradeProtective extends UpgradeBasic{
 		
 		if(this.shouldDefend(player, armor, source, damage, slot)){
 			energy.extractEnergy(armor, (int) (this.getEnergyPerDamage(armor) * damage), false);
-			return new ArmorProperties(0, protection.get(armor) / 100D, Integer.MAX_VALUE);
+			
+			float temp = maxProtection * protection.getPercentage(armor) * (limitDamage(player, armor, source, damage, slot) / 100F);
+			
+			System.out.println(slot + " " + temp);
+			
+			return new ArmorProperties(0, temp / 100, Integer.MAX_VALUE);
 		}
 		
 		return new ArmorProperties(0,0,0);
@@ -50,6 +58,27 @@ public abstract class UpgradeProtective extends UpgradeBasic{
 		return (int) (protection.get(stack) / 25);
 	}
 
+	/**
+	 * Limits the damage protected by this piece of armour to the value returned. Default implementation just breaks up the damage protection by slot.
+	 * @param player
+	 * @param armor
+	 * @param source
+	 * @param damage
+	 * @param slot
+	 * @return
+	 */
+	public int limitDamage(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, ArmourSlot slot){
+		switch(slot){
+		
+		case HELMET: return 15;
+		case CHESTPLATE: return 40;
+		case LEGS: return 30;
+		case BOOTS: return 15;
+		default: return 0;
+			
+		}
+	}
+	
 	/**
 	 * Return whether the upgrade should defend against the current situation.
 	 * @param player
