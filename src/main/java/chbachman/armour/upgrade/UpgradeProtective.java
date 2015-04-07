@@ -40,8 +40,6 @@ public abstract class UpgradeProtective extends UpgradeBasic{
 			
 			float temp = maxProtection * protection.getPercentage(armor) * (limitDamage(player, armor, source, damage, slot) / 100F);
 			
-			System.out.println(slot + " " + temp);
-			
 			return new ArmorProperties(0, temp / 100, Integer.MAX_VALUE);
 		}
 		
