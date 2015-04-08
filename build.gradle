@@ -102,7 +102,7 @@ tasks.withType(JavaCompile) { task ->
 
 
 curse {
-    if (project.hasProperty('curse_key)) {
+    if (project.hasProperty('curse_key')) {
 	apiKey = project.curse_key
     }    
     projectId = "224011"
