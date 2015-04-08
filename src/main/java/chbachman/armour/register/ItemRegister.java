@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import chbachman.api.IUpgrade;
+import chbachman.api.upgrade.IUpgrade;
+import chbachman.api.upgrade.UpgradeList;
 import chbachman.armour.ModularArmour;
-import chbachman.armour.upgrade.UpgradeList;
 import cpw.mods.fml.common.Loader;
 
 public class ItemRegister {
@@ -72,6 +72,9 @@ public class ItemRegister {
 		
 		this.base = vanilla;
 		
+		base.registerUpgrades();
+		base.preInit();
+		
 		for(Module module : list){
 			module.registerUpgrades();
 		}
@@ -79,9 +82,6 @@ public class ItemRegister {
 		for(Module module : list){
 			module.preInit();
 		}
-		
-		base.registerUpgrades();
-		base.preInit();
 		
 		this.createRecipeList();
 		

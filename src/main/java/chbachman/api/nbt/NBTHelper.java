@@ -1,4 +1,4 @@
-package chbachman.armour.util;
+package chbachman.api.nbt;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -7,9 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.util.Constants;
-import chbachman.api.IUpgrade;
-import chbachman.api.NBTAble;
-import chbachman.api.UpgradeNBT;
+import chbachman.api.upgrade.IUpgrade;
 
 public class NBTHelper {
     

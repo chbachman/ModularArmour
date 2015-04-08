@@ -29,19 +29,6 @@ public class ArmourContainerWrapper implements IInventory {
         return this.inventory[par1];
     }
     
-    public ItemStack getStackInRowAndColumn(int p_70463_1_, int p_70463_2_)
-    {
-        if (p_70463_1_ >= 0 && p_70463_1_ < 3)
-        {
-            int k = p_70463_1_ + p_70463_2_ * 3;
-            return this.getStackInSlot(k);
-        }
-        else
-        {
-            return null;
-        }
-    }
-    
     @Override
     public ItemStack decrStackSize(int par1, int par2) {
         if (this.inventory[par1] != null) {

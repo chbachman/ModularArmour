@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.item.ItemStack;
-import chbachman.api.IModularItem;
+import chbachman.api.item.IModularItem;
 
 public class ModularArmourHandler {
 	

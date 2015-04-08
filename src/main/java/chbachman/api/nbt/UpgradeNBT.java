@@ -1,7 +1,8 @@
-package chbachman.api;
+package chbachman.api.nbt;
 
 import net.minecraft.nbt.NBTTagCompound;
-import chbachman.armour.upgrade.UpgradeList;
+import chbachman.api.upgrade.IUpgrade;
+import chbachman.api.upgrade.UpgradeList;
 
 public class UpgradeNBT implements NBTAble<IUpgrade>{
 	
@@ -15,15 +16,12 @@ public class UpgradeNBT implements NBTAble<IUpgrade>{
 			return null;
 		}
 
-		upgrade.setDisabled(nbt.getBoolean("disabled"));
-
 		return upgrade;
 	}
 
 	@Override
 	public void saveToNBT(IUpgrade upgrade, NBTTagCompound nbt){
 		nbt.setString("ID", upgrade.getBaseName());
-		nbt.setBoolean("disabled", upgrade.isDisabled());
 	}
 
 }

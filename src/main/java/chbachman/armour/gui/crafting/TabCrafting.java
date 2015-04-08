@@ -20,6 +20,7 @@ public class TabCrafting extends TabBase {
     
     int slotsBorderX1 = 7;
     int slotsBorderY1 = 20;
+
     
     public TabCrafting(ArmourGui gui) {
         super(gui, 1);

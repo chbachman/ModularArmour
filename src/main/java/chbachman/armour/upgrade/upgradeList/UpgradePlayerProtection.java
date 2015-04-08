@@ -5,12 +5,13 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
-import chbachman.armour.util.ArmourSlot;
+import chbachman.api.util.ArmourSlot;
+import chbachman.armour.upgrade.UpgradeProtective;
 
 public class UpgradePlayerProtection extends UpgradeProtective{
 
 	public UpgradePlayerProtection() {
-		super("playerProtection", .9F);
+		super("playerProtection", 90);
 	}
 
 	@Override

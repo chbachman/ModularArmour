@@ -1,6 +1,6 @@
 package chbachman.armour.upgrade;
 
-import chbachman.api.Upgrade;
+import chbachman.api.upgrade.Upgrade;
 import net.minecraft.entity.player.EntityPlayer;
 import cofh.CoFHCore;
 import cofh.core.key.IKeyBinding;

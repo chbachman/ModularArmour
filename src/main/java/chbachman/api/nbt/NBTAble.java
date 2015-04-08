@@ -1,4 +1,4 @@
-package chbachman.api;
+package chbachman.api.nbt;
 
 import net.minecraft.nbt.NBTTagCompound;
 

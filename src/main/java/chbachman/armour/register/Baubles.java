@@ -5,11 +5,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import baubles.api.BaubleType;
-import chbachman.api.IModularItem;
+import chbachman.api.item.IModularItem;
+import chbachman.api.nbt.NBTHelper;
 import chbachman.armour.ModularArmour;
-import chbachman.armour.items.ItemBauble;
+import chbachman.armour.items.bauble.RFBauble;
 import chbachman.armour.reference.Reference;
-import chbachman.armour.util.NBTHelper;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class Baubles implements Module{
@@ -24,9 +24,9 @@ public class Baubles implements Module{
 
 	@Override
 	public void preInit() {
-        itemRing = new ItemBauble().setBaubleType(BaubleType.RING).setUnlocalizedName("chbachman.armour.itemRing").setTextureName(Reference.ITEM_LOCATION + "ItemRing");
-        itemPendant = new ItemBauble().setBaubleType(BaubleType.AMULET).setUnlocalizedName("chbachman.armour.itemPendant").setTextureName(Reference.ITEM_LOCATION + "ItemPendant");
-        itemBelt = new ItemBauble().setBaubleType(BaubleType.BELT).setUnlocalizedName("chbachman.armour.itemBelt").setTextureName(Reference.ITEM_LOCATION + "ItemBelt");
+        itemRing = new RFBauble().setBaubleType(BaubleType.RING).setUnlocalizedName("chbachman.armour.itemRing").setTextureName(Reference.ITEM_LOCATION + "ItemRing");
+        itemPendant = new RFBauble().setBaubleType(BaubleType.AMULET).setUnlocalizedName("chbachman.armour.itemPendant").setTextureName(Reference.ITEM_LOCATION + "ItemPendant");
+        itemBelt = new RFBauble().setBaubleType(BaubleType.BELT).setUnlocalizedName("chbachman.armour.itemBelt").setTextureName(Reference.ITEM_LOCATION + "ItemBelt");
         GameRegistry.registerItem(itemRing, "itemRing");
         GameRegistry.registerItem(itemPendant, "itemPendant");
         GameRegistry.registerItem(itemBelt, "itemBelt");

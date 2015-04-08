@@ -8,8 +8,8 @@
   "url": "",
   "updateUrl": "",
   "authors": ["chbachman"],
-  "credits": "King Lemming, for COFH Core",
-  "logoFile": "",
+  "credits": "KL, Skyboy, and Zeldo for CoFH Core, BBoldt for textures.",
+  "logoFile": "assets/modulararmour/textures/logo.png",
   "screenshots": [],
   "dependencies": []
 }

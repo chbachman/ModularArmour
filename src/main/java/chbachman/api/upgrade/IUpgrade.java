@@ -1,9 +1,10 @@
-package chbachman.api;
+package chbachman.api.upgrade;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import chbachman.armour.util.ArmourSlot;
+import chbachman.api.item.IModularItem;
+import chbachman.api.util.ArmourSlot;
 /**
  * Interface for adding upgrades. Any armour that can hold these must call each of these methods when appropriate.
  * @author chbachman
@@ -59,7 +60,7 @@ public interface IUpgrade extends Comparable<IUpgrade>{
 	 * @param armourSlot
 	 * @return energy to be subtracted from the armour, each tick.
 	 */
-	int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot armourSlot, int level);
+	int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot armourSlot);
 	
 	/**
 	 * Called when the Upgrade is added to the armour, usually used for editing the VariableInt classes that the object contains. 
@@ -75,7 +76,7 @@ public interface IUpgrade extends Comparable<IUpgrade>{
 	 * @param stack
 	 * @param armourSlot
 	 */
-	void onEquip(World world, EntityPlayer player, ItemStack stack, ArmourSlot armourSlot, int level);
+	void onEquip(World world, EntityPlayer player, ItemStack stack, ArmourSlot armourSlot);
 
 	/**
 	 * Called when the armour is dequiped.
@@ -84,20 +85,7 @@ public interface IUpgrade extends Comparable<IUpgrade>{
 	 * @param stack
 	 * @param armourSlot
 	 */
-	void onDequip(World world, EntityPlayer player, ItemStack stack,ArmourSlot armourSlot, int level);
-	
-	/**
-	 * checks to see if the upgrade is diabled.
-	 * @return whether the upgrade is disabled.
-	 */
-	boolean isDisabled();
-	
-	/**
-	 * set whether the upgrade is disabled
-	 * @param value
-	 * @return the Upgrade
-	 */
-	IUpgrade setDisabled(boolean value);
+	void onDequip(World world, EntityPlayer player, ItemStack stack,ArmourSlot armourSlot);
 	
 	/**
 	 * Register config options here. Called during init.

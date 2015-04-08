@@ -7,8 +7,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
-import chbachman.api.Upgrade;
-import chbachman.armour.util.ArmourSlot;
+import chbachman.api.configurability.Configurable;
+import chbachman.api.configurability.ConfigurableField;
+import chbachman.api.upgrade.Upgrade;
+import chbachman.api.util.ArmourSlot;
 import chbachman.armour.util.ConfigHelper;
 
 public class UpgradeMagnet extends Upgrade{
@@ -19,14 +21,19 @@ public class UpgradeMagnet extends Upgrade{
 
 	private int cost;
 
+	@Configurable
+	public ConfigurableField f = new ConfigurableField(this, "reach");
+	
 	@Override
 	public void registerConfigOptions(){
 		cost = ConfigHelper.get(ConfigHelper.SPEED,this, "energy cost to drag items in, per item", 100);
 	}
 
 	@Override
-	public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot, int level) {
-		AxisAlignedBB box = player.boundingBox.expand(5 * (level + 1), 5 * (level + 1), 5 * (level + 1));
+	public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
+		float distanceToPull = 5 * f.getPercentage(stack);
+		
+		AxisAlignedBB box = player.boundingBox.expand(distanceToPull, distanceToPull, distanceToPull);
 
 		@SuppressWarnings("unchecked")
 		List<EntityItem> list = world.getEntitiesWithinAABB(EntityItem.class, box);
@@ -57,7 +64,7 @@ public class UpgradeMagnet extends Upgrade{
 					e.motionY += 1;
 				}
 
-				energy += cost * level;
+				energy += cost;
 			}
 		}
 

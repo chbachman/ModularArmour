@@ -1,6 +1,6 @@
 package chbachman.armour.register;
 
-import chbachman.api.IUpgrade;
+import chbachman.api.upgrade.IUpgrade;
 import chbachman.armour.crafting.Recipe;
 import chbachman.armour.upgrade.upgradeList.UpgradeCamelPack;
 import chbachman.armour.upgrade.upgradeList.UpgradeGasMask;
@@ -34,8 +34,8 @@ public class Enviromine implements Module{
 
 	@Override
 	public void registerUpgradeRecipes() {
-		Recipe.addRecipe(new Recipe(camelPack, "iii", "ici", "iii", 'i', "ingotIron", 'c', GameRegistry.findItemStack("enviromine", "camelPack", 1)));
-		Recipe.addRecipe(new Recipe(gasMask, "iii", "ici", "iii", 'i', "ingotIron", 'c', GameRegistry.findItemStack("enviromine", "gasMask", 1)));
+		Recipe.recipeList.add(new Recipe(camelPack, "iii", "ici", "iii", 'i', "ingotIron", 'c', GameRegistry.findItemStack("enviromine", "camelPack", 1)));
+		Recipe.recipeList.add(new Recipe(gasMask, "iii", "ici", "iii", 'i', "ingotIron", 'c', GameRegistry.findItemStack("enviromine", "gasMask", 1)));
 	}
 
 }

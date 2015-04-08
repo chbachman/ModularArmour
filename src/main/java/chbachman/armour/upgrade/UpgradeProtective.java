@@ -1,29 +1,29 @@
-package chbachman.armour.upgrade.upgradeList;
+package chbachman.armour.upgrade;
 
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.ISpecialArmor.ArmorProperties;
-import chbachman.api.IModularItem;
-import chbachman.armour.ModularArmour;
-import chbachman.armour.util.ArmourSlot;
+import chbachman.api.configurability.Configurable;
+import chbachman.api.configurability.ConfigurableField;
+import chbachman.api.item.IModularItem;
+import chbachman.api.util.ArmourSlot;
+import chbachman.armour.upgrade.upgradeList.UpgradeBasic;
 import chbachman.armour.util.EnergyUtil;
 import cofh.api.energy.IEnergyContainerItem;
 
 
 public abstract class UpgradeProtective extends UpgradeBasic{
 
-	float protection;
+	@Configurable
+	public ConfigurableField protection = new ConfigurableField(this.getBaseName() + "Protection", "upgrade.chbachman.protection.protection", 50);
 	
-	public UpgradeProtective(String name, float protection) {
+	final int maxProtection;
+	
+	public UpgradeProtective(String name, int protection) {
 		super(name);
-		this.protection = protection;
-		
-	}
-
-	@Override
-	public void registerConfigOptions() {
-		protection = (float) ModularArmour.config.get("defensive values", this.getName(), (double) protection);
+		this.maxProtection = protection;
 	}
 
 	@Override
@@ -37,7 +37,10 @@ public abstract class UpgradeProtective extends UpgradeBasic{
 		
 		if(this.shouldDefend(player, armor, source, damage, slot)){
 			energy.extractEnergy(armor, (int) (this.getEnergyPerDamage(armor) * damage), false);
-			return new ArmorProperties(0, protection, Integer.MAX_VALUE);
+			
+			float temp = maxProtection * protection.getPercentage(armor) * (limitDamage(player, armor, source, damage, slot) / 100F);
+			
+			return new ArmorProperties(0, temp / 100, Integer.MAX_VALUE);
 		}
 		
 		return new ArmorProperties(0,0,0);
@@ -48,12 +51,32 @@ public abstract class UpgradeProtective extends UpgradeBasic{
 		return item.isArmour();
 	}
 	
-	
 	@Override
-	public int getArmourDisplay() {
-		return (int) (protection / .25);
+	public int getArmourDisplay(EntityPlayer player, ItemStack stack, ArmourSlot slot) {
+		return (int) (protection.get(stack) / 25);
 	}
 
+	/**
+	 * Limits the damage protected by this piece of armour to the value returned. Default implementation just breaks up the damage protection by slot.
+	 * @param player
+	 * @param armor
+	 * @param source
+	 * @param damage
+	 * @param slot
+	 * @return
+	 */
+	public int limitDamage(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, ArmourSlot slot){
+		switch(slot){
+		
+		case HELMET: return 15;
+		case CHESTPLATE: return 40;
+		case LEGS: return 30;
+		case BOOTS: return 15;
+		default: return 0;
+			
+		}
+	}
+	
 	/**
 	 * Return whether the upgrade should defend against the current situation.
 	 * @param player
@@ -76,7 +99,7 @@ public abstract class UpgradeProtective extends UpgradeBasic{
 	public static class UpgradeProjectile extends UpgradeProtective {
 
 		public UpgradeProjectile() {
-			super("projectileProtector", .75F);
+			super("projectileProtector", 75);
 		}
 
 		@Override
@@ -93,7 +116,7 @@ public abstract class UpgradeProtective extends UpgradeBasic{
 	public static class UpgradeFire extends UpgradeProtective {
 
 		public UpgradeFire() {
-			super("fireProtector", .75F);
+			super("fireProtector", 75);
 		}
 
 		@Override
@@ -110,7 +133,7 @@ public abstract class UpgradeProtective extends UpgradeBasic{
 	public static class UpgradeExplosion extends UpgradeProtective {
 
 		public UpgradeExplosion() {
-			super("explosionProtector", .75F);
+			super("explosionProtector", 75);
 		}
 
 		@Override
@@ -127,7 +150,7 @@ public abstract class UpgradeProtective extends UpgradeBasic{
 	public static class UpgradeUnblockable extends UpgradeProtective {
 
 		public UpgradeUnblockable() {
-			super("unblockableProtector", .1F);
+			super("unblockableProtector", 10);
 		}
 
 		@Override
@@ -144,7 +167,7 @@ public abstract class UpgradeProtective extends UpgradeBasic{
 	public static class UpgradeMagic extends UpgradeProtective {
 
 		public UpgradeMagic() {
-			super("magicProtector", .2F);
+			super("magicProtector", 20);
 		}
 
 		@Override
@@ -160,7 +183,7 @@ public abstract class UpgradeProtective extends UpgradeBasic{
 	public static class UpgradeWither extends UpgradeProtective {
 
 		public UpgradeWither() {
-			super("witherProtector", .2F);
+			super("witherProtector", 20);
 		}
 
 		@Override
@@ -177,7 +200,7 @@ public abstract class UpgradeProtective extends UpgradeBasic{
 	public static class UpgradeLava extends UpgradeProtective {
 
 		public UpgradeLava() {
-			super("lavaProtector", .75F);
+			super("lavaProtector", 75);
 		}
 
 		@Override

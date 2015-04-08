@@ -4,9 +4,15 @@ public class Reference {
     
     public final static String MODID = "ModularArmour";
     public final static String MODNAME = "Modular Armour";
-    public final static String VERSION = "0.1.4";
+    public final static String VERSION = "0.2.0";
     public final static String CHANNEL = "ModularArmour";
-    public final static String DEPENDENCIES = "required-after:CoFHCore;after:Thaumcraft;after:ThermalExpansion;after:Baubles;after:Botania;after:AWWayOfTime;after:MineTweaker3";
+    public final static String DEPENDENCIES = "required-after:CoFHCore;"
+    												 + "after:Thaumcraft;"
+    												 + "after:ThermalExpansion;"
+    												 + "after:Baubles;"
+    												 + "after:Botania;"
+    												 + "after:AWWayOfTime;"
+    												 + "after:MineTweaker3";
     
     // ;after:ThermalExpansion
     

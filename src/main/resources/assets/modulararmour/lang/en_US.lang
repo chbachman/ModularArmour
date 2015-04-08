@@ -3,9 +3,20 @@ item.chbachman.armour.helmetModular.name=Modular Helmet
 item.chbachman.armour.chestplateModular.name=Modular Chestplate
 item.chbachman.armour.leggingsModular.name=Modular Leggings
 item.chbachman.armour.bootsModular.name=Modular Boots
-item.chbachman.armour.itemRing.0.name=Modular Ring
-item.chbachman.armour.itemPendant.0.name=Modular Amulet
-item.chbachman.armour.itemBelt.0.name=Modular Belt
+
+item.chbachman.armour.helmetModularLP.name=LP-powered Modular Helmet
+item.chbachman.armour.chestplateModularLP.name=LP-powered Modular Chestplate
+item.chbachman.armour.leggingsModularLP.name=LP-powered Modular Leggings
+item.chbachman.armour.bootsModularLP.name=LP-powered Modular Boots
+
+item.chbachman.armour.helmetModularMana.name=Mana-powered Modular Helmet
+item.chbachman.armour.chestplateModularMana.name=Mana-powered Modular Chestplate
+item.chbachman.armour.leggingsModularMana.name=Mana-powered Modular Leggings
+item.chbachman.armour.bootsModularMana.name=Mana-powered Modular Boots
+
+item.chbachman.armour.itemRing.name=Modular Ring
+item.chbachman.armour.itemPendant.name=Modular Amulet
+item.chbachman.armour.itemBelt.name=Modular Belt
 
 item.modulararmour.material.heatedElectrum.name=Heated Electrum
 item.modulararmour.material.temperedElectrum.name=Tempered Electrum
@@ -52,7 +63,6 @@ upgrade.chbachman.solarRedstone.name=Redstone Solar Helmet
 upgrade.chbachman.solarResonant.name=Resonant Solar Helmet
 upgrade.chbachman.solarAdvanced.name=Advanced Solar Helmet
 upgrade.chbachman.solarUltimate.name=Ultimate Solar Helmet
-
 upgrade.chbachman.undead.name=Undead Protection
 upgrade.chbachman.arthropod.name=Arthropod Protection
 upgrade.chbachman.fireProtector.name=Fire Protection
@@ -61,7 +71,10 @@ upgrade.chbachman.magicProtector.name=Magic Protector
 upgrade.chbachman.lavaProtector.name=Lava Protection
 upgrade.chbachman.playerProtection.name=Player Protector
 upgrade.chbachman.witherProtector.name=Wither Protector
+upgrade.chbachman.explosionProtector.name=Explosion Protector
 
+upgrade.chbachman.speed.speed=Speed
+upgrade.chbachman.protection.protection=Protection
 
 upgrade.chbachman.jetpack.information=Allows you to fly like you are in creative. It is recommended to have Calf Shields.
 upgrade.chbachman.calfShields.information=Rocket Packs are easy. The hard part is inventing the Calf Shields.
@@ -97,7 +110,6 @@ upgrade.chbachman.solarRedstone.information=A solar helmet. Makes energy. (64RF/
 upgrade.chbachman.solarResonant.information=A solar helmet. Makes energy. (512RF/t)
 upgrade.chbachman.solarAdvanced.information=A solar helmet. Makes energy. (4096RF/t)
 upgrade.chbachman.solarUltimate.information=A solar helmet. Makes energy. (32768RF/t)
-
 upgrade.chbachman.undead.information=Protects you from attacks from the undead.
 upgrade.chbachman.arthropod.information=Protects you from attacks from spiders.
 upgrade.chbachman.fireProtector.information=Uses the insulating power of leather, and the conducting power of gold to protect you from heat. 
@@ -106,3 +118,5 @@ upgrade.chbachman.magicProtector.information=Uses the mixture of gold and iron t
 upgrade.chbachman.lavaProtector.information=Contains the Red Orb. Do not put near Groudon. 
 upgrade.chbachman.playerProtection.information=Protects against attacks by players.
 upgrade.chbachman.witherProtector.information=Withers are just not as mean anymore.
+upgrade.chbachman.explosionProtector.information=This somehow uses TnT to protect against explosions. How, I have no idea.
+

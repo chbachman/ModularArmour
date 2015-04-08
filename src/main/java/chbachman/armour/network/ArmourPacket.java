@@ -3,11 +3,11 @@ package chbachman.armour.network;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
-import chbachman.api.IModularItem;
-import chbachman.api.IUpgrade;
+import chbachman.api.item.IModularItem;
+import chbachman.api.nbt.NBTHelper;
+import chbachman.api.upgrade.IUpgrade;
+import chbachman.api.util.ArmourSlot;
 import chbachman.armour.gui.IInputHandler;
-import chbachman.armour.util.ArmourSlot;
-import chbachman.armour.util.NBTHelper;
 import cofh.core.network.PacketCoFHBase;
 import cofh.core.network.PacketHandler;
 
@@ -90,7 +90,7 @@ public class ArmourPacket extends PacketCoFHBase {
             	IModularItem armour = (IModularItem) stack.getItem();
                 
                 for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
-                    upgrade.onEquip(player.worldObj, player, stack, ArmourSlot.getArmourSlot(armour.getSlot()), armour.getLevel(stack));
+                    upgrade.onEquip(player.worldObj, player, stack, ArmourSlot.getArmourSlot(armour.getSlot()));
                 }
                 
             }

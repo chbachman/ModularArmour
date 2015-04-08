@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
-import chbachman.api.IUpgrade;
-import chbachman.armour.gui.ArmourContainerWrapper;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+import chbachman.api.upgrade.IUpgrade;
 
 public class Recipe
 {
@@ -143,7 +143,7 @@ public class Recipe
     /**
      * Returns an Item that is the result of this recipe
      */
-    public IUpgrade getCraftingResult(ArmourContainerWrapper var1){ return output;}
+    public IUpgrade getCraftingResult(){ return output;}
 
     /**
      * Returns the size of the recipe area
@@ -159,7 +159,7 @@ public class Recipe
     /**
      * Used to check if a recipe matches current crafting inventory
      */
-    public boolean matches(ArmourContainerWrapper inv)
+    public boolean matches(IInventory inv)
     {
         for (int x = 0; x <= MAX_CRAFT_GRID_WIDTH - width; x++)
         {
@@ -179,7 +179,7 @@ public class Recipe
 
         return false;
     }
-
+    
     @SuppressWarnings("unchecked")
     /**
      * Checks whether the inventory matches the current recipe.
@@ -189,7 +189,7 @@ public class Recipe
      * @param mirror
      * @return
      */
-    private boolean checkMatch(ArmourContainerWrapper inv, int startX, int startY, boolean mirror)
+    private boolean checkMatch(IInventory inv, int startX, int startY, boolean mirror)
     {
         for (int x = 0; x < MAX_CRAFT_GRID_WIDTH; x++)
         {
@@ -211,7 +211,7 @@ public class Recipe
                     }
                 }
 
-                ItemStack slot = inv.getStackInRowAndColumn(x, y);
+                ItemStack slot = inv.getStackInSlot(x + y * 3);
 
                 if (target instanceof ItemStack)
                 {
@@ -247,21 +247,21 @@ public class Recipe
 
     /**
      * Checks the match with another recipe.
-     * @param inv
+     * @param recipe
      * @return
      */
-    public boolean matches(Recipe inv)
+    public boolean matches(Recipe recipe)
     {
         for (int x = 0; x <= MAX_CRAFT_GRID_WIDTH - width; x++)
         {
             for (int y = 0; y <= MAX_CRAFT_GRID_HEIGHT - height; ++y)
             {
-                if (checkMatch(inv, x, y, false))
+                if (checkMatch(recipe, x, y, false))
                 {
                     return true;
                 }
 
-                if (mirrored && checkMatch(inv, x, y, true))
+                if (mirrored && checkMatch(recipe, x, y, true))
                 {
                     return true;
                 }
@@ -376,47 +376,7 @@ public class Recipe
     }
     
     
-    public static List<Recipe> craftingList = new ArrayList<Recipe>();
-    
-    public static IUpgrade getResult(ArmourContainerWrapper crafting){
-    	for(Recipe recipe : craftingList){
-    		if(recipe.matches(crafting)){
-    			return recipe.getCraftingResult(crafting);
-    		}
-    	}
-    	
-    	return null;
-    }
-    
-    /**
-     * Adds the recipe to the current list;
-     * @param recipe
-     */
-    public static void addRecipe(Recipe recipe){
-    	craftingList.add(recipe);
-    }
-    
-    /**
-     * Removes the upgrade from the recipe list.
-     * @param upgrade
-     */
-    public static void removeRecipe(IUpgrade upgrade){
-    	Iterator<Recipe> iterator = craftingList.iterator();
-    	
-    	while(iterator.hasNext()){
-    		if(iterator.next().output.equals(upgrade)){
-    			iterator.remove();
-    		}
-    	}
-    }
-    
-    /**
-     * Removes the recipe from the recipe list;
-     * @param upgrade
-     */
-    public static void removeRecipe(Recipe upgrade){
-    	craftingList.remove(upgrade);
-    }
+    public static RecipeList recipeList = new RecipeList();
     
     public String toString(){
     	return "Output: " + this.output + "Input: " + Arrays.toString(this.input);

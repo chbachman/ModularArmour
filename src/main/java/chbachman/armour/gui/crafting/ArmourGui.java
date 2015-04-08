@@ -6,7 +6,8 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
-import chbachman.api.IUpgrade;
+import chbachman.api.nbt.NBTHelper;
+import chbachman.api.upgrade.IUpgrade;
 import chbachman.armour.ModularArmour;
 import chbachman.armour.gui.GuiHandler;
 import chbachman.armour.handler.UpgradeHandler;
@@ -14,7 +15,6 @@ import chbachman.armour.network.ArmourPacket;
 import chbachman.armour.network.ArmourPacket.PacketTypes;
 import chbachman.armour.reference.ResourceLocationHelper;
 import chbachman.armour.upgrade.UpgradeException;
-import chbachman.armour.util.NBTHelper;
 import chbachman.armour.util.UpgradeUtil;
 import cofh.core.gui.GuiBaseAdv;
 import cofh.core.network.PacketHandler;
@@ -30,9 +30,12 @@ public class ArmourGui extends GuiBaseAdv {
     public TabCrafting tabCrafting;
     public TabError scrolledText;
     public TabUpgradeRemoval removal;
+    public TabConfig config;
     
     public IUpgrade selectedUpgrade;
     public ItemStack stack;
+    
+    public float gameTick;
     
     public ArmourGui(ArmourContainer container, InventoryPlayer inventory) {
         super(container, TEXTURE);
@@ -50,7 +53,8 @@ public class ArmourGui extends GuiBaseAdv {
     public void initGui() {
         super.initGui();
         
-        this.list = new UpgradeComponent(this.fontRendererObj, this.guiLeft + 8, this.guiTop + 5, 160, 14, stack);
+        this.list = new UpgradeComponent(this, 8, 5, 160, 14, stack);
+        this.addElement(list);
         
         this.getUpgradeList();
         
@@ -65,6 +69,9 @@ public class ArmourGui extends GuiBaseAdv {
         this.removal = new TabUpgradeRemoval(this);
         this.addTab(this.removal);
         
+        this.config = new TabConfig(this);
+        this.addTab(this.config);
+        
         this.list.setEnabled(true);
     }
     
@@ -72,14 +79,15 @@ public class ArmourGui extends GuiBaseAdv {
     protected void mouseClicked(int mX, int mY, int mouseButton) {
         super.mouseClicked(mX, mY, mouseButton);
         
-        if (mX > 5 + this.guiLeft && mX < 165 + this.guiLeft && mY > 5) {
-            this.selectedUpgrade = this.list.mouseClicked(mX, mY, mouseButton, this.guiTop + 5);
-        }
+        this.selectedUpgrade = this.list.getSelectedUpgrade();
+        
+        this.config.onUpgradeSelected(selectedUpgrade);
         
     }
     
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTick, int x, int y) {
+    	this.gameTick = partialTick;
     	GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		bindTexture(texture);
 		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
@@ -94,7 +102,7 @@ public class ArmourGui extends GuiBaseAdv {
 		GL11.glPopMatrix();
         
         this.getUpgradeList();
-        this.list.drawText();
+        
     }
     
     @Override

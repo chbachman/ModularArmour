@@ -7,8 +7,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import baubles.api.BaublesApi;
-import chbachman.api.IModularItem;
-import chbachman.api.IUpgrade;
+import chbachman.api.item.IModularItem;
+import chbachman.api.nbt.NBTHelper;
+import chbachman.api.nbt.NBTList;
+import chbachman.api.upgrade.IUpgrade;
 
 public class BaublesUtil{
 

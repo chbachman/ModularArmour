@@ -4,9 +4,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import chbachman.api.IModularItem;
-import chbachman.api.Upgrade;
-import chbachman.armour.util.ArmourSlot;
+import chbachman.api.item.IModularItem;
+import chbachman.api.upgrade.Upgrade;
+import chbachman.api.util.ArmourSlot;
 import cofh.lib.util.helpers.EnergyHelper;
 
 public class UpgradeSolar extends Upgrade
@@ -20,7 +20,7 @@ public class UpgradeSolar extends Upgrade
     }
     
     @Override
-    public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot, int level)
+    public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot)
     {
         if (15 == world.getBlockLightValue(MathHelper.floor_double(player.posX), MathHelper.floor_double(player.posY), MathHelper.floor_double(player.posZ)))
         {

@@ -1,10 +1,10 @@
 package chbachman.armour.upgrade.upgradeList;
 
 import net.minecraft.item.ItemStack;
-import chbachman.api.IModularItem;
-import chbachman.api.Upgrade;
-import chbachman.armour.util.ArmourSlot;
-import chbachman.armour.util.NBTHelper;
+import chbachman.api.item.IModularItem;
+import chbachman.api.nbt.NBTHelper;
+import chbachman.api.upgrade.Upgrade;
+import chbachman.api.util.ArmourSlot;
 
 public class UpgradeGasMask extends Upgrade{
 

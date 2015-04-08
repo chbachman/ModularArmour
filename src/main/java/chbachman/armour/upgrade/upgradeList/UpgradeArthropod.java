@@ -6,12 +6,13 @@ import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
-import chbachman.armour.util.ArmourSlot;
+import chbachman.api.util.ArmourSlot;
+import chbachman.armour.upgrade.UpgradeProtective;
 
 public class UpgradeArthropod extends UpgradeProtective {
 
 	public UpgradeArthropod() {
-		super("arthropod", 0.75F);
+		super("arthropod", 75);
 	}
 
 	@Override

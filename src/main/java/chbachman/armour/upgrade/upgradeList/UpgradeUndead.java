@@ -6,12 +6,13 @@ import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
-import chbachman.armour.util.ArmourSlot;
+import chbachman.api.util.ArmourSlot;
+import chbachman.armour.upgrade.UpgradeProtective;
 
 public class UpgradeUndead extends UpgradeProtective{
 
 	public UpgradeUndead() {
-		super("undead", .75F);
+		super("undead", 75);
 	}
 
 	@Override

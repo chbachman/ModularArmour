@@ -2,7 +2,7 @@ package chbachman.armour.gui;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
-import chbachman.api.IModularItem;
+import chbachman.api.item.IModularItem;
 import chbachman.armour.gui.crafting.ArmourContainer;
 import chbachman.armour.gui.crafting.ArmourGui;
 import chbachman.armour.gui.recipe.ArmourContainerRecipe;

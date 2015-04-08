@@ -6,9 +6,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
-import chbachman.api.IModularItem;
-import chbachman.api.Upgrade;
-import chbachman.armour.util.ArmourSlot;
+import chbachman.api.configurability.Configurable;
+import chbachman.api.configurability.ConfigurableField;
+import chbachman.api.item.IModularItem;
+import chbachman.api.upgrade.Upgrade;
+import chbachman.api.util.ArmourSlot;
 import chbachman.armour.util.ConfigHelper;
 import chbachman.armour.util.EnergyUtil;
 import chbachman.armour.util.UpgradeUtil;
@@ -24,9 +26,12 @@ public class UpgradeJumpBoost extends Upgrade {
 
 	private int cost;
 
+	@Configurable
+	public ConfigurableField f = new ConfigurableField(this, "jumpHeight");
+	
 	@Override
 	public void registerConfigOptions(){
-		cost = ConfigHelper.get(ConfigHelper.SPEED,this, "cost to jump high", 1000);
+		cost = ConfigHelper.get(ConfigHelper.SPEED, this, "cost to jump high", 1000);
 	}
 
 	@SubscribeEvent
@@ -42,10 +47,9 @@ public class UpgradeJumpBoost extends Upgrade {
 				// You might not always want to jump 10 blocks high :P
 				if(stack != null && EnergyUtil.getEnergyStored(stack) > energyCost && !player.isSneaking()){
 					IModularItem modularItem = (IModularItem) stack.getItem();
-					int level = modularItem.getLevel(stack);
 					
-					(modularItem).extractEnergy(stack, energyCost * level + 1, false);
-					player.motionY += .3 * level + 1;
+					(modularItem).damageArmour(stack, energyCost + 1);
+					player.motionY += .3 * f.getPercentage(stack) + 1;
 					
 				}
 			}
