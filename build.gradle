@@ -106,11 +106,9 @@ curse {
 	apiKey = project.curse_key
     }    
     projectId = "224011"
-    changelog = """
-    
-    """
+    changelog = project.hasProperty('changelog') ? project.changelog : ''
     releaseType = "release"
-    
+    relatedProject 'cofhcore': 'requiredLibrary'
     
     
     additionalArtifact deobfJar
