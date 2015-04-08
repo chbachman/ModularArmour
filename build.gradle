@@ -104,16 +104,15 @@ tasks.withType(JavaCompile) { task ->
 curse {
     if (project.hasProperty('curse_key)) {
 	apiKey = project.curse_key
-    }else{
-        apiKey = "";
-    }
-    
+    }    
     projectId = "224011"
     changelog = """
     
     """
     releaseType = "release"
-
+    
+    
+    
     additionalArtifact deobfJar
     
 }
