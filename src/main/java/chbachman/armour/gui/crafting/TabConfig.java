@@ -79,12 +79,7 @@ public class TabConfig extends TabBase{
 		}
 	}
 
-	public boolean isCoordsInBorders(int xCoord, int yCoord, int x, int x2, int y, int y2){
-		return xCoord > x && xCoord < x2 && yCoord > y && yCoord < y2;
-	}
-
-	public void onUpgradeSelected(){
-		IUpgrade upgrade = this.armourGui.selectedUpgrade;
+	public void onUpgradeSelected(IUpgrade upgrade){
 
 		if (upgrade == null){
 			return;

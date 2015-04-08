@@ -53,7 +53,8 @@ public class ArmourGui extends GuiBaseAdv {
     public void initGui() {
         super.initGui();
         
-        this.list = new UpgradeComponent(this.fontRendererObj, this.guiLeft + 8, this.guiTop + 5, 160, 14, stack);
+        this.list = new UpgradeComponent(this, 8, 5, 160, 14, stack);
+        this.addElement(list);
         
         this.getUpgradeList();
         
@@ -78,11 +79,9 @@ public class ArmourGui extends GuiBaseAdv {
     protected void mouseClicked(int mX, int mY, int mouseButton) {
         super.mouseClicked(mX, mY, mouseButton);
         
-        if (mX > 5 + this.guiLeft && mX < 165 + this.guiLeft && mY > 5) {
-            this.selectedUpgrade = this.list.mouseClicked(mX, mY, mouseButton, this.guiTop + 5);
-            this.config.onUpgradeSelected();
-            
-        }
+        this.selectedUpgrade = this.list.getSelectedUpgrade();
+        
+        this.config.onUpgradeSelected(selectedUpgrade);
         
     }
     
@@ -103,8 +102,6 @@ public class ArmourGui extends GuiBaseAdv {
 		GL11.glPopMatrix();
         
         this.getUpgradeList();
-        this.list.drawText();
-        
         
     }
     
