@@ -103,15 +103,10 @@ public class ArmourGuiRecipe extends GuiBaseAdv{
 
 		if (buttonName.equals("Go Back")){
 			this.container.index--;
-			try{
-				this.container.recipe = Recipe.recipeList.get(this.container.index);
-			}catch (IndexOutOfBoundsException e){
-				this.container.index = Recipe.recipeList.size() - 1;
-				this.container.recipe = Recipe.recipeList.get(this.container.index);
-			}
+			wrapIndex();
 		}else if (buttonName.equals("Next")){
 			this.container.index++;
-			this.container.recipe = Recipe.recipeList.get(this.container.index % Recipe.recipeList.size());
+			wrapIndex();
 
 		}else if (buttonName.equals("Upgrade")){
 
@@ -119,7 +114,22 @@ public class ArmourGuiRecipe extends GuiBaseAdv{
 
 		PacketHandler.sendToServer(ArmourPacket.getPacket(PacketTypes.BUTTON).addString(buttonName).addInt(this.container.index));
 	}
-
+	
+	public void wrapIndex(){
+		int min = 0;
+		int max = Recipe.recipeList.size();
+		
+		if(this.container.index >= max){
+			this.container.index = max - 1;
+		}
+		
+		if(this.container.index < min){
+			this.container.index = min;
+		}
+		
+		this.container.recipe = Recipe.recipeList.get(this.container.index);
+	}
+	
 	@Override
 	public void keyTyped(char characterTyped, int keyPressed){
 		if (keyPressed == Keyboard.KEY_ESCAPE || characterTyped == this.mc.gameSettings.keyBindInventory.getKeyCode()){

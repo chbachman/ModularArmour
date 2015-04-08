@@ -135,7 +135,7 @@ public class TabCompatible extends TabBase{
 			return false;
 		}
 		
-		this.startIndex += movement / 96;
+		this.startIndex += Math.signum(movement);
 		
 		if(startIndex > this.modularItems.length - this.maxItems){
 			this.startIndex = this.modularItems.length - this.maxItems;
@@ -177,8 +177,8 @@ public class TabCompatible extends TabBase{
 			this.updateSlots();
 		}else{
 			for(int i = 0; i < modularItems.length; i++){
-				((Slot) this.armourGui.container.inventorySlots.get(i)).xDisplayPosition = -this.gui.getGuiLeft() - 16;
-				((Slot) this.armourGui.container.inventorySlots.get(i)).yDisplayPosition = -this.gui.getGuiTop() - 16;
+				((Slot) this.armourGui.container.inventorySlots.get(i + 9)).xDisplayPosition = -this.gui.getGuiLeft() - 16;
+				((Slot) this.armourGui.container.inventorySlots.get(i + 9)).yDisplayPosition = -this.gui.getGuiTop() - 16;
 			}
 		}
 		

@@ -16,9 +16,15 @@ public class UpgradePotion extends Upgrade {
 	public final PotionEffect effect;
 	public final int energyCost;
 	
-	public UpgradePotion(String name, Potion effect, int duration, int energyCost) {
+	public UpgradePotion(String name, Potion effect, int level, int energyCost) {
 		super(name);
-		this.effect = new PotionEffect(effect.id, duration, 0, false);
+		this.effect = new PotionEffect(effect.id, level, 0, false);
+		this.energyCost = energyCost;
+	}
+	
+	public UpgradePotion(String name, Potion effect, int level, int duration, int energyCost){
+		super(name);
+		this.effect = new PotionEffect(effect.id, level, duration, false);
 		this.energyCost = energyCost;
 	}
 	
@@ -29,7 +35,7 @@ public class UpgradePotion extends Upgrade {
 			return 0;
 		}
 		
-		player.addPotionEffect(new PotionEffect(effect.getPotionID(), 1, effect.getDuration()));
+		player.addPotionEffect(new PotionEffect(effect));
 		return energyCost;
     }
 	

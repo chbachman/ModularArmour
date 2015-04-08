@@ -119,7 +119,7 @@ public class Vanilla implements Module{
 		autoFeeder = new UpgradeAutoFeeder();
 		jumpBoost = new UpgradeJumpBoost();
 		electrolyzer = new UpgradeElectrolyzer();
-		nightVision = new UpgradePotion("nightVision", Potion.nightVision, 0, 250);
+		nightVision = new UpgradePotion("nightVision", Potion.nightVision, 10, 250);
 		invisibility = new UpgradePotion("invisibility", Potion.invisibility, 10, 500);
 		magnet = new UpgradeMagnet();
 
@@ -193,6 +193,7 @@ public class Vanilla implements Module{
 		Recipe.recipeList.add(new Recipe(lavaProtection, "oio", "ooo", "oio", 'o', Blocks.obsidian, 'i', "ingotIron"));
 		Recipe.recipeList.add(new Recipe(playerProtection, "cih", "iii", "iii", 'i', "ingotIron", 'c', Blocks.crafting_table, 'h', Blocks.chest));
 		Recipe.recipeList.add(new Recipe(witherProtection, "cic", "cwc", "cic", 'i', "ingotIron", 'w', Items.skull, 'c', Items.coal));
+		Recipe.recipeList.add(new Recipe(explosionProtection, "tit", "iti", "tit", 't', Blocks.tnt, 'i', "ingotIron"));
 	}
 
 	public final void postInit(){
