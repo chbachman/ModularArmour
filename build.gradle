@@ -78,7 +78,7 @@ repositories {
 dependencies {
     compile name: 'CoFHCore', version: "${cofhcore_version}", ext: 'jar'
     compile name: 'MineTweaker3', version: "${minetweaker_version}", ext: 'jar'
-	compile 'net.industrial-craft:industrialcraft-${ic2_version}-experimental:api'
+	compile 'net.industrial-craft:industrialcraft-2:${ic2_version}-experimental:api'
 }
 
 jar {
