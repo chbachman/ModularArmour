@@ -25,7 +25,7 @@ def build_number = 'CUSTOM'
 if (System.getenv('BUILD_NUMBER') != null)
     build_number = System.getenv('BUILD_NUMBER')
 
-version = "${mc_version}-${mod_version}"
+version = "${mc_version}-${mod_version}-${build_number}"
 group= package_group
 archivesBaseName = mod_name
 
@@ -59,10 +59,10 @@ processResources {
 }
 
 repositories {
-	ivy {
-		name "CoFHCore"
-        artifactPattern "http://addons-origin.cursecdn.com/files/2229/440/[module]-[revision].[ext]"
-    }
+	maven {
+         name = "CurseForge"
+         url = "https://minecraft.curseforge.com/api/" + project.curse_key
+     }
 	
 	ivy {
 		name "MineTweaker3"
@@ -76,9 +76,9 @@ repositories {
 }
 
 dependencies {
-    compile name: 'CoFHCore', version: "${cofhcore_version}", ext: 'jar'
     compile name: 'MineTweaker3', version: "${minetweaker_version}", ext: 'jar'
 	compile "net.industrial-craft:industrialcraft-2:${ic2_version}-experimental:api"
+	compile "cofhcore:CoFHCore-${cofhcore_version}.jar"
 }
 
 jar {
@@ -125,6 +125,8 @@ curse {
     if (project.hasProperty('curse_key')) {
 	apiKey = project.curse_key
     }    
+	
+	displayName = "Modular Armour - ${mc_version} - ${mod_version}"
     projectId = "224011"
     changelog = project.hasProperty('changelog') ? project.changelog : ''
     releaseType = "release"
