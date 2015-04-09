@@ -25,7 +25,7 @@ def build_number = 'CUSTOM'
 if (System.getenv('BUILD_NUMBER') != null)
     build_number = System.getenv('BUILD_NUMBER')
 
-version = "${mc_version}-${mod_version}-${build_number}"
+version = "${mc_version}-${mod_version}"
 group= package_group
 archivesBaseName = mod_name
 
@@ -63,20 +63,40 @@ repositories {
 		name "CoFHCore"
         artifactPattern "http://addons-origin.cursecdn.com/files/2229/440/[module]-[revision].[ext]"
     }
+	
 	ivy {
 		name "MineTweaker3"
         artifactPattern "http://minetweaker3.powerofbytes.com/download/[module]-[revision].[ext]"
     }
+	
+	maven {
+		name = "ic2"
+		url = "http://maven.ic2.player.to/"
+	}
 }
 
 dependencies {
     compile name: 'CoFHCore', version: "${cofhcore_version}", ext: 'jar'
     compile name: 'MineTweaker3', version: "${minetweaker_version}", ext: 'jar'
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+	compile 'net.industrial-craft:industrialcraft-${ic2_version}-experimental:api'
 }
 
 jar {
     classifier = ''
+}
+
+task 'v++' <<{
+	Properties props = new Properties() 
+	File propsFile = new File('gradle.properties') 
+	
+	props.load(propsFile.newDataInputStream()) 
+	
+	String nextbuildnum = props.getProperty('mod_version')
+	int index = nextbuildnum.lastIndexOf('.')
+	props.setProperty('mod_version', nextbuildnum.substring(0, index + 1) + ((nextbuildnum.substring(index + 1) as Integer) + 1).toString())
+
+	props.store(propsFile.newWriter(), null) 
+	props.load(propsFile.newDataInputStream())
 }
 
 task sourceJar(type: Jar) {
@@ -110,7 +130,6 @@ curse {
     releaseType = "release"
     relatedProject 'cofhcore': 'requiredLibrary'
     
-    
     additionalArtifact deobfJar
     
 }
@@ -125,6 +144,7 @@ publishing {
             artifact deobfJar
         }
     }
+	
     repositories {
         if (project.hasProperty('maven_repo')) {
             maven { url maven_repo }
