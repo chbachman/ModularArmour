@@ -96,7 +96,6 @@ task 'v++' <<{
 	props.setProperty('mod_version', nextbuildnum.substring(0, index + 1) + ((nextbuildnum.substring(index + 1) as Integer) + 1).toString())
 
 	props.store(propsFile.newWriter(), null) 
-	props.load(propsFile.newDataInputStream())
 }
 
 task sourceJar(type: Jar) {

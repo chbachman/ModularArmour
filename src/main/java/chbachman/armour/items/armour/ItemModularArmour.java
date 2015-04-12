@@ -1,5 +1,7 @@
 package chbachman.armour.items.armour;
 
+import ic2.api.item.IMetalArmor;
+
 import java.util.List;
 
 import net.minecraft.entity.Entity;
@@ -22,8 +24,14 @@ import chbachman.armour.items.armour.logic.UpgradeLogicAdv;
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.Optional.Interface;
 
-@Optional.InterfaceList(value = { @Interface(iface = "thaumcraft.api.IGoggles", modid = "Thaumcraft"), @Interface(iface = "thaumcraft.api.IVisDiscountGear", modid = "Thaumcraft"), @Interface(iface = "thaumcraft.api.nodes.IRevealer", modid = "Thaumcraft"), @Interface(iface = "vazkii.botania.api.item.IPixieSpawner", modid = "Botania"), })
-public abstract class ItemModularArmour extends ItemArmor implements ISpecialArmor, IModularItem, IGoggles, IVisDiscountGear, IRevealer, IPixieSpawner{
+@Optional.InterfaceList(value = { 
+		@Interface(iface = "thaumcraft.api.IGoggles", modid = "Thaumcraft"), 
+		@Interface(iface = "thaumcraft.api.IVisDiscountGear", modid = "Thaumcraft"), 
+		@Interface(iface = "thaumcraft.api.nodes.IRevealer", modid = "Thaumcraft"), 
+		@Interface(iface = "vazkii.botania.api.item.IPixieSpawner", modid = "Botania"), 
+		@Interface(iface = "ic2.api.item.IMetalArmor", modid = "IC2"),
+		})
+public abstract class ItemModularArmour extends ItemArmor implements ISpecialArmor, IModularItem, IGoggles, IVisDiscountGear, IRevealer, IPixieSpawner, IMetalArmor{
 
 	protected UpgradeLogicAdv holder;
 
@@ -159,5 +167,14 @@ public abstract class ItemModularArmour extends ItemArmor implements ISpecialArm
 	public float getPixieChance(ItemStack stack){
 		return this.holder.getPixieChance(stack);
 	}
+	
+	//IMetalArmor
+	@Override
+	@Optional.Method(modid = "IC2")
+	public boolean isMetalArmor(ItemStack itemstack, EntityPlayer player){
+		return this.holder.isMetalArmor(itemstack, player);
+	}
+
+
 
 }

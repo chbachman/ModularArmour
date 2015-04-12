@@ -1,5 +1,6 @@
 package chbachman.armour.items.armour.logic;
 
+import ic2.api.item.IMetalArmor;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -18,6 +19,7 @@ import chbachman.api.util.ArmourSlot;
 import chbachman.armour.ModularArmour;
 import chbachman.armour.gui.GuiHandler;
 import chbachman.armour.register.Botania;
+import chbachman.armour.register.IndustrialCraft2;
 import chbachman.armour.register.Thaumcraft;
 import chbachman.armour.util.ConfigHelper;
 import cofh.core.util.CoreUtils;
@@ -29,9 +31,10 @@ import cpw.mods.fml.common.Optional.Interface;
 		@Interface(iface = "thaumcraft.api.IVisDiscountGear", modid = "Thaumcraft"), 
 		@Interface(iface = "thaumcraft.api.nodes.IRevealer", modid = "Thaumcraft"), 
 		@Interface(iface = "vazkii.botania.api.item.IPixieSpawner", modid = "Botania"),
+		@Interface(iface = "ic2.api.item.IMetalArmor", modid = "IC2"),
 		})
-public abstract class UpgradeLogicAdv extends UpgradeLogic implements IRevealer, IGoggles, IVisDiscountGear, IPixieSpawner{
-	
+public abstract class UpgradeLogicAdv extends UpgradeLogic implements IRevealer, IGoggles, IVisDiscountGear, IPixieSpawner, IMetalArmor{
+
 	public UpgradeLogicAdv(IModularItem item){
 		super(item);
 	}
@@ -100,11 +103,21 @@ public abstract class UpgradeLogicAdv extends UpgradeLogic implements IRevealer,
 		return list.contains(Thaumcraft.gogglesOfRevealing);
 	}
 	
+	@Override
 	@Optional.Method(modid = "Botania")
 	public float getPixieChance(ItemStack stack) {
 		return ConfigHelper.get(ConfigHelper.SPEED,Botania.pixie, "Pixie Chance", .05F);
 	}
 
+	
+	@Override
+	@Optional.Method(modid = "IC2")
+	public boolean isMetalArmor(ItemStack itemstack, EntityPlayer player){
+		NBTList<?> list = NBTHelper.getNBTUpgradeList(itemstack);
+
+		return list.contains(IndustrialCraft2.metalArmor);
+	}
+	
 	/**
 	 * Called to heal the armour.
 	 * @param stack

@@ -31,16 +31,17 @@ public class ItemRegister {
 		register(MineTweaker.class, "MineTweaker3");
 		register(BloodMagic.class, "AWWayofTime");
 		register(Botania.class, "Botania");
+		register(IndustrialCraft2.class, "IC2");
 	}
 	
 	/**
 	 * Call to register a Module or Vanilla-Replacement, pass in the modid to be loaded on.
 	 * @param clazz
-	 * @param name
+	 * @param modid
 	 */
-	public void register(Class<? extends Module> clazz, String name){
+	public void register(Class<? extends Module> clazz, String modid){
 		
-		if(!Loader.isModLoaded(name)){
+		if(!Loader.isModLoaded(modid)){
 			return;
 		}
 		
@@ -52,7 +53,30 @@ public class ItemRegister {
 		}
 		
 		if(m instanceof Vanilla){
-			vanillaList.put(name, (Vanilla) m);
+			vanillaList.put(modid, (Vanilla) m);
+		}else{
+			list.add(m);
+		}
+		
+	}
+	
+	public void register(Class<? extends Module> clazz, String displayName, String[] modid){
+		
+		for(String name : modid){
+			if(!Loader.isModLoaded(name)){
+				return;
+			}
+		}
+		
+		Module m = null;
+		try {
+			m = clazz.newInstance();
+		} catch (Exception e) {
+			return;
+		}
+		
+		if(m instanceof Vanilla){
+			vanillaList.put(displayName, (Vanilla) m);
 		}else{
 			list.add(m);
 		}

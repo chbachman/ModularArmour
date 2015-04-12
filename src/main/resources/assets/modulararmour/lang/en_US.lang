@@ -14,9 +14,16 @@ item.chbachman.armour.chestplateModularMana.name=Mana-powered Modular Chestplate
 item.chbachman.armour.leggingsModularMana.name=Mana-powered Modular Leggings
 item.chbachman.armour.bootsModularMana.name=Mana-powered Modular Boots
 
+item.chbachman.armour.helmetModularIC.name=Electric Modular Helmet
+item.chbachman.armour.chestplateModularIC.name=Electric Modular Chestplate
+item.chbachman.armour.leggingsModularIC.name=Electric Modular Leggings
+item.chbachman.armour.bootsModularIC.name=Electric Modular Boots
+
 item.chbachman.armour.itemRing.name=Modular Ring
 item.chbachman.armour.itemPendant.name=Modular Amulet
 item.chbachman.armour.itemBelt.name=Modular Belt
+
+itemGroup.modularCreativeTab=Modular Armour
 
 item.modulararmour.material.heatedElectrum.name=Heated Electrum
 item.modulararmour.material.temperedElectrum.name=Tempered Electrum
