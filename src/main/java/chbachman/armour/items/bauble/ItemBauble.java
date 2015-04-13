@@ -49,6 +49,11 @@ public abstract class ItemBauble extends Item implements IBauble, IModularItem, 
 	}
 
 	@Override
+	public int getItemStackLimit(ItemStack stack){
+		return 1;
+	}
+
+	@Override
 	public int getDisplayDamage(ItemStack stack){
 		return this.holder.getDisplayDamage(stack);
 	}
