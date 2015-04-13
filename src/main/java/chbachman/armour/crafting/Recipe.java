@@ -1,6 +1,5 @@
 package chbachman.armour.crafting;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -20,6 +19,11 @@ public class Recipe
     private static final int MAX_CRAFT_GRID_HEIGHT = 3;
 
     private IUpgrade output = null;
+    
+    /**
+     * This can be consisted of: ItemStack, ArrayList<ItemStack>
+     * 
+     */
     private Object[] input = null;
     private int width = 0;
     private int height = 0;
@@ -106,7 +110,7 @@ public class Recipe
             }
             else if (in instanceof String)
             {
-                itemMap.put(chr, OreDictionary.getOres((String)in));
+                itemMap.put(chr, (String) in);
             }
             else
             {
@@ -180,7 +184,6 @@ public class Recipe
         return false;
     }
     
-    @SuppressWarnings("unchecked")
     /**
      * Checks whether the inventory matches the current recipe.
      * @param inv
@@ -220,11 +223,11 @@ public class Recipe
                         return false;
                     }
                 }
-                else if (target instanceof ArrayList)
+                else if (target instanceof String)
                 {
                     boolean matched = false;
 
-                    Iterator<ItemStack> itr = ((ArrayList<ItemStack>)target).iterator();
+                    Iterator<ItemStack> itr = OreDictionary.getOres(((String)target)).iterator();
                     while (itr.hasNext() && !matched)
                     {
                         matched = OreDictionary.itemMatches(itr.next(), slot, false);
@@ -314,10 +317,10 @@ public class Recipe
                         return false;
                     }
                 }
-                else if (target instanceof ArrayList)
+                else if (target instanceof String)
                 {
                 	
-                	if(!(slot instanceof ArrayList)){
+                	if(!(slot instanceof String)){
                 		return false;
                 	}
                 	

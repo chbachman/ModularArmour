@@ -4,7 +4,7 @@ public class Reference {
     
     public final static String MODID = "ModularArmour";
     public final static String MODNAME = "Modular Armour";
-    public final static String VERSION = "0.2.0";
+    public final static String VERSION = "1.0.0";
     public final static String CHANNEL = "ModularArmour";
     public final static String DEPENDENCIES = "required-after:CoFHCore;"
     												 + "after:Thaumcraft;"

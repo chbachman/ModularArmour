@@ -9,6 +9,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.OreDictionary;
 import chbachman.api.item.IModularItem;
 import chbachman.armour.ModularArmour;
 import chbachman.armour.crafting.Recipe;
@@ -243,9 +244,8 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
 				return stack;
 			}
 
-			if (obj instanceof ArrayList){
-				@SuppressWarnings("unchecked")
-				ArrayList<ItemStack> list = (ArrayList<ItemStack>) obj;
+			if (obj instanceof String){
+				ArrayList<ItemStack> list = OreDictionary.getOres((String) obj);
 				ItemStack stack = list.get(index % list.size());
 				stack.stackSize = 1;
 				return stack;

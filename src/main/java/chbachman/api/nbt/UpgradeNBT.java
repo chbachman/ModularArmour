@@ -12,10 +12,6 @@ public class UpgradeNBT implements NBTAble<IUpgrade>{
 	public IUpgrade loadFromNBT(NBTTagCompound nbt){
 		IUpgrade upgrade = UpgradeList.INSTANCE.get(nbt.getString("ID"));
 
-		if(upgrade == null){
-			return null;
-		}
-
 		return upgrade;
 	}
 

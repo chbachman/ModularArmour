@@ -10,6 +10,7 @@ import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
 import minetweaker.mc1710.item.MCItemStack;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.oredict.OreDictionary;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
@@ -87,9 +88,8 @@ public class MineTweaker implements Module{
     		return stack;
     	}
     	
-    	if(obj instanceof ArrayList){
-    		@SuppressWarnings("unchecked")
-			ArrayList<ItemStack> list = (ArrayList<ItemStack>) obj;
+    	if(obj instanceof String){
+			ArrayList<ItemStack> list = OreDictionary.getOres((String) obj);
     		
     		return list.get(0);
     		

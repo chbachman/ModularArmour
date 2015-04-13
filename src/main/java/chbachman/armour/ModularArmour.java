@@ -21,8 +21,12 @@ import chbachman.armour.reference.Reference;
 import chbachman.armour.register.ItemRegister;
 import chbachman.armour.util.ModularCreativeTab;
 import chbachman.armour.util.OutputHandler;
+import chbachman.armour.util.json.JsonRegister;
 import cofh.core.util.ConfigHandler;
 import cofh.mod.BaseMod;
+
+import com.google.gson.GsonBuilder;
+
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -54,6 +58,8 @@ public class ModularArmour extends BaseMod {
     public static ConfigHandler config = new ConfigHandler(Reference.VERSION);
     public static OutputHandler output;
     
+    private static File configDir;
+    
     //Register the different Modular Items here.
     public static ModularArmourHandler modularHandler;
     
@@ -68,8 +74,12 @@ public class ModularArmour extends BaseMod {
     
     @EventHandler
     public void preInit(FMLPreInitializationEvent event){
-        config.setConfiguration(new Configuration(event.getSuggestedConfigurationFile()));
-        output = new OutputHandler(new File(event.getModConfigurationDirectory(), "ModularRecipes.txt"));
+    	configDir = new File(event.getModConfigurationDirectory(), "ModularArmour");
+    	configDir.mkdir();
+    	
+        config.setConfiguration(new Configuration(new File(configDir, "Main.cfg")));
+        output = new OutputHandler(new File(configDir, "ModularRecipes.txt"));
+        
         modularHandler = new ModularArmourHandler();
         
         debug = config.get("advanced", "debug", false, "Do not change this unless I tell you.");
@@ -108,6 +118,16 @@ public class ModularArmour extends BaseMod {
         config.cleanUp(false, true);
         ItemRegister.INSTANCE.postInit();
         output.save();
+        
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        JsonRegister.registerCustomSerializers(gsonBuilder);
+        JsonRegister.createJsonRecipes(gsonBuilder);
+        JsonRegister.registerJsonRecipes(gsonBuilder);
+        
+    }
+    
+    public static File getConfigDirectory(){
+    	return configDir;
     }
     
     @Override
