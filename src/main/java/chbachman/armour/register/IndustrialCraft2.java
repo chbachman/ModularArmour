@@ -33,10 +33,10 @@ public class IndustrialCraft2 implements Module{
 		leggingsModular = new ICModularArmour(Vanilla.materialModular, 2).setUnlocalizedName("chbachman.armour.leggingsModularIC").setTextureName(Reference.ITEM_LOCATION + "ModularLegsIC");
 		bootsModular = new ICModularArmour(Vanilla.materialModular, 3).setUnlocalizedName("chbachman.armour.bootsModularIC").setTextureName(Reference.ITEM_LOCATION + "ModularBootsIC");
 		
-		GameRegistry.registerItem(helmetModular, "helmetModularLP");
-		GameRegistry.registerItem(chestplateModular, "chestplateModularLP");
-		GameRegistry.registerItem(leggingsModular, "leggingsModularLP");
-		GameRegistry.registerItem(bootsModular, "bootsModularLP");
+		GameRegistry.registerItem(helmetModular, "helmetModularIC");
+		GameRegistry.registerItem(chestplateModular, "chestplateModularIC");
+		GameRegistry.registerItem(leggingsModular, "leggingsModularIC");
+		GameRegistry.registerItem(bootsModular, "bootsModularIC");
 	}
 
 	@Override

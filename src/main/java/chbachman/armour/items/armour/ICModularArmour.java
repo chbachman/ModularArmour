@@ -1,7 +1,6 @@
 package chbachman.armour.items.armour;
 
 import ic2.api.item.IElectricItem;
-import ic2.api.item.IMetalArmor;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
