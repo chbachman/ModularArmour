@@ -175,6 +175,9 @@ public abstract class ItemModularArmour extends ItemArmor implements ISpecialArm
 		return this.holder.isMetalArmor(itemstack, player);
 	}
 
-
+	@Override
+	public int getSizeInventory(ItemStack container){
+		return 9;
+	}
 
 }

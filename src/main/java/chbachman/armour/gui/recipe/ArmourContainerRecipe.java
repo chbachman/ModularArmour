@@ -14,9 +14,9 @@ import chbachman.api.item.IModularItem;
 import chbachman.armour.ModularArmour;
 import chbachman.armour.crafting.Recipe;
 import chbachman.armour.gui.GuiHandler;
-import chbachman.armour.gui.IInputHandler;
 import chbachman.armour.gui.crafting.ArmourContainer;
 import chbachman.armour.network.ArmourPacket;
+import chbachman.armour.network.IInputHandler;
 import chbachman.armour.util.InventoryUtil;
 import cofh.lib.gui.slot.SlotViewOnly;
 
@@ -79,7 +79,7 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
 				if (playerContainer instanceof ArmourContainer){
 					ArmourContainer crafting = (ArmourContainer) playerContainer;
 
-					crafting.containerWrapper.setInventory(stacks);
+					crafting.putStacksInSlots(stacks);
 					crafting.onSlotChanged();
 				}
 			}

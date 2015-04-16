@@ -3,17 +3,11 @@ package chbachman.armour.gui.crafting;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-
-import org.lwjgl.opengl.GL11;
-
 import chbachman.api.nbt.NBTHelper;
 import chbachman.api.upgrade.IUpgrade;
-import chbachman.armour.ModularArmour;
-import chbachman.armour.gui.GuiHandler;
-import chbachman.armour.handler.UpgradeHandler;
 import chbachman.armour.network.ArmourPacket;
 import chbachman.armour.network.ArmourPacket.PacketTypes;
-import chbachman.armour.reference.ResourceLocationHelper;
+import chbachman.armour.reference.Reference;
 import chbachman.armour.upgrade.UpgradeException;
 import chbachman.armour.util.UpgradeUtil;
 import cofh.core.gui.GuiBaseAdv;
@@ -21,7 +15,7 @@ import cofh.core.network.PacketHandler;
 
 public class ArmourGui extends GuiBaseAdv {
     
-    private static final ResourceLocation TEXTURE = ResourceLocationHelper.getResourceLocation("/gui/armourGui.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(Reference.TEXTURE_LOCATION + "/gui/armourGui.png");
     
     public ArmourContainer container;
     
@@ -87,29 +81,8 @@ public class ArmourGui extends GuiBaseAdv {
     
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTick, int x, int y) {
-    	this.gameTick = partialTick;
-    	GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		bindTexture(texture);
-		drawTexturedModalRect(guiLeft, guiTop, 0, 0, xSize, ySize);
-
-		mouseX = x - guiLeft;
-		mouseY = y - guiTop;
-
-		GL11.glPushMatrix();
-		GL11.glTranslatef(guiLeft, guiTop, 0.0F);
-		drawElements(partialTick, false);
-		drawTabs(partialTick, false);
-		GL11.glPopMatrix();
-        
+    	super.drawGuiContainerBackgroundLayer(partialTick, x, y);
         this.getUpgradeList();
-        
-    }
-    
-    @Override
-    protected void drawGuiContainerForegroundLayer(int x, int y) {
-        
-        super.drawGuiContainerForegroundLayer(x, y);
-        
     }
     
     public void onButtonClick(String name) {
@@ -117,40 +90,23 @@ public class ArmourGui extends GuiBaseAdv {
         try {
             
             if (name.equals("UpgradeAddition")) {
-                
-                if (UpgradeHandler.addUpgrade(this.container.getContainerStack(), this.container.upgrade)) {
-                    
-                    this.container.upgrade = UpgradeHandler.getResult(this.container.containerWrapper);
-                    
-                    if (this.scrolledText.hasError) {
-                        
-                        if (this.scrolledText.isFullyOpened()) {
-                            this.scrolledText.toggleOpen();
-                        }
-                        
-                        this.scrolledText.reset();
-                    }
-                    
-                }
-                
-                this.getUpgradeList();
+            	PacketHandler.sendToServer(ArmourPacket.getPacket(PacketTypes.BUTTON).addString(name));
+            	
             } else if (name.equals("RemoveItems")) {
-                this.container.onContainerClosed(this.container.player);
+            	PacketHandler.sendToServer(ArmourPacket.getPacket(PacketTypes.BUTTON).addString(name));
+            	
             } else if (name.equals("RemoveUpgrade")) {
-                UpgradeUtil.removeUpgrade(this.container.stack, this.selectedUpgrade);
+            	UpgradeUtil.removeUpgrade(this.container.getContainerStack(), this.selectedUpgrade);
                 PacketHandler.sendToServer(ArmourPacket.getPacket(PacketTypes.BUTTON).addString(name).addString(this.selectedUpgrade.getBaseName()));
-                return;
-            } else if(name.equals("Recipe")){
-                if (this.container.player.worldObj.isRemote == false) {
-                    this.container.player.openGui(ModularArmour.instance, GuiHandler.ARMOUR_ID, this.container.player.worldObj, 0, 0, 0);
-                }
+                
+            }else if(name.equals("Recipe")){
+            	PacketHandler.sendToServer(ArmourPacket.getPacket(PacketTypes.BUTTON).addString(name));
+            	
             }else if(name.equals("ScrollDown")){
             	this.list.scrollDown();
             }else if(name.equals("ScrollUp")){
             	this.list.scrollUp();
             }
-            
-            PacketHandler.sendToServer(ArmourPacket.getPacket(PacketTypes.BUTTON).addString(name));
             
         } catch (UpgradeException e) {
             this.scrolledText.setString(e.getMessage());

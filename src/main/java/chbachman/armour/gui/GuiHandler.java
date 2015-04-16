@@ -21,7 +21,7 @@ public class GuiHandler implements IGuiHandler {
         
         case ARMOUR_ID:
             if (ItemHelper.isPlayerHoldingItem(IModularItem.class, player)) {
-                return new ArmourContainer(player.getHeldItem(), player.inventory, world);
+                return new ArmourContainer(player.getHeldItem(), player.inventory);
             }
         case RECIPE_ID:
             return new ArmourContainerRecipe(player.getHeldItem(), player.inventory, world);
@@ -36,7 +36,7 @@ public class GuiHandler implements IGuiHandler {
         
         case ARMOUR_ID:
             if (ItemHelper.isPlayerHoldingItem(IModularItem.class, player)) {
-                return new ArmourGui(new ArmourContainer(player.getHeldItem(), player.inventory, world), player.inventory);
+                return new ArmourGui(new ArmourContainer(player.getHeldItem(), player.inventory), player.inventory);
             }
         case RECIPE_ID:
                 return new ArmourGuiRecipe(new ArmourContainerRecipe(player.getHeldItem(), player.inventory, world), player.inventory);

@@ -39,7 +39,7 @@ public class JsonRegister{
 	}
 	
 	public static void registerJsonRecipes(GsonBuilder gsonBuilder){
-		File folder = new File(ModularArmour.getConfigDirectory(), "modularArmourRecipes");
+		File folder = new File(ModularArmour.getConfigDirectory(), "recipes");
 		
         folder.mkdir();
         

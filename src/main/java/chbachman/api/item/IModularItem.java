@@ -5,6 +5,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.util.ArmourSlot;
+import cofh.api.item.IInventoryContainerItem;
 
 /**
  * The interface that must be implemented for upgrades to work on your armour. You must call every single method in the {@link IUpgrade} class when appropriate. 
@@ -12,7 +13,7 @@ import chbachman.api.util.ArmourSlot;
  * @author CBachman
  *
  */
-public interface IModularItem{
+public interface IModularItem extends IInventoryContainerItem{
 	
 	/**
 	 * Gets the slot that the armour contains. See {@link ArmourSlot} for details about the armour numbers that chould be returned. 

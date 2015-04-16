@@ -175,5 +175,10 @@ public abstract class ItemBauble extends Item implements IBauble, IModularItem, 
 	public float getPixieChance(ItemStack stack){
 		return this.holder.getPixieChance(stack);
 	}
+	
+	@Override
+	public int getSizeInventory(ItemStack container){
+		return 9;
+	}
 
 }

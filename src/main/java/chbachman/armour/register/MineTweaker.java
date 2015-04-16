@@ -14,8 +14,8 @@ import net.minecraftforge.oredict.OreDictionary;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
+import chbachman.api.registry.UpgradeList;
 import chbachman.api.upgrade.IUpgrade;
-import chbachman.api.upgrade.UpgradeList;
 import chbachman.armour.crafting.Recipe;
 
 @ZenClass("mods.modularArmour")

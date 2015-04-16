@@ -8,6 +8,7 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor.ArmorProperties;
 import chbachman.api.item.IModularItem;
+import chbachman.api.registry.UpgradeList;
 import chbachman.api.util.ArmourSlot;
 
 /**

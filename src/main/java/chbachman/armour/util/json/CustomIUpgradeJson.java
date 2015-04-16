@@ -2,8 +2,8 @@ package chbachman.armour.util.json;
 
 import java.lang.reflect.Type;
 
+import chbachman.api.registry.UpgradeList;
 import chbachman.api.upgrade.IUpgrade;
-import chbachman.api.upgrade.UpgradeList;
 
 import com.google.gson.*;
 

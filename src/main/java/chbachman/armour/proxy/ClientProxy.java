@@ -2,8 +2,8 @@ package chbachman.armour.proxy;
 
 import net.minecraft.init.Items;
 import net.minecraftforge.client.event.TextureStitchEvent;
+import chbachman.api.registry.UpgradeList;
 import chbachman.api.upgrade.IUpgrade;
-import chbachman.api.upgrade.UpgradeList;
 import chbachman.armour.register.Vanilla;
 import chbachman.armour.upgrade.KeybindUpgrade;
 import cofh.core.key.CoFHKey;

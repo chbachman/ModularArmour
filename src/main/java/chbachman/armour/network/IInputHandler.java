@@ -1,6 +1,5 @@
-package chbachman.armour.gui;
+package chbachman.armour.network;
 
-import chbachman.armour.network.ArmourPacket;
 
 public interface IInputHandler {
     

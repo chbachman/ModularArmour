@@ -5,7 +5,7 @@ import java.util.List;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import chbachman.api.configurability.ConfigurableField;
-import chbachman.api.configurability.FieldList;
+import chbachman.api.registry.FieldList;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.armour.gui.ElementText;
 import chbachman.armour.network.ArmourPacket;
@@ -51,20 +51,6 @@ public class TabConfig extends TabBase{
 			return;
 		}
 
-		if (this.armourGui.container.upgrade != null){
-
-			@SuppressWarnings("unchecked")
-			List<String> list = this.getFontRenderer().listFormattedStringToWidth(this.armourGui.container.upgrade.getName(), 70);
-
-			for (int i = 0; i < list.size(); i++){
-				String lineToDraw = this.getFontRenderer().trimStringToWidth(list.get(i), 90);
-				this.getFontRenderer().drawStringWithShadow(lineToDraw, this.posX + 3, 87 + 10 * i, -1);
-			}
-
-		}else{
-
-		}
-
 		this.getFontRenderer().drawStringWithShadow("Upgrades", this.posXOffset() + 18, this.posY + 8, this.headerColor);
 
 	}
@@ -79,8 +65,21 @@ public class TabConfig extends TabBase{
 		}
 	}
 
-	public void onUpgradeSelected(IUpgrade upgrade){
+	
+	
+	@Override
+	public void setFullyOpen(){
+		super.setFullyOpen();
+		
+		this.onUpgradeSelected(this.armourGui.selectedUpgrade);
+	}
 
+	public void onUpgradeSelected(IUpgrade upgrade){
+		
+		if(!this.fullyOpen){
+			return;
+		}
+		
 		if (upgrade == null){
 			return;
 		}

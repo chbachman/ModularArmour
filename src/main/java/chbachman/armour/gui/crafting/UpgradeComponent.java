@@ -34,7 +34,7 @@ public class UpgradeComponent extends ElementBase{
 	public int selectedLine = -1;
 
 	public boolean highlightSelectedLine = false;
-
+	
 	public UpgradeComponent(GuiBase gui, int x, int y, int w, int lines, ItemStack toLoad) {
 		this(gui, x, y, w, lines * (gui.getFontRenderer().FONT_HEIGHT + 1) + Y_OFFSET, lines, toLoad);
 	}

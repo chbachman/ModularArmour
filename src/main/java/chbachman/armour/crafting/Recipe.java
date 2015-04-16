@@ -25,9 +25,9 @@ public class Recipe
      * 
      */
     private Object[] input = null;
-    private int width = 0;
-    private int height = 0;
-    private boolean mirrored = true;
+    public int width = 0;
+    public int height = 0;
+    public boolean mirrored = true;
     
     /**
      * Construct the recipe with a contructor identical to {@link ShapedOreRecipe}.

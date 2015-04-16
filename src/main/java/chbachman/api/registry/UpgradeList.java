@@ -1,9 +1,10 @@
-package chbachman.api.upgrade;
+package chbachman.api.registry;
 
 import java.util.HashMap;
 import java.util.Iterator;
 
-import chbachman.api.configurability.FieldList;
+import chbachman.api.upgrade.IUpgrade;
+import chbachman.api.upgrade.Upgrade;
 import chbachman.armour.ModularArmour;
 
 @SuppressWarnings("serial")

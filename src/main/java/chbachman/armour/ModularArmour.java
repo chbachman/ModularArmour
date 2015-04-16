@@ -9,8 +9,8 @@ import net.minecraftforge.common.config.Configuration;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import chbachman.api.registry.UpgradeList;
 import chbachman.api.upgrade.IUpgrade;
-import chbachman.api.upgrade.UpgradeList;
 import chbachman.armour.gui.GuiHandler;
 import chbachman.armour.handler.DamageEventHandler;
 import chbachman.armour.handler.GenericEventHandler;

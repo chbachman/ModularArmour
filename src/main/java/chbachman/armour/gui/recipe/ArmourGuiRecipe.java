@@ -12,14 +12,14 @@ import chbachman.armour.crafting.Recipe;
 import chbachman.armour.gui.GuiHelper;
 import chbachman.armour.network.ArmourPacket;
 import chbachman.armour.network.ArmourPacket.PacketTypes;
-import chbachman.armour.reference.ResourceLocationHelper;
+import chbachman.armour.reference.Reference;
 import cofh.core.gui.GuiBaseAdv;
 import cofh.core.network.PacketHandler;
 import cofh.lib.gui.element.ElementButton;
 
 public class ArmourGuiRecipe extends GuiBaseAdv{
 
-	private static final ResourceLocation TEXTURE = ResourceLocationHelper.getResourceLocation("/gui/recipeGui.png");
+	private static final ResourceLocation TEXTURE = new ResourceLocation(Reference.TEXTURE_LOCATION + "/gui/recipeGui.png");
 
 	public ArmourContainerRecipe container;
 	public ElementButton rightArrow;

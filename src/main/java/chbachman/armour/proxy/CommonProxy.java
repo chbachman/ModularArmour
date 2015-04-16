@@ -1,7 +1,7 @@
 package chbachman.armour.proxy;
 
+import chbachman.api.registry.UpgradeList;
 import chbachman.api.upgrade.IUpgrade;
-import chbachman.api.upgrade.UpgradeList;
 import chbachman.armour.upgrade.KeybindUpgrade;
 import cofh.core.key.CoFHKey;
 

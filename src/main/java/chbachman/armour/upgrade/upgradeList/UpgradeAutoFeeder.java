@@ -5,6 +5,7 @@ import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.FoodStats;
 import net.minecraft.world.World;
+import chbachman.api.configurability.Configurable;
 import chbachman.api.configurability.ConfigurableField;
 import chbachman.api.item.IModularItem;
 import chbachman.api.upgrade.Upgrade;
@@ -18,7 +19,8 @@ public class UpgradeAutoFeeder extends Upgrade{
 	private VariableInt storedFood = new VariableInt("foodLevel", 0);
 
 	// Configrability
-	public ConfigurableField foodAmount = new ConfigurableField(this, "foodAmount");
+	@Configurable
+	public ConfigurableField foodAmount = new ConfigurableField(this, "foodAmount", 100);
 
 	// Config Options
 	private int absorbing;
@@ -49,27 +51,30 @@ public class UpgradeAutoFeeder extends Upgrade{
 		
 		if (storedFood.get(stack) < modifiedAmount){ // Grab the food from the
 													// player's inventory.
-			for (ItemStack playerStack : player.inventory.mainInventory){
-
+			for (int i = 0; i < player.inventory.mainInventory.length; i++){
+				
+				ItemStack playerStack = player.inventory.mainInventory[i];
+				
 				if (playerStack == null){
 					continue;
 				}
 
 				if (playerStack.getItem() instanceof ItemFood){
 					ItemFood food = (ItemFood) playerStack.getItem();
-
-					if ((modifiedAmount - storedFood.get(stack)) > food.func_150905_g(playerStack)){
-						storedFood.increment(stack, food.func_150905_g(playerStack));
+					
+					int amountToStore = food.func_150905_g(playerStack);
+					
+					if(modifiedAmount - storedFood.get(stack) >= amountToStore){ //If we can store food
+						storedFood.increment(stack, amountToStore);
 
 						playerStack.stackSize--;
 
 						if (playerStack.stackSize <= 0){
-							playerStack = null;
+							player.inventory.mainInventory[i] = null;
 						}
 
 						return absorbing;
 					}
-
 				}
 			}
 		}

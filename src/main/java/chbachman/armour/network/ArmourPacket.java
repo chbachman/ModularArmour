@@ -7,7 +7,7 @@ import chbachman.api.item.IModularItem;
 import chbachman.api.nbt.NBTHelper;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.util.ArmourSlot;
-import chbachman.armour.gui.IInputHandler;
+import chbachman.armour.util.MiscUtil;
 import cofh.core.network.PacketCoFHBase;
 import cofh.core.network.PacketHandler;
 
@@ -20,7 +20,7 @@ public class ArmourPacket extends PacketCoFHBase {
     
     public enum PacketTypes {
         
-        BUTTON(), KEYTYPED(), ENTITYJOINWORLD();
+        BUTTON(), KEYTYPED(), ENTITYJOINWORLD(), CONTAINERSYNC();
         
     }
     
@@ -41,23 +41,24 @@ public class ArmourPacket extends PacketCoFHBase {
             case ENTITYJOINWORLD:
                 this.handleEntityJoinWorld(player);
                 break;
-                
-            default:
+			case CONTAINERSYNC:
+				this.handleContainerSync(player);
+				break;
                 
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
-    /**
+
+	/**
      * Get the packet for the given type.
      * @param type
      * @return
      */
-    public static PacketCoFHBase getPacket(PacketTypes type) {
+    public static ArmourPacket getPacket(PacketTypes type) {
         
-        return new ArmourPacket().addByte(type.ordinal());
+        return (ArmourPacket) new ArmourPacket().addByte(type.ordinal());
     }
     
     public void handleKeyTyped(EntityPlayer player){
@@ -96,5 +97,23 @@ public class ArmourPacket extends PacketCoFHBase {
             }
         }
     }
+    
+    public void handleContainerSync(EntityPlayer player){
+		
+    	Container container = player.openContainer;
+    	
+    	if(container instanceof IContainerSyncable){
+    		
+    		IContainerSyncable sync = (IContainerSyncable) container;
+    		
+    		if(MiscUtil.isClient(player)){
+    			sync.clientLoad(this);
+    		}else{
+    			sync.serverLoad(this);
+    		}
+    		
+    	}
+    	
+	}
     
 }

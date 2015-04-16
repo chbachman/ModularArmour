@@ -1,8 +1,8 @@
 package chbachman.api.nbt;
 
 import net.minecraft.nbt.NBTTagCompound;
+import chbachman.api.registry.UpgradeList;
 import chbachman.api.upgrade.IUpgrade;
-import chbachman.api.upgrade.UpgradeList;
 
 public class UpgradeNBT implements NBTAble<IUpgrade>{
 	

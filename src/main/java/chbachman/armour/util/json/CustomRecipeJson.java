@@ -18,6 +18,9 @@ public class CustomRecipeJson implements JsonDeserializer<Recipe>, JsonSerialize
 		
 		json.add("output", context.serialize(src.getRecipeOutput(), IUpgrade.class));
 		
+		json.addProperty("width", src.width);
+		json.addProperty("height", src.height);
+		
 		for(int i = 0; i < 3; i++){
 			
 			JsonArray array = new JsonArray();
@@ -72,7 +75,12 @@ public class CustomRecipeJson implements JsonDeserializer<Recipe>, JsonSerialize
 			list.add((ItemStack) context.deserialize(e, ItemStack.class));
 		}
 		
-		return new Recipe(output, list.toArray(), false);
+		Recipe recipe = new Recipe(output, list.toArray(), false);
+		
+		recipe.width = json.get("width").getAsInt();
+		recipe.height = json.get("height").getAsInt();
+		
+		return recipe;
 		
 	}
 
