@@ -52,7 +52,7 @@ public class UpgradeHandler {
             if (upgrade != null && checkContain(stack, upgrade) && upgrade.isCompatible(armour, stack, armour.getSlot()) && checkDependencies(stack, upgrade)) {
                 
                 addUpgradeInternal(stack, upgrade);
-                
+                return true;
             }
             
         }

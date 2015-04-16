@@ -3,6 +3,8 @@ package chbachman.armour.gui.crafting;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.player.PlayerDestroyItemEvent;
 import chbachman.api.item.IModularItem;
 import chbachman.api.nbt.NBTHelper;
 import chbachman.api.registry.UpgradeList;
@@ -11,11 +13,13 @@ import chbachman.armour.ModularArmour;
 import chbachman.armour.gui.GuiHandler;
 import chbachman.armour.handler.UpgradeHandler;
 import chbachman.armour.network.ArmourPacket;
+import chbachman.armour.network.ArmourPacket.PacketTypes;
 import chbachman.armour.network.IContainerSyncable;
 import chbachman.armour.network.IInputHandler;
 import chbachman.armour.upgrade.UpgradeException;
 import chbachman.armour.util.MiscUtil;
 import chbachman.armour.util.UpgradeUtil;
+import cofh.core.network.PacketHandler;
 import cofh.lib.gui.container.ContainerInventoryItem;
 
 public class ArmourContainer extends ContainerInventoryItem implements IInputHandler, IContainerSyncable{
@@ -67,19 +71,49 @@ public class ArmourContainer extends ContainerInventoryItem implements IInputHan
             if (name.equals("UpgradeAddition")) {
                 if (UpgradeHandler.addUpgrade(this.getContainerStack(), this.upgrade)) {
                     
-                	for (int i = 0; i < this.containerWrapper.getSizeInventory(); i++) {
-                        this.containerWrapper.decrStackSize(i, 1);
+                	for (int i = 0; i < this.containerWrapper.getSizeInventory(); ++i)
+                    {
+                        ItemStack itemstack1 = this.containerWrapper.getStackInSlot(i);
+
+                        if (itemstack1 != null)
+                        {
+                            this.containerWrapper.decrStackSize(i, 1);
+
+                            if (itemstack1.getItem().hasContainerItem(itemstack1))
+                            {
+                                ItemStack itemstack2 = itemstack1.getItem().getContainerItem(itemstack1);
+
+                                if (itemstack2 != null && itemstack2.isItemStackDamageable() && itemstack2.getItemDamage() > itemstack2.getMaxDamage())
+                                {
+                                    MinecraftForge.EVENT_BUS.post(new PlayerDestroyItemEvent(this.player, itemstack2));
+                                    continue;
+                                }
+
+                                if (!itemstack1.getItem().doesContainerItemLeaveCraftingGrid(itemstack1) || !this.player.inventory.addItemStackToInventory(itemstack2))
+                                {
+                                    if (this.containerWrapper.getStackInSlot(i) == null)
+                                    {
+                                        this.containerWrapper.setInventorySlotContents(i, itemstack2);
+                                    }
+                                    else
+                                    {
+                                        this.player.dropPlayerItemWithRandomChoice(itemstack2, false);
+                                    }
+                                }
+                            }
+                        }
                     }
                     
                     this.upgrade = UpgradeHandler.getResult(this.containerWrapper);
-                	
+                    
                     shouldSync = true;
                 }
                 
             } else if (name.equals("RemoveItems")) {
             	shouldSync = true;
             	
-                this.onContainerClosed(this.player);
+                
+                
             } else if (name.equals("RemoveUpgrade")) {
                 UpgradeUtil.removeUpgrade(this.getContainerStack(), UpgradeList.INSTANCE.get(packet.getString()));
                 
@@ -104,10 +138,10 @@ public class ArmourContainer extends ContainerInventoryItem implements IInputHan
         
         if(shouldSync){
         	this.detectAndSendChanges();
+        	PacketHandler.sendTo(ArmourPacket.getPacket(PacketTypes.CONTAINERSYNC).addItemStack(this.getContainerStack()), player);
         }
         
     }
-    
 
     @Override
     public void onKeyTyped(ArmourPacket packet, char key, int keyCode) {
@@ -116,7 +150,9 @@ public class ArmourContainer extends ContainerInventoryItem implements IInputHan
 
 	@Override
 	public void clientLoad(ArmourPacket p){
+		ItemStack container = p.getItemStack();
 		
+		this.getContainerStack().stackTagCompound = container.stackTagCompound;
 	}
 
 	@Override

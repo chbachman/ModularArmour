@@ -4,6 +4,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import chbachman.api.nbt.NBTHelper;
+import chbachman.api.nbt.NBTList;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.armour.network.ArmourPacket;
 import chbachman.armour.network.ArmourPacket.PacketTypes;
@@ -50,7 +51,7 @@ public class ArmourGui extends GuiBaseAdv {
         this.list = new UpgradeComponent(this, 8, 5, 160, 14, stack);
         this.addElement(list);
         
-        this.getUpgradeList();
+        this.list.textLines = NBTHelper.getNBTUpgradeList(this.container.getContainerStack());
         
         this.list.highlightSelectedLine = true;
         
@@ -82,7 +83,8 @@ public class ArmourGui extends GuiBaseAdv {
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTick, int x, int y) {
     	super.drawGuiContainerBackgroundLayer(partialTick, x, y);
-        this.getUpgradeList();
+    	
+    	this.list.textLines = NBTHelper.getNBTUpgradeList(this.container.getContainerStack());
     }
     
     public void onButtonClick(String name) {
@@ -116,14 +118,6 @@ public class ArmourGui extends GuiBaseAdv {
             
         }
         
-    }
-    
-    private void getUpgradeList() {
-        if (this.container.getContainerStack().stackTagCompound == null) {
-            NBTHelper.createDefaultStackTag(this.container.getContainerStack());
-        }
-        
-        this.list.textLines = NBTHelper.getNBTUpgradeList(this.container.getContainerStack().stackTagCompound);
     }
     
 }
