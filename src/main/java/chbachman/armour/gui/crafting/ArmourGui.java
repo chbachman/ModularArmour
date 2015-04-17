@@ -4,13 +4,11 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import chbachman.api.nbt.NBTHelper;
-import chbachman.api.nbt.NBTList;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.armour.network.ArmourPacket;
 import chbachman.armour.network.ArmourPacket.PacketTypes;
 import chbachman.armour.reference.Reference;
 import chbachman.armour.upgrade.UpgradeException;
-import chbachman.armour.util.UpgradeUtil;
 import cofh.core.gui.GuiBaseAdv;
 import cofh.core.network.PacketHandler;
 
@@ -98,7 +96,7 @@ public class ArmourGui extends GuiBaseAdv {
             	PacketHandler.sendToServer(ArmourPacket.getPacket(PacketTypes.BUTTON).addString(name));
             	
             } else if (name.equals("RemoveUpgrade")) {
-            	UpgradeUtil.removeUpgrade(this.container.getContainerStack(), this.selectedUpgrade);
+            	//UpgradeUtil.removeUpgrade(this.container.getContainerStack(), this.selectedUpgrade);
                 PacketHandler.sendToServer(ArmourPacket.getPacket(PacketTypes.BUTTON).addString(name).addString(this.selectedUpgrade.getBaseName()));
                 
             }else if(name.equals("Recipe")){

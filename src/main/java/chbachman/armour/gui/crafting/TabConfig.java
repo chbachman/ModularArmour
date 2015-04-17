@@ -31,7 +31,7 @@ public class TabConfig extends TabBase{
 		this.armourGui = gui;
 
 		this.maxHeight = 110;
-		this.maxWidth = 130;
+		this.maxWidth = 100;
 
 		this.storages = new ConfigurableField[0];
 
@@ -125,7 +125,7 @@ public class TabConfig extends TabBase{
 		@Override
 		public void drawForeground(int mouseX, int mouseY){
 			super.drawForeground(mouseX, mouseY);
-			this.getFontRenderer().drawString(this._value + "%", this.posX + this.getWidth() + 5, this.posY, 12);
+			this.getFontRenderer().drawString(this._value + "%", this.posX + this.getWidth() + 5, this.posY, 0xFFFFFFFF);
 		}
 
 	}

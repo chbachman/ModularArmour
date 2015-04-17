@@ -31,7 +31,7 @@ public class ElementText extends ElementBase{
 
 	@Override
 	public void drawForeground(int mouseX, int mouseY){
-		this.getFontRenderer().drawString(s, this.posX, this.posY, 12);
+		this.getFontRenderer().drawString(s, this.posX, this.posY, 0xFFFFFFFF);
 	}
 	
 	

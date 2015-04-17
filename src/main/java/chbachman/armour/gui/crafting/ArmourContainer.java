@@ -112,7 +112,9 @@ public class ArmourContainer extends ContainerInventoryItem implements IInputHan
             } else if (name.equals("RemoveItems")) {
             	shouldSync = true;
             	
-                
+                for(int i = 0; i < 9; i++){
+                	this.transferStackInSlot(this.player, i);
+                }
                 
             } else if (name.equals("RemoveUpgrade")) {
                 UpgradeUtil.removeUpgrade(this.getContainerStack(), UpgradeList.INSTANCE.get(packet.getString()));
