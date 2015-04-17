@@ -87,11 +87,21 @@ jar {
 
 task 'v++' <<{
 	Properties props = new Properties() 
-	File propsFile = new File('gradle.properties') 
+	File propsFile = new File('version.properties') 
+	
+	if(!propsFile.exists()){
+		propsFile.createNewFile();
+	}
 	
 	props.load(propsFile.newDataInputStream()) 
 	
 	String nextbuildnum = props.getProperty('mod_version')
+	
+	if(nextbuildnum == null){
+		props.setProperty('mod_version', '1.0.0');
+		nextbuildnum = '1.0.0';
+	}
+	
 	int index = nextbuildnum.lastIndexOf('.')
 	props.setProperty('mod_version', nextbuildnum.substring(0, index + 1) + ((nextbuildnum.substring(index + 1) as Integer) + 1).toString())
 

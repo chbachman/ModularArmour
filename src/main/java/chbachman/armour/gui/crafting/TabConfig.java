@@ -34,8 +34,6 @@ public class TabConfig extends TabBase{
 		this.maxWidth = 100;
 
 		this.storages = new ConfigurableField[0];
-
-		// this.addElement(new SliderHorizontal(this.gui, 10, 30, 60, 10, 100));
 	}
 
 	@Override
