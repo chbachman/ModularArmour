@@ -107,9 +107,8 @@ public class ArmourGuiRecipe extends GuiBaseAdv{
 		}else if (buttonName.equals("Next")){
 			this.container.index++;
 			wrapIndex();
-
 		}else if (buttonName.equals("Upgrade")){
-
+			
 		}
 
 		PacketHandler.sendToServer(ArmourPacket.getPacket(PacketTypes.BUTTON).addString(buttonName).addInt(this.container.index));

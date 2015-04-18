@@ -1,8 +1,5 @@
 package chbachman.armour.gui.recipe;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -38,7 +35,7 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
 		this.stack = stack;
 		this.player = inventory.player;
 		this.recipe = Recipe.recipeList.get(0);
-		this.inventory = new Inventory();
+		this.inventory = new Inventory(recipe);
 		inventory2 = new Inventory2(modularItems);
 
 		this.bindSlots();
@@ -87,114 +84,49 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
 		}else{
 			this.index = packet.getInt();
 			this.recipe = Recipe.recipeList.get(index % Recipe.recipeList.size());
+			this.inventory = new Inventory(recipe);
 		}
 
 	}
 
 	private ItemStack[] grabInventory(){
-		ItemStack[] playerInventory = this.player.inventory.mainInventory;
+		IInventory playerInventory = this.player.inventory;
 
-		ItemStack[] toReturn = new ItemStack[recipe.getInput().length];
-		int i = 0;
+		ItemStack[][] input = recipe.getItemStackInput();
 
-		for (Object obj : recipe.getInput()){
+		ItemStack[] toReturn = new ItemStack[input.length];
 
-			if (obj == null){
-				toReturn[i] = null;
-			}
+		for (int i = 0; i < input.length; i++){
+			for (int g = 0; g < input[i].length; g++){
 
-			if (obj instanceof ItemStack){
-				ItemStack toCheck = (ItemStack) obj;
+				for (int k = 0; k < playerInventory.getSizeInventory(); k++){
+					ItemStack playerStack = playerInventory.getStackInSlot(k);
 
-				ItemStack playerStack = InventoryUtil.getItemStackFromInventory(playerInventory, toCheck);
+					if (OreDictionary.itemMatches(input[i][g], playerStack, false)){
 
-				ItemStack output = playerStack.copy();
+						toReturn[i] = playerInventory.decrStackSize(k, 1);
 
-				output.stackSize = 1;
-
-				playerStack.stackSize--;
-
-				if (playerStack.stackSize == 0){
-					playerStack = null;
-				}
-
-				toReturn[i] = output;
-
-			}
-
-			if (obj instanceof List){
-				@SuppressWarnings("unchecked")
-				List<ItemStack> list = (List<ItemStack>) obj;
-
-				for (ItemStack stack : list){
-
-					ItemStack playerStack = InventoryUtil.getItemStackFromInventory(playerInventory, stack);
-
-					if (playerStack == null){
-						continue;
 					}
-
-					ItemStack output = playerStack.copy();
-
-					output.stackSize = 1;
-
-					playerStack.stackSize--;
-
-					if (playerStack.stackSize == 0){
-						playerStack = null;
-					}
-
-					toReturn[i] = output;
-
 				}
 			}
-
-			i++;
 		}
 
 		return toReturn;
 	}
 
 	private boolean checkInventory(){
-		ItemStack[] playerInventory = this.player.inventory.mainInventory;
+		IInventory playerInventory = this.player.inventory;
 
-		for (Object obj : recipe.getInput()){
-
-			if (obj == null){
-				continue;
-			}
-
-			if (obj instanceof ItemStack){
-				ItemStack toCheck = (ItemStack) obj;
-
-				if (!InventoryUtil.doesInventoryContainItemStack(playerInventory, toCheck)){
-					return false;
-				}
-
-				continue;
-			}
-
-			if (obj instanceof List){
-				@SuppressWarnings("unchecked")
-				List<ItemStack> list = (List<ItemStack>) obj;
-
-				boolean matched = false;
-
-				for (ItemStack stack : list){
-
-					if (InventoryUtil.doesInventoryContainItemStack(playerInventory, stack)){
-						matched = true;
-					}
-
-				}
-
-				if (!matched){
+		ItemStack[][] input = recipe.getItemStackInput();
+		
+		for (int i = 0; i < input.length; i++){
+			for (int g = 0; g < input[i].length; g++){
+				if (!InventoryUtil.doesInventoryContainItemStack(playerInventory, input[i][g])){
 					return false;
 				}
 			}
-
 		}
-
+		
 		return true;
 	}
 
@@ -212,13 +144,11 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
 		private int index = 0;
 
 		private int amountOfItems;
-
-		public Inventory() {
-			for (int i = 0; i < 9; i++){
-				if (this.getStackInSlot(i) != null){
-					amountOfItems++;
-				}
-			}
+		private ItemStack[][] items;
+		
+		public Inventory(Recipe recipe) {
+			this.items = recipe.getItemStackInput();
+			this.amountOfItems = items.length;
 		}
 
 		@Override
@@ -229,30 +159,22 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
 		@Override
 		public ItemStack getStackInSlot(int slot){
 
-			Object obj = recipe.getInput()[slot];
-
+			ItemStack[] toCheck = this.items[slot];
+			
 			counter++;
 
 			if (counter == 500 * amountOfItems){
 				counter = 0;
 				index++;
 			}
-
-			if (obj instanceof ItemStack){
-				ItemStack stack = (ItemStack) obj;
-				stack.stackSize = 1;
-				return stack;
+			
+			if(toCheck.length == 0){
+				return null;
 			}
-
-			if (obj instanceof String){
-				ArrayList<ItemStack> list = OreDictionary.getOres((String) obj);
-				ItemStack stack = list.get(index % list.size());
-				stack.stackSize = 1;
-				return stack;
-
-			}
-
-			return null;
+			
+			ItemStack stack = toCheck[index % toCheck.length];
+			stack.stackSize = 1;
+			return stack;
 
 		}
 

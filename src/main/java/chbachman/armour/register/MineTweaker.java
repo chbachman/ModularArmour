@@ -10,7 +10,6 @@ import minetweaker.api.item.IIngredient;
 import minetweaker.api.item.IItemStack;
 import minetweaker.mc1710.item.MCItemStack;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.oredict.OreDictionary;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
@@ -80,22 +79,13 @@ public class MineTweaker implements Module{
 	
     private static ItemStack getStackInSlot(Recipe recipe, int slot) {
     	
-    	Object obj = recipe.getInput()[slot];
+    	ItemStack[] list = recipe.getItemStackInput()[slot];
     	
-    	if(obj instanceof ItemStack){
-    		ItemStack stack =  (ItemStack) obj;
-    		stack.stackSize = 1;
-    		return stack;
+    	if(list.length == 0){
+    		return null;
     	}
     	
-    	if(obj instanceof String){
-			ArrayList<ItemStack> list = OreDictionary.getOres((String) obj);
-    		
-    		return list.get(0);
-    		
-    	}
-    	
-    	return null;
+    	return list[0];
     	
     }
 	

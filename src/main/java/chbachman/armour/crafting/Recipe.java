@@ -378,6 +378,42 @@ public class Recipe
         return this.input;
     }
     
+    private ItemStack[][] itemStackInput;
+    
+    public ItemStack[][] getItemStackInput(){
+    	
+    	if(itemStackInput != null){
+    		return itemStackInput;
+    	}
+    	
+    	ItemStack[][] output = new ItemStack[9][];
+    	
+    	Object[] list = this.getInput();
+    	
+    	for(int i = 0; i < list.length; i++){
+    		
+    		Object object = list[i];
+    		
+    		if(object == null){
+    			output[i] = new ItemStack[0];
+    		}
+    		
+    		if(object instanceof String){
+    			output[i] = OreDictionary.getOres((String) object).toArray(new ItemStack[0]);
+    		}
+    		
+    		if(object instanceof ItemStack){
+    			output[i] = new ItemStack[]{(ItemStack) object};
+    		}
+    		
+    	}
+    	
+    	itemStackInput = output;
+    	
+    	return output;
+    	
+    }
+    
     
     public static RecipeList recipeList = new RecipeList();
     
