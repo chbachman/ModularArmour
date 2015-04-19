@@ -18,7 +18,6 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 import chbachman.api.configurability.FieldList;
 import chbachman.api.item.IModularItem;
 import chbachman.api.nbt.NBTHelper;
-import chbachman.api.registry.UpgradeList;
 import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.util.ArmourSlot;
@@ -127,10 +126,10 @@ public class Vanilla implements Module{
 		invisibility = new UpgradePotion("invisibility", Potion.invisibility, 10, 500);
 		magnet = new UpgradeMagnet();
 
-		leadstoneEnergy = new UpgradeEnergy("leadstone", 80, 400000);
-		hardenedEnergy = new UpgradeEnergy("hardened", 400, 2000000).setDependencies(leadstoneEnergy);
-		reinforcedEnergy = new UpgradeEnergy("reinforced", 2000, 10000000).setDependencies(hardenedEnergy);
-		resonantEnergy = new UpgradeEnergy("resonant", 10000, 50000000).setDependencies(reinforcedEnergy);
+		leadstoneEnergy = new UpgradeEnergy("leadstone", 800, 400000);
+		hardenedEnergy = new UpgradeEnergy("hardened", 4000, 2000000).setDependencies(leadstoneEnergy);
+		reinforcedEnergy = new UpgradeEnergy("reinforced", 20000, 10000000).setDependencies(hardenedEnergy);
+		resonantEnergy = new UpgradeEnergy("resonant", 100000, 50000000).setDependencies(reinforcedEnergy);
 
 		decorative = new UpgradeDecorative("thomazm").setTextureName("Thomaz");
 		invisible = new UpgradeDecorative("sb").setTextureName("Shad0wB1ade");

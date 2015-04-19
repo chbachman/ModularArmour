@@ -15,17 +15,22 @@ buildscript {
     }
 }
 
-
 apply plugin: "curseforge"
 apply plugin: "forge"
 apply plugin: 'maven-publish'
+
+file("version.properties").withReader { reader ->
+	def userProps = new Properties()
+	userProps.load(reader)
+	properties.putAll(userProps)
+  }
 
 def build_number = 'CUSTOM'
 
 if (System.getenv('BUILD_NUMBER') != null)
     build_number = System.getenv('BUILD_NUMBER')
 
-version = "${mc_version}-${mod_version}-${build_number}"
+version = "${mc_version}-${version.properties['mod_version']}-${build_number}"
 group= package_group
 archivesBaseName = mod_name
 
@@ -135,7 +140,7 @@ curse {
 	apiKey = project.curse_key
     }    
 	
-	displayName = "Modular Armour - ${mc_version} - ${mod_version}"
+	displayName = "Modular Armour - ${mc_version} - ${version.properties['mod_version']}"
     projectId = "224011"
     changelog = project.hasProperty('changelog') ? project.changelog : ''
     releaseType = "release"

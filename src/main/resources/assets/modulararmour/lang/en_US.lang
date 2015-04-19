@@ -82,6 +82,7 @@ upgrade.chbachman.explosionProtector.name=Explosion Protector
 
 upgrade.chbachman.speed.speed=Speed
 upgrade.chbachman.protection.protection=Protection
+upgrade.chbachman.magnet.reach=Reach
 
 upgrade.chbachman.jetpack.information=Allows you to fly like you are in creative. It is recommended to have Calf Shields.
 upgrade.chbachman.calfShields.information=Rocket Packs are easy. The hard part is inventing the Calf Shields.

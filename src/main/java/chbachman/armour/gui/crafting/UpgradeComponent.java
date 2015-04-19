@@ -1,9 +1,10 @@
 package chbachman.armour.gui.crafting;
 
-import org.lwjgl.input.Keyboard;
-
 import net.minecraft.client.gui.Gui;
 import net.minecraft.item.ItemStack;
+
+import org.lwjgl.input.Keyboard;
+
 import chbachman.api.nbt.NBTHelper;
 import chbachman.api.nbt.NBTList;
 import chbachman.api.upgrade.IUpgrade;

@@ -6,7 +6,6 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.minecraftforge.oredict.OreDictionary;
 import chbachman.api.item.IModularItem;
 import chbachman.armour.ModularArmour;
 import chbachman.armour.crafting.Recipe;
@@ -84,7 +83,7 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
 		}else{
 			this.index = packet.getInt();
 			this.recipe = Recipe.recipeList.get(index % Recipe.recipeList.size());
-			this.inventory = new Inventory(recipe);
+			this.inventory = new Inventory(this.recipe);
 		}
 
 	}
@@ -144,11 +143,9 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
 		private int index = 0;
 
 		private int amountOfItems;
-		private ItemStack[][] items;
 		
 		public Inventory(Recipe recipe) {
-			this.items = recipe.getItemStackInput();
-			this.amountOfItems = items.length;
+			this.amountOfItems = recipe.getItemStackInput().length;
 		}
 
 		@Override
@@ -159,7 +156,9 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
 		@Override
 		public ItemStack getStackInSlot(int slot){
 
-			ItemStack[] toCheck = this.items[slot];
+			ItemStack[][] items = recipe.getItemStackInput();
+			
+			ItemStack[] toCheck = items[slot];
 			
 			counter++;
 
