@@ -51,7 +51,7 @@ public interface IModularItem extends IInventoryContainerItem{
 	public void damageArmour(ItemStack stack, int damage);
 	
 	/**
-	 * Called when a upgrade may need to heal damage outside of rendering. Should be the same scale (RF) as the methods.
+	 * Called when a upgrade may need to heal damage outside of returning. Should be the same scale (RF) as the methods.
 	 */
 	public void healArmour(ItemStack stack, int damage);
 	
@@ -59,5 +59,7 @@ public interface IModularItem extends IInventoryContainerItem{
 	 * Return the Holder instance that the upgrades may use to edit data.
 	 */
 	public UpgradeLogic getLogic();
+	
+	
 	
 }

@@ -20,14 +20,15 @@ apply plugin: 'maven-publish'
 def build_number = 'CUSTOM'
 
 if (System.getenv('BUILD_NUMBER') != null)
-	build_number = System.getenv('BUILD_NUMBER') 
+	build_number = System.getenv('BUILD_NUMBER')
 
-file('version.properties').withReader {
-	def prop = new Properties()
-	prop.load(it)
-	ext.config = new ConfigSlurper().parse(prop)
+if(new File('version.properties').exists()){
+	file('version.properties').withReader {
+		def prop = new Properties()
+		prop.load(it)
+		ext.config = new ConfigSlurper().parse(prop)
+	}
 }
-
 version = "${mc_version}-${config.mod_version}-${build_number}"
 group= package_group
 archivesBaseName = mod_name
