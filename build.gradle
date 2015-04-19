@@ -19,12 +19,6 @@ apply plugin: "curseforge"
 apply plugin: "forge"
 apply plugin: 'maven-publish'
 
-file("version.properties").withReader { reader ->
-	def userProps = new Properties()
-	userProps.load(reader)
-	properties.putAll(userProps)
-  }
-
 def build_number = 'CUSTOM'
 
 if (System.getenv('BUILD_NUMBER') != null)
