@@ -78,6 +78,11 @@ public final class UpgradeRegistry{
 		return ImmutableList.copyOf(INSTANCE.upgradeList.values());
 	}
 	
+	/**
+	 * Get the upgrade with the specified name
+	 * @param s
+	 * @return
+	 */
 	public static IUpgrade getUpgrade(String s){
 		return INSTANCE.upgradeList.get(s);
 	}

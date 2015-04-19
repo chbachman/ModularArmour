@@ -3,11 +3,11 @@ package chbachman.armour.handler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
-import net.minecraftforge.oredict.OreDictionary;
 import chbachman.api.item.IModularItem;
 import chbachman.api.nbt.NBTHelper;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.util.ArmourSlot;
+import chbachman.armour.util.InventoryUtil;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.PlayerTickEvent;
@@ -39,7 +39,7 @@ public class GenericEventHandler {
 			ItemStack playerStack = armourList[i];
 			ItemStack storedStack = storage.stacks[i];
 			
-			if(!OreDictionary.itemMatches(playerStack, storedStack, false)){
+			if(!InventoryUtil.itemMatches(playerStack, storedStack, false)){
 				
 				if(playerStack != null && playerStack.getItem() instanceof IModularItem){
 					((IModularItem) playerStack.getItem()).onArmourEquip(player.worldObj, player, playerStack);

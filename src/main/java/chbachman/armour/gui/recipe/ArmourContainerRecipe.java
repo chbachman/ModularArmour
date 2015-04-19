@@ -102,7 +102,7 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
 				for (int k = 0; k < playerInventory.getSizeInventory(); k++){
 					ItemStack playerStack = playerInventory.getStackInSlot(k);
 
-					if (OreDictionary.itemMatches(input[i][g], playerStack, false)){
+					if (InventoryUtil.itemMatches(input[i][g], playerStack, false)){
 
 						toReturn[i] = playerInventory.decrStackSize(k, 1);
 
