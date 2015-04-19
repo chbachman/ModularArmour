@@ -1,5 +1,7 @@
 package chbachman.armour.gui.recipe;
 
+import java.util.List;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -7,6 +9,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import chbachman.api.item.IModularItem;
+import chbachman.api.registry.ModularItemRegistry;
 import chbachman.armour.ModularArmour;
 import chbachman.armour.crafting.Recipe;
 import chbachman.armour.gui.GuiHandler;
@@ -27,7 +30,7 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
 	public Recipe recipe;
 	public int index = 0;
 
-	public static ItemStack[] modularItems = ModularArmour.modularHandler.getListOfItems();
+	public static final List<IModularItem> modularItems = ModularItemRegistry.getUpgradeList();
 
 	public ArmourContainerRecipe(ItemStack stack, InventoryPlayer inventory, World world) {
 		this.item = (IModularItem) stack.getItem();
@@ -47,7 +50,7 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
 			}
 		}
 
-		for (int i = 9; i < 9 + modularItems.length; i++){
+		for (int i = 9; i < 9 + modularItems.size(); i++){
 			this.addSlotToContainer(new SlotViewOnly(inventory2, i, 9, 17 + i * 18));
 		}
 
@@ -228,21 +231,23 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
 
 	private class Inventory2 implements IInventory{
 
-		ItemStack[] stacks;
+		List<ItemStack> stacks;
 
-		public Inventory2(ItemStack[] stacks) {
-			this.stacks = stacks;
+		public Inventory2(Iterable<IModularItem> modularitems) {
+			for(IModularItem i : modularitems){
+				stacks.add(new ItemStack(i.getItem()));
+			}
 		}
 
 		@Override
 		public int getSizeInventory(){
-			return stacks.length;
+			return stacks.size();
 		}
 
 		@Override
 		public ItemStack getStackInSlot(int slot){
 
-			return stacks[slot - 9];
+			return stacks.get(slot - 9);
 
 		}
 

@@ -60,7 +60,7 @@ public final class ModularItemRegistry{
 	 * @param upgrade
 	 * @return the upgrade, for chaining.
 	 */
-	public static IModularItem registerUpgrade(IModularItem upgrade){
+	public static IModularItem registerItem(IModularItem upgrade){
 
 		IItemListener[] list = new IItemListener[INSTANCE.listenerList.size()];
 

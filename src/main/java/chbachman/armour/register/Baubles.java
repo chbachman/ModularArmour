@@ -7,7 +7,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import baubles.api.BaubleType;
 import chbachman.api.item.IModularItem;
 import chbachman.api.nbt.NBTHelper;
-import chbachman.armour.ModularArmour;
+import chbachman.api.registry.ModularItemRegistry;
 import chbachman.armour.items.bauble.RFBauble;
 import chbachman.armour.reference.Reference;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -39,9 +39,9 @@ public class Baubles implements Module{
         stackItemBelt = NBTHelper.createDefaultStackTag(new ItemStack(itemBelt));
         stackItemPendant = NBTHelper.createDefaultStackTag(new ItemStack(itemPendant));
         
-        ModularArmour.modularHandler.register((IModularItem) itemPendant, stackItemPendant);
-        ModularArmour.modularHandler.register((IModularItem) itemRing, stackItemRing);
-        ModularArmour.modularHandler.register((IModularItem) itemBelt, stackItemBelt);
+        ModularItemRegistry.registerItem((IModularItem) itemPendant);
+        ModularItemRegistry.registerItem((IModularItem) itemRing);
+        ModularItemRegistry.registerItem((IModularItem) itemBelt);
 	}
 
 	@Override

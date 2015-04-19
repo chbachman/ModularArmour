@@ -59,7 +59,7 @@ public class ArmourGuiRecipe extends GuiBaseAdv{
 		this.addElement(this.rightArrow);
 		this.addElement(this.upgrade);
 
-		for (int i = 9; i < 9 + ArmourContainerRecipe.modularItems.length; i++){
+		for (int i = 9; i < 9 + ArmourContainerRecipe.modularItems.size(); i++){
 			((Slot) this.container.inventorySlots.get(i)).xDisplayPosition = -this.guiLeft - 16;
 			((Slot) this.container.inventorySlots.get(i)).yDisplayPosition = -this.guiTop - 16;
 		}

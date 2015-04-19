@@ -14,7 +14,6 @@ import chbachman.api.upgrade.IUpgrade;
 import chbachman.armour.gui.GuiHandler;
 import chbachman.armour.handler.DamageEventHandler;
 import chbachman.armour.handler.GenericEventHandler;
-import chbachman.armour.handler.ModularArmourHandler;
 import chbachman.armour.network.ArmourPacket;
 import chbachman.armour.proxy.IProxy;
 import chbachman.armour.reference.Reference;
@@ -60,9 +59,6 @@ public class ModularArmour extends BaseMod {
     
     private static File configDir;
     
-    //Register the different Modular Items here.
-    public static ModularArmourHandler modularHandler;
-    
     //Modular Armour Creative Tab
     public static ModularCreativeTab creativeTab;
     
@@ -79,8 +75,6 @@ public class ModularArmour extends BaseMod {
     	
         config.setConfiguration(new Configuration(new File(configDir, "Main.cfg")));
         output = new OutputHandler(new File(configDir, "ModularRecipes.txt"));
-        
-        modularHandler = new ModularArmourHandler();
         
         debug = config.get("advanced", "debug", false, "Do not change this unless I tell you.");
         

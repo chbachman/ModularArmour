@@ -18,6 +18,7 @@ import net.minecraftforge.oredict.ShapelessOreRecipe;
 import chbachman.api.configurability.FieldList;
 import chbachman.api.item.IModularItem;
 import chbachman.api.nbt.NBTHelper;
+import chbachman.api.registry.ModularItemRegistry;
 import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.util.ArmourSlot;
@@ -157,10 +158,10 @@ public class Vanilla implements Module{
 		stackLeggingsModular = NBTHelper.createDefaultStackTag(new ItemStack(leggingsModular));
 		stackBootsModular = NBTHelper.createDefaultStackTag(new ItemStack(bootsModular));
 
-		ModularArmour.modularHandler.register((IModularItem) helmetModular, stackHelmetModular);
-		ModularArmour.modularHandler.register((IModularItem) chestplateModular, stackChestplateModular);
-		ModularArmour.modularHandler.register((IModularItem) leggingsModular, stackLeggingsModular);
-		ModularArmour.modularHandler.register((IModularItem) bootsModular, stackBootsModular);
+		ModularItemRegistry.registerItem((IModularItem) helmetModular);
+		ModularItemRegistry.registerItem((IModularItem) chestplateModular);
+		ModularItemRegistry.registerItem((IModularItem) leggingsModular);
+		ModularItemRegistry.registerItem((IModularItem) bootsModular);
 
 		if (Loader.isModLoaded("ThermalFoundation")){
 			ThermalExpansionHelper.addTransposerFill(4000, GameRegistry.findItemStack("ThermalFoundation", "ingotElectrum", 1), heatedElectrum, new FluidStack(FluidRegistry.getFluid("pyrotheum"), 500), false);

@@ -8,6 +8,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
@@ -137,6 +138,11 @@ public abstract class ItemModularArmour extends ItemArmor implements ISpecialArm
 	@Override
 	public UpgradeLogicAdv getLogic(){
 		return this.holder;
+	}
+	
+	@Override
+	public Item getItem(){
+		return this;
 	}
 
 	// IRevealer

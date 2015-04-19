@@ -1,6 +1,7 @@
 package chbachman.api.item;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import chbachman.api.upgrade.IUpgrade;
@@ -59,6 +60,11 @@ public interface IModularItem extends IInventoryContainerItem{
 	 * Return the Holder instance that the upgrades may use to edit data.
 	 */
 	public UpgradeLogic getLogic();
+	
+	/**
+	 * Return the item that this piece is a part of.
+	 */
+	public Item getItem();
 	
 	
 	

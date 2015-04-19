@@ -136,6 +136,11 @@ public abstract class ItemBauble extends Item implements IBauble, IModularItem, 
 		return this.holder;
 	}
 
+	@Override
+	public Item getItem(){
+		return this;
+	}
+	
 	// IBauble
 
 	@Override

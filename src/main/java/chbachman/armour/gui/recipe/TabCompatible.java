@@ -3,7 +3,6 @@ package chbachman.armour.gui.recipe;
 import java.util.List;
 
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
@@ -18,7 +17,7 @@ public class TabCompatible extends TabBase{
 
 	ArmourGuiRecipe armourGui;
 
-	ItemStack[] modularItems = ArmourContainerRecipe.modularItems;
+	List<IModularItem> modularItems = ArmourContainerRecipe.modularItems;
 
 	private int startIndex = 0;
 	private int maxItems = 6;
@@ -29,7 +28,7 @@ public class TabCompatible extends TabBase{
 		super(gui, 1);
 
 		this.armourGui = gui;
-		this.maxHeight = Math.min(modularItems.length * 18 + 28, 28 + 18 * maxItems);
+		this.maxHeight = Math.min(modularItems.size(), maxItems) * 18 + 28;
 		this.maxWidth = 42;
 	}
 
@@ -74,7 +73,7 @@ public class TabCompatible extends TabBase{
 		
 		for(int i = 0; i < maxItems; i++){
 
-			IModularItem modularItem = (IModularItem) modularItems[startIndex + i].getItem();
+			IModularItem modularItem = modularItems.get(startIndex + i);
 
 			String iconName;
 
@@ -101,7 +100,7 @@ public class TabCompatible extends TabBase{
 
 		RenderHelper.bindTexture(GRID_TEXTURE);
 
-		for(int i = 0; i < Math.min(modularItems.length, this.maxItems); i++){
+		for(int i = 0; i < Math.min(modularItems.size(), this.maxItems); i++){
 			this.drawSlots(0, i, 1);
 		}
 	}
@@ -110,7 +109,7 @@ public class TabCompatible extends TabBase{
 	public void setFullyOpen() {
 		super.setFullyOpen();
 
-		for (int i = 9; i < 9 + modularItems.length; i++) {
+		for (int i = 9; i < 9 + modularItems.size(); i++) {
 			this.displaySlots(true);
 		}
 	}
@@ -118,7 +117,7 @@ public class TabCompatible extends TabBase{
 	@Override
 	public void toggleOpen() {
 		if (this.open) {
-			for (int i = 9; i < 9 + modularItems.length; i++) {
+			for (int i = 9; i < 9 + modularItems.size(); i++) {
 				this.displaySlots(false);
 			}
 
@@ -137,8 +136,8 @@ public class TabCompatible extends TabBase{
 		
 		this.startIndex += Math.signum(movement);
 		
-		if(startIndex > this.modularItems.length - this.maxItems){
-			this.startIndex = this.modularItems.length - this.maxItems;
+		if(startIndex > this.modularItems.size() - this.maxItems){
+			this.startIndex = this.modularItems.size() - this.maxItems;
 		}
 		
 		if(this.startIndex < 0){
@@ -158,7 +157,7 @@ public class TabCompatible extends TabBase{
 			((Slot) this.armourGui.container.inventorySlots.get(slotNum + startIndex)).yDisplayPosition = this.posY + this.slotsBorderY1 + 4 + 18 * i;
 		}
 		
-		for(int i = 0; i < this.modularItems.length; i++){
+		for(int i = 0; i < this.modularItems.size(); i++){
 			int slotNum = i + 9;
 			
 			if(i >= startIndex && i < startIndex + this.maxItems){
@@ -176,7 +175,7 @@ public class TabCompatible extends TabBase{
 		if(shouldDisplay){
 			this.updateSlots();
 		}else{
-			for(int i = 0; i < modularItems.length; i++){
+			for(int i = 0; i < modularItems.size(); i++){
 				((Slot) this.armourGui.container.inventorySlots.get(i + 9)).xDisplayPosition = -this.gui.getGuiLeft() - 16;
 				((Slot) this.armourGui.container.inventorySlots.get(i + 9)).yDisplayPosition = -this.gui.getGuiTop() - 16;
 			}
