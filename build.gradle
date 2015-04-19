@@ -82,6 +82,7 @@ dependencies {
 }
 
 jar {
+    dependsOn v++
     classifier = ''
 }
 
