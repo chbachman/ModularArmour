@@ -21,15 +21,6 @@ def build_number = 'CUSTOM'
 
 if (System.getenv('BUILD_NUMBER') != null)
 	build_number = System.getenv('BUILD_NUMBER') 
-	
-	{ //Create version.properties if it does not already exist.
-		File propsFile = new File('version.properties')
-
-		if(!propsFile.exists()){
-			propsFile.createNewFile();
-		}
-	
-	}
 
 file('version.properties').withReader {
 	def prop = new Properties()
