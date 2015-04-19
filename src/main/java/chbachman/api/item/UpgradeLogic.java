@@ -8,13 +8,17 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor.ArmorProperties;
+
+import org.lwjgl.input.Keyboard;
+
 import chbachman.api.nbt.NBTHelper;
 import chbachman.api.upgrade.IArmourUpgrade;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.util.ArmourSlot;
-import cofh.lib.util.helpers.StringHelper;
 
 public abstract class UpgradeLogic implements ArmourLogic{
 	
@@ -34,8 +38,8 @@ public abstract class UpgradeLogic implements ArmourLogic{
 	public void addInformation(List<String> list, ItemStack stack){
 		NBTHelper.createDefaultStackTag(stack);
 		
-		if (!StringHelper.isControlKeyDown() && NBTHelper.getNBTUpgradeList(stack.stackTagCompound).size() != 0) {
-			list.add(StringHelper.LIGHT_GRAY + StringHelper.localize("info.cofh.hold") + " " + StringHelper.YELLOW + StringHelper.ITALIC + StringHelper.localize("info.chbachman.control") + " " + StringHelper.END + StringHelper.LIGHT_GRAY + StringHelper.localize("info.chbachman.upgradeList") + StringHelper.END);
+		if (!(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL)) && NBTHelper.getNBTUpgradeList(stack.stackTagCompound).size() != 0) {
+			list.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("info.cofh.hold") + " " + EnumChatFormatting.YELLOW + EnumChatFormatting.ITALIC + StatCollector.translateToLocal("info.chbachman.control") + " " + EnumChatFormatting.RESET + EnumChatFormatting.GRAY + StatCollector.translateToLocal("info.chbachman.upgradeList") + EnumChatFormatting.RESET);
 		} else if (NBTHelper.getNBTUpgradeList(stack.stackTagCompound).size() != 0) {
 			for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
 
