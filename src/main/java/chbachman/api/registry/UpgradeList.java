@@ -10,8 +10,6 @@ import chbachman.armour.ModularArmour;
 @SuppressWarnings("serial")
 public class UpgradeList extends HashMap<String, IUpgrade> implements Iterable<IUpgrade>{
     
-    public static final UpgradeList INSTANCE = new UpgradeList();
-    
     public IUpgrade get(Class<? extends Upgrade> clazz) {
         for (IUpgrade upgrade : this.values()) {
             if (upgrade.getClass() == clazz) {
@@ -29,7 +27,6 @@ public class UpgradeList extends HashMap<String, IUpgrade> implements Iterable<I
     @Override
     public IUpgrade put(String name, IUpgrade upgrade){
     	if (ModularArmour.config.get("Command Enabling", upgrade.getName(), true)) {
-    		FieldList.register(upgrade);
         	return super.put(name, upgrade);
         }
         

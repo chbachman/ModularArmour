@@ -1,22 +1,17 @@
-package chbachman.api.registry;
+package chbachman.api.configurability;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import chbachman.api.configurability.Configurable;
-import chbachman.api.configurability.ConfigurableField;
+import chbachman.api.registry.IUpgradeListener;
 import chbachman.api.upgrade.IUpgrade;
 
-public class FieldList{
+public class FieldList implements IUpgradeListener{
 
-	private static Map<IUpgrade, Field[]> fieldList = new HashMap<IUpgrade, Field[]>();
-
-	public static void refreshFields(IUpgrade upgrade, ConfigurableField[] f){
-		Field[] fields = fieldList.get(upgrade);
-
+	Field[] fields;
+	
+	public void refreshFields(IUpgrade upgrade, ConfigurableField[] f){
 		for (int i = 0; i < fields.length; i++){
 			try{
 				fields[i].set(upgrade, f.length);
@@ -26,9 +21,7 @@ public class FieldList{
 		}
 	}
 
-	public static ConfigurableField[] getFieldList(IUpgrade upgrade){
-
-		Field[] fields = fieldList.get(upgrade);
+	public ConfigurableField[] getFieldList(IUpgrade upgrade){
 		ConfigurableField[] config = new ConfigurableField[fields.length];
 		
 		for (int i = 0; i < fields.length; i++){
@@ -43,8 +36,11 @@ public class FieldList{
 		return config;
 	}
 
-	public static void register(IUpgrade upgrade){
-
+	@Override
+	public IUpgradeListener onUpgradeAdded(IUpgrade upgrade){
+		
+		FieldList list = new FieldList();
+		
 		Class<?> upgradeClass = upgrade.getClass();
 
 		List<Field> storageList = new ArrayList<Field>();
@@ -62,7 +58,9 @@ public class FieldList{
 			storageList.add(field);
 		}
 
-		fieldList.put(upgrade, storageList.toArray(new Field[0]));
+		list.fields = storageList.toArray(new Field[0]);
+		
+		return list;
 
 	}
 }

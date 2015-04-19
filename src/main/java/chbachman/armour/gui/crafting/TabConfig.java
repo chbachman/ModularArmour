@@ -5,7 +5,8 @@ import java.util.List;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import chbachman.api.configurability.ConfigurableField;
-import chbachman.api.registry.FieldList;
+import chbachman.api.configurability.FieldList;
+import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.armour.gui.ElementText;
 import chbachman.armour.network.ArmourPacket;
@@ -82,7 +83,7 @@ public class TabConfig extends TabBase{
 			return;
 		}
 
-		this.storages = FieldList.getFieldList(upgrade);
+		this.storages = UpgradeRegistry.getListenerForUpgrade(upgrade, FieldList.class).getFieldList(upgrade);
 
 		if (storages == null){
 			storages = new ConfigurableField[0];

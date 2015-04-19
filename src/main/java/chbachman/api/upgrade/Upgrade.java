@@ -8,7 +8,7 @@ import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor.ArmorProperties;
 import chbachman.api.item.IModularItem;
-import chbachman.api.registry.UpgradeList;
+import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.util.ArmourSlot;
 
 /**
@@ -33,7 +33,7 @@ public abstract class Upgrade implements IArmourUpgrade{
 	public Upgrade(String name) {
 		this.name = name;
 
-		UpgradeList.INSTANCE.put(this);
+		UpgradeRegistry.registerUpgrade(this);
 	}
 
 	@Override

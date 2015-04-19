@@ -13,7 +13,7 @@ import net.minecraft.item.ItemStack;
 import stanhebben.zenscript.annotations.Optional;
 import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
-import chbachman.api.registry.UpgradeList;
+import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.armour.crafting.Recipe;
 
@@ -33,9 +33,7 @@ public class MineTweaker implements Module{
 	@ZenMethod
 	public static void removeRecipe(String output, @Optional IIngredient[][] ingredients) {
 		
-		IUpgrade upgrade = UpgradeList.INSTANCE.get(output);
-		
-		
+		IUpgrade upgrade = UpgradeRegistry.getUpgrade(output);
 		
 		if(upgrade == null){
 			MineTweakerAPI.logError("Not an valid upgrade: " + output);
@@ -121,7 +119,7 @@ public class MineTweaker implements Module{
 				}
 			}
 			
-			IUpgrade upgrade = UpgradeList.INSTANCE.get(output);
+			IUpgrade upgrade = UpgradeRegistry.getUpgrade(output);
 			
 			if(upgrade == null){
 				MineTweakerAPI.logError("Not an valid Upgrade");

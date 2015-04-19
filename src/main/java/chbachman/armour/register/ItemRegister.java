@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import chbachman.api.registry.UpgradeList;
+import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.armour.ModularArmour;
 import cpw.mods.fml.common.Loader;
@@ -122,7 +122,7 @@ public class ItemRegister {
 
 		ModularArmour.output.write("Recipe Types", builder.toString());
 
-		for(IUpgrade upgrade : UpgradeList.INSTANCE){
+		for(IUpgrade upgrade : UpgradeRegistry.getUpgradeList()){
 
 			ModularArmour.output.write("upgrade names", new StringBuilder().append(upgrade.getBaseName()).append(" = ").append(upgrade.getName()).toString());
 		}
@@ -142,13 +142,13 @@ public class ItemRegister {
 		
 		base.postInit();
 		base.registerUpgradeRecipes();
-		
+
 		for(Module module : list){
-			module.registerUpgradeRecipes();
+			module.postInit();
 		}
 		
 		for(Module module : list){
-			module.postInit();
+			module.registerUpgradeRecipes();
 		}
 		
 		

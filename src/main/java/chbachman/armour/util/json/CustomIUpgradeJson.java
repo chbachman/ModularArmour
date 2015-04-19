@@ -2,7 +2,7 @@ package chbachman.armour.util.json;
 
 import java.lang.reflect.Type;
 
-import chbachman.api.registry.UpgradeList;
+import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.upgrade.IUpgrade;
 
 import com.google.gson.*;
@@ -16,7 +16,7 @@ public class CustomIUpgradeJson implements JsonDeserializer<IUpgrade>, JsonSeria
 
 	@Override
 	public IUpgrade deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException{
-		return UpgradeList.INSTANCE.get(json.getAsString());
+		return UpgradeRegistry.getUpgrade(json.getAsString());
 	}
 
 }

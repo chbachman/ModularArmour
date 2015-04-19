@@ -15,9 +15,11 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
+import chbachman.api.configurability.FieldList;
 import chbachman.api.item.IModularItem;
 import chbachman.api.nbt.NBTHelper;
 import chbachman.api.registry.UpgradeList;
+import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.util.ArmourSlot;
 import chbachman.armour.ModularArmour;
@@ -106,6 +108,8 @@ public class Vanilla implements Module{
 		GameRegistry.registerItem(chestplateModular, "chestplateModular");
 		GameRegistry.registerItem(leggingsModular, "leggingsModular");
 		GameRegistry.registerItem(bootsModular, "bootsModular");
+		
+		UpgradeRegistry.registerListener(new FieldList());
 
 	}
 
@@ -227,7 +231,7 @@ public class Vanilla implements Module{
 	private final void registerAdminArmourPiece(String name, ItemStack armour){
 		ArrayList<IUpgrade> toAdd = new ArrayList<IUpgrade>();
 		
-		for(IUpgrade upgrade: UpgradeList.INSTANCE){ //Populate the inital list, add all first level upgrades.
+		for(IUpgrade upgrade: UpgradeRegistry.getUpgradeList()){ //Populate the inital list, add all first level upgrades.
 			if(!UpgradeHandler.addUpgradeChecked(armour, upgrade)){
 				toAdd.add(upgrade);
 			}

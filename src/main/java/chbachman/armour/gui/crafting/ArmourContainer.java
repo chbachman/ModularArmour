@@ -7,7 +7,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerDestroyItemEvent;
 import chbachman.api.item.IModularItem;
 import chbachman.api.nbt.NBTHelper;
-import chbachman.api.registry.UpgradeList;
+import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.armour.ModularArmour;
 import chbachman.armour.gui.GuiHandler;
@@ -117,7 +117,7 @@ public class ArmourContainer extends ContainerInventoryItem implements IInputHan
                 }
                 
             } else if (name.equals("RemoveUpgrade")) {
-                UpgradeUtil.removeUpgrade(this.getContainerStack(), UpgradeList.INSTANCE.get(packet.getString()));
+                UpgradeUtil.removeUpgrade(this.getContainerStack(), UpgradeRegistry.getUpgrade(packet.getString()));
                 
                 shouldSync = true;
             } else if(name.equals("Recipe")){

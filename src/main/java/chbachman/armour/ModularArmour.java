@@ -9,7 +9,7 @@ import net.minecraftforge.common.config.Configuration;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import chbachman.api.registry.UpgradeList;
+import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.armour.gui.GuiHandler;
 import chbachman.armour.handler.DamageEventHandler;
@@ -105,7 +105,7 @@ public class ModularArmour extends BaseMod {
         ItemRegister.INSTANCE.init();
         
 		
-		for(IUpgrade upgrade : UpgradeList.INSTANCE){
+		for(IUpgrade upgrade : UpgradeRegistry.getUpgradeList()){
 			upgrade.registerConfigOptions();
 		}
         

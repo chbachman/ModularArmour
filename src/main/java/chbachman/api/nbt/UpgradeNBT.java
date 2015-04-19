@@ -1,7 +1,7 @@
 package chbachman.api.nbt;
 
 import net.minecraft.nbt.NBTTagCompound;
-import chbachman.api.registry.UpgradeList;
+import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.upgrade.IUpgrade;
 
 public class UpgradeNBT implements NBTAble<IUpgrade>{
@@ -10,7 +10,7 @@ public class UpgradeNBT implements NBTAble<IUpgrade>{
 
 	@Override
 	public IUpgrade loadFromNBT(NBTTagCompound nbt){
-		IUpgrade upgrade = UpgradeList.INSTANCE.get(nbt.getString("ID"));
+		IUpgrade upgrade = UpgradeRegistry.getUpgrade(nbt.getString("ID"));
 
 		return upgrade;
 	}

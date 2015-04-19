@@ -2,7 +2,7 @@ package chbachman.armour.proxy;
 
 import net.minecraft.init.Items;
 import net.minecraftforge.client.event.TextureStitchEvent;
-import chbachman.api.registry.UpgradeList;
+import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.armour.register.Vanilla;
 import chbachman.armour.upgrade.KeybindUpgrade;
@@ -17,7 +17,7 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void registerKeyBinds() {
         super.registerKeyBinds();
-        for (IUpgrade normalUpgrade : UpgradeList.INSTANCE) {
+        for (IUpgrade normalUpgrade : UpgradeRegistry.getUpgradeList()) {
             if (normalUpgrade instanceof KeybindUpgrade) {
                 
                 KeybindUpgrade upgrade = (KeybindUpgrade) normalUpgrade;

@@ -19,12 +19,12 @@ public interface Module {
 	public void postInit();
 
 	/**
-	 * Called when you should create and register your upgrades.
+	 * Called when you should create and register your upgrades, or right after preInit.
 	 */
 	public void registerUpgrades();
 
 	/**
-	 * Called when you should register your recipes for your upgrades.
+	 * Called when you should register your recipes for your upgrades, or right after postInit;
 	 */
 	public void registerUpgradeRecipes();
 
