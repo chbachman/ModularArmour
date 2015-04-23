@@ -9,19 +9,17 @@ import net.minecraftforge.common.util.Constants;
 public class NBTList<E> extends AbstractList<E>{
 
     public final NBTTagList list;
-    public final NBTAble<E> loader;
     
-    public NBTList(NBTAble<E> tag){
-        this(tag, new NBTTagList());
+    public NBTList(){
+        this(new NBTTagList());
     }
     
-    public NBTList(NBTAble<E> loader, NBTTagList list){
+    public NBTList(NBTTagList list){
         this.list = list;
-        this.loader = loader;
     }
     
-    public NBTList(NBTAble<E> loader, NBTTagCompound nbt){
-        this(loader, nbt.getTagList("UpgradeList", Constants.NBT.TAG_COMPOUND));
+    public NBTList(NBTTagCompound nbt){
+        this(nbt.getTagList("UpgradeList", Constants.NBT.TAG_COMPOUND));
     }
     
     public NBTTagCompound addNBTTagCompound(NBTTagCompound nbt){
@@ -38,7 +36,8 @@ public class NBTList<E> extends AbstractList<E>{
             return null;
         }
         
-        E data =  loader.loadFromNBT(nbt);
+        @SuppressWarnings("unchecked")
+		E data = (E) NBTBuilder.load(nbt);
         
         return data;
         
@@ -62,11 +61,7 @@ public class NBTList<E> extends AbstractList<E>{
     		list.func_150304_a(i + 1, list.getCompoundTagAt(i));
     	}
     	
-    	NBTTagCompound nbt =  new NBTTagCompound();
-    	
-    	loader.saveToNBT(element, nbt);
-    	
-    	this.list.func_150304_a(index, nbt);
+    	this.list.func_150304_a(index, NBTBuilder.save(element));
     }
     
     @Override
@@ -78,11 +73,7 @@ public class NBTList<E> extends AbstractList<E>{
     		return data;
     	}
     	
-    	NBTTagCompound nbt = new NBTTagCompound();
-    	
-    	loader.saveToNBT(element, nbt);
-    	
-        this.list.func_150304_a(index, nbt);
+        this.list.func_150304_a(index, NBTBuilder.save(element));
         
         return data;
     }

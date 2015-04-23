@@ -38,7 +38,7 @@ public abstract class UpgradeProtective extends UpgradeBasic{
 		if(this.shouldDefend(player, armor, source, damage, slot)){
 			energy.extractEnergy(armor, (int) (this.getEnergyPerDamage(armor) * damage), false);
 			
-			float temp = maxProtection * protection.getPercentage(armor) * (limitDamage(player, armor, source, damage, slot) / 100F);
+			float temp = maxProtection * protection.get(armor).getPercentage() * (limitDamage(player, armor, source, damage, slot) / 100F);
 			
 			return new ArmorProperties(0, temp / 100, Integer.MAX_VALUE);
 		}
@@ -53,7 +53,7 @@ public abstract class UpgradeProtective extends UpgradeBasic{
 	
 	@Override
 	public int getArmourDisplay(EntityPlayer player, ItemStack stack, ArmourSlot slot) {
-		return (int) (protection.get(stack) / 25);
+		return (int) (protection.get(stack).getAmount() / 25);
 	}
 
 	/**

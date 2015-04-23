@@ -6,15 +6,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import vazkii.botania.api.mana.IManaItem;
 import chbachman.api.item.IModularItem;
-import chbachman.api.util.VariableInt;
+import chbachman.api.nbt.NBTStorage;
 import chbachman.armour.ModularArmour;
 import cofh.lib.util.helpers.StringHelper;
 import cpw.mods.fml.common.Optional;
 
 public class ManaUpgradeLogic extends UpgradeLogicAdv implements IManaItem{
 	
-	public VariableInt mana = new VariableInt("mana", 10);
-	public VariableInt maxMana = new VariableInt("mana", 10);
+	public NBTStorage<Integer> mana = new NBTStorage<Integer>("mana", 10);
+	public NBTStorage<Integer> maxMana = new NBTStorage<Integer>("mana", 10);
 	
 	public ManaUpgradeLogic(IModularItem item) {
 		super(item);
@@ -63,7 +63,7 @@ public class ManaUpgradeLogic extends UpgradeLogicAdv implements IManaItem{
 	@Override
 	@Optional.Method(modid = "Botania")
 	public void addMana(ItemStack stack, int mana) {
-		this.mana.increment(stack, mana);
+		this.mana.set(stack, this.mana.get(stack) + mana);
 		
 		if(this.mana.get(stack) > this.maxMana.get(stack)){
 			this.mana.set(stack, this.maxMana.get(stack));

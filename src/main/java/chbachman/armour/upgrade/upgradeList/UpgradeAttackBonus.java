@@ -16,7 +16,11 @@ public class UpgradeAttackBonus extends UpgradeBasic{
 		
 		if(e.source.getEntity() instanceof EntityPlayer){
 			
-			UpgradeUtil.doesPlayerHaveUpgrade((EntityPlayer) e.source.getEntity(), this);
+			if(UpgradeUtil.doesPlayerHaveUpgrade((EntityPlayer) e.source.getEntity(), this)){
+				
+				
+				
+			}
 			
 		}
 		

@@ -2,20 +2,21 @@ package chbachman.api.nbt;
 
 import net.minecraft.nbt.NBTTagCompound;
 
-public interface NBTAble<E>{
+public interface NBTSerializer<E>{
 	
 	/**
 	 * Loads from NBTTagCompound
 	 * @param d
+	 * @param context 
 	 * @return Data, or null if does not exist.
 	 */
-	public E loadFromNBT(NBTTagCompound d);
+	public E loadFromNBT(NBTTagCompound d, NBTContext context);
 	
 	/**
 	 * Saves to NBTTagCompound
 	 * @param data
 	 * @param d
 	 */
-	public void saveToNBT(E data, NBTTagCompound d);
+	public void saveToNBT(E data, NBTTagCompound d, NBTContext context);
 	
 }

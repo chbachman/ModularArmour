@@ -93,7 +93,7 @@ public class TabConfig extends TabBase{
 
 		for (int i = 0; i < storages.length; i++){
 			ConfigurableField s = storages[i];
-			this.addElement(new SliderUpgrade(this.gui, s, this.armourGui.stack, 10, 30 + 20 * i, 60, 10, 100).setValue(s.get(this.armourGui.stack)));
+			this.addElement(new SliderUpgrade(this.gui, s, this.armourGui.stack, 10, 30 + 20 * i, 60, 10, 100).setValue(s.get(this.armourGui.stack).getAmount()));
 			this.addElement(new ElementText(this.gui, 10, 20 + 20 * i, 100, 10).setString(s.displayName));
 		}
 
@@ -118,7 +118,7 @@ public class TabConfig extends TabBase{
 
 		public void onValueChanged(int value){
 			field.set(armourPiece, value);
-			PacketHandler.sendToServer(ArmourPacket.getPacket(PacketTypes.BUTTON).addString("ValueChanged").addString(field.key).addInt(value));
+			PacketHandler.sendToServer(ArmourPacket.getPacket(PacketTypes.BUTTON).addString("ValueChanged").addString(field.getKey()).addInt(value));
 		}
 
 		@Override

@@ -52,45 +52,32 @@ public class NBTHelper {
             nbt.setTag("UpgradeList", new NBTTagList());
         }
         
-        NBTList<IUpgrade> tagList = new NBTList<IUpgrade>(UpgradeNBT.INSTANCE, nbt.getTagList("UpgradeList", Constants.NBT.TAG_COMPOUND));
+        NBTList<IUpgrade> tagList = new NBTList<IUpgrade>(nbt.getTagList("UpgradeList", Constants.NBT.TAG_COMPOUND));
         
         return tagList;
         
     }
 
-    public static <E> void save(NBTTagCompound nbt, String identifier, Collection<E> c, NBTAble<E> n){
+    public static void save(NBTTagCompound nbt, String identifier, Collection<?> c){
     	NBTTagList list = new NBTTagList();
-    	Iterator<E> iterator = c.iterator();
+    	Iterator<?> iterator = c.iterator();
     	
     	while(iterator.hasNext()){
-    		NBTTagCompound local = new NBTTagCompound();
-    		n.saveToNBT(iterator.next(), local);
-    		
-    		list.appendTag(local);
+    		list.appendTag(NBTBuilder.save(iterator.next()));
     	}
     	
     	nbt.setTag(identifier, list);
 
     }
-    
-    public static <E> void save(NBTTagCompound nbt, Collection<E> c, NBTAble<E> n){
-    	save(nbt, "list", c, n);
-    	
-    }
 
-    public static <E> void load(NBTTagCompound nbt, String identifier, Collection<E> toFill, NBTAble<E> n){
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+	public static void load(NBTTagCompound nbt, String identifier, Collection toFill){
     	
     	NBTTagList list = nbt.getTagList(identifier, Constants.NBT.TAG_COMPOUND);
     	
     	for(int i = 0; i < list.tagCount(); i++){
-    		toFill.add(n.loadFromNBT(list.getCompoundTagAt(i)));
+    		toFill.add(NBTBuilder.load(list.getCompoundTagAt(i)));
     	}
-    	
-    }
-
-    public static <E> void load(NBTTagCompound nbt, Collection<E> toFill, NBTAble<E> n){
-    	
-    	load(nbt, "list",toFill, n);
     	
     }
 }

@@ -29,7 +29,7 @@ public class UpgradeFallDamage extends Upgrade {
 	
 	@Override
 	public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
-		if (player.fallDistance > (30 - 28 * f.getPercentage(stack)) && EnergyUtil.getEnergyStored(stack) > 100) {
+		if (player.fallDistance > (30 - 28 * f.get(stack).getPercentage()) && EnergyUtil.getEnergyStored(stack) > 100) {
 			player.fallDistance = 0;
 			return cost;
 		}

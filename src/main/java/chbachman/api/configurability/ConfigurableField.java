@@ -2,10 +2,10 @@ package chbachman.api.configurability;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
+import chbachman.api.nbt.NBTStorage;
 import chbachman.api.upgrade.IUpgrade;
-import chbachman.api.util.VariableInt;
 
-public class ConfigurableField extends VariableInt{
+public class ConfigurableField extends NBTStorage<Percentage>{
 
 	public final String displayName;
 	
@@ -25,7 +25,7 @@ public class ConfigurableField extends VariableInt{
 	 * @param defaultData
 	 */
 	public ConfigurableField(IUpgrade u, String name, int defaultData){
-		this(u.getBaseName() + name, "upgrade.chbachman." + u.getBaseName() + "." + name, defaultData);
+		this(u.getBaseName() + name, "upgrade.chbachman." + u.getBaseName() + "." + name, new Percentage(defaultData));
 	}
 	
 	/**
@@ -34,7 +34,7 @@ public class ConfigurableField extends VariableInt{
 	 * @param displayName
 	 */
 	public ConfigurableField(String key, String displayName){
-		this(key, displayName, 0);
+		this(key, displayName, null);
 	}
 	
 	/**
@@ -43,17 +43,17 @@ public class ConfigurableField extends VariableInt{
 	 * @param displayName - For displaying to the user. Will be translated.
 	 * @param defaultData - The data to default to if first created.
 	 */
-	public ConfigurableField(String key, String displayName, int defaultData) {
+	public ConfigurableField(String key, String displayName, Percentage defaultData) {
 		super(key, defaultData);
 		this.displayName = StatCollector.translateToLocal(displayName);
 	}
-	/**
-	 * Get the user-defined percentage that the armour should work at.
-	 * @param stack
-	 * @return
-	 */
-	public float getPercentage(ItemStack stack){
-		return  (float) super.get(stack) / 100F;
+	
+	public ConfigurableField(String key, String displayName, int defaultData) {
+		this(key, displayName, new Percentage(defaultData));
+	}
+
+	public void set(ItemStack stack, int amount){
+		this.get(stack).setPercentage(amount);
 	}
 
 }

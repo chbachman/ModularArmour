@@ -37,7 +37,7 @@ public class UpgradeSpeed extends Upgrade{
     public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot){
     	
     	if(!EnergyUtil.isEmpty(stack) && (player.onGround || player.capabilities.isFlying) && player.moveForward > 0F && !player.isInsideOfMaterial(Material.water)){
-			player.moveFlying(0F, 1F, player.capabilities.isFlying ? .15F * f.getPercentage(stack) : .15F * f.getPercentage(stack) * 2);
+			player.moveFlying(0F, 1F, player.capabilities.isFlying ? .15F * f.get(stack).getPercentage() : .15F * f.get(stack).getPercentage() * 2);
 			return cost;
 		}
     	

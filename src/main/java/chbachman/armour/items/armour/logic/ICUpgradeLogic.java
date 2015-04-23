@@ -5,16 +5,16 @@ import ic2.api.item.IElectricItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import chbachman.api.item.IModularItem;
-import chbachman.api.util.VariableInt;
+import chbachman.api.nbt.NBTStorage;
 import chbachman.armour.ModularArmour;
 
 public class ICUpgradeLogic extends UpgradeLogicAdv implements IElectricItem{
 
 	Item i;
 	
-	VariableInt maxCharge = new VariableInt("maxCharge", 10000);
-	VariableInt tier = new VariableInt("tier", 1);
-	VariableInt limit = new VariableInt("transferLimit", 10000);
+	NBTStorage<Double> maxCharge = new NBTStorage<Double>("maxCharge", 10000D);
+	NBTStorage<Integer> tier = new NBTStorage<Integer>("tier", 1);
+	NBTStorage<Double> limit = new NBTStorage<Double>("transferLimit", 10000D);
 	
 	static int rfToEU = ModularArmour.config.get("Conversions", "RF to EU Conversion Factor", 3);
 	

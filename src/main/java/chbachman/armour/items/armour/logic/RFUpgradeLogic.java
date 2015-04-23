@@ -7,9 +7,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import chbachman.api.item.IModularItem;
 import chbachman.api.nbt.NBTHelper;
+import chbachman.api.nbt.NBTStorage;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.util.ArmourSlot;
-import chbachman.api.util.VariableInt;
 import chbachman.armour.register.Botania;
 import chbachman.armour.util.ConfigHelper;
 import cofh.api.energy.IEnergyContainerItem;
@@ -22,8 +22,8 @@ public class RFUpgradeLogic extends UpgradeLogicAdv implements IEnergyContainerI
 		super(item);
 	}
 
-	private VariableInt capacity = new VariableInt("capacity", 100);
-	private VariableInt maxTransfer = new VariableInt("maxTransfer", 100);
+	private NBTStorage<Integer> capacity = new NBTStorage<Integer>("capacity", 100);
+	private NBTStorage<Integer> maxTransfer = new NBTStorage<Integer>("maxTransfer", 100);
 	
 	public int getCapacity(ItemStack stack) {
 		return this.capacity.get(stack);

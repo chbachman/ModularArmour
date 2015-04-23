@@ -31,7 +31,7 @@ public class UpgradeMagnet extends Upgrade{
 
 	@Override
 	public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
-		float distanceToPull = 5 * f.getPercentage(stack);
+		float distanceToPull = 5 * f.get(stack).getPercentage();
 		
 		AxisAlignedBB box = player.boundingBox.expand(distanceToPull, distanceToPull, distanceToPull);
 

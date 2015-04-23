@@ -8,15 +8,15 @@ import net.minecraft.world.World;
 import chbachman.api.configurability.Configurable;
 import chbachman.api.configurability.ConfigurableField;
 import chbachman.api.item.IModularItem;
+import chbachman.api.nbt.NBTStorage;
 import chbachman.api.upgrade.Upgrade;
 import chbachman.api.util.ArmourSlot;
-import chbachman.api.util.VariableInt;
 import chbachman.armour.util.ConfigHelper;
 
 public class UpgradeAutoFeeder extends Upgrade{
 
 	// Data Storage
-	private VariableInt storedFood = new VariableInt("foodLevel", 0);
+	private NBTStorage<Integer> storedFood = new NBTStorage<Integer>("foodLevel", 0);
 
 	// Configrability
 	@Configurable
@@ -47,7 +47,7 @@ public class UpgradeAutoFeeder extends Upgrade{
 	@Override
 	public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot){
 
-		int modifiedAmount = amountToHold * foodAmount.get(stack);
+		int modifiedAmount = amountToHold * foodAmount.get(stack).getAmount();
 		
 		if (storedFood.get(stack) < modifiedAmount){ // Grab the food from the
 													// player's inventory.
@@ -65,7 +65,7 @@ public class UpgradeAutoFeeder extends Upgrade{
 					int amountToStore = food.func_150905_g(playerStack);
 					
 					if(modifiedAmount - storedFood.get(stack) >= amountToStore){ //If we can store food
-						storedFood.increment(stack, amountToStore);
+						storedFood.set(stack, storedFood.get(stack) + amountToStore);
 
 						playerStack.stackSize--;
 

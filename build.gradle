@@ -28,7 +28,15 @@ if(new File('version.properties').exists()){
 		prop.load(it)
 		ext.config = new ConfigSlurper().parse(prop)
 	}
+}else{
+	new File('version.properties').createNewFile()
+	file('version.properties').withReader {
+		def prop = new Properties()
+		prop.load(it)
+		ext.config = new ConfigSlurper().parse(prop)
+	}
 }
+
 version = "${mc_version}-${config.mod_version}-${build_number}"
 group= package_group
 archivesBaseName = mod_name

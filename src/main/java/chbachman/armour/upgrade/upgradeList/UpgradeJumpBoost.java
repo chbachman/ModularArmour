@@ -49,7 +49,7 @@ public class UpgradeJumpBoost extends Upgrade {
 					IModularItem modularItem = (IModularItem) stack.getItem();
 					
 					(modularItem).damageArmour(stack, energyCost + 1);
-					player.motionY += .3 * f.getPercentage(stack) + 1;
+					player.motionY += .3 * f.get(stack).getPercentage() + 1;
 					
 				}
 			}
