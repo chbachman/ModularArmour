@@ -1,14 +1,18 @@
 package chbachman.armour;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
 
 import net.minecraft.launchwrapper.Launch;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import chbachman.api.nbt.NBTStorage;
 import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.armour.gui.GuiHandler;
@@ -80,6 +84,17 @@ public class ModularArmour extends BaseMod {
         
         creativeTab = new ModularCreativeTab();
         
+        NBTTagCompound nbt = new NBTTagCompound();
+        
+        ArrayList<Integer> toSave = new ArrayList<Integer>();
+        
+        Collections.addAll(toSave, 5,6,3,3,56,3,2,2,3,5,6,3);
+        
+        NBTStorage<ArrayList<Integer>> t = new NBTStorage<ArrayList<Integer>>();
+        
+        t.set(nbt, toSave);
+        
+        System.out.println(t.get(nbt));
         
         ItemRegister.INSTANCE.preInit();
         ArmourPacket.initialize();

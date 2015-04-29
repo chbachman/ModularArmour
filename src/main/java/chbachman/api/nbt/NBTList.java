@@ -5,6 +5,9 @@ import java.util.AbstractList;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.util.Constants;
+import chbachman.api.upgrade.IUpgrade;
+
+import com.google.gson.reflect.TypeToken;
 
 public class NBTList<E> extends AbstractList<E>{
 
@@ -19,7 +22,7 @@ public class NBTList<E> extends AbstractList<E>{
     }
     
     public NBTList(NBTTagCompound nbt){
-        this(nbt.getTagList("UpgradeList", Constants.NBT.TAG_COMPOUND));
+        this(nbt.getTagList("UpgradeList", Constants.NBT.TAG_COMPOUND));  
     }
     
     public NBTTagCompound addNBTTagCompound(NBTTagCompound nbt){
@@ -34,6 +37,10 @@ public class NBTList<E> extends AbstractList<E>{
         
         if (nbt == null) {
             return null;
+        }
+        
+        if(!nbt.hasKey("type")){
+        	nbt.setString("type", TypeToken.get(IUpgrade.class).toString());
         }
         
         @SuppressWarnings("unchecked")

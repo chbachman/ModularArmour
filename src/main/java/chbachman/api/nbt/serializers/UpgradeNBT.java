@@ -7,8 +7,6 @@ import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.upgrade.IUpgrade;
 
 public class UpgradeNBT implements NBTSerializer<IUpgrade>{
-	
-	public static final UpgradeNBT INSTANCE = new UpgradeNBT();
 
 	@Override
 	public IUpgrade loadFromNBT(NBTTagCompound d, NBTContext context){

@@ -1,6 +1,7 @@
 package chbachman.api.nbt;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 
 
 /**
@@ -37,18 +38,30 @@ public class NBTStorage<E>{
 		return temp;
 	}
 	
-	public E get(ItemStack stack){
+	public E set(NBTTagCompound stack, E data){
+		E temp = this.get(stack);
+		
+		NBTBuilder.save(stack, key, data);
+		
+		return temp;
+	}
+	
+	public E get(NBTTagCompound stack){
 		Object obj = NBTBuilder.load(stack, key);
 		
 		try{
 			@SuppressWarnings("unchecked")
 			E data = (E) obj;
 			
-			return data;
+			return data == null ? def : data;
 			
 		}catch(ClassCastException e){ //Someone changed the data to a different type behind our backs. Naughty dev.
-			return null;
+			return def;
 		}
+	}
+	
+	public E get(ItemStack stack){
+		return get(stack.stackTagCompound);
 	}
 	
 	public void setDefault(E def){

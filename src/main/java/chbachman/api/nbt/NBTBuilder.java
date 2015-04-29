@@ -1,10 +1,12 @@
 package chbachman.api.nbt;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.util.Constants;
+import chbachman.api.nbt.serializers.CollectionNBT;
+import chbachman.api.nbt.serializers.PrimitiveNBT;
+import chbachman.api.nbt.serializers.UpgradeNBT;
+import chbachman.api.upgrade.IUpgrade;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
@@ -12,13 +14,19 @@ import com.google.gson.reflect.TypeToken;
 
 public final class NBTBuilder{
 
-	private static final Map<TypeToken<?>, NBTSerializer<?>> list = new HashMap<TypeToken<?>, NBTSerializer<?>>();
-	private static final BiMap<String, NBTSerializer<?>> stringList = HashBiMap.create();
+	static final TypeMap<NBTSerializer<?>> list = new TypeMap<NBTSerializer<?>>();
+	static final BiMap<String, NBTSerializer<?>> stringList = HashBiMap.create();
 
-	private static final NBTContext context = new NBTContext();
+	static final NBTContext context = new NBTContext();
+	
+	static{ //Register Default Serializers
+		PrimitiveNBT.register();
+		CollectionNBT.register();
+		registerNBT(IUpgrade.class, new UpgradeNBT());
+	}
 	
 	private NBTBuilder(){}
-
+	
 	public static <T> void registerNBT(Class<T> clazz, NBTSerializer<T> nbt){
 		TypeToken<T> type = TypeToken.get(clazz);
 		list.put(type, nbt);
@@ -26,6 +34,10 @@ public final class NBTBuilder{
 	}
 	
 	public static Object load(NBTTagCompound nbt){
+		
+		if(nbt == null){
+			return null;
+		}
 		
 		String type = nbt.getString("type");
 		
@@ -40,7 +52,16 @@ public final class NBTBuilder{
 	
 	@SuppressWarnings("unchecked")
 	public static <T> T load(NBTTagCompound nbt, Class<T> clazz){
-		NBTSerializer<T> serializer = (NBTSerializer<T>) list.get(clazz);
+		
+		if(nbt == null){
+			return null;
+		}
+		
+		if(!list.containsKey(TypeToken.get(clazz))){
+			throw new SerializationException(String.format("The type %s is not supported by the NBTSerialization. Please register a serializer for it.", clazz));
+		}
+		
+		NBTSerializer<T> serializer = (NBTSerializer<T>) list.get(TypeToken.get(clazz));
 		
 		return serializer.loadFromNBT(nbt, context);
 	}
@@ -49,6 +70,11 @@ public final class NBTBuilder{
 	public static <T> NBTTagCompound save(T object){
 		TypeToken<T> t = (TypeToken<T>) TypeToken.get(object.getClass());
 		NBTTagCompound nbt = new NBTTagCompound();
+		
+		if(!list.containsKey(t)){
+			throw new SerializationException(String.format("The type %s is not supported by the NBTSerialization. Please register a serializer for it.", t));
+		}
+		
 		NBTSerializer<T> parser = (NBTSerializer<T>) list.get(t);
 		
 		nbt.setString("type", t.toString());
@@ -97,7 +123,19 @@ public final class NBTBuilder{
 	}
 	
 	public static Object load(NBTTagCompound nbt, String name){
-		return load(nbt.getCompoundTag(name));
+		
+		if(nbt == null){
+			return null;
+		}
+		
+		if(nbt.hasKey(name, Constants.NBT.TAG_COMPOUND)){
+			return load(nbt.getCompoundTag(name));
+		}else{
+			nbt.setTag(name, new NBTTagCompound());
+			return null;
+		}
+		
+		
 	}
 	
 	public static <T> T load(ItemStack stack, String name, Class<T> type){

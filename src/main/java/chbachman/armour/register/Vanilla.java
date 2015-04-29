@@ -42,7 +42,7 @@ import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class Vanilla implements Module{
-
+	
 	public static ArmorMaterial materialModular;
 
 	public static Item helmetModular;

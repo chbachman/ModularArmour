@@ -90,7 +90,14 @@ dependencies {
 	compile "net.industrial-craft:industrialcraft-2:${ic2_version}-experimental:api"
 }
 
-jar { classifier = '' }
+jar { classifier = '' 
+
+	manifest {
+		attributes 'FMLAT': 'modulararmour_at.cfg'
+	}
+
+
+}
 
 task 'v++' <<{
 	Properties props = new Properties()
