@@ -23,18 +23,22 @@ public class ICUpgradeLogic extends UpgradeLogicAdv implements IElectricItem{
 		this.i = i;
 	}
 	
+	@Override
 	public boolean canProvideEnergy(ItemStack itemStack){
 		return true;
 	}
 
+	@Override
 	public double getMaxCharge(ItemStack itemStack){
 		return maxCharge.get(itemStack);
 	}
 
+	@Override
 	public int getTier(ItemStack itemStack){
 		return tier.get(itemStack);
 	}
 
+	@Override
 	public double getTransferLimit(ItemStack itemStack){
 		return limit.get(itemStack);
 	}

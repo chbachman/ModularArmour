@@ -35,6 +35,7 @@ public abstract class UpgradeLogic implements ArmourLogic{
 	 * @param list - The tooltip list
 	 * @param armour - The ItemStack of the armour;
 	 */
+	@Override
 	public void addInformation(List<String> list, ItemStack stack){
 		NBTHelper.createDefaultStackTag(stack);
 		
@@ -42,7 +43,7 @@ public abstract class UpgradeLogic implements ArmourLogic{
 			list.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("info.cofh.hold") + " " + EnumChatFormatting.YELLOW + EnumChatFormatting.ITALIC + StatCollector.translateToLocal("info.chbachman.control") + " " + EnumChatFormatting.RESET + EnumChatFormatting.GRAY + StatCollector.translateToLocal("info.chbachman.upgradeList") + EnumChatFormatting.RESET);
 		} else if (NBTHelper.getNBTUpgradeList(stack.stackTagCompound).size() != 0) {
 			for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
-
+				
 				list.add(upgrade.getName());
 
 			}
@@ -56,6 +57,7 @@ public abstract class UpgradeLogic implements ArmourLogic{
 	 * @param player
 	 * @return stack passed in.
 	 */
+	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player){
 		return stack;
 	}
@@ -65,6 +67,7 @@ public abstract class UpgradeLogic implements ArmourLogic{
 	 * @param stack
 	 * @return
 	 */
+	@Override
 	public int getDisplayDamage(ItemStack stack){ return 0; }
 	
 	/**
@@ -72,6 +75,7 @@ public abstract class UpgradeLogic implements ArmourLogic{
 	 * @param stack
 	 * @return
 	 */
+	@Override
 	public int getMaxDamage(ItemStack stack){ return Short.MAX_VALUE; }
 	
 	/**
@@ -79,6 +83,7 @@ public abstract class UpgradeLogic implements ArmourLogic{
 	 * @param stack
 	 * @return
 	 */
+	@Override
 	public boolean isDamaged(ItemStack stack) { return false; }
 	
 	/**
@@ -87,6 +92,7 @@ public abstract class UpgradeLogic implements ArmourLogic{
 	 * @param stack
 	 * @return
 	 */
+	@Override
 	public boolean getIsRepairable(ItemStack itemToRepair, ItemStack stack) { return false; }
 	
 	/**
@@ -97,6 +103,7 @@ public abstract class UpgradeLogic implements ArmourLogic{
 	 * @param type
 	 * @return The location of the texture.
 	 */
+	@Override
 	public String getArmourTexture(ItemStack stack, Entity entity, int slot, String type){
 		String texture = "Modular";
 		String color = "";
@@ -129,6 +136,7 @@ public abstract class UpgradeLogic implements ArmourLogic{
 	 * @param player
 	 * @param stack
 	 */
+	@Override
 	public void onArmourTick(World world, EntityPlayer player, ItemStack stack){
 		int energy = 0;
 
@@ -157,6 +165,7 @@ public abstract class UpgradeLogic implements ArmourLogic{
 	 * @param player
 	 * @param stack
 	 */
+	@Override
 	public void onArmourEquip(World world, EntityPlayer player, ItemStack stack){
 		Iterator<IUpgrade> iterator = NBTHelper.getNBTUpgradeList(stack).iterator();
 		while (iterator.hasNext()) {
@@ -177,6 +186,7 @@ public abstract class UpgradeLogic implements ArmourLogic{
 	 * @param player
 	 * @param stack
 	 */
+	@Override
 	public void onArmourDequip(World world, EntityPlayer player, ItemStack stack) {
 		Iterator<IUpgrade> iterator = NBTHelper.getNBTUpgradeList(stack).iterator();
 		while (iterator.hasNext()) {
@@ -200,6 +210,7 @@ public abstract class UpgradeLogic implements ArmourLogic{
 	 * @param slot
 	 * @return The properties detailing the reaction on hit.
 	 */
+	@Override
 	public ArmorProperties getProperties(EntityLivingBase player, ItemStack stack, DamageSource source, double damage, int slot) {
 
 		ArmorProperties output = new ArmorProperties(0, 0, 0);
@@ -233,6 +244,7 @@ public abstract class UpgradeLogic implements ArmourLogic{
 	 * @param slot
 	 * @return
 	 */
+	@Override
 	public int getArmourDisplay(EntityPlayer player, ItemStack stack, int slot){
 		int sum = 0;
 		for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {

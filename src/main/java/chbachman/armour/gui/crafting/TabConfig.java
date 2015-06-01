@@ -38,8 +38,7 @@ public class TabConfig extends TabBase{
 	}
 
 	@Override
-	public void draw(){
-		super.draw();
+	public void drawForeground(){
 
 		if (!this.isVisible()){
 			return;
@@ -116,6 +115,7 @@ public class TabConfig extends TabBase{
 			this.armourPiece = armour;
 		}
 
+		@Override
 		public void onValueChanged(int value){
 			field.set(armourPiece, value);
 			PacketHandler.sendToServer(ArmourPacket.getPacket(PacketTypes.BUTTON).addString("ValueChanged").addString(field.getKey()).addInt(value));

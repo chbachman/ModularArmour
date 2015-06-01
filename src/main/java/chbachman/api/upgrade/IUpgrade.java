@@ -42,8 +42,10 @@ public interface IUpgrade extends Comparable<IUpgrade>{
 	 * @param obj
 	 * @return equality
 	 */
+	@Override
 	boolean equals(Object obj);
 	
+	@Override
 	int hashCode();
 
 	/**

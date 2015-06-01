@@ -93,6 +93,7 @@ public class Vanilla implements Module{
 	public static IUpgrade lavaProtection;
 	public static IUpgrade playerProtection;
 
+	@Override
 	public final void preInit(){
 
 		material = (ItemBase) new ItemBase("modulararmour").setUnlocalizedName("material").setCreativeTab(ModularArmour.creativeTab);
@@ -113,6 +114,7 @@ public class Vanilla implements Module{
 
 	}
 
+	@Override
 	public final void registerUpgrades(){
 		calfShields = new UpgradeBasic("calfShields").setArmourSlot(ArmourSlot.LEGS);
 		hoverJetpack = new UpgradeHoverJetpack();
@@ -148,6 +150,7 @@ public class Vanilla implements Module{
 		solar = new UpgradeSolar("solar", 1);
 	}
 
+	@Override
 	public final void init(){
 
 		heatedElectrum = material.addOreDictItem(1, "heatedElectrum", 1);
@@ -169,6 +172,7 @@ public class Vanilla implements Module{
 		}
 	}
 
+	@Override
 	public void registerUpgradeRecipes(){
 		Recipe.recipeList.add(new Recipe(autoFeeder, "igi", "igi", "iii", 'i', "ingotIron", 'g', Items.golden_apple));
 		Recipe.recipeList.add(new Recipe(basePotion, "iri", "gwg", "igi", 'i', "ingotIron", 'g', "blockGlass", 'r', "dustRedstone", 'w', Items.water_bucket));
@@ -200,6 +204,7 @@ public class Vanilla implements Module{
 		Recipe.recipeList.add(new Recipe(explosionProtection, "tit", "iti", "tit", 't', Blocks.tnt, 'i', "ingotIron"));
 	}
 
+	@Override
 	public final void postInit(){
 
 		if (!Loader.isModLoaded("ThermalExpansion")){

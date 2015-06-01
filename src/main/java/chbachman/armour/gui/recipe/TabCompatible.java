@@ -33,29 +33,6 @@ public class TabCompatible extends TabBase{
 	}
 
 	@Override
-	public void draw() {
-		super.draw();
-		if (!this.isVisible()) {
-			return;
-		}
-
-		this.drawBackground();
-
-		if(this.fullyOpen == true)
-			this.drawForeground(this.currentShiftX, this.currentShiftY);
-
-		if(this.isCompatible(armourGui.container.item)){
-			this.drawTabIcon("IconAccept");
-		}else{
-			this.drawTabIcon("IconCancel");
-		}
-		
-		if (!this.isFullyOpened()) {
-			return;
-		}
-	}
-
-	@Override
     public void addTooltip(List<String> list) {
         
         if (!this.isFullyOpened()) {
@@ -64,9 +41,19 @@ public class TabCompatible extends TabBase{
     }
 
 	@Override
-	public void drawForeground(int arg0, int arg1) {
-		super.drawForeground(arg0, arg1);
+	public void drawForeground(int x, int y) {
+		super.drawForeground(x, y);
 
+		if (!this.isVisible()) {
+			return;
+		}
+
+		if(this.isCompatible(armourGui.container.item)){
+			this.drawTabIcon("IconAccept");
+		}else{
+			this.drawTabIcon("IconCancel");
+		}
+		
 		if(!this.isFullyOpened()){
 			return;
 		}

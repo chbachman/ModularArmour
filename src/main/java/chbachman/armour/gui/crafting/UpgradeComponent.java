@@ -67,6 +67,12 @@ public class UpgradeComponent extends ElementBase{
 		// Drawing Text
 		for (int i = this.startLine; i < this.startLine + this.displayLines; i++){
 			if (this.textLines.size() > i){
+				
+				if(textLines.get(i) == null){
+					System.out.println("WHYYYYYYYYYYYYYYYYYYYYYYYYYY F****** YOUUUUUUUUU");
+					continue;
+				}
+				
 				String lineToDraw = getFontRenderer().trimStringToWidth(this.textLines.get(i).getName(), this.sizeX);
 				if (this.selectedLine == i){
 					Gui.drawRect(this.posX, this.posY + 1 + this.lineHeight * (i - this.startLine), this.posX + this.sizeX, this.posY + this.lineHeight * (1 + i - this.startLine), this.selectedLineColor);
@@ -121,10 +127,6 @@ public class UpgradeComponent extends ElementBase{
 		}catch (IndexOutOfBoundsException e){
 			return null;
 		}
-	}
-
-	public void addLine(IUpgrade theLine){
-		this.textLines.add(theLine);
 	}
 
 	public void scrollUp(){

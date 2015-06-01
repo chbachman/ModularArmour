@@ -45,7 +45,7 @@ public class UpgradeHandler {
     public static boolean addUpgrade(ItemStack stack, IUpgrade upgrade) {
         NBTHelper.createDefaultStackTag(stack);
         
-        if (stack.getItem() instanceof IModularItem) {
+        if (stack.getItem() instanceof IModularItem){
             
         	IModularItem armour = (IModularItem) stack.getItem();
             
@@ -68,7 +68,7 @@ public class UpgradeHandler {
             
             upgrade.onUpgradeAddition((IModularItem) stack.getItem(), stack);
             
-            NBTList<IUpgrade> list = NBTHelper.getNBTUpgradeList(stack.stackTagCompound);
+            NBTList<IUpgrade> list = NBTHelper.getNBTUpgradeList(stack);
             
             list.add(upgrade);
             

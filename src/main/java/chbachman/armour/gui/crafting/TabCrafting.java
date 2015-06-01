@@ -40,6 +40,7 @@ public class TabCrafting extends TabBase {
         }
         
         this.drawBackground();
+        
         this.drawTabIcon("IconUpgrade");
         if (!this.isFullyOpened()) {
             return;

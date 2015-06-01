@@ -1,5 +1,6 @@
 package chbachman.api.legacy;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.util.Constants;
@@ -8,6 +9,14 @@ import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.upgrade.IUpgrade;
 
 public class LegacyHandler{
+	
+	public static void convert(ItemStack stack){
+		if(stack.stackTagCompound == null){
+			return;
+		}
+		
+		convert(stack.stackTagCompound);
+	}
 	
 	public static void convert(NBTTagCompound old){
 		
@@ -23,7 +32,7 @@ public class LegacyHandler{
 			list.add(upgrade);
 		}
 		
-		old.setTag("UpgradeList", list.list);
+		
 		
 	}
 

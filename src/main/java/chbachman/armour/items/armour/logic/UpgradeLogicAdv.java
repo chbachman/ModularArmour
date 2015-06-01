@@ -48,6 +48,7 @@ public abstract class UpgradeLogicAdv extends UpgradeLogic implements IRevealer,
 	 * @param player
 	 * @return stack passed in.
 	 */
+	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player){
 		if (CoreUtils.isFakePlayer(player)) {
 			return stack;
@@ -123,6 +124,7 @@ public abstract class UpgradeLogicAdv extends UpgradeLogic implements IRevealer,
 	 * @param stack
 	 * @param toHeal
 	 */
+	@Override
 	public abstract void healArmour(ItemStack stack, int toHeal);
 
 	/**
@@ -130,6 +132,7 @@ public abstract class UpgradeLogicAdv extends UpgradeLogic implements IRevealer,
 	 * @param stack
 	 * @param damage
 	 */
+	@Override
 	public abstract void damageArmour(ItemStack stack, int damage);
 
 }

@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import chbachman.api.item.IModularItem;
+import chbachman.api.legacy.LegacyHandler;
 import chbachman.api.nbt.NBTHelper;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.util.ArmourSlot;
@@ -22,7 +23,14 @@ public class GenericEventHandler {
 	@SubscribeEvent
 	public void onEntityConstructing(EntityConstructing event) {
 		if (event.entity instanceof EntityPlayer && PlayerArmour.getFor((EntityPlayer) event.entity) == null) {
-			PlayerArmour.register((EntityPlayer) event.entity);
+			
+			EntityPlayer player = (EntityPlayer) event.entity;
+			
+			PlayerArmour.register(player);
+			
+			
+			
+			
 		}
 	}
 
@@ -75,6 +83,26 @@ public class GenericEventHandler {
 
 			}
 		}
+		
+		/*
+		for(ItemStack stack : e.player.inventory.mainInventory){
+			if(stack == null) continue;
+			
+			if(stack.getItem() instanceof IModularItem){
+				LegacyHandler.convert(stack);
+			}
+			
+			
+		}
+		
+		for(ItemStack stack : e.player.inventory.armorInventory){
+			if(stack == null) continue;
+			
+			if(stack.getItem() instanceof IModularItem){
+				LegacyHandler.convert(stack);
+			}
+		}
+		*/
 	}
 
 }

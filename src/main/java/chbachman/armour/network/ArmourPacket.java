@@ -9,14 +9,8 @@ import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.util.ArmourSlot;
 import chbachman.armour.util.MiscUtil;
 import cofh.core.network.PacketCoFHBase;
-import cofh.core.network.PacketHandler;
 
 public class ArmourPacket extends PacketCoFHBase {
-    
-    public static void initialize() {
-        
-        PacketHandler.instance.registerPacket(ArmourPacket.class);
-    }
     
     public enum PacketTypes {
         

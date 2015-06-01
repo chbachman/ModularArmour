@@ -56,7 +56,8 @@ public class ArmourContainer extends ContainerInventoryItem implements IInputHan
         }
     }
     
-    public void onSlotChanged() {
+    @Override
+	public void onSlotChanged() {
     	super.onSlotChanged();
         this.upgrade = UpgradeHandler.getResult(this.containerWrapper);
     }
@@ -71,6 +72,8 @@ public class ArmourContainer extends ContainerInventoryItem implements IInputHan
             if (name.equals("UpgradeAddition")) {
                 if (UpgradeHandler.addUpgrade(this.getContainerStack(), this.upgrade)) {
                     
+                	this.upgrade = UpgradeHandler.getResult(this.containerWrapper);
+                	
                 	for (int i = 0; i < this.containerWrapper.getSizeInventory(); ++i)
                     {
                         ItemStack itemstack1 = this.containerWrapper.getStackInSlot(i);
@@ -104,7 +107,7 @@ public class ArmourContainer extends ContainerInventoryItem implements IInputHan
                         }
                     }
                     
-                    this.upgrade = UpgradeHandler.getResult(this.containerWrapper);
+                    
                     
                     shouldSync = true;
                 }

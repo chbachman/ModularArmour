@@ -1,8 +1,8 @@
 package chbachman.api.nbt.serializers;
 
 import net.minecraft.nbt.NBTTagCompound;
-import chbachman.api.nbt.NBTSerializer;
 import chbachman.api.nbt.NBTContext;
+import chbachman.api.nbt.NBTSerializer;
 import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.upgrade.IUpgrade;
 

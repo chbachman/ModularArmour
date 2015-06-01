@@ -1,5 +1,6 @@
 package chbachman.armour.gui.recipe;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
@@ -231,10 +232,13 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
 
 	private class Inventory2 implements IInventory{
 
-		List<ItemStack> stacks;
+		List<ItemStack> stacks = new ArrayList<ItemStack>();
 
 		public Inventory2(Iterable<IModularItem> modularitems) {
 			for(IModularItem i : modularitems){
+				
+				System.out.println(i);
+				
 				stacks.add(new ItemStack(i.getItem()));
 			}
 		}

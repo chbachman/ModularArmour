@@ -3,7 +3,6 @@ package chbachman.api.nbt;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.util.Constants;
-import chbachman.api.nbt.serializers.CollectionNBT;
 import chbachman.api.nbt.serializers.PrimitiveNBT;
 import chbachman.api.nbt.serializers.UpgradeNBT;
 import chbachman.api.upgrade.IUpgrade;
@@ -14,14 +13,13 @@ import com.google.gson.reflect.TypeToken;
 
 public final class NBTBuilder{
 
-	static final TypeMap<NBTSerializer<?>> list = new TypeMap<NBTSerializer<?>>();
-	static final BiMap<String, NBTSerializer<?>> stringList = HashBiMap.create();
+	static final TypeMap<NBTSerializer> list = new TypeMap<NBTSerializer>();
+	static final BiMap<String, NBTSerializer> stringList = HashBiMap.create();
 
 	static final NBTContext context = new NBTContext();
 	
 	static{ //Register Default Serializers
 		PrimitiveNBT.register();
-		CollectionNBT.register();
 		registerNBT(IUpgrade.class, new UpgradeNBT());
 	}
 	
@@ -45,9 +43,10 @@ public final class NBTBuilder{
 
 		if(serializer != null){
 			return serializer.loadFromNBT(nbt, context);
+		}else{
+			return null;
 		}
 		
-		return null;
 	}
 	
 	@SuppressWarnings("unchecked")

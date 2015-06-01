@@ -107,6 +107,7 @@ public abstract class UpgradeProtective extends UpgradeBasic{
 			return source.isProjectile();
 		}
 		
+		@Override
 		public int getEnergyPerDamage(ItemStack stack){
 			return 100;
 		}
@@ -124,6 +125,7 @@ public abstract class UpgradeProtective extends UpgradeBasic{
 			return source.isFireDamage();
 		}
 		
+		@Override
 		public int getEnergyPerDamage(ItemStack stack){
 			return 100;
 		}
@@ -141,6 +143,7 @@ public abstract class UpgradeProtective extends UpgradeBasic{
 			return source.isExplosion();
 		}
 		
+		@Override
 		public int getEnergyPerDamage(ItemStack stack){
 			return 100;
 		}
@@ -158,6 +161,7 @@ public abstract class UpgradeProtective extends UpgradeBasic{
 			return source.isUnblockable();
 		}
 		
+		@Override
 		public int getEnergyPerDamage(ItemStack stack){
 			return 100;
 		}
@@ -175,6 +179,7 @@ public abstract class UpgradeProtective extends UpgradeBasic{
 			return source.isMagicDamage();
 		}
 
+		@Override
 		public int getEnergyPerDamage(ItemStack stack){
 			return 100;
 		}
@@ -191,6 +196,7 @@ public abstract class UpgradeProtective extends UpgradeBasic{
 			return source == DamageSource.wither;
 		}
 		
+		@Override
 		public int getEnergyPerDamage(ItemStack stack){
 			return 100;
 		}
@@ -208,6 +214,7 @@ public abstract class UpgradeProtective extends UpgradeBasic{
 			return source == DamageSource.lava;
 		}
 		
+		@Override
 		public int getEnergyPerDamage(ItemStack stack){
 			return 100;
 		}

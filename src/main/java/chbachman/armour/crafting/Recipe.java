@@ -417,7 +417,8 @@ public class Recipe
     
     public static RecipeList recipeList = new RecipeList();
     
-    public String toString(){
+    @Override
+	public String toString(){
     	return "Output: " + this.output + "Input: " + Arrays.toString(this.input);
     }
     

@@ -26,6 +26,7 @@ public class UpgradePlayerProtection extends UpgradeProtective{
 
 	}
 	
+	@Override
 	public int getEnergyPerDamage(ItemStack stack){
 		return 100;
 	}
