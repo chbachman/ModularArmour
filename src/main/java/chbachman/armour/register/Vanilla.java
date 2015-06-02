@@ -3,6 +3,9 @@ package chbachman.armour.register;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import cofh.api.modhelpers.ThermalExpansionHelper;
+import repack.cofh.core.item.ItemBase;
+import repack.cofh.lib.util.helpers.ItemHelper;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -35,9 +38,6 @@ import chbachman.armour.upgrade.UpgradeProtective.UpgradeUnblockable;
 import chbachman.armour.upgrade.UpgradeProtective.UpgradeWither;
 import chbachman.armour.upgrade.upgradeList.*;
 import chbachman.armour.util.EnergyUtil;
-import cofh.api.modhelpers.ThermalExpansionHelper;
-import cofh.core.item.ItemBase;
-import cofh.lib.util.helpers.ItemHelper;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 

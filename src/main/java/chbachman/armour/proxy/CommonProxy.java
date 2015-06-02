@@ -1,12 +1,12 @@
 package chbachman.armour.proxy;
 
+import repack.cofh.core.key.CoFHKeyHandler;
+import repack.cofh.core.key.KeyPacket;
+import repack.cofh.core.network.PacketHandler;
 import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.armour.network.ArmourPacket;
 import chbachman.armour.upgrade.KeybindUpgrade;
-import cofh.core.key.CoFHKeyHandler;
-import cofh.core.key.KeyPacket;
-import cofh.core.network.PacketHandler;
 
 public abstract class CommonProxy implements IProxy {
 

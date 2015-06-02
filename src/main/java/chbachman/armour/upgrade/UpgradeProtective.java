@@ -1,5 +1,6 @@
 package chbachman.armour.upgrade;
 
+import cofh.api.energy.IEnergyContainerItem;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -11,7 +12,6 @@ import chbachman.api.item.IModularItem;
 import chbachman.api.util.ArmourSlot;
 import chbachman.armour.upgrade.upgradeList.UpgradeBasic;
 import chbachman.armour.util.EnergyUtil;
-import cofh.api.energy.IEnergyContainerItem;
 
 
 public abstract class UpgradeProtective extends UpgradeBasic{

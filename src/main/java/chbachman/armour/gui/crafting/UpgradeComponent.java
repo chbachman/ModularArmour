@@ -5,11 +5,11 @@ import net.minecraft.item.ItemStack;
 
 import org.lwjgl.input.Keyboard;
 
+import repack.cofh.lib.gui.GuiBase;
+import repack.cofh.lib.gui.element.ElementBase;
 import chbachman.api.nbt.NBTHelper;
 import chbachman.api.nbt.NBTList;
 import chbachman.api.upgrade.IUpgrade;
-import cofh.lib.gui.GuiBase;
-import cofh.lib.gui.element.ElementBase;
 
 public class UpgradeComponent extends ElementBase{
 

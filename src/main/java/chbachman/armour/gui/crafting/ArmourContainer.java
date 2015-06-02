@@ -1,5 +1,7 @@
 package chbachman.armour.gui.crafting;
 
+import repack.cofh.core.network.PacketHandler;
+import repack.cofh.lib.gui.container.ContainerInventoryItem;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -19,8 +21,6 @@ import chbachman.armour.network.IInputHandler;
 import chbachman.armour.upgrade.UpgradeException;
 import chbachman.armour.util.MiscUtil;
 import chbachman.armour.util.UpgradeUtil;
-import cofh.core.network.PacketHandler;
-import cofh.lib.gui.container.ContainerInventoryItem;
 
 public class ArmourContainer extends ContainerInventoryItem implements IInputHandler, IContainerSyncable{
     

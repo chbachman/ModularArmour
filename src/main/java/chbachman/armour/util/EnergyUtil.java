@@ -1,8 +1,8 @@
 package chbachman.armour.util;
 
-import net.minecraft.item.ItemStack;
 import cofh.api.energy.IEnergyContainerItem;
-import cofh.lib.util.helpers.EnergyHelper;
+import repack.cofh.lib.util.helpers.EnergyHelper;
+import net.minecraft.item.ItemStack;
 
 public class EnergyUtil {
     

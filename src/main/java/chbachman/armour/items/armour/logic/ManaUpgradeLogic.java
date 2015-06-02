@@ -2,13 +2,13 @@ package chbachman.armour.items.armour.logic;
 
 import java.util.List;
 
+import repack.cofh.lib.util.helpers.StringHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import vazkii.botania.api.mana.IManaItem;
 import chbachman.api.item.IModularItem;
 import chbachman.api.nbt.NBTStorage;
 import chbachman.armour.ModularArmour;
-import cofh.lib.util.helpers.StringHelper;
 import cpw.mods.fml.common.Optional;
 
 public class ManaUpgradeLogic extends UpgradeLogicAdv implements IManaItem{

@@ -7,15 +7,15 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
+import repack.cofh.core.gui.GuiBaseAdv;
+import repack.cofh.core.network.PacketHandler;
+import repack.cofh.lib.gui.element.ElementButton;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.armour.crafting.Recipe;
 import chbachman.armour.gui.GuiHelper;
 import chbachman.armour.network.ArmourPacket;
 import chbachman.armour.network.ArmourPacket.PacketTypes;
 import chbachman.armour.reference.Reference;
-import cofh.core.gui.GuiBaseAdv;
-import cofh.core.network.PacketHandler;
-import cofh.lib.gui.element.ElementButton;
 
 public class ArmourGuiRecipe extends GuiBaseAdv{
 

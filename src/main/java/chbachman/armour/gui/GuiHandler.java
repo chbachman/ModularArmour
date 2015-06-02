@@ -1,5 +1,6 @@
 package chbachman.armour.gui;
 
+import repack.cofh.lib.util.helpers.ItemHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import chbachman.api.item.IModularItem;
@@ -7,7 +8,6 @@ import chbachman.armour.gui.crafting.ArmourContainer;
 import chbachman.armour.gui.crafting.ArmourGui;
 import chbachman.armour.gui.recipe.ArmourContainerRecipe;
 import chbachman.armour.gui.recipe.ArmourGuiRecipe;
-import cofh.lib.util.helpers.ItemHelper;
 import cpw.mods.fml.common.network.IGuiHandler;
 
 public class GuiHandler implements IGuiHandler {

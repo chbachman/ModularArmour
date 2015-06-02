@@ -2,8 +2,8 @@ package chbachman.armour.gui.crafting;
 
 import java.util.List;
 
+import repack.cofh.lib.gui.element.TabBase;
 import chbachman.armour.gui.GuiHelper;
-import cofh.lib.gui.element.TabBase;
 
 public class TabUpgradeRemoval extends TabBase {
     

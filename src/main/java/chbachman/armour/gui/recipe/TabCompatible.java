@@ -7,11 +7,11 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
+import repack.cofh.lib.gui.GuiProps;
+import repack.cofh.lib.gui.element.TabBase;
+import repack.cofh.lib.render.RenderHelper;
 import chbachman.api.item.IModularItem;
 import chbachman.api.upgrade.IUpgrade;
-import cofh.lib.gui.GuiProps;
-import cofh.lib.gui.element.TabBase;
-import cofh.lib.render.RenderHelper;
 
 public class TabCompatible extends TabBase{
 

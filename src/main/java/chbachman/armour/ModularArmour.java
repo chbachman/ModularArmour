@@ -9,6 +9,8 @@ import net.minecraftforge.common.config.Configuration;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import repack.cofh.core.network.PacketHandler;
+import repack.cofh.core.util.ConfigHandler;
 import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.armour.gui.GuiHandler;
@@ -20,8 +22,6 @@ import chbachman.armour.register.ItemRegister;
 import chbachman.armour.util.ModularCreativeTab;
 import chbachman.armour.util.OutputHandler;
 import chbachman.armour.util.json.JsonRegister;
-import cofh.core.network.PacketHandler;
-import cofh.core.util.ConfigHandler;
 
 import com.google.gson.GsonBuilder;
 

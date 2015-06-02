@@ -7,10 +7,10 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
-import cofh.lib.gui.GuiBase;
-import cofh.lib.gui.GuiProps;
-import cofh.lib.gui.element.TabBase;
-import cofh.lib.render.RenderHelper;
+import repack.cofh.lib.gui.GuiBase;
+import repack.cofh.lib.gui.GuiProps;
+import repack.cofh.lib.gui.element.TabBase;
+import repack.cofh.lib.render.RenderHelper;
 
 public class TabCrafting extends TabBase {
     

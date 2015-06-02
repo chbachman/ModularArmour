@@ -6,13 +6,13 @@ import net.minecraft.util.IIcon;
 
 import org.lwjgl.opengl.GL11;
 
-import cofh.core.render.IconRegistry;
-import cofh.lib.gui.GuiBase;
-import cofh.lib.gui.GuiColor;
-import cofh.lib.gui.element.ElementBase;
-import cofh.lib.gui.element.ElementButtonManaged;
-import cofh.lib.render.RenderHelper;
-import cofh.lib.util.helpers.StringHelper;
+import repack.cofh.core.render.IconRegistry;
+import repack.cofh.lib.gui.GuiBase;
+import repack.cofh.lib.gui.GuiColor;
+import repack.cofh.lib.gui.element.ElementBase;
+import repack.cofh.lib.gui.element.ElementButtonManaged;
+import repack.cofh.lib.render.RenderHelper;
+import repack.cofh.lib.util.helpers.StringHelper;
 
 public class ElementButtonIcon extends ElementBase{
 	

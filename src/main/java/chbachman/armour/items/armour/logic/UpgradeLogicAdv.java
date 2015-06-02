@@ -5,6 +5,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import repack.cofh.core.util.CoreUtils;
 import thaumcraft.api.IGoggles;
 import thaumcraft.api.IVisDiscountGear;
 import thaumcraft.api.aspects.Aspect;
@@ -22,7 +23,6 @@ import chbachman.armour.register.Botania;
 import chbachman.armour.register.IndustrialCraft2;
 import chbachman.armour.register.Thaumcraft;
 import chbachman.armour.util.ConfigHelper;
-import cofh.core.util.CoreUtils;
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.Optional.Interface;
 

@@ -1,10 +1,10 @@
 package chbachman.armour.upgrade;
 
+import repack.cofh.core.key.IKeyBinding;
+import repack.cofh.lib.util.helpers.StringHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import chbachman.api.upgrade.Upgrade;
 import chbachman.armour.ModularArmour;
-import cofh.core.key.IKeyBinding;
-import cofh.lib.util.helpers.StringHelper;
 
 public abstract class KeybindUpgrade extends Upgrade implements IKeyBinding {
     

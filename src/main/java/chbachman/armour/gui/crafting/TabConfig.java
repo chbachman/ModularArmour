@@ -2,6 +2,11 @@ package chbachman.armour.gui.crafting;
 
 import java.util.List;
 
+import repack.cofh.core.network.PacketHandler;
+import repack.cofh.lib.gui.GuiBase;
+import repack.cofh.lib.gui.GuiProps;
+import repack.cofh.lib.gui.element.TabBase;
+import repack.cofh.lib.gui.element.listbox.SliderHorizontal;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import chbachman.api.configurability.ConfigurableField;
@@ -11,11 +16,6 @@ import chbachman.api.upgrade.IUpgrade;
 import chbachman.armour.gui.ElementText;
 import chbachman.armour.network.ArmourPacket;
 import chbachman.armour.network.ArmourPacket.PacketTypes;
-import cofh.core.network.PacketHandler;
-import cofh.lib.gui.GuiBase;
-import cofh.lib.gui.GuiProps;
-import cofh.lib.gui.element.TabBase;
-import cofh.lib.gui.element.listbox.SliderHorizontal;
 
 public class TabConfig extends TabBase{
 

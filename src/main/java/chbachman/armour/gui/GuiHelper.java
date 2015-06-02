@@ -2,7 +2,7 @@ package chbachman.armour.gui;
 
 import java.util.List;
 
-import cofh.lib.gui.GuiBase;
+import repack.cofh.lib.gui.GuiBase;
 
 public class GuiHelper {
 	

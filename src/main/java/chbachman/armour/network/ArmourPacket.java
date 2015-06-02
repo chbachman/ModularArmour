@@ -1,5 +1,6 @@
 package chbachman.armour.network;
 
+import repack.cofh.core.network.PacketCoFHBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
@@ -8,7 +9,6 @@ import chbachman.api.nbt.NBTHelper;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.util.ArmourSlot;
 import chbachman.armour.util.MiscUtil;
-import cofh.core.network.PacketCoFHBase;
 
 public class ArmourPacket extends PacketCoFHBase {
     

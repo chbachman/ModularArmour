@@ -2,6 +2,8 @@ package chbachman.armour.items.armour.logic;
 
 import java.util.List;
 
+import cofh.api.energy.IEnergyContainerItem;
+import repack.cofh.lib.util.helpers.StringHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -12,8 +14,6 @@ import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.util.ArmourSlot;
 import chbachman.armour.register.Botania;
 import chbachman.armour.util.ConfigHelper;
-import cofh.api.energy.IEnergyContainerItem;
-import cofh.lib.util.helpers.StringHelper;
 import cpw.mods.fml.common.Optional;
 
 public class RFUpgradeLogic extends UpgradeLogicAdv implements IEnergyContainerItem{

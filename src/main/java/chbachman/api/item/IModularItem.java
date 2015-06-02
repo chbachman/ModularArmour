@@ -1,12 +1,12 @@
 package chbachman.api.item;
 
+import cofh.api.item.IInventoryContainerItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.util.ArmourSlot;
-import cofh.api.item.IInventoryContainerItem;
 
 /**
  * The interface that must be implemented for upgrades to work on your armour. You must call every single method in the {@link IUpgrade} class when appropriate. 
