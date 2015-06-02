@@ -86,7 +86,7 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
 
 		}else{
 			this.index = packet.getInt();
-			this.recipe = Recipe.recipeList.get(index % Recipe.recipeList.size());
+			this.recipe = Recipe.recipeList.get(index % Recipe.recipeList.size);
 			this.inventory = new Inventory(this.recipe);
 		}
 

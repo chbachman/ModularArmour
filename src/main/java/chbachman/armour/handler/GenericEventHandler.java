@@ -29,8 +29,6 @@ public class GenericEventHandler {
 			PlayerArmour.register(player);
 			
 			
-			
-			
 		}
 	}
 
@@ -83,26 +81,6 @@ public class GenericEventHandler {
 
 			}
 		}
-		
-		/*
-		for(ItemStack stack : e.player.inventory.mainInventory){
-			if(stack == null) continue;
-			
-			if(stack.getItem() instanceof IModularItem){
-				LegacyHandler.convert(stack);
-			}
-			
-			
-		}
-		
-		for(ItemStack stack : e.player.inventory.armorInventory){
-			if(stack == null) continue;
-			
-			if(stack.getItem() instanceof IModularItem){
-				LegacyHandler.convert(stack);
-			}
-		}
-		*/
 	}
 
 }

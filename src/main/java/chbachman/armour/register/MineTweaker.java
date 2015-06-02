@@ -140,7 +140,7 @@ public class MineTweaker implements Module{
 
 		@Override
 		public void undo() {
-			Recipe.recipeList.remove(recipe);
+			Recipe.recipeList.removeValue(recipe, false);
 		}
 
 		@Override
@@ -168,7 +168,7 @@ public class MineTweaker implements Module{
 
 		@Override
 		public void apply() {
-			Recipe.recipeList.remove(recipe);
+			Recipe.recipeList.removeValue(recipe, false);
 		}
 
 		@Override

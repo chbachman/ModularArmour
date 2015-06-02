@@ -1,11 +1,12 @@
 package chbachman.armour.handler;
 
-import java.util.HashMap;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+
+import com.badlogic.gdx.utils.ObjectFloatMap;
+
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 /**
  * This class is used during development to detail the amount of damage dealt with each hit.
@@ -14,7 +15,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
  */
 public class DamageEventHandler {
 
-    HashMap<EntityPlayer, Float> otherMap = new HashMap<EntityPlayer, Float>();
+	ObjectFloatMap<EntityPlayer> otherMap = new ObjectFloatMap<EntityPlayer>();
     
     @SubscribeEvent
     public void onEntityDamaged(LivingHurtEvent e){
@@ -25,7 +26,7 @@ public class DamageEventHandler {
     	}
     }
     
-    HashMap<EntityPlayer, Float> map = new HashMap<EntityPlayer, Float>();
+    ObjectFloatMap<EntityPlayer> map = new ObjectFloatMap<EntityPlayer>();
     
     @SubscribeEvent
     public void onEntityUpdate(LivingUpdateEvent e){
@@ -36,27 +37,25 @@ public class DamageEventHandler {
     			return;
     		}
     		
-    		Float f = map.get(player);
+    		float health = player.getHealth();
     		
-    		Float health = player.getHealth();
-    		
-    		if(f == null){
+    		if(map.containsKey(player)){
     			map.put(player, health);
-    			return;
     		}
     		
-    		if(f.floatValue() == health.floatValue()){
+    		float f = map.get(player, 0);
+    		
+    		if(f == health){
     			return;
     		}else{
     			player.addChatMessage(new ChatComponentText(String.format("Damage is %s", f - health)));
     			map.put(player, health);
     			
-    			Float damage = otherMap.get(player);
-    			
-    			if(damage == null){
+    			if(!otherMap.containsKey(player)){
     				return;
     			}
-    			player.addChatMessage(new ChatComponentText(String.format("Percentage is %s", (1 - ((f - health) / damage)) * 100)));
+
+    			player.addChatMessage(new ChatComponentText(String.format("Percentage is %s", (1 - ((f - health) / otherMap.get(player, 0))) * 100)));
     			
     		}
     	}

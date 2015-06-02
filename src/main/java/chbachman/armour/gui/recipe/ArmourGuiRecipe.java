@@ -116,7 +116,7 @@ public class ArmourGuiRecipe extends GuiBaseAdv{
 	
 	public void wrapIndex(){
 		int min = 0;
-		int max = Recipe.recipeList.size();
+		int max = Recipe.recipeList.size;
 		
 		if(this.container.index >= max){
 			this.container.index = max - 1;
