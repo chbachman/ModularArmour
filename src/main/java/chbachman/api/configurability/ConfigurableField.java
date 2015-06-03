@@ -2,11 +2,14 @@ package chbachman.api.configurability;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
-import chbachman.api.nbt.NBTStorage;
+import chbachman.api.nbt.helper.NBTStorage;
+import chbachman.api.nbt.serializers.PercentageNBT;
 import chbachman.api.upgrade.IUpgrade;
 
 public class ConfigurableField extends NBTStorage<Percentage>{
 
+	private static final PercentageNBT serializer = new PercentageNBT();
+	
 	public final String displayName;
 	
 	/**
@@ -44,7 +47,7 @@ public class ConfigurableField extends NBTStorage<Percentage>{
 	 * @param defaultData - The data to default to if first created.
 	 */
 	public ConfigurableField(String key, String displayName, Percentage defaultData) {
-		super(key, defaultData);
+		super(key, defaultData, serializer);
 		this.displayName = StatCollector.translateToLocal(displayName);
 	}
 	

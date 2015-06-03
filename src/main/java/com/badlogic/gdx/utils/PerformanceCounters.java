@@ -16,6 +16,8 @@
 
 package com.badlogic.gdx.utils;
 
+import chbachman.api.util.Array;
+
 
 /** @author xoppa */
 public class PerformanceCounters {

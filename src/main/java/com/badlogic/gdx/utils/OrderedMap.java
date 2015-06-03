@@ -19,6 +19,8 @@ package com.badlogic.gdx.utils;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import chbachman.api.util.Array;
+
 import com.badlogic.gdx.utils.ObjectMap.Entries;
 
 /** An {@link ObjectMap} that also stores keys in an {@link Array} using the insertion order. There is some additional overhead for

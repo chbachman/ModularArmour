@@ -16,6 +16,8 @@
 
 package com.badlogic.gdx.utils;
 
+import chbachman.api.util.Array;
+
 import com.badlogic.gdx.math.MathUtils;
 
 import java.util.Iterator;

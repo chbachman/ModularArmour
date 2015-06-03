@@ -19,6 +19,8 @@ package com.badlogic.gdx.utils;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import chbachman.api.util.Array;
+
 import com.badlogic.gdx.math.MathUtils;
 
 /** An unordered map that uses identity comparison for keys. This implementation is a cuckoo hash map using 3 hashes, random

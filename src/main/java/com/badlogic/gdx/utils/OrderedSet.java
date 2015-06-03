@@ -18,6 +18,8 @@ package com.badlogic.gdx.utils;
 
 import java.util.NoSuchElementException;
 
+import chbachman.api.util.Array;
+
 /** An {@link ObjectSet} that also stores keys in an {@link Array} using the insertion order. There is some additional overhead for
  * put and remove. {@link #iterator() Iteration} is ordered and faster than an unordered set. Keys can also be accessed and the
  * order changed using {@link #orderedItems()}.

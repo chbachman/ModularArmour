@@ -2,18 +2,18 @@ package chbachman.armour.items.armour.logic;
 
 import java.util.List;
 
-import cofh.api.energy.IEnergyContainerItem;
-import repack.cofh.lib.util.helpers.StringHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import repack.cofh.lib.util.helpers.StringHelper;
 import chbachman.api.item.IModularItem;
-import chbachman.api.nbt.NBTHelper;
-import chbachman.api.nbt.NBTStorage;
+import chbachman.api.nbt.helper.NBTHelper;
+import chbachman.api.nbt.helper.NBTInteger;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.util.ArmourSlot;
 import chbachman.armour.register.Botania;
 import chbachman.armour.util.ConfigHelper;
+import cofh.api.energy.IEnergyContainerItem;
 import cpw.mods.fml.common.Optional;
 
 public class RFUpgradeLogic extends UpgradeLogicAdv implements IEnergyContainerItem{
@@ -22,8 +22,8 @@ public class RFUpgradeLogic extends UpgradeLogicAdv implements IEnergyContainerI
 		super(item);
 	}
 
-	private NBTStorage<Integer> capacity = new NBTStorage<Integer>("capacity", 100);
-	private NBTStorage<Integer> maxTransfer = new NBTStorage<Integer>("maxTransfer", 100);
+	private NBTInteger capacity = new NBTInteger("capacity", 100);
+	private NBTInteger maxTransfer = new NBTInteger("maxTransfer", 100);
 	
 	public int getCapacity(ItemStack stack) {
 		return this.capacity.get(stack);

@@ -1,7 +1,8 @@
-package chbachman.api.nbt;
+package chbachman.api.nbt.helper;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import chbachman.api.nbt.NBTSerializer;
 
 
 /**
@@ -14,26 +15,27 @@ public class NBTStorage<E>{
 	
 	String key;
 	E def;
+	final NBTSerializer<E> type;
 	
-	public NBTStorage(){}
-	
-	public NBTStorage(String key){
-		this(key, null);
+	public NBTStorage(NBTSerializer<E> type){
+		this.type = type;
 	}
 	
-	public NBTStorage(E def){
-		this(null, def);
+	public NBTStorage(String key, NBTSerializer<E> type){
+		this.key = key;
+		this.type = type;
 	}
 	
-	public NBTStorage(String key, E defaul){
+	public NBTStorage(String key, E defaul, NBTSerializer<E> type){
 		this.key = key;
 		this.def = defaul;
+		this.type = type;
 	}
 	
 	public E set(ItemStack stack, E data){
 		E temp = this.get(stack);
 		
-		NBTBuilder.save(stack, key, data);
+		type.saveToNBT(data, stack.stackTagCompound);
 		
 		return temp;
 	}
@@ -41,23 +43,13 @@ public class NBTStorage<E>{
 	public E set(NBTTagCompound stack, E data){
 		E temp = this.get(stack);
 		
-		NBTBuilder.save(stack, key, data);
+		type.saveToNBT(data, stack);
 		
 		return temp;
 	}
 	
 	public E get(NBTTagCompound stack){
-		Object obj = NBTBuilder.load(stack, key);
-		
-		try{
-			@SuppressWarnings("unchecked")
-			E data = (E) obj;
-			
-			return data == null ? def : data;
-			
-		}catch(ClassCastException e){ //Someone changed the data to a different type behind our backs. Naughty dev.
-			return def;
-		}
+		return type.loadFromNBT(stack);
 	}
 	
 	public E get(ItemStack stack){

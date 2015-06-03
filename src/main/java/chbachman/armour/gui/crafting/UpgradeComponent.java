@@ -7,8 +7,8 @@ import org.lwjgl.input.Keyboard;
 
 import repack.cofh.lib.gui.GuiBase;
 import repack.cofh.lib.gui.element.ElementBase;
-import chbachman.api.nbt.NBTHelper;
-import chbachman.api.nbt.NBTList;
+import chbachman.api.nbt.helper.NBTHelper;
+import chbachman.api.nbt.helper.NBTList;
 import chbachman.api.upgrade.IUpgrade;
 
 public class UpgradeComponent extends ElementBase{

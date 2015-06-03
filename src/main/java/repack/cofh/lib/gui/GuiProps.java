@@ -3,7 +3,7 @@ package repack.cofh.lib.gui;
 public class GuiProps {
 
 	/* GUI */
-	public static final String PATH_GFX = "cofh:textures/";
+	public static final String PATH_GFX = "modulararmour:textures/";
 	public static final String PATH_ARMOR = PATH_GFX + "armor/";
 	public static final String PATH_GUI = PATH_GFX + "gui/";
 	public static final String PATH_RENDER = PATH_GFX + "blocks/";

@@ -1,10 +1,10 @@
 package chbachman.api.registry;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import chbachman.api.upgrade.IUpgrade;
+import chbachman.api.util.Array;
 
 import com.google.common.collect.ImmutableList;
 
@@ -16,7 +16,7 @@ public final class UpgradeRegistry{
 	
 	private UpgradeList upgradeList = new UpgradeList();
 	
-	private List<IUpgradeListener> listenerList = new ArrayList<IUpgradeListener>();
+	private Array<IUpgradeListener> listenerList = new Array<IUpgradeListener>();
 	
 	private HashMap<IUpgrade, IUpgradeListener[]> listenerMap = new HashMap<IUpgrade, IUpgradeListener[]>();
 	
@@ -58,9 +58,9 @@ public final class UpgradeRegistry{
 	 */
 	public static IUpgrade registerUpgrade(IUpgrade upgrade){
 		
-		IUpgradeListener[] list = new IUpgradeListener[INSTANCE.listenerList.size()];
+		IUpgradeListener[] list = new IUpgradeListener[INSTANCE.listenerList.size];
 		
-		for(int i = 0; i < INSTANCE.listenerList.size(); i++){
+		for(int i = 0; i < INSTANCE.listenerList.size; i++){
 			list[i] = INSTANCE.listenerList.get(i).onUpgradeAdded(upgrade);
 		}
 		

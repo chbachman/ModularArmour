@@ -16,6 +16,8 @@
 
 package com.badlogic.gdx.utils;
 
+import chbachman.api.util.Array;
+
 /** Stores a map of {@link Pool}s (usually {@link ReflectionPool}s) by type for convenient static access.
  * @author Nathan Sweet */
 public class Pools {

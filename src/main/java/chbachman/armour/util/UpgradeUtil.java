@@ -6,8 +6,8 @@ import java.util.List;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import chbachman.api.item.IModularItem;
-import chbachman.api.nbt.NBTHelper;
-import chbachman.api.nbt.NBTList;
+import chbachman.api.nbt.helper.NBTHelper;
+import chbachman.api.nbt.helper.NBTList;
 import chbachman.api.upgrade.IUpgrade;
 import cpw.mods.fml.common.Loader;
 

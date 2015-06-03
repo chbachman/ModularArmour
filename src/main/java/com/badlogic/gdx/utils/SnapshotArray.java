@@ -18,6 +18,8 @@ package com.badlogic.gdx.utils;
 
 import java.util.Comparator;
 
+import chbachman.api.util.Array;
+
 /** Guarantees that array entries provided by {@link #begin()} between indexes 0 and {@link #size} at the time begin was called
  * will not be modified until {@link #end()} is called. If modification of the SnapshotArray occurs between begin/end, the backing
  * array is copied prior to the modification, ensuring that the backing array that was returned by {@link #begin()} is unaffected.

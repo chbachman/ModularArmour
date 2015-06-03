@@ -5,7 +5,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import chbachman.api.item.IModularItem;
-import chbachman.api.nbt.NBTHelper;
+import chbachman.api.nbt.helper.NBTHelper;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.util.ArmourSlot;
 import chbachman.armour.util.MiscUtil;

@@ -18,6 +18,8 @@ package com.badlogic.gdx.utils;
 
 import java.util.Comparator;
 
+import chbachman.api.util.Array;
+
 /** Queues any removals done after {@link #begin()} is called to occur once {@link #end()} is called. This can allow code out of
  * your control to remove items without affecting iteration. Between begin and end, most mutator methods will throw
  * IllegalStateException. Only {@link #removeIndex(int)}, {@link #removeValue(Object, boolean)}, and add methods are allowed.

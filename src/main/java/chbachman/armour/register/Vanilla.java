@@ -20,7 +20,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import chbachman.api.configurability.FieldList;
 import chbachman.api.item.IModularItem;
-import chbachman.api.nbt.NBTHelper;
+import chbachman.api.nbt.helper.NBTHelper;
 import chbachman.api.registry.ModularItemRegistry;
 import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.upgrade.IUpgrade;

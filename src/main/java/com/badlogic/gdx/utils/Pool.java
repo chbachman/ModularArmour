@@ -16,6 +16,8 @@
 
 package com.badlogic.gdx.utils;
 
+import chbachman.api.util.Array;
+
 /** A pool of objects that can be reused to avoid allocation.
  * @author Nathan Sweet */
 abstract public class Pool<T> {

@@ -15,7 +15,7 @@ import net.minecraftforge.common.ISpecialArmor.ArmorProperties;
 
 import org.lwjgl.input.Keyboard;
 
-import chbachman.api.nbt.NBTHelper;
+import chbachman.api.nbt.helper.NBTHelper;
 import chbachman.api.upgrade.IArmourUpgrade;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.util.ArmourSlot;

@@ -12,12 +12,13 @@ import repack.cofh.lib.gui.element.TabBase;
 import repack.cofh.lib.render.RenderHelper;
 import chbachman.api.item.IModularItem;
 import chbachman.api.upgrade.IUpgrade;
+import chbachman.api.util.ImmutableArray;
 
 public class TabCompatible extends TabBase{
 
 	ArmourGuiRecipe armourGui;
 
-	List<IModularItem> modularItems = ArmourContainerRecipe.modularItems;
+	ImmutableArray<IModularItem> modularItems = ArmourContainerRecipe.modularItems;
 
 	private int startIndex = 0;
 	private int maxItems = 6;
@@ -58,7 +59,7 @@ public class TabCompatible extends TabBase{
 			return;
 		}
 		
-		for(int i = 0; i < maxItems; i++){
+		for(int i = 0; i < Math.min(modularItems.size(), this.maxItems); i++){
 
 			IModularItem modularItem = modularItems.get(startIndex + i);
 
@@ -137,15 +138,25 @@ public class TabCompatible extends TabBase{
 	
 	private void updateSlots(){
 		
+		int slotNum;
+		
 		for(int i = 0; i < this.maxItems; i++){
-			int slotNum = i + 9;
+			slotNum = i + 9;
+			
+			if(slotNum >= this.armourGui.container.inventorySlots.size()){
+				break;
+			}
 			
 			((Slot) this.armourGui.container.inventorySlots.get(slotNum + startIndex)).xDisplayPosition = this.posXOffset() + this.slotsBorderX1 + 4;
 			((Slot) this.armourGui.container.inventorySlots.get(slotNum + startIndex)).yDisplayPosition = this.posY + this.slotsBorderY1 + 4 + 18 * i;
 		}
 		
 		for(int i = 0; i < this.modularItems.size(); i++){
-			int slotNum = i + 9;
+			slotNum = i + 9;
+			
+			if(slotNum >= this.armourGui.container.inventorySlots.size()){
+				break;
+			}
 			
 			if(i >= startIndex && i < startIndex + this.maxItems){
 				continue;

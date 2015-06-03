@@ -10,13 +10,13 @@ public interface NBTSerializer<E>{
 	 * @param context 
 	 * @return Data, or null if does not exist.
 	 */
-	public E loadFromNBT(NBTTagCompound d, NBTContext context);
+	public E loadFromNBT(NBTTagCompound d);
 	
 	/**
 	 * Saves to NBTTagCompound
 	 * @param data
 	 * @param d
 	 */
-	public void saveToNBT(E data, NBTTagCompound d, NBTContext context);
+	public void saveToNBT(E data, NBTTagCompound d);
 	
 }

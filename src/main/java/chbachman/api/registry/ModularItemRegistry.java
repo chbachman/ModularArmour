@@ -1,12 +1,10 @@
 package chbachman.api.registry;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import chbachman.api.item.IModularItem;
-
-import com.google.common.collect.ImmutableList;
+import chbachman.api.util.Array;
+import chbachman.api.util.ImmutableArray;
 
 public final class ModularItemRegistry{
 
@@ -14,9 +12,9 @@ public final class ModularItemRegistry{
 
 	private static ModularItemRegistry INSTANCE = new ModularItemRegistry();
 
-	private List<IModularItem> itemList = new ArrayList<IModularItem>();
+	private Array<IModularItem> itemList = new Array<IModularItem>();
 
-	private List<IItemListener> listenerList = new ArrayList<IItemListener>();
+	private Array<IItemListener> listenerList = new Array<IItemListener>();
 
 	private HashMap<IModularItem, IItemListener[]> listenerMap = new HashMap<IModularItem, IItemListener[]>();
 
@@ -62,9 +60,9 @@ public final class ModularItemRegistry{
 	 */
 	public static IModularItem registerItem(IModularItem upgrade){
 
-		IItemListener[] list = new IItemListener[INSTANCE.listenerList.size()];
+		IItemListener[] list = new IItemListener[INSTANCE.listenerList.size];
 
-		for (int i = 0; i < INSTANCE.listenerList.size(); i++){
+		for (int i = 0; i < INSTANCE.listenerList.size; i++){
 			list[i] = INSTANCE.listenerList.get(i).onItemAdded(upgrade);
 		}
 
@@ -79,8 +77,8 @@ public final class ModularItemRegistry{
 	 * 
 	 * @return
 	 */
-	public static List<IModularItem> getUpgradeList(){
-		return ImmutableList.copyOf(INSTANCE.itemList);
+	public static ImmutableArray<IModularItem> getUpgradeList(){
+		return new ImmutableArray(INSTANCE.itemList);
 	}
 
 	/**

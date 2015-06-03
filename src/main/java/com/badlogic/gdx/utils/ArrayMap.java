@@ -19,6 +19,8 @@ package com.badlogic.gdx.utils;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import chbachman.api.util.Array;
+
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.ObjectMap.Entry;
 import com.badlogic.gdx.utils.reflect.ArrayReflection;

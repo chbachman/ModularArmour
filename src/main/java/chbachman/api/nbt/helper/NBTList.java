@@ -1,34 +1,23 @@
-package chbachman.api.nbt;
+package chbachman.api.nbt.helper;
 
 import java.util.AbstractList;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraftforge.common.util.Constants;
-import chbachman.api.upgrade.IUpgrade;
-
-import com.google.gson.reflect.TypeToken;
+import chbachman.api.nbt.NBTSerializer;
 
 public class NBTList<E> extends AbstractList<E>{
 
 	public final NBTTagList list;
-
-	public NBTList() {
-		this(new NBTTagList());
+	public final NBTSerializer<E> type;
+	
+	public NBTList(NBTSerializer<E> type) {
+		this(new NBTTagList(), type);
 	}
 
-	public NBTList(NBTTagList list) {
+	public NBTList(NBTTagList list, NBTSerializer<E> type) {
 		this.list = list;
-	}
-
-	public NBTList(NBTTagCompound nbt) {
-		this(nbt.getTagList("UpgradeList", Constants.NBT.TAG_COMPOUND));
-	}
-
-	public NBTTagCompound addNBTTagCompound(NBTTagCompound nbt){
-		nbt.setTag("UpgradeList", list);
-
-		return nbt;
+		this.type = type;
 	}
 
 	@Override
@@ -39,7 +28,7 @@ public class NBTList<E> extends AbstractList<E>{
 			return null;
 		}
 
-		E data = (E) NBTBuilder.load(nbt);
+		E data = (E) type.loadFromNBT(nbt);
 
 		return data;
 
@@ -63,7 +52,10 @@ public class NBTList<E> extends AbstractList<E>{
 			list.func_150304_a(i + 1, list.getCompoundTagAt(i));
 		}
 
-		this.list.func_150304_a(index, NBTBuilder.save(element));
+		NBTTagCompound nbt = new NBTTagCompound();
+		type.saveToNBT(element, nbt);
+		
+		this.list.func_150304_a(index, nbt);
 	}
 
 	@Override
@@ -75,7 +67,10 @@ public class NBTList<E> extends AbstractList<E>{
 			return data;
 		}
 
-		this.list.func_150304_a(index, NBTBuilder.save(element));
+		NBTTagCompound nbt = new NBTTagCompound();
+		type.saveToNBT(element, nbt);
+		
+		this.list.func_150304_a(index, nbt);
 
 		return data;
 	}

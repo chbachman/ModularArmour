@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import baubles.api.BaubleType;
 import chbachman.api.item.IModularItem;
-import chbachman.api.nbt.NBTHelper;
+import chbachman.api.nbt.helper.NBTHelper;
 import chbachman.api.registry.ModularItemRegistry;
 import chbachman.armour.items.bauble.RFBauble;
 import chbachman.armour.reference.Reference;

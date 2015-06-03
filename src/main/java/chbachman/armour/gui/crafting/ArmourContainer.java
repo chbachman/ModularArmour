@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerDestroyItemEvent;
 import chbachman.api.item.IModularItem;
-import chbachman.api.nbt.NBTHelper;
+import chbachman.api.nbt.helper.NBTHelper;
 import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.armour.ModularArmour;

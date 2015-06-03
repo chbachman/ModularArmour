@@ -15,6 +15,8 @@ package com.badlogic.gdx.utils;
 
 import java.util.Comparator;
 
+import chbachman.api.util.Array;
+
 /** Provides methods to sort arrays of objects. Sorting requires working memory and this class allows that memory to be reused to
  * avoid allocation. The sorting is otherwise identical to the Arrays.sort methods (uses timsort).<br>
  * <br>

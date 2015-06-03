@@ -4,7 +4,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import chbachman.api.item.IModularItem;
-import chbachman.api.nbt.NBTHelper;
+import chbachman.api.nbt.helper.NBTHelper;
 import chbachman.api.registry.ModularItemRegistry;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.armour.crafting.Recipe;

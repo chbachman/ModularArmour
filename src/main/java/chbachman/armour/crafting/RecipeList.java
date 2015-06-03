@@ -4,8 +4,7 @@ import java.util.Iterator;
 
 import net.minecraft.inventory.IInventory;
 import chbachman.api.upgrade.IUpgrade;
-
-import com.badlogic.gdx.utils.Array;
+import chbachman.api.util.Array;
 
 public class RecipeList extends Array<Recipe>{
     
