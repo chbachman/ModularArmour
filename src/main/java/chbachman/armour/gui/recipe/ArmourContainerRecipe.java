@@ -28,7 +28,9 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
 	public Inventory inventory;
 	public static Inventory2 inventory2;
 	public Recipe recipe;
+	
 	public int index = 0;
+	public Array<Recipe> recipes;
 
 	public static final ImmutableArray<IModularItem> modularItems = ModularItemRegistry.getUpgradeList();
 
@@ -46,7 +48,7 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
 	protected void bindSlots(){
 		for (int i = 0; i < 3; i++){
 			for (int j = 0; j < 3; j++){
-				this.addSlotToContainer(new SlotViewOnly(inventory, i * 3 + j, 9 + j * 18, 17 + i * 18));
+				this.addSlotToContainer(new SlotViewOnly(inventory, i * 3 + j, 9 + j * 18, 37 + i * 18));
 			}
 		}
 
@@ -82,7 +84,11 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
 					crafting.onSlotChanged();
 				}
 			}
-
+			
+			
+			
+		}else if(name.equals("TextField")){
+			
 		}else{
 			this.index = packet.getInt();
 			this.recipe = Recipe.recipeList.get(index % Recipe.recipeList.size);
@@ -139,7 +145,7 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
 		}
 
 	}
-
+	
 	private class Inventory implements IInventory{
 
 		private int counter = 0;

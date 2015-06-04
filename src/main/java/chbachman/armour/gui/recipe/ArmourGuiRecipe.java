@@ -5,12 +5,14 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.input.Keyboard;
-import org.lwjgl.opengl.GL11;
 
 import repack.cofh.core.gui.GuiBaseAdv;
 import repack.cofh.core.network.PacketHandler;
+import repack.cofh.lib.gui.GuiBase;
 import repack.cofh.lib.gui.element.ElementButton;
+import repack.cofh.lib.gui.element.ElementTextField;
 import chbachman.api.upgrade.IUpgrade;
+import chbachman.api.util.ImmutableArray;
 import chbachman.armour.crafting.Recipe;
 import chbachman.armour.gui.GuiHelper;
 import chbachman.armour.network.ArmourPacket;
@@ -25,7 +27,9 @@ public class ArmourGuiRecipe extends GuiBaseAdv{
 	public ElementButton rightArrow;
 	public ElementButton leftArrow;
 	public ElementButton upgrade;
+	public RecipeTextField field;
 	public TabCompatible compatible;
+	public TabRecipeList list;
 
 	public ArmourGuiRecipe(ArmourContainerRecipe container, InventoryPlayer inventory) {
 		super(container, TEXTURE);
@@ -36,13 +40,18 @@ public class ArmourGuiRecipe extends GuiBaseAdv{
 		this.drawTitle = false;
 		this.drawInventory = false;
 		this.xSize = 176;
-		this.ySize = 152;
+		this.ySize = 172;
 
-		this.leftArrow = new ElementButton(this, 5, 5, "Go Back", 227, 12, 227, 12, 227, 12, 7, 7, TEXTURE.toString());
-		this.rightArrow = new ElementButton(this, 164, 5, "Next", 235, 12, 235, 12, 235, 12, 7, 7, TEXTURE.toString());
+		this.leftArrow = new ElementButton(this, 5, 25, "Go Back", 227, 12, 227, 12, 227, 12, 7, 7, TEXTURE.toString());
+		this.rightArrow = new ElementButton(this, 164, 25, "Next", 235, 12, 235, 12, 235, 12, 7, 7, TEXTURE.toString());
 		
-		this.upgrade = new ElementButton(this, 71, 18, "Upgrade", 71, 18, 71, 18, 16, 16, TEXTURE.toString());
+		this.upgrade = new ElementButton(this, 71, 38, "Upgrade", 71, 38, 71, 38, 16, 16, TEXTURE.toString());
 		this.upgrade.setToolTip("Add Upgrade?");
+		
+		this.field = new RecipeTextField(this, 7, 6, 162, 11);
+		field.setBackgroundColor(0xFF000000, 0xFF000000, 0xFF000000);
+		
+		this.list = new TabRecipeList(this, new ImmutableArray(Recipe.recipeList));
 		
 		this.compatible = new TabCompatible(this);
 
@@ -55,9 +64,11 @@ public class ArmourGuiRecipe extends GuiBaseAdv{
 		super.initGui();
 
 		this.addTab(this.compatible);
+		this.addTab(this.list);
 		this.addElement(this.leftArrow);
 		this.addElement(this.rightArrow);
 		this.addElement(this.upgrade);
+		this.addElement(this.field);
 
 		for (int i = 9; i < 9 + ArmourContainerRecipe.modularItems.size(); i++){
 			((Slot) this.container.inventorySlots.get(i)).xDisplayPosition = -this.guiLeft - 16;
@@ -73,30 +84,22 @@ public class ArmourGuiRecipe extends GuiBaseAdv{
 
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTick, int x, int y){
-
-		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		this.bindTexture(this.texture);
-		this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
-
-		this.mouseX = x - this.guiLeft;
-		this.mouseY = y - this.guiTop;
-
-		GL11.glPushMatrix();
-		GL11.glTranslatef(this.guiLeft, this.guiTop, 0.0F);
-		this.drawElements(partialTick, false);
-		this.drawTabs(partialTick, false);
-		GL11.glPopMatrix();
+		super.drawGuiContainerBackgroundLayer(partialTick, x, y);
 
 		if (this.container.recipe != null){
 
 			IUpgrade upgrade = this.container.recipe.getRecipeOutput();
 
-			GuiHelper.drawStringBounded(this, upgrade.getName(), 70, this.guiLeft + 100, this.guiTop + 18, 0xFFFFFF);
+			GuiHelper.drawStringBounded(this, upgrade.getName(), 70, this.guiLeft + 100, this.guiTop + 38, 0xFFFFFF);
 
-			GuiHelper.drawStringBounded(this, upgrade.getInformation(), 159, this.guiLeft + 11, this.guiTop + 80, 0xFFFFFF);
+			GuiHelper.drawStringBounded(this, upgrade.getInformation(), 159, this.guiLeft + 11, this.guiTop + 100, 0xFFFFFF);
 		}
 	}
-
+	
+	public void handleTyping(String currentString){
+		PacketHandler.sendToServer(ArmourPacket.getPacket(PacketTypes.BUTTON).addString("TextField").addString(currentString));
+	}
+	
 	@Override
 	public void handleElementButtonClick(String buttonName, int mouseButton){
 		super.handleElementButtonClick(buttonName, mouseButton);
@@ -136,6 +139,23 @@ public class ArmourGuiRecipe extends GuiBaseAdv{
 			return;
 		}
 		super.keyTyped(characterTyped, keyPressed);
+	}
+	
+	private class RecipeTextField extends ElementTextField{
+
+		public RecipeTextField(GuiBase gui, int posX, int posY, int width, int height) {
+			super(gui, posX, posY, width, height);
+		}
+
+		@Override
+		protected void onCharacterEntered(boolean success){
+			if(success){
+				handleTyping(this.getText());
+			}
+		}
+		
+		
+		
 	}
 
 }
