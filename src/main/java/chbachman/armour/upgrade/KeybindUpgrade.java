@@ -1,7 +1,7 @@
 package chbachman.armour.upgrade;
 
-import repack.cofh.core.key.IKeyBinding;
-import repack.cofh.lib.util.helpers.StringHelper;
+import modulararmour.cofh.core.key.IKeyBinding;
+import modulararmour.cofh.lib.util.helpers.StringHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import chbachman.api.upgrade.Upgrade;
 import chbachman.armour.ModularArmour;

@@ -1,9 +1,9 @@
 package chbachman.armour.gui.recipe;
 
-import repack.cofh.lib.gui.GuiBase;
-import repack.cofh.lib.gui.element.ElementListBox;
-import repack.cofh.lib.gui.element.TabBase;
-import repack.cofh.lib.gui.element.listbox.ListBoxElementText;
+import modulararmour.cofh.lib.gui.GuiBase;
+import modulararmour.cofh.lib.gui.element.ElementListBox;
+import modulararmour.cofh.lib.gui.element.TabBase;
+import modulararmour.cofh.lib.gui.element.listbox.ListBoxElementText;
 import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.upgrade.Recipe;
 

@@ -1,12 +1,12 @@
 package chbachman.armour.gui.recipe;
 
+import modulararmour.cofh.lib.gui.slot.SlotViewOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import repack.cofh.lib.gui.slot.SlotViewOnly;
 import chbachman.api.item.IModularItem;
 import chbachman.api.registry.ModularItemRegistry;
 import chbachman.api.registry.UpgradeRegistry;

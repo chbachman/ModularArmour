@@ -2,11 +2,11 @@ package chbachman.armour.gui.crafting;
 
 import java.util.List;
 
-import repack.cofh.core.network.PacketHandler;
-import repack.cofh.lib.gui.GuiBase;
-import repack.cofh.lib.gui.GuiProps;
-import repack.cofh.lib.gui.element.TabBase;
-import repack.cofh.lib.gui.element.listbox.SliderHorizontal;
+import modulararmour.cofh.core.network.PacketHandler;
+import modulararmour.cofh.lib.gui.GuiBase;
+import modulararmour.cofh.lib.gui.GuiProps;
+import modulararmour.cofh.lib.gui.element.TabBase;
+import modulararmour.cofh.lib.gui.element.listbox.SliderHorizontal;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import chbachman.api.configurability.ConfigurableField;

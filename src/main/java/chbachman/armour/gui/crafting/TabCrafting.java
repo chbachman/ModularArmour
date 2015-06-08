@@ -2,15 +2,14 @@ package chbachman.armour.gui.crafting;
 
 import java.util.List;
 
+import modulararmour.cofh.lib.gui.GuiBase;
+import modulararmour.cofh.lib.gui.GuiProps;
+import modulararmour.cofh.lib.gui.element.TabBase;
+import modulararmour.cofh.lib.render.RenderHelper;
 import net.minecraft.inventory.Slot;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
-
-import repack.cofh.lib.gui.GuiBase;
-import repack.cofh.lib.gui.GuiProps;
-import repack.cofh.lib.gui.element.TabBase;
-import repack.cofh.lib.render.RenderHelper;
 
 public class TabCrafting extends TabBase {
     

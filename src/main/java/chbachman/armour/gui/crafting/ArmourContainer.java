@@ -1,7 +1,7 @@
 package chbachman.armour.gui.crafting;
 
-import repack.cofh.core.network.PacketHandler;
-import repack.cofh.lib.gui.container.ContainerInventoryItem;
+import modulararmour.cofh.core.network.PacketHandler;
+import modulararmour.cofh.lib.gui.container.ContainerInventoryItem;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;

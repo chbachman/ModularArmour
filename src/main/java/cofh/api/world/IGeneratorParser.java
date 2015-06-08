@@ -1,14 +1,13 @@
 package cofh.api.world;
 
-import com.google.gson.JsonObject;
-
 import java.util.List;
 
+import modulararmour.cofh.lib.util.WeightedRandomBlock;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
 import org.apache.logging.log4j.Logger;
 
-import repack.cofh.lib.util.WeightedRandomBlock;
+import com.google.gson.JsonObject;
 
 public interface IGeneratorParser {
 

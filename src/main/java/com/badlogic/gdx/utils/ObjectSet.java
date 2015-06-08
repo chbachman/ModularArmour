@@ -16,12 +16,12 @@
 
 package com.badlogic.gdx.utils;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 import chbachman.api.util.Array;
 
 import com.badlogic.gdx.math.MathUtils;
-
-import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 /** An unordered set where the keys are objects. This implementation uses cuckoo hashing using 3 hashes, random walking, and a
  * small stash for problematic keys. Null keys are not allowed. No allocation is done except when growing the table size. <br>

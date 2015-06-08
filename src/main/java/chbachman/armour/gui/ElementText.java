@@ -1,7 +1,7 @@
 package chbachman.armour.gui;
 
-import repack.cofh.lib.gui.GuiBase;
-import repack.cofh.lib.gui.element.ElementBase;
+import modulararmour.cofh.lib.gui.GuiBase;
+import modulararmour.cofh.lib.gui.element.ElementBase;
 
 public class ElementText extends ElementBase{
 

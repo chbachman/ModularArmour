@@ -3,6 +3,8 @@ package chbachman.armour.register;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import modulararmour.cofh.core.item.ItemBase;
+import modulararmour.cofh.lib.util.helpers.ItemHelper;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -15,8 +17,6 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
-import repack.cofh.core.item.ItemBase;
-import repack.cofh.lib.util.helpers.ItemHelper;
 import chbachman.api.configurability.FieldList;
 import chbachman.api.item.IModularItem;
 import chbachman.api.nbt.helper.NBTHelper;

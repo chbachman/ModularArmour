@@ -1,8 +1,8 @@
 package chbachman.armour.items.armour;
 
-import cofh.api.energy.IEnergyContainerItem;
 import net.minecraft.item.ItemStack;
 import chbachman.armour.items.armour.logic.RFUpgradeLogic;
+import cofh.api.energy.IEnergyContainerItem;
 
 public class RFModularArmour extends ItemModularArmour implements IEnergyContainerItem{
 

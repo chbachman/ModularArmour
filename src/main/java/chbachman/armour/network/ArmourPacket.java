@@ -1,9 +1,9 @@
 package chbachman.armour.network;
 
+import modulararmour.cofh.core.network.PacketCoFHBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
-import repack.cofh.core.network.PacketCoFHBase;
 import chbachman.api.item.IModularItem;
 import chbachman.api.nbt.helper.NBTHelper;
 import chbachman.api.registry.UpgradeRegistry;

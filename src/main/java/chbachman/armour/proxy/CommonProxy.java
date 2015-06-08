@@ -1,8 +1,8 @@
 package chbachman.armour.proxy;
 
-import repack.cofh.core.key.CoFHKeyHandler;
-import repack.cofh.core.key.KeyPacket;
-import repack.cofh.core.network.PacketHandler;
+import modulararmour.cofh.core.key.CoFHKeyHandler;
+import modulararmour.cofh.core.key.KeyPacket;
+import modulararmour.cofh.core.network.PacketHandler;
 import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.armour.network.ArmourPacket;

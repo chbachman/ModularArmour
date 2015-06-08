@@ -16,7 +16,6 @@
 
 package chbachman.api.util;
 
-import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import com.badlogic.gdx.utils.GdxRuntimeException;

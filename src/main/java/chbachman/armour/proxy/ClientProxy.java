@@ -3,9 +3,9 @@ package chbachman.armour.proxy;
 import java.util.LinkedList;
 import java.util.List;
 
-import repack.cofh.core.CoFHProps;
-import repack.cofh.core.key.CoFHKeyHandler;
-import repack.cofh.core.render.IconRegistry;
+import modulararmour.cofh.core.CoFHProps;
+import modulararmour.cofh.core.key.CoFHKeyHandler;
+import modulararmour.cofh.core.render.IconRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SoundCategory;
 import net.minecraft.entity.player.EntityPlayer;

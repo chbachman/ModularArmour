@@ -2,14 +2,14 @@ package chbachman.armour.gui.recipe;
 
 import java.util.List;
 
+import modulararmour.cofh.lib.gui.GuiProps;
+import modulararmour.cofh.lib.gui.element.TabBase;
+import modulararmour.cofh.lib.render.RenderHelper;
 import net.minecraft.inventory.Slot;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
-import repack.cofh.lib.gui.GuiProps;
-import repack.cofh.lib.gui.element.TabBase;
-import repack.cofh.lib.render.RenderHelper;
 import chbachman.api.item.IModularItem;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.util.ImmutableArray;

@@ -2,9 +2,9 @@ package chbachman.armour.items.armour.logic;
 
 import java.util.List;
 
+import modulararmour.cofh.lib.util.helpers.StringHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import repack.cofh.lib.util.helpers.StringHelper;
 import vazkii.botania.api.mana.IManaItem;
 import chbachman.api.item.IModularItem;
 import chbachman.api.nbt.helper.NBTInteger;

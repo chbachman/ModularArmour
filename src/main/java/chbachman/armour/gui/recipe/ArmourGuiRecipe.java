@@ -1,16 +1,16 @@
 package chbachman.armour.gui.recipe;
 
+import modulararmour.cofh.core.gui.GuiBaseAdv;
+import modulararmour.cofh.core.network.PacketHandler;
+import modulararmour.cofh.lib.gui.GuiBase;
+import modulararmour.cofh.lib.gui.element.ElementButton;
+import modulararmour.cofh.lib.gui.element.ElementTextField;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.input.Keyboard;
 
-import repack.cofh.core.gui.GuiBaseAdv;
-import repack.cofh.core.network.PacketHandler;
-import repack.cofh.lib.gui.GuiBase;
-import repack.cofh.lib.gui.element.ElementButton;
-import repack.cofh.lib.gui.element.ElementTextField;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.armour.gui.GuiHelper;
 import chbachman.armour.network.ArmourPacket;

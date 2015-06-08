@@ -1,6 +1,6 @@
 package chbachman.armour.gui;
 
-import repack.cofh.lib.util.helpers.ItemHelper;
+import modulararmour.cofh.lib.util.helpers.ItemHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import chbachman.api.item.IModularItem;

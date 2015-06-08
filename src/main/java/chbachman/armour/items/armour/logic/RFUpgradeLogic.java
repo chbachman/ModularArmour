@@ -2,10 +2,10 @@ package chbachman.armour.items.armour.logic;
 
 import java.util.List;
 
+import modulararmour.cofh.lib.util.helpers.StringHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import repack.cofh.lib.util.helpers.StringHelper;
 import chbachman.api.item.IModularItem;
 import chbachman.api.nbt.helper.NBTHelper;
 import chbachman.api.nbt.helper.NBTInteger;

@@ -1,6 +1,6 @@
 package chbachman.armour.handler;
 
-import repack.cofh.core.network.PacketHandler;
+import modulararmour.cofh.core.network.PacketHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;

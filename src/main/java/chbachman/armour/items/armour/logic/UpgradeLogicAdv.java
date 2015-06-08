@@ -1,11 +1,11 @@
 package chbachman.armour.items.armour.logic;
 
 import ic2.api.item.IMetalArmor;
+import modulararmour.cofh.core.util.CoreUtils;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import repack.cofh.core.util.CoreUtils;
 import thaumcraft.api.IGoggles;
 import thaumcraft.api.IVisDiscountGear;
 import thaumcraft.api.aspects.Aspect;

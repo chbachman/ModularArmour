@@ -1,6 +1,6 @@
 package chbachman.armour.upgrade.upgradeList;
 
-import repack.cofh.lib.util.helpers.EnergyHelper;
+import modulararmour.cofh.lib.util.helpers.EnergyHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
