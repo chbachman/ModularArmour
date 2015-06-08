@@ -3,7 +3,8 @@ package chbachman.armour.register;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import chbachman.armour.crafting.Recipe;
+import chbachman.api.registry.UpgradeRegistry;
+import chbachman.api.upgrade.Recipe;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class ThermalExpansion extends Vanilla{
@@ -26,19 +27,19 @@ public class ThermalExpansion extends Vanilla{
 		cellHardened = GameRegistry.findItemStack(TE, "cellHardened", 1);
 		cellRedstone = GameRegistry.findItemStack(TE, "cellReinforced", 1);
 		
-		Recipe.recipeList.add(new Recipe(autoFeeder, "cac", "gag", "ccc", 'c', "ingotCopper", 'a', Items.golden_apple, 'g', "gearCopper"));
-		Recipe.recipeList.add(new Recipe(basePotion, "iri", "gwg", "igi", 'i', "ingotGold", 'g', "blockGlass", 'r', "dustRedstone", 'w', Items.water_bucket));
-		Recipe.recipeList.add(new Recipe(calfShields, "l l", "l l", "l l", 'l', "ingotLead"));
-		Recipe.recipeList.add(new Recipe(fallDamage, "   ", "   ", "iwi", 'w', Blocks.wool, 'i', "ingotInvar"));
-		Recipe.recipeList.add(new Recipe(hoverJetpack, "iti", "ini", "c c", 'i', "ingotInvar", 't', tesseract, 'c', electrumCoil, 'n', Items.nether_star));
-		Recipe.recipeList.add(new Recipe(solar, "ggg", "isi", "iii", 'g', "blockGlass", 'i', "ingotInvar", 's', silverCoil));
-		Recipe.recipeList.add(new Recipe(speed, "pip", "i i", "i i", 'i', "ingotInvar", 'p', Blocks.piston));
-		Recipe.recipeList.add(new Recipe(stepAssist, "pip", "i i", "e e", 'i', "ingotInvar", 'p', Blocks.piston, 'e', electrumCoil));
-		Recipe.recipeList.add(new Recipe(jumpBoost, "i i", "i i", "p p", 'i', "ingotInvar", 'p', Blocks.piston));
-		Recipe.recipeList.add(new Recipe(leadstoneEnergy, "iri", "rbr", "iri", 'i', "ingotIron", 'r', "dustRedstone", 'b', "blockIron"));
-		Recipe.recipeList.add(new Recipe(hardenedEnergy, "lrl", "rbr", "lrl", 'l', "gemLapis", 'r', "dustRedstone", 'b', "blockLapis"));
-		Recipe.recipeList.add(new Recipe(reinforcedEnergy, "grg", "rbr", "grg", 'g', "ingotGold", 'r', "dustRedstone", 'b', "blockGold"));
-		Recipe.recipeList.add(new Recipe(resonantEnergy, "drd", "rbr", "drd", 'd', "gemDiamond", 'r', "dustRedstone", 'b', "blockDiamond"));
+		UpgradeRegistry.registerRecipe(new Recipe(autoFeeder, "cac", "gag", "ccc", 'c', "ingotCopper", 'a', Items.golden_apple, 'g', "gearCopper"));
+		UpgradeRegistry.registerRecipe(new Recipe(basePotion, "iri", "gwg", "igi", 'i', "ingotGold", 'g', "blockGlass", 'r', "dustRedstone", 'w', Items.water_bucket));
+		UpgradeRegistry.registerRecipe(new Recipe(calfShields, "l l", "l l", "l l", 'l', "ingotLead"));
+		UpgradeRegistry.registerRecipe(new Recipe(fallDamage, "   ", "   ", "iwi", 'w', Blocks.wool, 'i', "ingotInvar"));
+		UpgradeRegistry.registerRecipe(new Recipe(hoverJetpack, "iti", "ini", "c c", 'i', "ingotInvar", 't', tesseract, 'c', electrumCoil, 'n', Items.nether_star));
+		UpgradeRegistry.registerRecipe(new Recipe(solar, "ggg", "isi", "iii", 'g', "blockGlass", 'i', "ingotInvar", 's', silverCoil));
+		UpgradeRegistry.registerRecipe(new Recipe(speed, "pip", "i i", "i i", 'i', "ingotInvar", 'p', Blocks.piston));
+		UpgradeRegistry.registerRecipe(new Recipe(stepAssist, "pip", "i i", "e e", 'i', "ingotInvar", 'p', Blocks.piston, 'e', electrumCoil));
+		UpgradeRegistry.registerRecipe(new Recipe(jumpBoost, "i i", "i i", "p p", 'i', "ingotInvar", 'p', Blocks.piston));
+		UpgradeRegistry.registerRecipe(new Recipe(leadstoneEnergy, "iri", "rbr", "iri", 'i', "ingotIron", 'r', "dustRedstone", 'b', "blockIron"));
+		UpgradeRegistry.registerRecipe(new Recipe(hardenedEnergy, "lrl", "rbr", "lrl", 'l', "gemLapis", 'r', "dustRedstone", 'b', "blockLapis"));
+		UpgradeRegistry.registerRecipe(new Recipe(reinforcedEnergy, "grg", "rbr", "grg", 'g', "ingotGold", 'r', "dustRedstone", 'b', "blockGold"));
+		UpgradeRegistry.registerRecipe(new Recipe(resonantEnergy, "drd", "rbr", "drd", 'd', "gemDiamond", 'r', "dustRedstone", 'b', "blockDiamond"));
 	}
 
 }

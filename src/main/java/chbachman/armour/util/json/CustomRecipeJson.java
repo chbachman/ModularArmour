@@ -6,7 +6,7 @@ import java.util.List;
 
 import net.minecraft.item.ItemStack;
 import chbachman.api.upgrade.IUpgrade;
-import chbachman.armour.crafting.Recipe;
+import chbachman.api.upgrade.Recipe;
 
 import com.google.gson.*;
 

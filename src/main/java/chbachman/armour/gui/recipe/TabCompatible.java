@@ -186,6 +186,10 @@ public class TabCompatible extends TabBase{
 	}
 	
 	boolean isCompatible(IModularItem item){
+		if(this.armourGui.container.recipe == null){
+			return false;
+		}
+		
     	IUpgrade upgrade = this.armourGui.container.recipe.getRecipeOutput();
     	return upgrade.isCompatible(item, this.armourGui.container.stack, item.getSlot());
     }

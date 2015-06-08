@@ -4,23 +4,37 @@ import repack.cofh.lib.gui.GuiBase;
 import repack.cofh.lib.gui.element.ElementListBox;
 import repack.cofh.lib.gui.element.TabBase;
 import repack.cofh.lib.gui.element.listbox.ListBoxElementText;
-import chbachman.api.util.ImmutableArray;
-import chbachman.armour.crafting.Recipe;
+import chbachman.api.registry.UpgradeRegistry;
+import chbachman.api.upgrade.Recipe;
+
+import com.badlogic.gdx.utils.IntArray;
 
 public class TabRecipeList extends TabBase{
 	
-	ImmutableArray<Recipe> recipeList;
+	IntArray indicies;
 	
 	ElementListBox list;
 	
-	public TabRecipeList(GuiBase gui, ImmutableArray<Recipe> recipeList) {
+	public TabRecipeList(GuiBase gui, IntArray indicies) {
 		super(gui, LEFT);
 		
-		this.recipeList = recipeList;
-		this.list = new ElementListBox(this.gui, 7, 7, 50, 100);
+		this.indicies = indicies;
+		
+		
+		
 		
 		this.maxHeight = 115;
-		this.maxWidth = 62;
+		
+		ListBoxElementText text;
+		int max = 0;
+		for(Recipe recipe: UpgradeRegistry.getRecipeList()){
+			text = new ListBoxElementText(recipe.getRecipeOutput().getName());
+			max = Math.max(text.getWidth(), max);
+		}
+		
+		this.list = new ElementListBox(this.gui, 7, 7, max, 100);
+		
+		this.maxWidth = max + 12;
 		
 		this.addElement(list);
 	}
@@ -28,10 +42,13 @@ public class TabRecipeList extends TabBase{
 	public void updateList(){
 		this.list.removeAll();
 		
-		for(Recipe recipe : recipeList){
-			this.list.add(new ListBoxElementText(recipe.getRecipeOutput().getName()));
+		for(int i = 0; i < indicies.size; i++){
+			int index = indicies.get(i);
+			
+			ListBoxElementText text = new ListBoxElementText(UpgradeRegistry.getRecipeList().get(index).getRecipeOutput().getName());
+			
+			this.list.add(text);
 		}
-		
 
 	}
 	

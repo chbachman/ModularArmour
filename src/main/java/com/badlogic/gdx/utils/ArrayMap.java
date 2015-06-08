@@ -20,9 +20,10 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 import chbachman.api.util.Array;
+import chbachman.api.util.ObjectMap;
+import chbachman.api.util.ObjectMap.Entry;
 
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.utils.ObjectMap.Entry;
 import com.badlogic.gdx.utils.reflect.ArrayReflection;
 
 /** An ordered or unordered map of objects. This implementation uses arrays to store the keys and values, which means

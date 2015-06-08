@@ -14,14 +14,14 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.badlogic.gdx.utils;
+package chbachman.api.util;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import chbachman.api.util.Array;
-
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.badlogic.gdx.utils.StringBuilder;
 
 /** An unordered map. This implementation is a cuckoo hash map using 3 hashes, random walking, and a small stash for problematic
  * keys. Null keys are not allowed. Null values are allowed. No allocation is done except when growing the table size. <br>

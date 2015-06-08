@@ -9,15 +9,18 @@ import net.minecraft.world.World;
 import repack.cofh.lib.gui.slot.SlotViewOnly;
 import chbachman.api.item.IModularItem;
 import chbachman.api.registry.ModularItemRegistry;
+import chbachman.api.registry.UpgradeRegistry;
+import chbachman.api.upgrade.Recipe;
 import chbachman.api.util.Array;
 import chbachman.api.util.ImmutableArray;
 import chbachman.armour.ModularArmour;
-import chbachman.armour.crafting.Recipe;
 import chbachman.armour.gui.GuiHandler;
 import chbachman.armour.gui.crafting.ArmourContainer;
 import chbachman.armour.network.ArmourPacket;
 import chbachman.armour.network.IInputHandler;
 import chbachman.armour.util.InventoryUtil;
+
+import com.badlogic.gdx.utils.IntArray;
 
 public class ArmourContainerRecipe extends Container implements IInputHandler{
 
@@ -28,18 +31,20 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
 	public Inventory inventory;
 	public static Inventory2 inventory2;
 	public Recipe recipe;
-	
-	public int index = 0;
-	public Array<Recipe> recipes;
 
+	public int index = 0;
+	
+	public static final ImmutableArray<Recipe> recipes = UpgradeRegistry.getRecipeList();
 	public static final ImmutableArray<IModularItem> modularItems = ModularItemRegistry.getUpgradeList();
+	
+	public IntArray indicies = new IntArray();
 
 	public ArmourContainerRecipe(ItemStack stack, InventoryPlayer inventory, World world) {
 		this.item = (IModularItem) stack.getItem();
 		this.stack = stack;
 		this.player = inventory.player;
-		this.recipe = Recipe.recipeList.get(0);
-		this.inventory = new Inventory(recipe);
+		this.recipe = recipes.get(0);
+		this.inventory = new Inventory();
 		inventory2 = new Inventory2(modularItems);
 
 		this.bindSlots();
@@ -84,17 +89,61 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
 					crafting.onSlotChanged();
 				}
 			}
-			
-			
-			
-		}else if(name.equals("TextField")){
-			
+
+		}else if (name.equals("TextField")){
+
+			handleTextField(packet.getString());
+
 		}else{
 			this.index = packet.getInt();
-			this.recipe = Recipe.recipeList.get(index % Recipe.recipeList.size);
-			this.inventory = new Inventory(this.recipe);
+			wrapIndex();
 		}
 
+	}
+
+	void wrapIndex(){
+
+		if (this.indicies.size == 0){
+
+			this.recipe = null;
+
+		}else{
+			int min = 0;
+			int max = this.indicies.size;
+
+			if (this.index >= max){
+				this.index = max - 1;
+			}
+
+			if (this.index < min){
+				this.index = min;
+			}
+
+			this.recipe = recipes.get(this.indicies.get(this.index));
+		}
+
+	}
+
+	void handleTextField(String text){
+
+		if (text.isEmpty()){
+			indicies.clear();
+
+			for (int i = 0; i < recipes.size(); i++){
+				indicies.add(i);
+			}
+		}
+
+		indicies.clear();
+
+		for (int i = 0; i < recipes.size(); i++){
+			
+			String name = recipes.get(i).getRecipeOutput().getName();
+			
+			if (name.substring(0, Math.min(text.length(), name.length())).equalsIgnoreCase(text)){
+				indicies.add(i);
+			}
+		}
 	}
 
 	private ItemStack[] grabInventory(){
@@ -125,8 +174,12 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
 	private boolean checkInventory(){
 		IInventory playerInventory = this.player.inventory;
 
+		if (recipe == null){
+			return false;
+		}
+
 		ItemStack[][] input = recipe.getItemStackInput();
-		
+
 		for (int i = 0; i < input.length; i++){
 			for (int g = 0; g < input[i].length; g++){
 				if (!InventoryUtil.doesInventoryContainItemStack(playerInventory, input[i][g])){
@@ -134,7 +187,7 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
 				}
 			}
 		}
-		
+
 		return true;
 	}
 
@@ -145,17 +198,11 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
 		}
 
 	}
-	
+
 	private class Inventory implements IInventory{
 
 		private int counter = 0;
 		private int index = 0;
-
-		private int amountOfItems;
-		
-		public Inventory(Recipe recipe) {
-			this.amountOfItems = recipe.getItemStackInput().length;
-		}
 
 		@Override
 		public int getSizeInventory(){
@@ -165,21 +212,25 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
 		@Override
 		public ItemStack getStackInSlot(int slot){
 
+			if (recipe == null){
+				return null;
+			}
+
 			ItemStack[][] items = recipe.getItemStackInput();
-			
+
 			ItemStack[] toCheck = items[slot];
-			
+
 			counter++;
 
-			if (counter == 500 * amountOfItems){
+			if (counter == 500 * items.length){
 				counter = 0;
 				index++;
 			}
-			
-			if(toCheck.length == 0){
+
+			if (toCheck.length == 0){
 				return null;
 			}
-			
+
 			ItemStack stack = toCheck[index % toCheck.length];
 			stack.stackSize = 1;
 			return stack;
@@ -240,8 +291,8 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
 		Array<ItemStack> stacks = new Array<ItemStack>();
 
 		public Inventory2(Iterable<IModularItem> modularitems) {
-			for(IModularItem i : modularitems){
-				
+			for (IModularItem i : modularitems){
+
 				stacks.add(new ItemStack(i.getItem()));
 			}
 		}

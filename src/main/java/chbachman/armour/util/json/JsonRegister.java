@@ -11,9 +11,10 @@ import net.minecraft.item.ItemStack;
 
 import org.apache.commons.io.filefilter.FileFilterUtils;
 
+import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.upgrade.IUpgrade;
+import chbachman.api.upgrade.Recipe;
 import chbachman.armour.ModularArmour;
-import chbachman.armour.crafting.Recipe;
 
 import com.google.gson.GsonBuilder;
 
@@ -31,7 +32,7 @@ public class JsonRegister{
 		folder.mkdir();
 		
 		if(folder.listFiles((FileFilter) FileFilterUtils.suffixFileFilter(".json")).length == 0){
-			for(Recipe recipe : Recipe.recipeList){
+			for(Recipe recipe : UpgradeRegistry.getRecipeList()){
 				writeRecipeToFile(gsonBuilder, recipe, folder);
 			}
 		}
@@ -45,10 +46,10 @@ public class JsonRegister{
         
         File[] files = folder.listFiles((FileFilter) FileFilterUtils.suffixFileFilter(".json"));
         
-        Recipe.recipeList.clear();
+        UpgradeRegistry.INSTANCE.recipeList.clear();
         
         for (File file : files){
-        	Recipe.recipeList.add(createRecipeFromJson(gsonBuilder, file));
+        	UpgradeRegistry.registerRecipe(createRecipeFromJson(gsonBuilder, file));
         }
 	}
 	

@@ -1,14 +1,11 @@
 package chbachman.api.registry;
 
-import java.util.HashMap;
-import java.util.Iterator;
-
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.upgrade.Upgrade;
-import chbachman.armour.ModularArmour;
+import chbachman.api.util.ObjectMap;
 
 @SuppressWarnings("serial")
-public class UpgradeList extends HashMap<String, IUpgrade> implements Iterable<IUpgrade>{
+public class UpgradeList extends ObjectMap<String, IUpgrade>{
     
     public IUpgrade get(Class<? extends Upgrade> clazz) {
         for (IUpgrade upgrade : this.values()) {
@@ -23,10 +20,5 @@ public class UpgradeList extends HashMap<String, IUpgrade> implements Iterable<I
     public IUpgrade put(IUpgrade upgrade) {
     	return this.put(upgrade.getBaseName(), upgrade);
     }
-
-	@Override
-	public Iterator<IUpgrade> iterator() {
-		return this.values().iterator();
-	}
     
 }

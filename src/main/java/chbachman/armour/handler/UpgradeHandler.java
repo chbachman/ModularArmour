@@ -5,8 +5,9 @@ import net.minecraft.item.ItemStack;
 import chbachman.api.item.IModularItem;
 import chbachman.api.nbt.helper.NBTHelper;
 import chbachman.api.nbt.helper.NBTList;
+import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.upgrade.IUpgrade;
-import chbachman.armour.crafting.Recipe;
+import chbachman.api.upgrade.Recipe;
 import chbachman.armour.upgrade.UpgradeException;
 import chbachman.armour.util.UpgradeUtil;
 
@@ -17,9 +18,15 @@ public class UpgradeHandler {
 	 * @param containerWrapper
 	 * @return
 	 */
-    public static IUpgrade getResult(IInventory containerWrapper) {
+    public static IUpgrade getResult(IInventory crafting) {
     	
-        return Recipe.recipeList.getResult(containerWrapper);
+    	for(Recipe recipe : UpgradeRegistry.getRecipeList()){
+    		if(recipe.matches(crafting)){
+    			return recipe.getCraftingResult();
+    		}
+    	}
+    	
+    	return null;
     }
     
     /**

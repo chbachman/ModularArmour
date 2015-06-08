@@ -14,14 +14,13 @@
  * limitations under the License.
  ******************************************************************************/
 
-package com.badlogic.gdx.utils;
+package chbachman.api.util;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-import chbachman.api.util.Array;
-
-import com.badlogic.gdx.utils.ObjectMap.Entries;
+import com.badlogic.gdx.utils.GdxRuntimeException;
+import com.badlogic.gdx.utils.StringBuilder;
 
 /** An {@link ObjectMap} that also stores keys in an {@link Array} using the insertion order. There is some additional overhead for
  * put and remove. Iteration over the {@link #entries()}, {@link #keys()}, and {@link #values()} is ordered and faster than an

@@ -27,7 +27,8 @@ import java.io.Reader;
 import java.io.Writer;
 import java.util.Date;
 
-import com.badlogic.gdx.utils.ObjectMap.Entry;
+import chbachman.api.util.ObjectMap;
+import chbachman.api.util.ObjectMap.Entry;
 
 /** {@code PropertiesUtils} is a helper class that allows you to load and store key/value pairs of an
  * {@code ObjectMap<String,String>} with the same line-oriented syntax supported by {@code java.util.Properties}. */

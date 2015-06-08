@@ -33,7 +33,9 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerStartedEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.relauncher.Side;
 
 @Mod(modid = Reference.MODID, name = Reference.MODNAME, version = Reference.VERSION, dependencies = Reference.DEPENDENCIES)
 public class ModularArmour{
@@ -113,6 +115,12 @@ public class ModularArmour{
         JsonRegister.createJsonRecipes(gsonBuilder);
         JsonRegister.registerJsonRecipes(gsonBuilder);
         
+    }
+    
+    @EventHandler
+    public void serverStarted(FMLServerStartedEvent event)
+    {
+    	
     }
     
     public static File getConfigDirectory(){

@@ -1,4 +1,4 @@
-package chbachman.armour.crafting;
+package chbachman.api.upgrade;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -10,7 +10,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
-import chbachman.api.upgrade.IUpgrade;
 
 public class Recipe
 {
@@ -413,9 +412,6 @@ public class Recipe
     	return output;
     	
     }
-    
-    
-    public static RecipeList recipeList = new RecipeList();
     
     @Override
 	public String toString(){

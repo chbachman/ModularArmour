@@ -4,9 +4,10 @@ import thaumcraft.api.ItemApi;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
+import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.upgrade.IUpgrade;
+import chbachman.api.upgrade.Recipe;
 import chbachman.api.util.ArmourSlot;
-import chbachman.armour.crafting.Recipe;
 import chbachman.armour.upgrade.upgradeList.UpgradeBasic;
 
 public class Thaumcraft implements Module{
@@ -38,8 +39,8 @@ public class Thaumcraft implements Module{
 
 	@Override
 	public void registerUpgradeRecipes() {
-		Recipe.recipeList.add(new Recipe(gogglesOfRevealing, "iii", "igi", "iii", 'i', "ingotIron", 'g', ItemApi.getItem("itemGoggles", 0)));
-		Recipe.recipeList.add(new Recipe(visDiscount, "c c", "ccc", "ccc", 'c', ItemApi.getItem("itemResource", 7)));
+		UpgradeRegistry.registerRecipe(new Recipe(gogglesOfRevealing, "iii", "igi", "iii", 'i', "ingotIron", 'g', ItemApi.getItem("itemGoggles", 0)));
+		UpgradeRegistry.registerRecipe(new Recipe(visDiscount, "c c", "ccc", "ccc", 'c', ItemApi.getItem("itemResource", 7)));
 	}
 	
 	

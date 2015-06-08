@@ -1,24 +1,29 @@
 package chbachman.api.registry;
 
-import java.util.HashMap;
-import java.util.List;
-
 import chbachman.api.upgrade.IUpgrade;
+import chbachman.api.upgrade.Recipe;
 import chbachman.api.util.Array;
-
-import com.google.common.collect.ImmutableList;
+import chbachman.api.util.ImmutableArray;
+import chbachman.api.util.ObjectMap;
 
 public final class UpgradeRegistry{
 
-	private UpgradeRegistry(){}
+	public UpgradeRegistry(){}
 	
-	private static UpgradeRegistry INSTANCE = new UpgradeRegistry();
+	/**
+	 * This is not for public access, only for instances in which modifying the registry is necesary, such as in syncing.
+	 */
+	public static UpgradeRegistry INSTANCE = new UpgradeRegistry();
 	
-	private UpgradeList upgradeList = new UpgradeList();
+	public UpgradeList upgradeList = new UpgradeList();
 	
-	private Array<IUpgradeListener> listenerList = new Array<IUpgradeListener>();
+	public Array<IUpgradeListener> listenerList = new Array<IUpgradeListener>();
 	
-	private HashMap<IUpgrade, IUpgradeListener[]> listenerMap = new HashMap<IUpgrade, IUpgradeListener[]>();
+	public ObjectMap<IUpgrade, IUpgradeListener[]> listenerMap = new ObjectMap<IUpgrade, IUpgradeListener[]>();
+	
+	
+	
+	public Array<Recipe> recipeList = new Array<Recipe>();
 	
 	@SuppressWarnings("unchecked")
 	/**
@@ -47,6 +52,11 @@ public final class UpgradeRegistry{
 	 * @return the listener, for chaining.
 	 */
 	public static IUpgradeListener registerListener(IUpgradeListener l){
+		
+		if(l == null){
+			throw new IllegalArgumentException("Listener cannot be null");
+		}
+		
 		INSTANCE.listenerList.add(l);
 		return l;
 	}
@@ -57,6 +67,10 @@ public final class UpgradeRegistry{
 	 * @return the upgrade, for chaining.
 	 */
 	public static IUpgrade registerUpgrade(IUpgrade upgrade){
+		
+		if(upgrade == null){
+			throw new IllegalArgumentException("Upgrade cannot be null");
+		}
 		
 		IUpgradeListener[] list = new IUpgradeListener[INSTANCE.listenerList.size];
 		
@@ -70,12 +84,62 @@ public final class UpgradeRegistry{
 		return upgrade;
 	}
 	
+	public static Recipe registerRecipe(Recipe recipe){
+		
+		if(recipe == null){
+			throw new IllegalArgumentException("Recipe cannot be null");
+		}
+		
+		if(recipe.getRecipeOutput() == null){
+			throw new IllegalArgumentException(String.format("Recipe cannot create a null upgrade. Please fix %s recipe.", recipe.toString()));
+		}
+		
+		INSTANCE.recipeList.add(recipe);
+		
+		
+		return recipe;
+	}
+	
+	/**
+	 * Removes the given recipes.
+	 * @param recipe
+	 * @return success of removing.
+	 */
+	public static boolean removeRecipe(Recipe recipe){
+		return INSTANCE.recipeList.removeValue(recipe, false);
+	}
+	
+	/**
+	 * Removes all the recipes for the given Upgrade.
+	 * @param upgrade
+	 * @return sucess of removing.
+	 */
+	public static boolean removeRecipe(IUpgrade upgrade){
+		
+		boolean found = false;
+		
+		for(int i = 0; i < INSTANCE.recipeList.size; i++){
+			Recipe recipe = INSTANCE.recipeList.get(i);
+			
+			if(recipe.getRecipeOutput().equals(upgrade)){
+				INSTANCE.recipeList.removeIndex(i);
+				found = true;
+			}
+		}
+		
+		return found;
+	}
+	
 	/**
 	 * Returns an immutable list of the currently registered Upgrades.
 	 * @return
 	 */
-	public static List<IUpgrade> getUpgradeList(){
-		return ImmutableList.copyOf(INSTANCE.upgradeList.values());
+	public static ImmutableArray<IUpgrade> getUpgradeList(){
+		return new ImmutableArray(INSTANCE.upgradeList.values().toArray());
+	}
+	
+	public static ImmutableArray<Recipe> getRecipeList(){
+		return new ImmutableArray(INSTANCE.recipeList);
 	}
 	
 	/**

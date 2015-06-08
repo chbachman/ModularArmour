@@ -12,8 +12,6 @@ import repack.cofh.lib.gui.GuiBase;
 import repack.cofh.lib.gui.element.ElementButton;
 import repack.cofh.lib.gui.element.ElementTextField;
 import chbachman.api.upgrade.IUpgrade;
-import chbachman.api.util.ImmutableArray;
-import chbachman.armour.crafting.Recipe;
 import chbachman.armour.gui.GuiHelper;
 import chbachman.armour.network.ArmourPacket;
 import chbachman.armour.network.ArmourPacket.PacketTypes;
@@ -51,7 +49,7 @@ public class ArmourGuiRecipe extends GuiBaseAdv{
 		this.field = new RecipeTextField(this, 7, 6, 162, 11);
 		field.setBackgroundColor(0xFF000000, 0xFF000000, 0xFF000000);
 		
-		this.list = new TabRecipeList(this, new ImmutableArray(Recipe.recipeList));
+		this.list = new TabRecipeList(this, container.indicies);
 		
 		this.compatible = new TabCompatible(this);
 
@@ -70,16 +68,12 @@ public class ArmourGuiRecipe extends GuiBaseAdv{
 		this.addElement(this.upgrade);
 		this.addElement(this.field);
 
+		handleTyping("");
+		
 		for (int i = 9; i < 9 + ArmourContainerRecipe.modularItems.size(); i++){
 			((Slot) this.container.inventorySlots.get(i)).xDisplayPosition = -this.guiLeft - 16;
 			((Slot) this.container.inventorySlots.get(i)).yDisplayPosition = -this.guiTop - 16;
 		}
-	}
-
-	@Override
-	protected void drawGuiContainerForegroundLayer(int x, int y){
-		super.drawGuiContainerForegroundLayer(x, y);
-
 	}
 
 	@Override
@@ -98,6 +92,10 @@ public class ArmourGuiRecipe extends GuiBaseAdv{
 	
 	public void handleTyping(String currentString){
 		PacketHandler.sendToServer(ArmourPacket.getPacket(PacketTypes.BUTTON).addString("TextField").addString(currentString));
+		this.container.handleTextField(currentString);
+		this.container.wrapIndex();
+		//this.list.indicies = this.container.indicies;
+		this.list.updateList();
 	}
 	
 	@Override
@@ -106,31 +104,15 @@ public class ArmourGuiRecipe extends GuiBaseAdv{
 
 		if (buttonName.equals("Go Back")){
 			this.container.index--;
-			wrapIndex();
 		}else if (buttonName.equals("Next")){
 			this.container.index++;
-			wrapIndex();
-		}else if (buttonName.equals("Upgrade")){
-			
 		}
-
+		
 		PacketHandler.sendToServer(ArmourPacket.getPacket(PacketTypes.BUTTON).addString(buttonName).addInt(this.container.index));
+		
+		this.container.wrapIndex();
 	}
-	
-	public void wrapIndex(){
-		int min = 0;
-		int max = Recipe.recipeList.size;
-		
-		if(this.container.index >= max){
-			this.container.index = max - 1;
-		}
-		
-		if(this.container.index < min){
-			this.container.index = min;
-		}
-		
-		this.container.recipe = Recipe.recipeList.get(this.container.index);
-	}
+
 	
 	@Override
 	public void keyTyped(char characterTyped, int keyPressed){
