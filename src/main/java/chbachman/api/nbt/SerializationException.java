@@ -1,7 +1,7 @@
 package chbachman.api.nbt;
 
 public class SerializationException extends RuntimeException{
-	
+
 	public SerializationException() {
 		super();
 	}

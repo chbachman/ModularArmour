@@ -8,7 +8,7 @@ import chbachman.api.util.ImmutableArray;
 
 public final class ModularItemRegistry{
 
-	private ModularItemRegistry(){}
+	private ModularItemRegistry() {}
 
 	private static ModularItemRegistry INSTANCE = new ModularItemRegistry();
 
@@ -89,14 +89,14 @@ public final class ModularItemRegistry{
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T extends IModularItem> T getUpgrade(Class<T> s){
-		for(IModularItem item : INSTANCE.itemList){
-			
-			if(s == item.getClass()){
+		for (IModularItem item : INSTANCE.itemList){
+
+			if (s == item.getClass()){
 				return (T) item;
 			}
-			
+
 		}
-		
+
 		return null;
 	}
 

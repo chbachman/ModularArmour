@@ -6,19 +6,19 @@ import chbachman.api.util.ObjectMap;
 
 @SuppressWarnings("serial")
 public class UpgradeList extends ObjectMap<String, IUpgrade>{
-    
-    public IUpgrade get(Class<? extends Upgrade> clazz) {
-        for (IUpgrade upgrade : this.values()) {
-            if (upgrade.getClass() == clazz) {
-                return upgrade;
-            }
-        }
-        
-        return null;
-    }
-    
-    public IUpgrade put(IUpgrade upgrade) {
-    	return this.put(upgrade.getBaseName(), upgrade);
-    }
-    
+
+	public IUpgrade get(Class<? extends Upgrade> clazz){
+		for (IUpgrade upgrade : this.values()){
+			if (upgrade.getClass() == clazz){
+				return upgrade;
+			}
+		}
+
+		return null;
+	}
+
+	public IUpgrade put(IUpgrade upgrade){
+		return this.put(upgrade.getBaseName(), upgrade);
+	}
+
 }

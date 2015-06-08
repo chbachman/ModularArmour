@@ -3,6 +3,7 @@ package chbachman.armour.handler;
 import modulararmour.cofh.core.network.PacketHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import chbachman.api.item.IModularItem;
 import chbachman.api.nbt.helper.NBTHelper;
@@ -14,6 +15,7 @@ import chbachman.armour.network.ArmourPacket;
 import chbachman.armour.network.ArmourPacket.PacketTypes;
 import chbachman.armour.util.InventoryUtil;
 import chbachman.armour.util.MiscUtil;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.PlayerTickEvent;
@@ -25,7 +27,16 @@ import cpw.mods.fml.common.gameevent.TickEvent.PlayerTickEvent;
  *
  */
 public class GenericEventHandler{
-
+	
+	public static void register(){
+		new GenericEventHandler();
+	}
+	
+	public GenericEventHandler(){
+		MinecraftForge.EVENT_BUS.register(this);
+		FMLCommonHandler.instance().bus().register(this);
+	}
+	
 	@SubscribeEvent
 	public void onEntityConstructing(EntityConstructing event){
 		if (event.entity instanceof EntityPlayer && PlayerArmour.getFor((EntityPlayer) event.entity) == null){

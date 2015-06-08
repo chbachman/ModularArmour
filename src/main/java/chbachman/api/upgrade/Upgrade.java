@@ -94,16 +94,24 @@ public abstract class Upgrade implements IArmourUpgrade{
 
 	// Default Implementations
 	@Override
-	public boolean isCompatible(IModularItem item, ItemStack stack, int armorType){return true;}
+	public boolean isCompatible(IModularItem item, ItemStack stack, int armorType){
+		return true;
+	}
 
 	@Override
-	public int getArmourDisplay(EntityPlayer player, ItemStack stack, ArmourSlot slot){return 0;}
+	public int getArmourDisplay(EntityPlayer player, ItemStack stack, ArmourSlot slot){
+		return 0;
+	}
 
 	@Override
-	public ArmorProperties getProperties(EntityLivingBase attacker, ItemStack armor, DamageSource source, double damage, ArmourSlot slot){return null;}
+	public ArmorProperties getProperties(EntityLivingBase attacker, ItemStack armor, DamageSource source, double damage, ArmourSlot slot){
+		return null;
+	}
 
 	@Override
-	public IUpgrade[] getDependencies(){return null;}
+	public IUpgrade[] getDependencies(){
+		return null;
+	}
 
 	@Override
 	public void onUpgradeAddition(IModularItem item, ItemStack stack){}
@@ -112,18 +120,24 @@ public abstract class Upgrade implements IArmourUpgrade{
 	public void onEquip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot){}
 
 	@Override
-	public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot){return 0;}
+	public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot){
+		return 0;
+	}
 
 	@Override
 	public void onDequip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot){}
 
 	@Override
-	public String getArmourTexture(ItemStack stack, ArmourSlot slot){return null;}
+	public String getArmourTexture(ItemStack stack, ArmourSlot slot){
+		return null;
+	}
 
 	@Override
 	public void registerConfigOptions(){}
-	
+
 	@Override
-	public String getArmourColor(ItemStack stack, ArmourSlot slot){return null;}
+	public String getArmourColor(ItemStack stack, ArmourSlot slot){
+		return null;
+	}
 
 }

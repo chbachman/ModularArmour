@@ -15,19 +15,19 @@ public class TypeMap<E> extends HashMap<TypeToken<?>, E>{
 		TypeToken<?> type = (TypeToken<?>) key;
 
 		Class<?> clazz = type.getRawType();
-		
-		if(super.containsKey(TypeToken.get(clazz))){
+
+		if (super.containsKey(TypeToken.get(clazz))){
 			return super.get(TypeToken.get(clazz));
 		}
-		
+
 		Set<Class<?>> list = getInheritance(clazz);
-		
-		for(Class<?> sup : list){
-			if(super.containsKey(TypeToken.get(sup))){
+
+		for (Class<?> sup : list){
+			if (super.containsKey(TypeToken.get(sup))){
 				return super.get(TypeToken.get(sup));
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -36,25 +36,24 @@ public class TypeMap<E> extends HashMap<TypeToken<?>, E>{
 		TypeToken<?> type = (TypeToken<?>) key;
 
 		Class<?> clazz = type.getRawType();
-		
-		if(super.containsKey(TypeToken.get(clazz))){
+
+		if (super.containsKey(TypeToken.get(clazz))){
 			return true;
 		}
-		
+
 		Set<Class<?>> list = getInheritance(clazz);
-		
-		for(Class<?> sup : list){
-			if(super.containsKey(TypeToken.get(sup))){
+
+		for (Class<?> sup : list){
+			if (super.containsKey(TypeToken.get(sup))){
 				return true;
 			}
 		}
-		
+
 		return false;
-		
+
 	}
-	
-	public static Set<Class<?>> getInheritance(Class<?> in)
-	{
+
+	public static Set<Class<?>> getInheritance(Class<?> in){
 		LinkedHashSet<Class<?>> result = new LinkedHashSet<Class<?>>();
 
 		result.add(in);
@@ -69,12 +68,10 @@ public class TypeMap<E> extends HashMap<TypeToken<?>, E>{
 	 * @param in
 	 * @param result
 	 */
-	private static void getInheritance(Class<?> in, Set<Class<?>> result)
-	{
+	private static void getInheritance(Class<?> in, Set<Class<?>> result){
 		Class<?> superclass = getSuperclass(in);
 
-		if(superclass != null)
-		{
+		if (superclass != null){
 			result.add(superclass);
 			getInheritance(superclass, result);
 		}
@@ -88,10 +85,8 @@ public class TypeMap<E> extends HashMap<TypeToken<?>, E>{
 	 * @param in
 	 * @param result
 	 */
-	private static void getInterfaceInheritance(Class<?> in, Set<Class<?>> result)
-	{
-		for(Class<?> c : in.getInterfaces())
-		{
+	private static void getInterfaceInheritance(Class<?> in, Set<Class<?>> result){
+		for (Class<?> c : in.getInterfaces()){
 			result.add(c);
 
 			getInterfaceInheritance(c, result);
@@ -104,19 +99,15 @@ public class TypeMap<E> extends HashMap<TypeToken<?>, E>{
 	 * @param in
 	 * @return
 	 */
-	private static Class<?> getSuperclass(Class<?> in)
-	{
-		if(in == null)
-		{
+	private static Class<?> getSuperclass(Class<?> in){
+		if (in == null){
 			return null;
 		}
 
-		if(in.isArray() && in != Object[].class)
-		{
+		if (in.isArray() && in != Object[].class){
 			Class<?> type = in.getComponentType();
 
-			while(type.isArray())
-			{
+			while (type.isArray()){
 				type = type.getComponentType();
 			}
 
