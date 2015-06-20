@@ -110,7 +110,7 @@ public class PacketHandler extends MessageToMessageCodec<FMLProxyPacket, PacketB
 	// Method to call from FMLInitializationEvent
 	public void initialize() {
 
-		this.channels = NetworkRegistry.INSTANCE.newChannel("CoFH", this);
+		this.channels = NetworkRegistry.INSTANCE.newChannel("ModularArmour", this);
 	}
 
 	// Method to call from FMLPostInitializationEvent
