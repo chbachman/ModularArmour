@@ -1,6 +1,11 @@
 package WayofTime.alchemicalWizardry.api.items;
 
-import WayofTime.alchemicalWizardry.api.items.interfaces.IBloodOrb;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import net.minecraft.block.Block;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
@@ -9,12 +14,7 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
+import WayofTime.alchemicalWizardry.api.items.interfaces.IBloodOrb;
 
 /**
  * Shaped Blood Orb Recipe Handler by joshie *

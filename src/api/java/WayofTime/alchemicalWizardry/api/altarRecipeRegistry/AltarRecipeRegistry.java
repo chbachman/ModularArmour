@@ -1,9 +1,9 @@
 package WayofTime.alchemicalWizardry.api.altarRecipeRegistry;
 
-import net.minecraft.item.ItemStack;
-
 import java.util.LinkedList;
 import java.util.List;
+
+import net.minecraft.item.ItemStack;
 
 public class AltarRecipeRegistry
 {

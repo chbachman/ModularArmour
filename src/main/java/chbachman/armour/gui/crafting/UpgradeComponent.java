@@ -1,7 +1,5 @@
 package chbachman.armour.gui.crafting;
 
-import modulararmour.cofh.lib.gui.GuiBase;
-import modulararmour.cofh.lib.gui.element.ElementBase;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.item.ItemStack;
 
@@ -10,6 +8,8 @@ import org.lwjgl.input.Keyboard;
 import chbachman.api.nbt.helper.NBTHelper;
 import chbachman.api.nbt.helper.NBTList;
 import chbachman.api.upgrade.IUpgrade;
+import cofh.lib.gui.GuiBase;
+import cofh.lib.gui.element.ElementBase;
 
 public class UpgradeComponent extends ElementBase{
 

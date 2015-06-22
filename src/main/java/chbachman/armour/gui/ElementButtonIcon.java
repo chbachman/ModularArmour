@@ -2,16 +2,17 @@ package chbachman.armour.gui;
 
 import java.util.List;
 
-import modulararmour.cofh.core.render.IconRegistry;
-import modulararmour.cofh.lib.gui.GuiBase;
-import modulararmour.cofh.lib.gui.GuiColor;
-import modulararmour.cofh.lib.gui.element.ElementBase;
-import modulararmour.cofh.lib.gui.element.ElementButtonManaged;
-import modulararmour.cofh.lib.render.RenderHelper;
-import modulararmour.cofh.lib.util.helpers.StringHelper;
 import net.minecraft.util.IIcon;
 
 import org.lwjgl.opengl.GL11;
+
+import cofh.core.render.IconRegistry;
+import cofh.lib.gui.GuiBase;
+import cofh.lib.gui.GuiColor;
+import cofh.lib.gui.element.ElementBase;
+import cofh.lib.gui.element.ElementButtonManaged;
+import cofh.lib.render.RenderHelper;
+import cofh.lib.util.helpers.StringHelper;
 
 public class ElementButtonIcon extends ElementBase{
 	

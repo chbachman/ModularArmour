@@ -70,7 +70,7 @@ processResources {
 repositories {
 	ivy {
 		name "CoFHCore"
-		artifactPattern "http://addons-origin.cursecdn.com/files/2229/440/[module]-[revision].[ext]"
+		artifactPattern "http://addons-origin.cursecdn.com/files/2234/199/[module]-[revision].[ext]"
 	}
 
 	ivy {
@@ -85,12 +85,12 @@ repositories {
 }
 
 dependencies {
-	//compile name: 'CoFHCore', version: "${cofhcore_version}", ext: 'jar'
+	compile name: 'CoFHCore', version: "${cofhcore_version}", ext: 'jar'
 	compile name: 'MineTweaker3', version: "${minetweaker_version}", ext: 'jar'
 	compile "net.industrial-craft:industrialcraft-2:${ic2_version}-experimental:api"
 }
 
-jar { classifier = '' 
+jar { classifier = ''
 
 	manifest {
 		attributes 'FMLAT': 'modulararmour_at.cfg'

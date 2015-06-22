@@ -1,7 +1,5 @@
 package chbachman.armour.gui.crafting;
 
-import modulararmour.cofh.core.gui.GuiBaseAdv;
-import modulararmour.cofh.core.network.PacketHandler;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -11,6 +9,8 @@ import chbachman.armour.network.ArmourPacket;
 import chbachman.armour.network.ArmourPacket.PacketTypes;
 import chbachman.armour.reference.Reference;
 import chbachman.armour.upgrade.UpgradeException;
+import cofh.core.gui.GuiBaseAdv;
+import cofh.core.network.PacketHandler;
 
 public class ArmourGui extends GuiBaseAdv {
     

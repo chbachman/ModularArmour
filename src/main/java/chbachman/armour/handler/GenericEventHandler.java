@@ -1,6 +1,5 @@
 package chbachman.armour.handler;
 
-import modulararmour.cofh.core.network.PacketHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
@@ -15,6 +14,7 @@ import chbachman.armour.network.ArmourPacket;
 import chbachman.armour.network.ArmourPacket.PacketTypes;
 import chbachman.armour.util.InventoryUtil;
 import chbachman.armour.util.MiscUtil;
+import cofh.core.network.PacketHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent;
@@ -119,8 +119,12 @@ public class GenericEventHandler{
 				}
 				
 				packet.addString(recipe.getRecipeOutput().getBaseName());
+				packet.addInt(recipe.width);
+				packet.addInt(recipe.height);
 				
 			}
+			
+			
 			
 			
 

@@ -2,14 +2,15 @@ package chbachman.armour.gui.crafting;
 
 import java.util.List;
 
-import modulararmour.cofh.lib.gui.GuiBase;
-import modulararmour.cofh.lib.gui.GuiProps;
-import modulararmour.cofh.lib.gui.element.TabBase;
-import modulararmour.cofh.lib.render.RenderHelper;
 import net.minecraft.inventory.Slot;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
+
+import cofh.lib.gui.GuiBase;
+import cofh.lib.gui.GuiProps;
+import cofh.lib.gui.element.TabBase;
+import cofh.lib.render.RenderHelper;
 
 public class TabCrafting extends TabBase {
     
@@ -190,7 +191,7 @@ public class TabCrafting extends TabBase {
     }
     
     private void drawSlots(int xOffset, int yOffset, int slots) {
-        this.gui.drawSizedTexturedModalRect(this.posXOffset() + this.slotsBorderX1 + 3 + 9 * xOffset, this.posY + this.slotsBorderY1 + 3 + 18 * yOffset, 0, 0, 18 * slots, 18, 72, 18);
+        this.gui.drawSizedTexturedModalRect(this.posXOffset() + this.slotsBorderX1 + 3 + 9 * xOffset, this.posY + this.slotsBorderY1 + 3 + 18 * yOffset, 0, 0, 18 * slots, 18, 96, 32);
     }
     
 }

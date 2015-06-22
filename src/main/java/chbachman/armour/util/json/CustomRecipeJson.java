@@ -8,7 +8,16 @@ import net.minecraft.item.ItemStack;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.upgrade.Recipe;
 
-import com.google.gson.*;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonNull;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 
 public class CustomRecipeJson implements JsonDeserializer<Recipe>, JsonSerializer<Recipe>{
 
@@ -75,7 +84,7 @@ public class CustomRecipeJson implements JsonDeserializer<Recipe>, JsonSerialize
 			list.add((ItemStack) context.deserialize(e, ItemStack.class));
 		}
 		
-		Recipe recipe = new Recipe(output, list.toArray(), false);
+		Recipe recipe = new Recipe(output, list.toArray(), json.get("width").getAsInt(), json.get("height").getAsInt());
 		
 		recipe.width = json.get("width").getAsInt();
 		recipe.height = json.get("height").getAsInt();

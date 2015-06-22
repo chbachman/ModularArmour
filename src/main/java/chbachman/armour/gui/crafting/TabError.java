@@ -2,8 +2,8 @@ package chbachman.armour.gui.crafting;
 
 import java.util.List;
 
-import modulararmour.cofh.core.gui.element.TabInfo;
-import modulararmour.cofh.lib.gui.GuiBase;
+import cofh.core.gui.element.TabInfo;
+import cofh.lib.gui.GuiBase;
 
 public class TabError extends TabInfo {
     

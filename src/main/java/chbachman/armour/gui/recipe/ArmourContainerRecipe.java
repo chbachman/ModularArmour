@@ -1,6 +1,5 @@
 package chbachman.armour.gui.recipe;
 
-import modulararmour.cofh.lib.gui.slot.SlotViewOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -19,6 +18,7 @@ import chbachman.armour.gui.crafting.ArmourContainer;
 import chbachman.armour.network.ArmourPacket;
 import chbachman.armour.network.IInputHandler;
 import chbachman.armour.util.InventoryUtil;
+import cofh.lib.gui.slot.SlotViewOnly;
 
 import com.badlogic.gdx.utils.IntArray;
 

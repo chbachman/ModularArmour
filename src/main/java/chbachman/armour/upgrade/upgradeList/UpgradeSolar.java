@@ -1,6 +1,5 @@
 package chbachman.armour.upgrade.upgradeList;
 
-import modulararmour.cofh.lib.util.helpers.EnergyHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
@@ -8,6 +7,7 @@ import net.minecraft.world.World;
 import chbachman.api.item.IModularItem;
 import chbachman.api.upgrade.Upgrade;
 import chbachman.api.util.ArmourSlot;
+import cofh.lib.util.helpers.EnergyHelper;
 
 public class UpgradeSolar extends Upgrade
 {

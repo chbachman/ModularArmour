@@ -2,8 +2,6 @@ package chbachman.armour;
 
 import java.io.File;
 
-import modulararmour.cofh.core.network.PacketHandler;
-import modulararmour.cofh.core.util.ConfigHandler;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
@@ -22,6 +20,8 @@ import chbachman.armour.register.ItemRegister;
 import chbachman.armour.util.ModularCreativeTab;
 import chbachman.armour.util.OutputHandler;
 import chbachman.armour.util.json.JsonRegister;
+import cofh.core.network.PacketHandler;
+import cofh.core.util.ConfigHandler;
 
 import com.google.gson.GsonBuilder;
 
@@ -79,7 +79,6 @@ public class ModularArmour{
 
 		ItemRegister.INSTANCE.preInit();
 		proxy.registerKeyBinds();
-		PacketHandler.instance.initialize();
 	}
 
 	@EventHandler

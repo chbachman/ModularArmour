@@ -1,11 +1,15 @@
 package chbachman.armour.gui.recipe;
 
-import modulararmour.cofh.lib.gui.GuiBase;
-import modulararmour.cofh.lib.gui.element.ElementListBox;
-import modulararmour.cofh.lib.gui.element.TabBase;
-import modulararmour.cofh.lib.gui.element.listbox.ListBoxElementText;
+import java.util.LinkedList;
+import java.util.List;
+
 import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.upgrade.Recipe;
+import cofh.lib.gui.GuiBase;
+import cofh.lib.gui.element.ElementListBox;
+import cofh.lib.gui.element.TabBase;
+import cofh.lib.gui.element.listbox.IListBoxElement;
+import cofh.lib.gui.element.listbox.ListBoxElementText;
 
 import com.badlogic.gdx.utils.IntArray;
 
@@ -39,8 +43,14 @@ public class TabRecipeList extends TabBase{
 		this.addElement(list);
 	}
 	
+	private final List<IListBoxElement> elements = new LinkedList<IListBoxElement>();
+	
 	public void updateList(){
-		this.list.removeAll();
+		
+		for(int i = 0; i < elements.size(); i++){ //A really bad clear method.
+			elements.remove(i);
+			this.list.removeAt(i);
+		}
 		
 		for(int i = 0; i < indicies.size; i++){
 			int index = indicies.get(i);
@@ -48,6 +58,7 @@ public class TabRecipeList extends TabBase{
 			ListBoxElementText text = new ListBoxElementText(UpgradeRegistry.getRecipeList().get(index).getRecipeOutput().getName());
 			
 			this.list.add(text);
+			elements.add(text);
 		}
 
 	}

@@ -125,7 +125,7 @@ public class MineTweaker implements Module{
 				MineTweakerAPI.logError("Not an valid Upgrade");
 			}
 			
-			recipe = new Recipe(upgrade, mcIngredients, true);
+			recipe = new Recipe(upgrade, mcIngredients, 3, 3);
 		}
 
 		@Override

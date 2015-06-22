@@ -1,6 +1,5 @@
 package chbachman.armour.network;
 
-import modulararmour.cofh.core.network.PacketCoFHBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
@@ -12,6 +11,7 @@ import chbachman.api.upgrade.Recipe;
 import chbachman.api.util.ArmourSlot;
 import chbachman.api.util.Array;
 import chbachman.armour.util.MiscUtil;
+import cofh.core.network.PacketCoFHBase;
 
 public class ArmourPacket extends PacketCoFHBase {
     
@@ -145,7 +145,7 @@ public class ArmourPacket extends PacketCoFHBase {
 				
 			}
 			
-			UpgradeRegistry.registerRecipe(new Recipe(UpgradeRegistry.getUpgrade(this.getString()), recipe, false));
+			UpgradeRegistry.registerRecipe(new Recipe(UpgradeRegistry.getUpgrade(this.getString()), recipe, this.getInt(), this.getInt()));
 		}
 		
 		

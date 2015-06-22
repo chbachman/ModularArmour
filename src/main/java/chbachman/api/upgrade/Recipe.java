@@ -117,9 +117,11 @@ public class Recipe{
 	 * @param array
 	 * @param flag
 	 */
-	public Recipe(IUpgrade result, Object[] array, boolean flag) {
+	public Recipe(IUpgrade result, Object[] array, int width, int height) {
 		this.input = array;
 		this.output = result;
+		this.width = width;
+		this.height = height;
 	}
 
 	/**
@@ -368,7 +370,7 @@ public class Recipe{
 
 	@Override
 	public String toString(){
-		return "Output: " + this.output + "Input: " + Arrays.toString(this.input);
+		return "Output: " + this.output.getName() + "Input: " + Arrays.toString(this.input);
 	}
 
 }

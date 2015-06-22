@@ -1,7 +1,6 @@
 package chbachman.armour.items.armour.logic;
 
 import ic2.api.item.IMetalArmor;
-import modulararmour.cofh.core.util.CoreUtils;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -23,6 +22,7 @@ import chbachman.armour.register.Botania;
 import chbachman.armour.register.IndustrialCraft2;
 import chbachman.armour.register.Thaumcraft;
 import chbachman.armour.util.ConfigHelper;
+import cofh.core.util.CoreUtils;
 import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.Optional.Interface;
 

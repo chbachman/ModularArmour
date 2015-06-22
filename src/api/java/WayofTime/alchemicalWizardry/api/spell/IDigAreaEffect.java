@@ -1,10 +1,10 @@
 package WayofTime.alchemicalWizardry.api.spell;
 
-import WayofTime.alchemicalWizardry.api.items.ItemSpellMultiTool;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
+import WayofTime.alchemicalWizardry.api.items.ItemSpellMultiTool;
 
 public interface IDigAreaEffect
 {
