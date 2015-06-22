@@ -98,6 +98,9 @@ public class ModularArmour{
 		}
 
 		NetworkRegistry.INSTANCE.registerGuiHandler(instance, guiHandler);
+		
+		proxy.registerKeyBinds();
+		proxy.registerPacketInformation();
 	}
 
 	@EventHandler
@@ -106,8 +109,7 @@ public class ModularArmour{
 		ItemRegister.INSTANCE.postInit();
 		output.save();
 
-		proxy.registerKeyBinds();
-		proxy.registerPacketInformation();
+		
 
 		PacketHandler.instance.postInit();
 

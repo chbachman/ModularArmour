@@ -27,8 +27,6 @@ public class ClientProxy extends CommonProxy {
     public void registerKeyBinds() {
         super.registerKeyBinds();
         
-        FMLCommonHandler.instance().bus().register(CoFHKeyHandler.instance);
-        
         for (IUpgrade normalUpgrade : UpgradeRegistry.getUpgradeList()) {
             if (normalUpgrade instanceof KeybindUpgrade) {
                 
