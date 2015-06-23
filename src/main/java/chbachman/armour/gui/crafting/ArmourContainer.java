@@ -5,8 +5,11 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerDestroyItemEvent;
+import chbachman.api.configurability.Percentage;
 import chbachman.api.item.IModularItem;
 import chbachman.api.nbt.helper.NBTHelper;
+import chbachman.api.nbt.helper.NBTStorage;
+import chbachman.api.nbt.serializers.PercentageNBT;
 import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.armour.ModularArmour;
@@ -61,6 +64,8 @@ public class ArmourContainer extends ContainerInventoryItem implements IInputHan
     	super.onSlotChanged();
         this.upgrade = UpgradeHandler.getResult(this.containerWrapper);
     }
+    
+    NBTStorage<Percentage> storage = new NBTStorage<Percentage>(new PercentageNBT());
     
     @Override
     public void onButtonClick(ArmourPacket packet, String name) {
@@ -132,8 +137,11 @@ public class ArmourContainer extends ContainerInventoryItem implements IInputHan
             }else if(name.equals("ValueChanged")){
             	NBTHelper.createDefaultStackTag(getContainerStack());
             	
-            	getContainerStack().stackTagCompound.setInteger(packet.getString(), packet.getInt());
+            	storage.setKey(packet.getString());
+            	
+            	storage.set(getContainerStack(), new Percentage(packet.getInt()));
             }
+            
             
         } catch (UpgradeException e) {
             
