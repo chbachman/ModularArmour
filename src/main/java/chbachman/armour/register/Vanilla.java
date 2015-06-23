@@ -113,7 +113,7 @@ public class Vanilla implements Module{
 
 		material = (ItemBase) new ItemBase("modulararmour").setUnlocalizedName("material").setCreativeTab(ModularArmour.creativeTab);
 
-		materialModular = EnumHelper.addArmorMaterial("", 25, new int[] { 3, 7, 5, 3 }, 10);
+		materialModular = EnumHelper.addArmorMaterial("", 25, new int[] { 3, 7, 5, 3 }, 0);
 
 		helmetModular = new RFModularArmour(materialModular, 0).setUnlocalizedName("chbachman.armour.helmetModular").setTextureName(Reference.ITEM_LOCATION + "ModularHelmet");
 		chestplateModular = new RFModularArmour(materialModular, 1).setUnlocalizedName("chbachman.armour.chestplateModular").setTextureName(Reference.ITEM_LOCATION + "ModularChestplate");
@@ -140,7 +140,7 @@ public class Vanilla implements Module{
 		autoFeeder = new UpgradeAutoFeeder();
 		jumpBoost = new UpgradeJumpBoost();
 		electrolyzer = new UpgradeElectrolyzer();
-		nightVision = new UpgradePotion("nightVision", Potion.nightVision, 10, 250);
+		nightVision = new UpgradePotion("nightVision", Potion.nightVision, 1, 10, 250);
 		invisibility = new UpgradePotion("invisibility", Potion.invisibility, 10, 500);
 		magnet = new UpgradeMagnet();
 

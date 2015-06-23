@@ -2,14 +2,10 @@ package chbachman.armour.items.armour.logic;
 
 import java.util.List;
 
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 import chbachman.api.item.IModularItem;
 import chbachman.api.nbt.helper.NBTHelper;
 import chbachman.api.nbt.helper.NBTInteger;
-import chbachman.api.upgrade.IUpgrade;
-import chbachman.api.util.ArmourSlot;
 import chbachman.armour.register.Botania;
 import chbachman.armour.util.ConfigHelper;
 import cofh.api.energy.IEnergyContainerItem;
@@ -77,27 +73,6 @@ public class RFUpgradeLogic extends UpgradeLogicAdv implements IEnergyContainerI
 	@Override
 	public boolean isDamaged(ItemStack stack){
 		return stack.getItemDamage() != Short.MAX_VALUE;
-	}
-	
-	@Override
-	public void onArmourTick(World world, EntityPlayer player, ItemStack stack) {
-
-		int energy = 0;
-
-		for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)) {
-
-			if (upgrade != null) {
-				energy += upgrade.onTick(world, player, stack, ArmourSlot.getArmourSlot((this.item.getSlot())));
-			}
-
-		}
-
-		if(energy < 0){
-			this.receiveEnergy(stack, energy, false);
-		}else{
-			this.extractEnergy(stack, energy, false);
-		}
-
 	}
 
 	@Override

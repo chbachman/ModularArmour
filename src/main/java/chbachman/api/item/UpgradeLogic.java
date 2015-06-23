@@ -170,10 +170,10 @@ public abstract class UpgradeLogic implements ArmourLogic{
 			energy += upgrade.onTick(world, player, stack, ArmourSlot.getArmourSlot(this.item.getSlot()));
 		}
 
-		if (energy < 0){
-			this.damageArmour(stack, energy * -1);
+		if (energy > 0){
+			this.damageArmour(stack, energy);
 		}else{
-			this.healArmour(stack, energy);
+			this.healArmour(stack, energy * -1);
 		}
 	}
 
