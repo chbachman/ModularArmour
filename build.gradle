@@ -122,6 +122,10 @@ task 'v++' <<{
 	props.store(propsFile.newWriter(), null)
 }
 
+task blogPost <<{
+	println "ls".execute().text
+}
+
 task sourceJar(type: Jar) {
 	from sourceSets.main.allSource
 	classifier = 'sources'

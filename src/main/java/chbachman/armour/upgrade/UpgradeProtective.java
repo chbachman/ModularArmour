@@ -221,4 +221,22 @@ public abstract class UpgradeProtective extends UpgradeBasic{
 
 	}
 	
+	public static class UpgradeGeneral extends UpgradeProtective{
+		
+		public UpgradeGeneral(){
+			super("generalProtection", 80);
+		}
+		
+		@Override
+		public boolean shouldDefend(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, ArmourSlot slot) {
+			return true;
+		}
+		
+		@Override
+		public int getEnergyPerDamage(ItemStack stack){
+			return 100;
+		}
+		
+	}
+	
 }

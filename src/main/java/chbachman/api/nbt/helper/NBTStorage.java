@@ -33,23 +33,23 @@ public class NBTStorage<E>{
 	}
 	
 	public E set(ItemStack stack, E data){
-		E temp = this.get(stack);
-		
-		type.saveToNBT(data, stack.stackTagCompound);
-		
-		return temp;
+		return set(stack.stackTagCompound, data);
 	}
 	
 	public E set(NBTTagCompound stack, E data){
 		E temp = this.get(stack);
 		
-		type.saveToNBT(data, stack);
+		NBTTagCompound nbt = new NBTTagCompound();
+		
+		type.saveToNBT(data, nbt);
+		
+		stack.setTag(this.key, nbt);
 		
 		return temp;
 	}
 	
 	public E get(NBTTagCompound stack){
-		return type.loadFromNBT(stack);
+		return type.loadFromNBT(stack.getCompoundTag(this.key));
 	}
 	
 	public E get(ItemStack stack){
