@@ -31,6 +31,7 @@ import chbachman.armour.upgrade.UpgradeProtective.UpgradeExplosion;
 import chbachman.armour.upgrade.UpgradeProtective.UpgradeFire;
 import chbachman.armour.upgrade.UpgradeProtective.UpgradeLava;
 import chbachman.armour.upgrade.UpgradeProtective.UpgradeMagic;
+import chbachman.armour.upgrade.UpgradeProtective.UpgradeProjectileProtection;
 import chbachman.armour.upgrade.UpgradeProtective.UpgradeUnblockable;
 import chbachman.armour.upgrade.UpgradeProtective.UpgradeWither;
 import chbachman.armour.upgrade.upgradeList.UpgradeArthropod;
@@ -161,6 +162,7 @@ public class Vanilla implements Module{
 		witherProtection = new UpgradeWither();
 		lavaProtection = new UpgradeLava();
 		playerProtection = new UpgradePlayerProtection();
+		projectileProtection = new UpgradeProjectileProtection();
 
 		solar = new UpgradeSolar("solar", 1);
 	}
@@ -217,6 +219,7 @@ public class Vanilla implements Module{
 		UpgradeRegistry.registerRecipe(new Recipe(playerProtection, "cih", "iii", "iii", 'i', "ingotIron", 'c', Blocks.crafting_table, 'h', Blocks.chest));
 		UpgradeRegistry.registerRecipe(new Recipe(witherProtection, "cic", "cwc", "cic", 'i', "ingotIron", 'w', Items.skull, 'c', Items.coal));
 		UpgradeRegistry.registerRecipe(new Recipe(explosionProtection, "tit", "iti", "tit", 't', Blocks.tnt, 'i', "ingotIron"));
+		UpgradeRegistry.registerRecipe(new Recipe(projectileProtection, "afa", "faf", "afa", 'f', Items.fire_charge, 'a', Items.arrow));
 	}
 
 	@Override

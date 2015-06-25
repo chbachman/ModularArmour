@@ -96,9 +96,9 @@ public abstract class UpgradeProtective extends UpgradeBasic{
 	public abstract int getEnergyPerDamage(ItemStack stack);
 	
 	//Simple Subclasses Follow
-	public static class UpgradeProjectile extends UpgradeProtective {
+	public static class UpgradeProjectileProtection extends UpgradeProtective {
 
-		public UpgradeProjectile() {
+		public UpgradeProjectileProtection() {
 			super("projectileProtector", 75);
 		}
 

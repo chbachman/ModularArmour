@@ -79,6 +79,7 @@ upgrade.chbachman.lavaProtector.name=Lava Protection
 upgrade.chbachman.playerProtection.name=Player Protector
 upgrade.chbachman.witherProtector.name=Wither Protector
 upgrade.chbachman.explosionProtector.name=Explosion Protector
+upgrade.chbachman.projectileProtector.name=Projectile Protection
 
 upgrade.chbachman.speed.speed=Speed
 upgrade.chbachman.protection.protection=Protection
@@ -127,4 +128,5 @@ upgrade.chbachman.lavaProtector.information=Contains the Red Orb. Do not put nea
 upgrade.chbachman.playerProtection.information=Protects against attacks by players.
 upgrade.chbachman.witherProtector.information=Withers are just not as mean anymore.
 upgrade.chbachman.explosionProtector.information=This somehow uses TnT to protect against explosions. How, I have no idea.
+upgrade.chbachman.projectileProtector.information=Finally. Skeletons are not such a giant pain.
 
