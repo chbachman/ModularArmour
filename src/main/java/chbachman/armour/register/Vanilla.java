@@ -29,6 +29,7 @@ import chbachman.armour.items.armour.RFModularArmour;
 import chbachman.armour.reference.Reference;
 import chbachman.armour.upgrade.UpgradeProtective.UpgradeExplosion;
 import chbachman.armour.upgrade.UpgradeProtective.UpgradeFire;
+import chbachman.armour.upgrade.UpgradeProtective.UpgradeGeneralProtection;
 import chbachman.armour.upgrade.UpgradeProtective.UpgradeLava;
 import chbachman.armour.upgrade.UpgradeProtective.UpgradeMagic;
 import chbachman.armour.upgrade.UpgradeProtective.UpgradeProjectileProtection;
@@ -108,6 +109,7 @@ public class Vanilla implements Module{
 	public static IUpgrade witherProtection;
 	public static IUpgrade lavaProtection;
 	public static IUpgrade playerProtection;
+	public static IUpgrade generalProtection;
 
 	@Override
 	public final void preInit(){
@@ -163,6 +165,7 @@ public class Vanilla implements Module{
 		lavaProtection = new UpgradeLava();
 		playerProtection = new UpgradePlayerProtection();
 		projectileProtection = new UpgradeProjectileProtection();
+		generalProtection = new UpgradeGeneralProtection();
 
 		solar = new UpgradeSolar("solar", 1);
 	}
@@ -208,7 +211,7 @@ public class Vanilla implements Module{
 		UpgradeRegistry.registerRecipe(new Recipe(invisibility, "gig", "bpb", "gig", 'g', "ingotGold", 'b', "blockGlass", 'i', "ingotIron", 'p', new ItemStack(Items.potionitem, 1, 8206)));
 		UpgradeRegistry.registerRecipe(new Recipe(magnet, "g g", "i i", " i ", 'i', "ingotIron", 'g', "ingotGold"));
 		UpgradeRegistry.registerRecipe(new Recipe(decorative, "w w", "www", "www", 'w', Blocks.wool));
-		UpgradeRegistry.registerRecipe(new Recipe(invisible, "A  ", "   ", "   ", 'A', new ItemStack(Items.potionitem, 1, 8206)));
+		UpgradeRegistry.registerRecipe(new Recipe(invisible, "g g", "ggg", "ggg", 'g', Blocks.glass));
 		UpgradeRegistry.registerRecipe(new Recipe(solar, "ggg", "ici", "iii", 'g', "blockGlass", 'i', "ingotIron", 'c', Items.coal));
 		UpgradeRegistry.registerRecipe(new Recipe(undeadProtection, "zzz", "zzz", "zzz", 'z', Items.rotten_flesh));
 		UpgradeRegistry.registerRecipe(new Recipe(arthropodProtection, "sps", "psp", "sps", 's', Items.string, 'p', Items.spider_eye));
@@ -220,6 +223,7 @@ public class Vanilla implements Module{
 		UpgradeRegistry.registerRecipe(new Recipe(witherProtection, "cic", "cwc", "cic", 'i', "ingotIron", 'w', Items.skull, 'c', Items.coal));
 		UpgradeRegistry.registerRecipe(new Recipe(explosionProtection, "tit", "iti", "tit", 't', Blocks.tnt, 'i', "ingotIron"));
 		UpgradeRegistry.registerRecipe(new Recipe(projectileProtection, "afa", "faf", "afa", 'f', Items.fire_charge, 'a', Items.arrow));
+		UpgradeRegistry.registerRecipe(new Recipe(generalProtection, "i i", "iii", "iii", 'i', "ingotIron"));
 	}
 
 	@Override

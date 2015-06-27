@@ -221,9 +221,9 @@ public abstract class UpgradeProtective extends UpgradeBasic{
 
 	}
 	
-	public static class UpgradeGeneral extends UpgradeProtective{
+	public static class UpgradeGeneralProtection extends UpgradeProtective{
 		
-		public UpgradeGeneral(){
+		public UpgradeGeneralProtection(){
 			super("generalProtection", 80);
 		}
 		
