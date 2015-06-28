@@ -15,6 +15,7 @@ import net.minecraftforge.common.ISpecialArmor.ArmorProperties;
 
 import org.lwjgl.input.Keyboard;
 
+import chbachman.api.nbt.helper.NBTBoolean;
 import chbachman.api.nbt.helper.NBTHelper;
 import chbachman.api.upgrade.IArmourUpgrade;
 import chbachman.api.upgrade.IUpgrade;
@@ -23,9 +24,12 @@ import chbachman.api.util.ArmourSlot;
 public abstract class UpgradeLogic implements ArmourLogic{
 
 	protected final IModularItem item;
-
+	
+	protected final NBTBoolean hasOpened;
+	
 	public UpgradeLogic(IModularItem item) {
 		this.item = item;
+		this.hasOpened = new NBTBoolean("hasOpened", false);
 	}
 
 	// Item
@@ -41,7 +45,11 @@ public abstract class UpgradeLogic implements ArmourLogic{
 	@Override
 	public void addInformation(List<String> list, ItemStack stack){
 		NBTHelper.createDefaultStackTag(stack);
-
+		
+		if(!hasOpened.get(stack)){
+			list.add(StatCollector.translateToLocal("info.chbachman.openme"));
+		}
+		
 		if (!(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) || Keyboard.isKeyDown(Keyboard.KEY_RCONTROL)) && NBTHelper.getNBTUpgradeList(stack.stackTagCompound).size() != 0){
 			list.add(EnumChatFormatting.GRAY + StatCollector.translateToLocal("info.cofh.hold") + " " + EnumChatFormatting.YELLOW + EnumChatFormatting.ITALIC + StatCollector.translateToLocal("info.chbachman.control") + " " + EnumChatFormatting.RESET + EnumChatFormatting.GRAY + StatCollector.translateToLocal("info.chbachman.upgradeList") + EnumChatFormatting.RESET);
 		}else if (NBTHelper.getNBTUpgradeList(stack.stackTagCompound).size() != 0){
@@ -63,6 +71,7 @@ public abstract class UpgradeLogic implements ArmourLogic{
 	 */
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player){
+		this.hasOpened.set(stack, true);
 		return stack;
 	}
 
