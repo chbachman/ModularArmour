@@ -50,6 +50,7 @@ public abstract class UpgradeLogicAdv extends UpgradeLogic implements IRevealer,
 	 */
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player){
+		super.onItemRightClick(stack, world, player);
 		if (CoreUtils.isFakePlayer(player)) {
 			return stack;
 		}
