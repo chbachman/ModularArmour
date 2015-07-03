@@ -1,11 +1,54 @@
 package chbachman.armour.util;
 
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.player.PlayerDestroyItemEvent;
 import net.minecraftforge.oredict.OreDictionary;
 
 public class InventoryUtil{
+	
+	public static void givePlayerItem(EntityPlayer player, ItemStack stack){
+        EntityItem entityitem = player.dropPlayerItemWithRandomChoice(stack, false);
+        entityitem.delayBeforeCanPickup = 0;
+        entityitem.func_145797_a(player.getCommandSenderName());
+	}
+	
+	public static void decrementItemStack(EntityPlayer player, IInventory inventory, int index){
+		
+		ItemStack stack = inventory.getStackInSlot(index);
+		
+		if (stack != null)
+        {
+            inventory.decrStackSize(index, 1);
 
+            if (stack.getItem().hasContainerItem(stack))
+            {
+                ItemStack itemstack2 = stack.getItem().getContainerItem(stack);
+
+                if (itemstack2 != null && itemstack2.isItemStackDamageable() && itemstack2.getItemDamage() > itemstack2.getMaxDamage())
+                {
+                    MinecraftForge.EVENT_BUS.post(new PlayerDestroyItemEvent(player, itemstack2));
+                    return;
+                }
+
+                if (!stack.getItem().doesContainerItemLeaveCraftingGrid(stack) || !player.inventory.addItemStackToInventory(itemstack2))
+                {
+                    if (inventory.getStackInSlot(index) == null)
+                    {
+                        inventory.setInventorySlotContents(index, itemstack2);
+                    }
+                    else
+                    {
+                        player.dropPlayerItemWithRandomChoice(itemstack2, false);
+                    }
+                }
+            }
+        }
+	}
+	
 	public static boolean doesInventoryContainItemStack(ItemStack[] inventory, ItemStack stack){
 		for (ItemStack inventoryStack : inventory){
 			if (InventoryUtil.itemMatches(inventoryStack, stack, false)){

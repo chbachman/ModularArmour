@@ -1,4 +1,4 @@
-package chbachman.armour.gui.crafting;
+package chbachman.armour.gui.element;
 
 import java.util.List;
 

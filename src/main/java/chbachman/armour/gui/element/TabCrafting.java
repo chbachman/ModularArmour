@@ -1,4 +1,4 @@
-package chbachman.armour.gui.crafting;
+package chbachman.armour.gui.element;
 
 import java.util.List;
 
@@ -7,6 +7,7 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
+import chbachman.armour.gui.crafting.ArmourGui;
 import cofh.lib.gui.GuiBase;
 import cofh.lib.gui.GuiProps;
 import cofh.lib.gui.element.TabBase;

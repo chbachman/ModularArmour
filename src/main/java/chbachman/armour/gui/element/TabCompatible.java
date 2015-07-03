@@ -1,4 +1,4 @@
-package chbachman.armour.gui.recipe;
+package chbachman.armour.gui.element;
 
 import java.util.List;
 
@@ -10,22 +10,24 @@ import org.lwjgl.opengl.GL11;
 import chbachman.api.item.IModularItem;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.util.ImmutableArray;
+import chbachman.armour.gui.recipe.RecipeContainer;
+import chbachman.armour.gui.recipe.RecipeGui;
 import cofh.lib.gui.GuiProps;
 import cofh.lib.gui.element.TabBase;
 import cofh.lib.render.RenderHelper;
 
 public class TabCompatible extends TabBase{
 
-	ArmourGuiRecipe armourGui;
+	RecipeGui armourGui;
 
-	ImmutableArray<IModularItem> modularItems = ArmourContainerRecipe.modularItems;
+	ImmutableArray<IModularItem> modularItems = RecipeContainer.modularItems;
 
 	private int startIndex = 0;
 	private int maxItems = 6;
 	
 	public static ResourceLocation GRID_TEXTURE = new ResourceLocation(GuiProps.PATH_ELEMENTS + "Slot_Grid_Augment.png");
 
-	public TabCompatible(ArmourGuiRecipe gui) {
+	public TabCompatible(RecipeGui gui) {
 		super(gui, 1);
 
 		this.armourGui = gui;

@@ -12,12 +12,14 @@ import chbachman.api.upgrade.Recipe;
 import chbachman.api.util.ArmourSlot;
 import chbachman.armour.network.ArmourPacket;
 import chbachman.armour.network.ArmourPacket.PacketTypes;
+import chbachman.armour.register.Vanilla;
 import chbachman.armour.util.InventoryUtil;
 import chbachman.armour.util.MiscUtil;
 import cofh.core.network.PacketHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent;
+import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.PlayerTickEvent;
 
 /**
@@ -48,6 +50,22 @@ public class GenericEventHandler{
 		}
 	}
 
+	@SubscribeEvent
+	public void onCraft(ItemCraftedEvent e){
+		PlayerArmour storage = PlayerArmour.getFor(e.player);
+		
+		if(!storage.hasCraftedArmour){
+			
+			if(e.crafting.getItem() instanceof IModularItem){
+				storage.hasCraftedArmour = true;
+				InventoryUtil.givePlayerItem(e.player, Vanilla.defaultTablet);
+			}
+			
+		}
+		
+		
+	}
+	
 	@SubscribeEvent
 	public void onPlayerTick(PlayerTickEvent e){
 		EntityPlayer player = e.player;

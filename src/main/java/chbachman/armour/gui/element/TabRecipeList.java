@@ -1,4 +1,4 @@
-package chbachman.armour.gui.recipe;
+package chbachman.armour.gui.element;
 
 import java.util.LinkedList;
 import java.util.List;

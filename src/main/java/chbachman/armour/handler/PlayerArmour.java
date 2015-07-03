@@ -22,6 +22,8 @@ public class PlayerArmour implements IExtendedEntityProperties{
 	public static final String IDENTIFIER = "ModularArmour:ArmourSaving";
 
 	ItemStack[] stacks;
+	
+	boolean hasCraftedArmour;
 
 	/**
 	 * Called every tick to update the player's worn armour.
@@ -48,6 +50,8 @@ public class PlayerArmour implements IExtendedEntityProperties{
 			list.appendTag(stack.writeToNBT(new NBTTagCompound()));
 		}
 		compound.setTag("armourList", list);
+		
+		compound.setBoolean("hasCrafted", hasCraftedArmour);
 	}
 
 	@Override
@@ -64,6 +68,8 @@ public class PlayerArmour implements IExtendedEntityProperties{
 
 			stacks[i] = ItemStack.loadItemStackFromNBT(nbt);
 		}
+		
+		hasCraftedArmour = compound.getBoolean("hasCrafted");
 
 	}
 

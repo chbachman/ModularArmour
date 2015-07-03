@@ -22,7 +22,7 @@ import cofh.lib.gui.slot.SlotViewOnly;
 
 import com.badlogic.gdx.utils.IntArray;
 
-public class ArmourContainerRecipe extends Container implements IInputHandler{
+public class RecipeContainer extends Container implements IInputHandler{
 
 	public final IModularItem item;
 	public final EntityPlayer player;
@@ -39,7 +39,7 @@ public class ArmourContainerRecipe extends Container implements IInputHandler{
 	
 	public IntArray indicies = new IntArray();
 
-	public ArmourContainerRecipe(ItemStack stack, InventoryPlayer inventory, World world) {
+	public RecipeContainer(ItemStack stack, InventoryPlayer inventory, World world) {
 		this.item = (IModularItem) stack.getItem();
 		this.stack = stack;
 		this.player = inventory.player;

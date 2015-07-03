@@ -8,6 +8,8 @@ import org.lwjgl.input.Keyboard;
 
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.armour.gui.GuiHelper;
+import chbachman.armour.gui.element.TabCompatible;
+import chbachman.armour.gui.element.TabRecipeList;
 import chbachman.armour.network.ArmourPacket;
 import chbachman.armour.network.ArmourPacket.PacketTypes;
 import chbachman.armour.reference.Reference;
@@ -17,11 +19,11 @@ import cofh.lib.gui.GuiBase;
 import cofh.lib.gui.element.ElementButton;
 import cofh.lib.gui.element.ElementTextField;
 
-public class ArmourGuiRecipe extends GuiBaseAdv{
+public class RecipeGui extends GuiBaseAdv{
 
 	private static final ResourceLocation TEXTURE = new ResourceLocation(Reference.TEXTURE_LOCATION + "/gui/recipeGui.png");
 
-	public ArmourContainerRecipe container;
+	public RecipeContainer container;
 	public ElementButton rightArrow;
 	public ElementButton leftArrow;
 	public ElementButton upgrade;
@@ -29,7 +31,7 @@ public class ArmourGuiRecipe extends GuiBaseAdv{
 	public TabCompatible compatible;
 	public TabRecipeList list;
 
-	public ArmourGuiRecipe(ArmourContainerRecipe container, InventoryPlayer inventory) {
+	public RecipeGui(RecipeContainer container, InventoryPlayer inventory) {
 		super(container, TEXTURE);
 
 		this.container = container;
@@ -70,7 +72,7 @@ public class ArmourGuiRecipe extends GuiBaseAdv{
 
 		handleTyping("");
 		
-		for (int i = 9; i < 9 + ArmourContainerRecipe.modularItems.size(); i++){
+		for (int i = 9; i < 9 + RecipeContainer.modularItems.size(); i++){
 			((Slot) this.container.inventorySlots.get(i)).xDisplayPosition = -this.guiLeft - 16;
 			((Slot) this.container.inventorySlots.get(i)).yDisplayPosition = -this.guiTop - 16;
 		}
