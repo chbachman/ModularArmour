@@ -7,8 +7,8 @@ import chbachman.armour.gui.crafting.ArmourContainer;
 import chbachman.armour.gui.crafting.ArmourGui;
 import chbachman.armour.gui.recipe.RecipeContainer;
 import chbachman.armour.gui.recipe.RecipeGui;
+import chbachman.armour.gui.tablet.TabletContainer;
 import chbachman.armour.gui.tablet.TabletGui;
-import cofh.lib.gui.container.ContainerFalse;
 import cofh.lib.util.helpers.ItemHelper;
 import cpw.mods.fml.common.network.IGuiHandler;
 
@@ -30,7 +30,7 @@ public class GuiHandler implements IGuiHandler {
         case RECIPE_ID:
             return new RecipeContainer(player.getHeldItem(), player.inventory, world);
         case TABLET_ID:
-        	return new ContainerFalse();
+        	return new TabletContainer(player);
         default:
             return null;
         }
@@ -47,7 +47,7 @@ public class GuiHandler implements IGuiHandler {
         case RECIPE_ID:
                 return new RecipeGui(new RecipeContainer(player.getHeldItem(), player.inventory, world), player.inventory);
         case TABLET_ID:
-        	return new TabletGui(new ContainerFalse());
+        	return new TabletGui(new TabletContainer(player));
         default:
             return null;
         }
