@@ -116,9 +116,9 @@ public class RecipeGui extends GuiBaseAdv {
 
 			IUpgrade upgrade = this.container.recipe.getRecipeOutput();
 
-			GuiHelper.drawStringBounded(this, upgrade.getName(), 70, this.guiLeft + 100, this.guiTop + 38, 0xFFFFFF);
+			GuiHelper.drawStringBounded(this, StringHelper.localize(upgrade.getName()), 70, this.guiLeft + 100, this.guiTop + 38, 0xFFFFFF);
 
-			GuiHelper.drawStringBounded(this, upgrade.getInformation(), 159, this.guiLeft + 11, this.guiTop + 100, 0xFFFFFF);
+			GuiHelper.drawStringBounded(this, StringHelper.localize(upgrade.getInformation()), 159, this.guiLeft + 11, this.guiTop + 100, 0xFFFFFF);
 		}
 	}
 
@@ -151,7 +151,11 @@ public class RecipeGui extends GuiBaseAdv {
 	@Override
 	public void handleElementButtonClick(String buttonName, int mouseButton) {
 		super.handleElementButtonClick(buttonName, mouseButton);
-
+		
+		if(buttonName.equals("Upgrade")){
+		    PacketHandler.sendToServer(ArmourPacket.getPacket(PacketTypes.BUTTON).addString("Upgrade"));
+		}
+		
 		if (buttonName.equals("Go Back")) {
 			this.index--;
 		} else if (buttonName.equals("Next")) {

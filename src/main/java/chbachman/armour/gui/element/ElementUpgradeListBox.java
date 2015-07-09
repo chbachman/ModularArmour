@@ -1,6 +1,7 @@
 package chbachman.armour.gui.element;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import chbachman.api.nbt.helper.NBTHelper;
 import chbachman.api.nbt.helper.NBTList;
 import chbachman.api.upgrade.IUpgrade;
@@ -16,6 +17,9 @@ public abstract class ElementUpgradeListBox extends ElementListBox{
 	}
 
 	public void loadStack(ItemStack stack){
+	    
+	    this.removeAll();
+	    
 		NBTList<IUpgrade> textLines = NBTHelper.getNBTUpgradeList(stack);
 		
 		for(IUpgrade upgrade : textLines){
@@ -25,21 +29,6 @@ public abstract class ElementUpgradeListBox extends ElementListBox{
 	
 	public void add(IUpgrade upgrade){
 	    this.add(new ListBoxElementUpgrade(upgrade));
-	}
-	
-	@Override
-	protected void onElementClicked(IListBoxElement element) {
-		
-	}
-
-	@Override
-	protected void onScrollH(int newStartIndex) {
-		
-	}
-
-	@Override
-	protected void onScrollV(int newStartIndex) {
-		
 	}
 
 	@Override
@@ -60,7 +49,7 @@ public abstract class ElementUpgradeListBox extends ElementListBox{
 		private final IUpgrade upgrade;
 		
 		public ListBoxElementUpgrade(IUpgrade upgrade){
-			super(upgrade.getName());
+			super(StatCollector.translateToLocal(upgrade.getName()));
 			this.upgrade = upgrade;
 		}
 		

@@ -39,6 +39,8 @@ info.chbachman.openme=Right click Armour in your hand to add upgrades.
 info.chbachman.level=Level
 info.chbachman.noUpgrade=There is no description for this upgrade!
 
+info.chbachman.tutorial=This is used to upgrade your armour. Use the tab to the right to craft your upgrade.
+
 upgrade.chbachman.jetpack.name=Jetpack
 upgrade.chbachman.calfShields.name=Calf Shields
 upgrade.chbachman.potion.name=Potion
@@ -81,6 +83,7 @@ upgrade.chbachman.playerProtection.name=Player Protector
 upgrade.chbachman.witherProtector.name=Wither Protector
 upgrade.chbachman.explosionProtector.name=Explosion Protector
 upgrade.chbachman.projectileProtector.name=Projectile Protection
+upgrade.chbachman.generalProtection.name=General Protector
 
 upgrade.chbachman.speed.speed=Speed
 upgrade.chbachman.protection.protection=Protection

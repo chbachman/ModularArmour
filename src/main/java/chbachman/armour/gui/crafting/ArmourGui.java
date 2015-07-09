@@ -15,6 +15,7 @@ import chbachman.armour.reference.Reference;
 import chbachman.armour.upgrade.UpgradeException;
 import cofh.core.gui.GuiBaseAdv;
 import cofh.core.network.PacketHandler;
+import cofh.lib.util.helpers.StringHelper;
 
 public class ArmourGui extends GuiBaseAdv {
     
@@ -64,7 +65,7 @@ public class ArmourGui extends GuiBaseAdv {
         this.tabCrafting = new TabCrafting(this);
         this.addTab(this.tabCrafting);
         
-        this.scrolledText = new TabError(this, "This is used to upgrade your armour. Use the tab to the right to craft your upgrade.");
+        this.scrolledText = new TabError(this, StringHelper.localize("info.chbachman.tutorial"));
         this.addTab(this.scrolledText);
         
         this.removal = new TabUpgradeRemoval(this);

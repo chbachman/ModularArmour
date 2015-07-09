@@ -6,6 +6,7 @@ import chbachman.api.upgrade.Recipe;
 import cofh.lib.gui.GuiBase;
 import cofh.lib.gui.element.TabBase;
 import cofh.lib.gui.element.listbox.ListBoxElementText;
+import cofh.lib.util.helpers.StringHelper;
 
 import com.badlogic.gdx.utils.IntArray;
 
@@ -25,7 +26,7 @@ public class TabRecipeList extends TabBase{
 		ListBoxElementText text;
 		int max = 0;
 		for(Recipe recipe: UpgradeRegistry.getRecipeList()){
-			text = new ListBoxElementText(recipe.getRecipeOutput().getName());
+			text = new ListBoxElementText(StringHelper.localize(recipe.getRecipeOutput().getName()));
 			max = Math.max(text.getWidth(), max);
 		}
 		
@@ -37,7 +38,7 @@ public class TabRecipeList extends TabBase{
 			
 		};
 		
-		this.maxWidth = max + 12;
+		this.maxWidth = Math.min(max + 12, 132);
 		
 		this.addElement(list);
 	}
