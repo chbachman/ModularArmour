@@ -4,7 +4,6 @@ import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.upgrade.Upgrade;
 import chbachman.api.util.ObjectMap;
 
-@SuppressWarnings("serial")
 public class UpgradeList extends ObjectMap<String, IUpgrade>{
 
 	public IUpgrade get(Class<? extends Upgrade> clazz){

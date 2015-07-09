@@ -4,14 +4,14 @@ import net.minecraft.item.ItemStack;
 import chbachman.api.nbt.helper.NBTHelper;
 import chbachman.api.nbt.helper.NBTList;
 import chbachman.api.upgrade.IUpgrade;
-import chbachman.armour.gui.crafting.ArmourGui;
+import cofh.lib.gui.GuiBase;
 import cofh.lib.gui.element.ElementListBox;
 import cofh.lib.gui.element.listbox.IListBoxElement;
 import cofh.lib.gui.element.listbox.ListBoxElementText;
 
-public class ElementUpgradeListBox extends ElementListBox{
+public abstract class ElementUpgradeListBox extends ElementListBox{
 
-	public ElementUpgradeListBox(ArmourGui containerScreen, int x, int y, int width, int height) {
+	public ElementUpgradeListBox(GuiBase containerScreen, int x, int y, int width, int height) {
 		super(containerScreen, x, y, width, height);
 	}
 
@@ -19,8 +19,12 @@ public class ElementUpgradeListBox extends ElementListBox{
 		NBTList<IUpgrade> textLines = NBTHelper.getNBTUpgradeList(stack);
 		
 		for(IUpgrade upgrade : textLines){
-			this.add(new ListBoxElementUpgrade(upgrade));
+			this.add(upgrade);
 		}
+	}
+	
+	public void add(IUpgrade upgrade){
+	    this.add(new ListBoxElementUpgrade(upgrade));
 	}
 	
 	@Override
@@ -40,7 +44,7 @@ public class ElementUpgradeListBox extends ElementListBox{
 
 	@Override
 	protected void onSelectionChanged(int newIndex, IListBoxElement newElement) {
-		((ArmourGui) this.gui).onUpgradeSelected(getUpgrade(newElement));
+		this.onUpgradeSelected(getUpgrade(newElement), newIndex);
 	}
 	
 	public IUpgrade getSelectedUpgrade(){
@@ -61,5 +65,7 @@ public class ElementUpgradeListBox extends ElementListBox{
 		}
 		
 	}
+	
+	public abstract void onUpgradeSelected(IUpgrade upgrade, int index);
 
 }

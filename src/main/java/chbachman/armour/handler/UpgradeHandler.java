@@ -2,6 +2,7 @@ package chbachman.armour.handler;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import chbachman.api.item.IModularItem;
 import chbachman.api.nbt.helper.NBTHelper;
 import chbachman.api.nbt.helper.NBTList;
@@ -114,7 +115,7 @@ public class UpgradeHandler {
         for (IUpgrade dependency : dependencies) {
             if (!UpgradeUtil.doesItemStackContainUpgrade(stack, dependency)) {
                 
-                throw new UpgradeException(String.format("This upgrade needs the %s upgrade to work", dependency.getName()), iUpgrade);
+                throw new UpgradeException(String.format("This upgrade needs the %s upgrade to work", StatCollector.translateToLocal(dependency.getName())), iUpgrade);
             }
         }
         

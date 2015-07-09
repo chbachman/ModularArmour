@@ -55,7 +55,7 @@ public abstract class UpgradeLogic implements ArmourLogic{
 		}else if (NBTHelper.getNBTUpgradeList(stack.stackTagCompound).size() != 0){
 			for (IUpgrade upgrade : NBTHelper.getNBTUpgradeList(stack.stackTagCompound)){
 
-				list.add(upgrade.getName());
+				list.add(StatCollector.translateToLocal(upgrade.getName()));
 
 			}
 		}

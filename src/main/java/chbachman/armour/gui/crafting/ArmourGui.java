@@ -50,7 +50,15 @@ public class ArmourGui extends GuiBaseAdv {
     public void initGui() {
         super.initGui();
         
-        this.list = new ElementUpgradeListBox(this, 8, 5, 160, 14);
+        this.list = new ElementUpgradeListBox(this, 8, 5, 160, 142){
+        	
+        	public void onUpgradeSelected(IUpgrade upgrade, int index){
+        		selectedUpgrade = upgrade;
+        		config.onUpgradeSelected(upgrade);
+        	}
+        	
+        };
+        
         this.addElement(list);
         
         this.tabCrafting = new TabCrafting(this);
@@ -66,11 +74,6 @@ public class ArmourGui extends GuiBaseAdv {
         this.addTab(this.config);
         
         this.list.setEnabled(true);
-    }
-    
-    public void onUpgradeSelected(IUpgrade upgrade){
-    	this.selectedUpgrade = upgrade;
-		this.config.onUpgradeSelected(upgrade);
     }
     
     @Override

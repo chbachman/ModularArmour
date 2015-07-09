@@ -10,7 +10,6 @@ import chbachman.api.item.IModularItem;
 import chbachman.api.registry.ModularItemRegistry;
 import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.upgrade.Recipe;
-import chbachman.api.util.Array;
 import chbachman.api.util.ImmutableArray;
 import chbachman.armour.ModularArmour;
 import chbachman.armour.gui.GuiHandler;
@@ -20,8 +19,6 @@ import chbachman.armour.network.IInputHandler;
 import chbachman.armour.util.InventoryUtil;
 import cofh.lib.gui.slot.SlotViewOnly;
 
-import com.badlogic.gdx.utils.IntArray;
-
 public class RecipeContainer extends Container implements IInputHandler{
 
 	public final IModularItem item;
@@ -29,15 +26,11 @@ public class RecipeContainer extends Container implements IInputHandler{
 	public final ItemStack stack;
 
 	public Inventory inventory;
-	public static Inventory2 inventory2;
 	public Recipe recipe;
 
-	public int index = 0;
 	
 	public static final ImmutableArray<Recipe> recipes = UpgradeRegistry.getRecipeList();
-	public static final ImmutableArray<IModularItem> modularItems = ModularItemRegistry.getUpgradeList();
-	
-	public IntArray indicies = new IntArray();
+	public static final ImmutableArray<IModularItem> modularItems = ModularItemRegistry.getItemList();
 
 	public RecipeContainer(ItemStack stack, InventoryPlayer inventory, World world) {
 		this.item = (IModularItem) stack.getItem();
@@ -45,7 +38,6 @@ public class RecipeContainer extends Container implements IInputHandler{
 		this.player = inventory.player;
 		this.recipe = recipes.get(0);
 		this.inventory = new Inventory();
-		inventory2 = new Inventory2(modularItems);
 
 		this.bindSlots();
 	}
@@ -55,10 +47,6 @@ public class RecipeContainer extends Container implements IInputHandler{
 			for (int j = 0; j < 3; j++){
 				this.addSlotToContainer(new SlotViewOnly(inventory, i * 3 + j, 9 + j * 18, 37 + i * 18));
 			}
-		}
-
-		for (int i = 9; i < 9 + modularItems.size(); i++){
-			this.addSlotToContainer(new SlotViewOnly(inventory2, i, 9, 17 + i * 18));
 		}
 
 	}
@@ -90,60 +78,22 @@ public class RecipeContainer extends Container implements IInputHandler{
 				}
 			}
 
-		}else if (name.equals("TextField")){
-
-			handleTextField(packet.getString());
-
 		}else{
-			this.index = packet.getInt();
-			wrapIndex();
+			int index = packet.getInt();
+			
+			updateIndex(index);
+			
+			
 		}
 
 	}
-
-	void wrapIndex(){
-
-		if (this.indicies.size == 0){
-
-			this.recipe = null;
-
-		}else{
-			int min = 0;
-			int max = this.indicies.size;
-
-			if (this.index >= max){
-				this.index = max - 1;
-			}
-
-			if (this.index < min){
-				this.index = min;
-			}
-
-			this.recipe = recipes.get(this.indicies.get(this.index));
-		}
-
-	}
-
-	void handleTextField(String text){
-
-		if (text.isEmpty()){
-			indicies.clear();
-
-			for (int i = 0; i < recipes.size(); i++){
-				indicies.add(i);
-			}
-		}
-
-		indicies.clear();
-
-		for (int i = 0; i < recipes.size(); i++){
-			
-			String name = recipes.get(i).getRecipeOutput().getName();
-			
-			if (name.substring(0, Math.min(text.length(), name.length())).equalsIgnoreCase(text)){
-				indicies.add(i);
-			}
-		}
+	
+	public void updateIndex(int index){
+	    if(index == -1){
+            this.recipe = null;
+        }else{
+            this.recipe = recipes.get(index);
+        }
 	}
 
 	private ItemStack[] grabInventory(){
@@ -196,7 +146,6 @@ public class RecipeContainer extends Container implements IInputHandler{
 		if (this.player.worldObj.isRemote == false){
 			this.player.openGui(ModularArmour.instance, GuiHandler.ARMOUR_ID, this.player.worldObj, 0, 0, 0);
 		}
-
 	}
 
 	private class Inventory implements IInventory{
@@ -234,78 +183,6 @@ public class RecipeContainer extends Container implements IInputHandler{
 			ItemStack stack = toCheck[index % toCheck.length];
 			stack.stackSize = 1;
 			return stack;
-
-		}
-
-		@Override
-		public ItemStack decrStackSize(int p_70298_1_, int p_70298_2_){
-			return null;
-		}
-
-		@Override
-		public ItemStack getStackInSlotOnClosing(int p_70304_1_){
-			return null;
-		}
-
-		@Override
-		public void setInventorySlotContents(int slot, ItemStack stack){}
-
-		@Override
-		public String getInventoryName(){
-			return "inventory";
-		}
-
-		@Override
-		public boolean hasCustomInventoryName(){
-			return false;
-		}
-
-		@Override
-		public int getInventoryStackLimit(){
-			return 1;
-		}
-
-		@Override
-		public void markDirty(){}
-
-		@Override
-		public boolean isUseableByPlayer(EntityPlayer p_70300_1_){
-			return true;
-		}
-
-		@Override
-		public void openInventory(){}
-
-		@Override
-		public void closeInventory(){}
-
-		@Override
-		public boolean isItemValidForSlot(int p_94041_1_, ItemStack p_94041_2_){
-			return true;
-		}
-
-	}
-
-	private class Inventory2 implements IInventory{
-
-		Array<ItemStack> stacks = new Array<ItemStack>();
-
-		public Inventory2(Iterable<IModularItem> modularitems) {
-			for (IModularItem i : modularitems){
-
-				stacks.add(new ItemStack(i.getItem()));
-			}
-		}
-
-		@Override
-		public int getSizeInventory(){
-			return stacks.size;
-		}
-
-		@Override
-		public ItemStack getStackInSlot(int slot){
-
-			return stacks.get(slot - 9);
 
 		}
 

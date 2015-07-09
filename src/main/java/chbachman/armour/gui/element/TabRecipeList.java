@@ -1,14 +1,10 @@
 package chbachman.armour.gui.element;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import chbachman.api.registry.UpgradeRegistry;
+import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.upgrade.Recipe;
 import cofh.lib.gui.GuiBase;
-import cofh.lib.gui.element.ElementListBox;
 import cofh.lib.gui.element.TabBase;
-import cofh.lib.gui.element.listbox.IListBoxElement;
 import cofh.lib.gui.element.listbox.ListBoxElementText;
 
 import com.badlogic.gdx.utils.IntArray;
@@ -17,15 +13,12 @@ public class TabRecipeList extends TabBase{
 	
 	IntArray indicies;
 	
-	ElementListBox list;
+	ElementUpgradeListBox list;
 	
 	public TabRecipeList(GuiBase gui, IntArray indicies) {
 		super(gui, LEFT);
 		
 		this.indicies = indicies;
-		
-		
-		
 		
 		this.maxHeight = 115;
 		
@@ -36,54 +29,32 @@ public class TabRecipeList extends TabBase{
 			max = Math.max(text.getWidth(), max);
 		}
 		
-		this.list = new ElementListBox(this.gui, 7, 7, max, 100);
+		this.list = new ElementUpgradeListBox(this.gui, 7, 7, max, 100){
+			
+			public void onUpgradeSelected(IUpgrade upgrade, int index){
+				 TabRecipeList.this.onUpgradeSelected(upgrade, index);
+			}
+			
+		};
 		
 		this.maxWidth = max + 12;
 		
 		this.addElement(list);
 	}
 	
-	private final List<IListBoxElement> elements = new LinkedList<IListBoxElement>();
-	
 	public void updateList(){
 		
-		for(int i = 0; i < elements.size(); i++){ //A really bad clear method.
-			elements.remove(i);
-			this.list.removeAt(i);
-		}
+		this.list.removeAll();
 		
 		for(int i = 0; i < indicies.size; i++){
 			int index = indicies.get(i);
 			
-			ListBoxElementText text = new ListBoxElementText(UpgradeRegistry.getRecipeList().get(index).getRecipeOutput().getName());
-			
-			this.list.add(text);
-			elements.add(text);
+			this.list.add(UpgradeRegistry.getRecipeList().get(index).getRecipeOutput());
 		}
 
 	}
 	
-	@Override
-	public void drawBackground(int mouseX, int mouseY, float gameTicks){
-		super.drawBackground(mouseX, mouseY, gameTicks);
-	}
-
-	@Override
-	public void drawForeground(int mouseX, int mouseY){
-		super.drawForeground(mouseX, mouseY);
+	public void onUpgradeSelected(IUpgrade upgrade, int index){
 		
 	}
-
-	@Override
-	public boolean onMouseWheel(int mouseX, int mouseY, int movement){
-		return super.onMouseWheel(mouseX, mouseY, movement);
-		
-	}
-	
-	
-	
-	
-	
-	
-
 }

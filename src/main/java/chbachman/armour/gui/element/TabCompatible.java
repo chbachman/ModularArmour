@@ -2,42 +2,52 @@ package chbachman.armour.gui.element;
 
 import java.util.List;
 
-import net.minecraft.inventory.Slot;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
 import chbachman.api.item.IModularItem;
+import chbachman.api.registry.ModularItemRegistry;
 import chbachman.api.upgrade.IUpgrade;
+import chbachman.api.util.Array;
 import chbachman.api.util.ImmutableArray;
 import chbachman.armour.gui.recipe.RecipeContainer;
-import chbachman.armour.gui.recipe.RecipeGui;
+import cofh.lib.gui.GuiBase;
 import cofh.lib.gui.GuiProps;
 import cofh.lib.gui.element.TabBase;
 import cofh.lib.render.RenderHelper;
 
 public class TabCompatible extends TabBase{
 
-	RecipeGui armourGui;
+	RecipeContainer container;
 
-	ImmutableArray<IModularItem> modularItems = RecipeContainer.modularItems;
+	Array<ElementItem> items;
+	ImmutableArray<IModularItem> modularItems = ModularItemRegistry.getItemList();
 
 	private int startIndex = 0;
 	private int maxItems = 6;
 	
 	public static ResourceLocation GRID_TEXTURE = new ResourceLocation(GuiProps.PATH_ELEMENTS + "Slot_Grid_Augment.png");
 
-	public TabCompatible(RecipeGui gui) {
+	public TabCompatible(GuiBase gui, RecipeContainer c) {
 		super(gui, 1);
-
-		this.armourGui = gui;
+		
+		this.container = c;
 		this.maxHeight = Math.min(modularItems.size(), maxItems) * 18 + 28;
 		this.maxWidth = 42;
+		
+		items = new Array<ElementItem>();
+        
+        for(IModularItem item : modularItems){
+            ElementItem i = new ElementItem(this.gui, -this.gui.getGuiLeft() - 16, -this.gui.getGuiTop() - 16).setItem(item.getItem());
+            items.add(i);
+            this.addElement(i);
+        }
 	}
 
 	@Override
     public void addTooltip(List<String> list) {
-        
+        super.addTooltip(list);
         if (!this.isFullyOpened()) {
             list.add("Compatible?");
         }
@@ -51,7 +61,7 @@ public class TabCompatible extends TabBase{
 			return;
 		}
 
-		if(this.isCompatible(armourGui.container.item)){
+		if(this.isCompatible(container.item)){
 			this.drawTabIcon("IconAccept");
 		}else{
 			this.drawTabIcon("IconCancel");
@@ -99,17 +109,13 @@ public class TabCompatible extends TabBase{
 	public void setFullyOpen() {
 		super.setFullyOpen();
 
-		for (int i = 9; i < 9 + modularItems.size(); i++) {
-			this.displaySlots(true);
-		}
+		this.displaySlots(true);
 	}
 
 	@Override
 	public void toggleOpen() {
 		if (this.open) {
-			for (int i = 9; i < 9 + modularItems.size(); i++) {
-				this.displaySlots(false);
-			}
+		    this.displaySlots(false);
 
 		}
 		super.toggleOpen();
@@ -140,47 +146,31 @@ public class TabCompatible extends TabBase{
 	
 	private void updateSlots(){
 		
-		int slotNum;
-		
-		for(int i = 0; i < this.maxItems; i++){
-			slotNum = i + 9;
+		for(int i = startIndex; i < this.maxItems + startIndex; i++){
 			
-			if(slotNum >= this.armourGui.container.inventorySlots.size()){
+			if(i >= this.items.size){
 				break;
 			}
 			
-			((Slot) this.armourGui.container.inventorySlots.get(slotNum + startIndex)).xDisplayPosition = this.posXOffset() + this.slotsBorderX1 + 4;
-			((Slot) this.armourGui.container.inventorySlots.get(slotNum + startIndex)).yDisplayPosition = this.posY + this.slotsBorderY1 + 4 + 18 * i;
+			this.items.get(i).setPosition(this.slotsBorderX1 + 6, this.slotsBorderY1 + 4 + 18 * i);
+			this.items.get(i).setVisible(true);
 		}
 		
-		for(int i = 0; i < this.modularItems.size(); i++){
-			slotNum = i + 9;
-			
-			if(slotNum >= this.armourGui.container.inventorySlots.size()){
-				break;
-			}
+		for(int i = 0; i < this.items.size; i++){
 			
 			if(i >= startIndex && i < startIndex + this.maxItems){
 				continue;
 			}
 			
-			((Slot) this.armourGui.container.inventorySlots.get(slotNum)).xDisplayPosition = -this.gui.getGuiLeft() - 16;
-			((Slot) this.armourGui.container.inventorySlots.get(slotNum)).yDisplayPosition = -this.gui.getGuiTop() - 16;
-			
+			//this.items.get(i).setPosition(-this.gui.getGuiLeft() - 16, -this.gui.getGuiTop() - 16);
+			this.items.get(i).setVisible(false);
 		}
 	}
 	
-	private void displaySlots(boolean shouldDisplay){
-		
+	public void displaySlots(boolean shouldDisplay){
 		if(shouldDisplay){
 			this.updateSlots();
-		}else{
-			for(int i = 0; i < modularItems.size(); i++){
-				((Slot) this.armourGui.container.inventorySlots.get(i + 9)).xDisplayPosition = -this.gui.getGuiLeft() - 16;
-				((Slot) this.armourGui.container.inventorySlots.get(i + 9)).yDisplayPosition = -this.gui.getGuiTop() - 16;
-			}
 		}
-		
 	}
 	
 	private void drawSlots(int xOffset, int yOffset, int slots) {
@@ -188,12 +178,12 @@ public class TabCompatible extends TabBase{
 	}
 	
 	boolean isCompatible(IModularItem item){
-		if(this.armourGui.container.recipe == null){
+		if(this.container.recipe == null){
 			return false;
 		}
 		
-    	IUpgrade upgrade = this.armourGui.container.recipe.getRecipeOutput();
-    	return upgrade.isCompatible(item, this.armourGui.container.stack, item.getSlot());
+    	IUpgrade upgrade = this.container.recipe.getRecipeOutput();
+    	return upgrade.isCompatible(item, this.container.stack, item.getSlot());
     }
 
 
