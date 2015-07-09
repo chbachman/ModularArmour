@@ -104,6 +104,8 @@ public class ArmourGui extends GuiBaseAdv {
             	this.list.scrollDown();
             }else if(name.equals("ScrollUp")){
             	this.list.scrollUp();
+            }else if(name.equals("ValueChanged")){
+                
             }
             
         } catch (UpgradeException e) {

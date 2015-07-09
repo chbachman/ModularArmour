@@ -63,7 +63,7 @@ public class ConfigurableField extends NBTStorage<Percentage>{
 	}
 
 	public void set(ItemStack stack, int amount){
-		this.get(stack).setPercentage(amount);
+		this.set(stack, new Percentage(amount));
 	}
 
 }

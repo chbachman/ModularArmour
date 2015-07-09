@@ -101,23 +101,20 @@ public class TabConfig extends TabBase{
 	private static class SliderUpgrade extends SliderHorizontal{
 
 		final ConfigurableField field;
-		final ItemStack armourPiece;
 
 		public SliderUpgrade(GuiBase containerScreen, ConfigurableField field, ItemStack armour, int x, int y, int width, int height, int maxValue) {
 			super(containerScreen, x, y, width, height, maxValue);
 			this.field = field;
-			this.armourPiece = armour;
 		}
 
 		public SliderUpgrade(GuiBase containerScreen, ConfigurableField field, ItemStack armour, int x, int y, int width, int height, int maxValue, int minValue) {
 			super(containerScreen, x, y, width, height, maxValue, minValue);
 			this.field = field;
-			this.armourPiece = armour;
 		}
 
 		@Override
 		public void onValueChanged(int value){
-			field.set(armourPiece, value);
+			field.set(((ArmourGui) this.gui).container.getContainerStack(), value);
 			PacketHandler.sendToServer(ArmourPacket.getPacket(PacketTypes.BUTTON).addString("ValueChanged").addString(field.getKey()).addInt(value));
 		}
 
