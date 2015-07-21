@@ -26,6 +26,7 @@ import chbachman.api.util.ArmourSlot;
 import chbachman.armour.ModularArmour;
 import chbachman.armour.handler.UpgradeHandler;
 import chbachman.armour.items.armour.RFModularArmour;
+import chbachman.armour.items.tablet.ItemTablet;
 import chbachman.armour.reference.Reference;
 import chbachman.armour.upgrade.UpgradeProtective.UpgradeExplosion;
 import chbachman.armour.upgrade.UpgradeProtective.UpgradeFire;
@@ -45,6 +46,7 @@ import chbachman.armour.upgrade.upgradeList.UpgradeFallDamage;
 import chbachman.armour.upgrade.upgradeList.UpgradeHoverJetpack;
 import chbachman.armour.upgrade.upgradeList.UpgradeJumpBoost;
 import chbachman.armour.upgrade.upgradeList.UpgradeMagnet;
+import chbachman.armour.upgrade.upgradeList.UpgradeModel;
 import chbachman.armour.upgrade.upgradeList.UpgradePlayerProtection;
 import chbachman.armour.upgrade.upgradeList.UpgradePotion;
 import chbachman.armour.upgrade.upgradeList.UpgradeSolar;
@@ -73,9 +75,12 @@ public class Vanilla implements Module{
 	public static ItemStack stackBootsModular;
 
 	public static ItemBase material;
+	public static ItemBase tablet;
 
 	public static ItemStack temperedElectrum;
 	public static ItemStack heatedElectrum;
+	
+	public static ItemStack defaultTablet;
 
 	public static IUpgrade calfShields;
 	public static IUpgrade basePotion;
@@ -98,6 +103,7 @@ public class Vanilla implements Module{
 
 	public static IUpgrade decorative;
 	public static IUpgrade invisible;
+	public static IUpgrade model;
 
 	public static IUpgrade undeadProtection;
 	public static IUpgrade arthropodProtection;
@@ -115,8 +121,10 @@ public class Vanilla implements Module{
 	public final void preInit(){
 
 		material = (ItemBase) new ItemBase("modulararmour").setUnlocalizedName("material").setCreativeTab(ModularArmour.creativeTab);
+		
+		tablet = (ItemBase) new ItemTablet().setUnlocalizedName("tablet").setCreativeTab(ModularArmour.creativeTab);
 
-		materialModular = EnumHelper.addArmorMaterial("", 25, new int[] { 3, 7, 5, 3 }, 0);
+		materialModular = EnumHelper.addArmorMaterial("", 25, new int[] { 0, 0, 0, 0 }, 0);
 
 		helmetModular = new RFModularArmour(materialModular, 0).setUnlocalizedName("chbachman.armour.helmetModular").setTextureName(Reference.ITEM_LOCATION + "ModularHelmet");
 		chestplateModular = new RFModularArmour(materialModular, 1).setUnlocalizedName("chbachman.armour.chestplateModular").setTextureName(Reference.ITEM_LOCATION + "ModularChestplate");
@@ -154,6 +162,7 @@ public class Vanilla implements Module{
 
 		decorative = new UpgradeDecorative("thomazm").setTextureName("Thomaz");
 		invisible = new UpgradeDecorative("sb").setTextureName("Shad0wB1ade");
+		model = new UpgradeModel();
 
 		undeadProtection = new UpgradeUndead();
 		arthropodProtection = new UpgradeArthropod();
@@ -175,6 +184,8 @@ public class Vanilla implements Module{
 
 		heatedElectrum = material.addOreDictItem(1, "heatedElectrum", 1);
 		temperedElectrum = material.addOreDictItem(0, "temperedElectrum", 1);
+		
+		defaultTablet = tablet.addItem(0, "tablet");
 
 		stackHelmetModular = NBTHelper.createDefaultStackTag(new ItemStack(helmetModular));
 		stackChestplateModular = NBTHelper.createDefaultStackTag(new ItemStack(chestplateModular));
@@ -194,36 +205,39 @@ public class Vanilla implements Module{
 
 	@Override
 	public void registerUpgradeRecipes(){
-		UpgradeRegistry.registerRecipe(new Recipe(autoFeeder, "igi", "igi", "iii", 'i', "ingotIron", 'g', Items.golden_apple));
-		UpgradeRegistry.registerRecipe(new Recipe(basePotion, "iri", "gwg", "igi", 'i', "ingotIron", 'g', "blockGlass", 'r', "dustRedstone", 'w', Items.water_bucket));
-		UpgradeRegistry.registerRecipe(new Recipe(calfShields, "i i", "i i", "i i", 'i', "ingotIron"));
-		UpgradeRegistry.registerRecipe(new Recipe(fallDamage, "   ", "   ", "iwi", 'w', Blocks.wool, 'i', "ingotIron"));
-		UpgradeRegistry.registerRecipe(new Recipe(hoverJetpack, "igi", "ini", "r r", 'i', "ingotIron", 'g', "ingotGold", 'r', "dustRedstone", 'n', Items.nether_star));
-		UpgradeRegistry.registerRecipe(new Recipe(speed, "pip", "i i", "i i", 'i', "ingotIron", 'p', Blocks.piston));
-		UpgradeRegistry.registerRecipe(new Recipe(stepAssist, "pip", "i i", "   ", 'i', "ingotIron", 'p', Blocks.piston));
-		UpgradeRegistry.registerRecipe(new Recipe(jumpBoost, "i i", "i i", "p p", 'i', "ingotIron", 'p', Blocks.piston));
-		UpgradeRegistry.registerRecipe(new Recipe(leadstoneEnergy, "iri", "rbr", "iri", 'i', "ingotIron", 'r', "dustRedstone", 'b', "blockIron"));
-		UpgradeRegistry.registerRecipe(new Recipe(hardenedEnergy, "lrl", "rbr", "lrl", 'l', "gemLapis", 'r', "dustRedstone", 'b', "blockLapis"));
-		UpgradeRegistry.registerRecipe(new Recipe(reinforcedEnergy, "grg", "rbr", "grg", 'g', "ingotGold", 'r', "dustRedstone", 'b', "blockGold"));
-		UpgradeRegistry.registerRecipe(new Recipe(resonantEnergy, "drd", "rbr", "drd", 'd', "gemDiamond", 'r', "dustRedstone", 'b', "blockDiamond"));
-		UpgradeRegistry.registerRecipe(new Recipe(electrolyzer, "iii", "g g", "iii", 'i', "ingotIron", 'g', "blockGlass"));
-		UpgradeRegistry.registerRecipe(new Recipe(nightVision, "gig", "bpb", "gig", 'g', "ingotGold", 'b', "blockGlass", 'i', "ingotIron", 'p', new ItemStack(Items.potionitem, 1, 8198)));
-		UpgradeRegistry.registerRecipe(new Recipe(invisibility, "gig", "bpb", "gig", 'g', "ingotGold", 'b', "blockGlass", 'i', "ingotIron", 'p', new ItemStack(Items.potionitem, 1, 8206)));
-		UpgradeRegistry.registerRecipe(new Recipe(magnet, "g g", "i i", " i ", 'i', "ingotIron", 'g', "ingotGold"));
-		UpgradeRegistry.registerRecipe(new Recipe(decorative, "w w", "www", "www", 'w', Blocks.wool));
-		UpgradeRegistry.registerRecipe(new Recipe(invisible, "g g", "ggg", "ggg", 'g', Blocks.glass));
-		UpgradeRegistry.registerRecipe(new Recipe(solar, "ggg", "ici", "iii", 'g', "blockGlass", 'i', "ingotIron", 'c', Items.coal));
-		UpgradeRegistry.registerRecipe(new Recipe(undeadProtection, "zzz", "zzz", "zzz", 'z', Items.rotten_flesh));
-		UpgradeRegistry.registerRecipe(new Recipe(arthropodProtection, "sps", "psp", "sps", 's', Items.string, 'p', Items.spider_eye));
-		UpgradeRegistry.registerRecipe(new Recipe(fireProtection, "lgl", "lgl", "lgl", 'l', Items.leather, 'g', Items.gold_ingot));
-		UpgradeRegistry.registerRecipe(new Recipe(unblockableProtection, "d d", "ddd", "ddd", 'd', Items.diamond));
-		UpgradeRegistry.registerRecipe(new Recipe(magicalProtection, "gig", "igi", "gig", 'g', "ingotGold", 'i', "ingotIron"));
-		UpgradeRegistry.registerRecipe(new Recipe(lavaProtection, "oio", "ooo", "oio", 'o', Blocks.obsidian, 'i', "ingotIron"));
-		UpgradeRegistry.registerRecipe(new Recipe(playerProtection, "cih", "iii", "iii", 'i', "ingotIron", 'c', Blocks.crafting_table, 'h', Blocks.chest));
-		UpgradeRegistry.registerRecipe(new Recipe(witherProtection, "cic", "cwc", "cic", 'i', "ingotIron", 'w', Items.skull, 'c', Items.coal));
-		UpgradeRegistry.registerRecipe(new Recipe(explosionProtection, "tit", "iti", "tit", 't', Blocks.tnt, 'i', "ingotIron"));
-		UpgradeRegistry.registerRecipe(new Recipe(projectileProtection, "afa", "faf", "afa", 'f', Items.fire_charge, 'a', Items.arrow));
-		UpgradeRegistry.registerRecipe(new Recipe(generalProtection, "i i", "iii", "iii", 'i', "ingotIron"));
+	    
+		UpgradeRegistry.registerRecipe(new Recipe(generalProtection, 		"i i", "iii", "iii", 'i', "ingotIron"			));
+		UpgradeRegistry.registerRecipe(new Recipe(calfShields, 				"i i", "i i", "i i", 'i', "ingotIron"			));
+		UpgradeRegistry.registerRecipe(new Recipe(decorative, 				"w w", "www", "www", 'w', Blocks.wool			));
+		UpgradeRegistry.registerRecipe(new Recipe(invisible, 				"g g", "ggg", "ggg", 'g', Blocks.glass			));
+		UpgradeRegistry.registerRecipe(new Recipe(undeadProtection, 		"zzz", "zzz", "zzz", 'z', Items.rotten_flesh	));
+		UpgradeRegistry.registerRecipe(new Recipe(unblockableProtection, 	"d d", "ddd", "ddd", 'd', Items.diamond			));
+		UpgradeRegistry.registerRecipe(new Recipe(model,                    "isi", "isi", "isi", 'i', "ingotIron",          's', Items.slime_ball   ));
+		UpgradeRegistry.registerRecipe(new Recipe(autoFeeder, 				"igi", "igi", "iii", 'i', "ingotIron", 			'g', Items.golden_apple	));
+		UpgradeRegistry.registerRecipe(new Recipe(speed, 					"pip", "i i", "i i", 'i', "ingotIron", 			'p', Blocks.piston		));
+		UpgradeRegistry.registerRecipe(new Recipe(stepAssist, 				"pip", "i i", "   ", 'i', "ingotIron", 			'p', Blocks.piston		));
+		UpgradeRegistry.registerRecipe(new Recipe(jumpBoost, 				"i i", "i i", "p p", 'i', "ingotIron", 			'p', Blocks.piston		));
+		UpgradeRegistry.registerRecipe(new Recipe(electrolyzer, 			"iii", "g g", "iii", 'i', "ingotIron", 			'g', "blockGlass"		));
+		UpgradeRegistry.registerRecipe(new Recipe(magnet, 					"g g", "i i", " i ", 'i', "ingotIron", 			'g', "ingotGold"		));
+		UpgradeRegistry.registerRecipe(new Recipe(magicalProtection, 		"gig", "igi", "gig", 'i', "ingotIron", 			'g', "ingotGold"		));
+		UpgradeRegistry.registerRecipe(new Recipe(fallDamage, 				"   ", "   ", "iwi", 'w', Blocks.wool, 			'i', "ingotIron"		));
+		UpgradeRegistry.registerRecipe(new Recipe(arthropodProtection, 		"sps", "psp", "sps", 's', Items.string, 		'p', Items.spider_eye	));
+		UpgradeRegistry.registerRecipe(new Recipe(fireProtection, 			"lgl", "lgl", "lgl", 'l', Items.leather, 		'g', Items.gold_ingot	));
+		UpgradeRegistry.registerRecipe(new Recipe(lavaProtection, 			"oio", "ooo", "oio", 'o', Blocks.obsidian, 		'i', "ingotIron"		));
+		UpgradeRegistry.registerRecipe(new Recipe(explosionProtection, 		"tit", "iti", "tit", 't', Blocks.tnt, 			'i', "ingotIron"		));
+		UpgradeRegistry.registerRecipe(new Recipe(projectileProtection, 	"afa", "faf", "afa", 'f', Items.fire_charge, 	'a', Items.arrow		));
+		UpgradeRegistry.registerRecipe(new Recipe(solar, 					"ggg", "ici", "iii", 'i', "ingotIron", 			'g', "blockGlass", 			'c', Items.coal		));
+		UpgradeRegistry.registerRecipe(new Recipe(playerProtection, 		"cih", "iii", "iii", 'i', "ingotIron", 			'c', Blocks.crafting_table, 'h', Blocks.chest	));
+		UpgradeRegistry.registerRecipe(new Recipe(witherProtection, 		"cic", "cwc", "cic", 'i', "ingotIron", 			'w', Items.skull, 			'c', Items.coal		));
+		UpgradeRegistry.registerRecipe(new Recipe(leadstoneEnergy, 			"iri", "rbr", "iri", 'i', "ingotIron", 			'r', "dustRedstone", 		'b', "blockIron"	));
+		UpgradeRegistry.registerRecipe(new Recipe(hardenedEnergy, 			"lrl", "rbr", "lrl", 'l', "gemLapis", 			'r', "dustRedstone", 		'b', "blockLapis"	));
+		UpgradeRegistry.registerRecipe(new Recipe(reinforcedEnergy, 		"grg", "rbr", "grg", 'g', "ingotGold", 			'r', "dustRedstone", 		'b', "blockGold"	));
+		UpgradeRegistry.registerRecipe(new Recipe(resonantEnergy, 			"drd", "rbr", "drd", 'd', "gemDiamond", 		'r', "dustRedstone", 		'b', "blockDiamond"	));
+		UpgradeRegistry.registerRecipe(new Recipe(hoverJetpack, 			"igi", "ini", "r r", 'i', "ingotIron", 			'g', "ingotGold", 			'r', "dustRedstone", 	'n', Items.nether_star	));
+		UpgradeRegistry.registerRecipe(new Recipe(basePotion, 				"iri", "gwg", "igi", 'i', "ingotIron", 			'g', "blockGlass", 			'r', "dustRedstone", 	'w', Items.water_bucket	));
+		UpgradeRegistry.registerRecipe(new Recipe(nightVision, 				"gig", "bpb", "gig", 'g', "ingotGold", 			'b', "blockGlass", 			'i', "ingotIron", 		'p', Items.golden_carrot));
+		UpgradeRegistry.registerRecipe(new Recipe(invisibility, 			"gig", "bpb", "gig", 'g', "ingotGold", 			'b', "blockGlass", 			'i', "ingotIron", 		'p', Items.fermented_spider_eye	));
+		
 	}
 
 	@Override

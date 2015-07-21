@@ -13,31 +13,31 @@ import chbachman.api.util.ArmourSlot;
  * @author chbachman
  *
  */
-public interface IUpgrade extends Comparable<IUpgrade>{
+public interface IUpgrade{
 
 	/**
-	 * Gets the Localized information string
+	 * Gets the UnLocalized information string
 	 * 
-	 * @return Localized information string
+	 * @return UnLocalized information string
 	 */
 	String getInformation();
 
 	/**
-	 * Get the Localized Name of the Upgrade
+	 * Get the UnLocalized Name of the Upgrade
 	 * 
-	 * @return Localized Name of the Upgrade
+	 * @return UnLocalized Name of the Upgrade
 	 */
 	String getName();
 
 	/**
 	 * Get the base name of the upgrade. e.g. camelPack
-	 * 
+	 * This name should be a unique string that can be used for saving and load from NBT.
 	 * @return
 	 */
 	String getBaseName();
 
 	/**
-	 * whether the upgrade is compatible with the given armour type.
+	 * Whether the upgrade is compatible with the given armour type.
 	 * 
 	 * @param armorType
 	 * @return
@@ -45,26 +45,14 @@ public interface IUpgrade extends Comparable<IUpgrade>{
 	boolean isCompatible(IModularItem item, ItemStack stack, int armorType);
 
 	/**
-	 * This equals method should be done using the ids of the Upgrades.
-	 * 
-	 * @param obj
-	 * @return equality
-	 */
-	@Override
-	boolean equals(Object obj);
-
-	@Override
-	int hashCode();
-
-	/**
 	 * Gets the list of dependencies
 	 * 
-	 * @return list of string dependencies.
+	 * @return list of Upgrade Dependencies.
 	 */
 	IUpgrade[] getDependencies();
 
 	/**
-	 * Called every tick, when equiped from the armour.
+	 * Called every tick, when Equipped from the Armour.
 	 * 
 	 * @param world
 	 * @param player
@@ -94,7 +82,7 @@ public interface IUpgrade extends Comparable<IUpgrade>{
 	void onEquip(World world, EntityPlayer player, ItemStack stack, ArmourSlot armourSlot);
 
 	/**
-	 * Called when the armour is dequiped.
+	 * Called when the armour is Dequipped.
 	 * 
 	 * @param world
 	 * @param player

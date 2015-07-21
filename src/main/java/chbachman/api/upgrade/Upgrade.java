@@ -1,10 +1,10 @@
 package chbachman.api.upgrade;
 
+import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor.ArmorProperties;
 import chbachman.api.item.IModularItem;
@@ -38,12 +38,12 @@ public abstract class Upgrade implements IArmourUpgrade{
 
 	@Override
 	public String getInformation(){
-		return StatCollector.translateToLocal(this.getLocalizationString() + ".information");
+		return this.getLocalizationString() + ".information";
 	}
 
 	@Override
 	public String getName(){
-		return StatCollector.translateToLocal(this.getLocalizationString() + ".name");
+		return this.getLocalizationString() + ".name";
 	}
 
 	@Override
@@ -59,37 +59,6 @@ public abstract class Upgrade implements IArmourUpgrade{
 	 */
 	protected String getLocalizationString(){
 		return "upgrade.chbachman." + this.name;
-	}
-
-	@Override
-	public int compareTo(IUpgrade upgrade){
-		return this.getName().compareTo(upgrade.getName());
-	}
-
-	@Override
-	public int hashCode(){
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + this.name.hashCode();
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj){
-		if (this == obj){
-			return true;
-		}
-		if (obj == null){
-			return false;
-		}
-		if (!(obj instanceof Upgrade)){
-			return false;
-		}
-		Upgrade other = (Upgrade) obj;
-		if (this.name != other.name){
-			return false;
-		}
-		return true;
 	}
 
 	// Default Implementations
@@ -138,6 +107,11 @@ public abstract class Upgrade implements IArmourUpgrade{
 	@Override
 	public String getArmourColor(ItemStack stack, ArmourSlot slot){
 		return null;
+	}
+	
+	@Override
+	public ModelBiped getArmourModel(EntityLivingBase entityLiving, ItemStack itemStack, int armourSlot){
+	    return null;
 	}
 
 }

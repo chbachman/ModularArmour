@@ -77,7 +77,7 @@ public final class ModularItemRegistry{
 	 * 
 	 * @return
 	 */
-	public static ImmutableArray<IModularItem> getUpgradeList(){
+	public static ImmutableArray<IModularItem> getItemList(){
 		return new ImmutableArray(INSTANCE.itemList);
 	}
 
@@ -87,8 +87,7 @@ public final class ModularItemRegistry{
 	 * @param s
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
-	public static <T extends IModularItem> T getUpgrade(Class<T> s){
+	public static <T extends IModularItem> T getItem(Class<T> s){
 		for (IModularItem item : INSTANCE.itemList){
 
 			if (s == item.getClass()){

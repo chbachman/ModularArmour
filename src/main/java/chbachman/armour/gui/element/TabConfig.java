@@ -1,4 +1,4 @@
-package chbachman.armour.gui.crafting;
+package chbachman.armour.gui.element;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import chbachman.api.configurability.ConfigurableField;
 import chbachman.api.configurability.FieldList;
 import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.upgrade.IUpgrade;
-import chbachman.armour.gui.ElementText;
+import chbachman.armour.gui.crafting.ArmourGui;
 import chbachman.armour.network.ArmourPacket;
 import chbachman.armour.network.ArmourPacket.PacketTypes;
 import cofh.core.network.PacketHandler;
@@ -93,7 +93,7 @@ public class TabConfig extends TabBase{
 		for (int i = 0; i < storages.length; i++){
 			ConfigurableField s = storages[i];
 			this.addElement(new SliderUpgrade(this.gui, s, this.armourGui.stack, 10, 30 + 20 * i, 60, 10, 100).setValue(s.get(this.armourGui.stack).getAmount()));
-			this.addElement(new ElementText(this.gui, 10, 20 + 20 * i, 100, 10).setString(s.displayName));
+			this.addElement(new ElementText(this.gui, 10, 20 + 20 * i, 100, 10).setText(s.displayName));
 		}
 
 	}
@@ -101,23 +101,20 @@ public class TabConfig extends TabBase{
 	private static class SliderUpgrade extends SliderHorizontal{
 
 		final ConfigurableField field;
-		final ItemStack armourPiece;
 
 		public SliderUpgrade(GuiBase containerScreen, ConfigurableField field, ItemStack armour, int x, int y, int width, int height, int maxValue) {
 			super(containerScreen, x, y, width, height, maxValue);
 			this.field = field;
-			this.armourPiece = armour;
 		}
 
 		public SliderUpgrade(GuiBase containerScreen, ConfigurableField field, ItemStack armour, int x, int y, int width, int height, int maxValue, int minValue) {
 			super(containerScreen, x, y, width, height, maxValue, minValue);
 			this.field = field;
-			this.armourPiece = armour;
 		}
 
 		@Override
 		public void onValueChanged(int value){
-			field.set(armourPiece, value);
+			field.set(((ArmourGui) this.gui).container.getContainerStack(), value);
 			PacketHandler.sendToServer(ArmourPacket.getPacket(PacketTypes.BUTTON).addString("ValueChanged").addString(field.getKey()).addInt(value));
 		}
 

@@ -39,6 +39,8 @@ info.chbachman.openme=Right click Armour in your hand to add upgrades.
 info.chbachman.level=Level
 info.chbachman.noUpgrade=There is no description for this upgrade!
 
+info.chbachman.tutorial=This is used to upgrade your armour. Use the tab to the right to craft your upgrade.
+
 upgrade.chbachman.jetpack.name=Jetpack
 upgrade.chbachman.calfShields.name=Calf Shields
 upgrade.chbachman.potion.name=Potion
@@ -81,6 +83,8 @@ upgrade.chbachman.playerProtection.name=Player Protector
 upgrade.chbachman.witherProtector.name=Wither Protector
 upgrade.chbachman.explosionProtector.name=Explosion Protector
 upgrade.chbachman.projectileProtector.name=Projectile Protection
+upgrade.chbachman.generalProtection.name=General Protector
+upgrade.chbachman.advancedModel.name=Advanced Model
 
 upgrade.chbachman.speed.speed=Speed
 upgrade.chbachman.protection.protection=Protection
@@ -131,4 +135,5 @@ upgrade.chbachman.playerProtection.information=Protects against attacks by playe
 upgrade.chbachman.witherProtector.information=Withers are just not as mean anymore.
 upgrade.chbachman.explosionProtector.information=This somehow uses TnT to protect against explosions. How, I have no idea.
 upgrade.chbachman.projectileProtector.information=Finally. Skeletons are not such a giant pain.
+upgrade.chbachman.advancedModel.information=For all you people complaining about not having pretty models. Credits go to SkeletonPunk for the model.
 
