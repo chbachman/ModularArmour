@@ -30,6 +30,8 @@ public class UpgradeModel extends Upgrade{
         case CHESTPLATE: return new AdvancedArmourModel(false, true, true, false, false);
         case LEGS: return new AdvancedArmourModel(false, false, false, true, false);
         case BOOTS: return new AdvancedArmourModel(false, false, false, false, true);
+        default:
+            break;
         }
         
         return null;
