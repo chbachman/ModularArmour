@@ -1,8 +1,11 @@
 package chbachman.api.item;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import net.minecraft.client.model.ModelBiped;
+import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -145,6 +148,10 @@ public abstract class UpgradeLogic implements ArmourLogic{
 			if (textureLocation != null){
 				texture = textureLocation;
 			}
+			
+			if(textureLocation.startsWith("modulararmour:textures")){
+			    return textureLocation;
+			}
 
 			String newColor = ((IArmourUpgrade) upgrade).getArmourColor(stack, ArmourSlot.getArmourSlot(slot));
 
@@ -155,7 +162,68 @@ public abstract class UpgradeLogic implements ArmourLogic{
 
 		return "modulararmour:textures/armour/" + texture + (slot == 2 ? "_2" : "_1") + color + ".png";
 	}
-
+	
+	@Override
+	public ModelBiped getArmourModel(EntityLivingBase entityLiving, ItemStack stack, int armourSlot){
+	    
+	    ModelBiped finalModel = null;
+	    
+	    for(IUpgrade upgrade : NBTHelper.getNBTUpgradeList(stack)){
+	        
+	        if(!(upgrade instanceof IArmourUpgrade)){
+	            continue;
+	        }
+	        
+	        ModelBiped model = ((IArmourUpgrade) upgrade).getArmourModel(entityLiving, stack, armourSlot);
+	        
+	        if(model == null){
+	            continue;
+	        }
+	        
+	        if(finalModel == null){
+	            finalModel = new ModelBiped(){
+	                
+	                @Override
+	                public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5) {
+	                    setRotationAngles(f, f1, f2, f3, f4, f5, entity);
+	                    this.bipedRightArm.render(f5);
+	                    this.bipedHead.render(f5);
+	                    this.bipedBody.render(f5);
+	                    this.bipedLeftArm.render(f5);
+	                    this.bipedRightLeg.render(f5);
+	                    this.bipedLeftLeg.render(f5);
+	                }
+	                
+	            };
+	        }
+	        
+	        mergeModels(finalModel.bipedBody, model.bipedBody);
+	        mergeModels(finalModel.bipedHead, model.bipedHead);
+	        mergeModels(finalModel.bipedRightArm, model.bipedRightArm);
+	        mergeModels(finalModel.bipedLeftArm, model.bipedLeftArm);
+	        mergeModels(finalModel.bipedRightLeg, model.bipedRightLeg);
+	        mergeModels(finalModel.bipedLeftLeg, model.bipedLeftLeg);
+	        mergeModels(finalModel.bipedCloak, model.bipedCloak);
+	        mergeModels(finalModel.bipedEars, model.bipedEars);
+	        mergeModels(finalModel.bipedHeadwear, model.bipedHeadwear);
+	        
+	    }
+	    
+	    return finalModel;
+	    
+	}
+	
+	private void mergeModels(ModelRenderer parent, ModelRenderer holder){
+	    
+	    if(holder.childModels == null){
+	        return;
+	    }
+	    
+	    for(ModelRenderer child : (ArrayList<ModelRenderer>) holder.childModels){
+	        parent.addChild(child);
+	    }
+	}
+	
 	/**
 	 * Called every tick.
 	 * 

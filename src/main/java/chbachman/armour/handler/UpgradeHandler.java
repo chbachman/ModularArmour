@@ -9,6 +9,7 @@ import chbachman.api.nbt.helper.NBTList;
 import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.upgrade.Recipe;
+import chbachman.api.util.ImmutableArray;
 import chbachman.armour.upgrade.UpgradeException;
 import chbachman.armour.util.UpgradeUtil;
 
@@ -21,6 +22,8 @@ public class UpgradeHandler {
 	 */
     public static IUpgrade getResult(IInventory crafting) {
     	
+        ImmutableArray array = UpgradeRegistry.getRecipeList();
+        
     	for(Recipe recipe : UpgradeRegistry.getRecipeList()){
     		if(recipe.matches(crafting)){
     			return recipe.getCraftingResult();

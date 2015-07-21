@@ -1,5 +1,6 @@
 package chbachman.api.upgrade;
 
+import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -106,6 +107,11 @@ public abstract class Upgrade implements IArmourUpgrade{
 	@Override
 	public String getArmourColor(ItemStack stack, ArmourSlot slot){
 		return null;
+	}
+	
+	@Override
+	public ModelBiped getArmourModel(EntityLivingBase entityLiving, ItemStack itemStack, int armourSlot){
+	    return null;
 	}
 
 }

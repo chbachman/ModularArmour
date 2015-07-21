@@ -23,6 +23,7 @@ import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.upgrade.Recipe;
 import chbachman.api.util.ArmourSlot;
+import chbachman.api.util.ImmutableArray;
 import chbachman.armour.ModularArmour;
 import chbachman.armour.handler.UpgradeHandler;
 import chbachman.armour.items.armour.RFModularArmour;
@@ -46,6 +47,7 @@ import chbachman.armour.upgrade.upgradeList.UpgradeFallDamage;
 import chbachman.armour.upgrade.upgradeList.UpgradeHoverJetpack;
 import chbachman.armour.upgrade.upgradeList.UpgradeJumpBoost;
 import chbachman.armour.upgrade.upgradeList.UpgradeMagnet;
+import chbachman.armour.upgrade.upgradeList.UpgradeModel;
 import chbachman.armour.upgrade.upgradeList.UpgradePlayerProtection;
 import chbachman.armour.upgrade.upgradeList.UpgradePotion;
 import chbachman.armour.upgrade.upgradeList.UpgradeSolar;
@@ -102,6 +104,7 @@ public class Vanilla implements Module{
 
 	public static IUpgrade decorative;
 	public static IUpgrade invisible;
+	public static IUpgrade model;
 
 	public static IUpgrade undeadProtection;
 	public static IUpgrade arthropodProtection;
@@ -160,6 +163,7 @@ public class Vanilla implements Module{
 
 		decorative = new UpgradeDecorative("thomazm").setTextureName("Thomaz");
 		invisible = new UpgradeDecorative("sb").setTextureName("Shad0wB1ade");
+		model = new UpgradeModel();
 
 		undeadProtection = new UpgradeUndead();
 		arthropodProtection = new UpgradeArthropod();
@@ -202,12 +206,14 @@ public class Vanilla implements Module{
 
 	@Override
 	public void registerUpgradeRecipes(){
+	    
 		UpgradeRegistry.registerRecipe(new Recipe(generalProtection, 		"i i", "iii", "iii", 'i', "ingotIron"			));
 		UpgradeRegistry.registerRecipe(new Recipe(calfShields, 				"i i", "i i", "i i", 'i', "ingotIron"			));
 		UpgradeRegistry.registerRecipe(new Recipe(decorative, 				"w w", "www", "www", 'w', Blocks.wool			));
 		UpgradeRegistry.registerRecipe(new Recipe(invisible, 				"g g", "ggg", "ggg", 'g', Blocks.glass			));
 		UpgradeRegistry.registerRecipe(new Recipe(undeadProtection, 		"zzz", "zzz", "zzz", 'z', Items.rotten_flesh	));
 		UpgradeRegistry.registerRecipe(new Recipe(unblockableProtection, 	"d d", "ddd", "ddd", 'd', Items.diamond			));
+		UpgradeRegistry.registerRecipe(new Recipe(model,                    "isi", "isi", "isi", 'i', "ingotIron",          's', Items.slime_ball   ));
 		UpgradeRegistry.registerRecipe(new Recipe(autoFeeder, 				"igi", "igi", "iii", 'i', "ingotIron", 			'g', Items.golden_apple	));
 		UpgradeRegistry.registerRecipe(new Recipe(speed, 					"pip", "i i", "i i", 'i', "ingotIron", 			'p', Blocks.piston		));
 		UpgradeRegistry.registerRecipe(new Recipe(stepAssist, 				"pip", "i i", "   ", 'i', "ingotIron", 			'p', Blocks.piston		));
@@ -230,8 +236,8 @@ public class Vanilla implements Module{
 		UpgradeRegistry.registerRecipe(new Recipe(resonantEnergy, 			"drd", "rbr", "drd", 'd', "gemDiamond", 		'r', "dustRedstone", 		'b', "blockDiamond"	));
 		UpgradeRegistry.registerRecipe(new Recipe(hoverJetpack, 			"igi", "ini", "r r", 'i', "ingotIron", 			'g', "ingotGold", 			'r', "dustRedstone", 	'n', Items.nether_star	));
 		UpgradeRegistry.registerRecipe(new Recipe(basePotion, 				"iri", "gwg", "igi", 'i', "ingotIron", 			'g', "blockGlass", 			'r', "dustRedstone", 	'w', Items.water_bucket	));
-		UpgradeRegistry.registerRecipe(new Recipe(nightVision, 				"gig", "bpb", "gig", 'g', "ingotGold", 			'b', "blockGlass", 			'i', "ingotIron", 		'p', new ItemStack(Items.potionitem, 1, 8198)	));
-		UpgradeRegistry.registerRecipe(new Recipe(invisibility, 			"gig", "bpb", "gig", 'g', "ingotGold", 			'b', "blockGlass", 			'i', "ingotIron", 		'p', new ItemStack(Items.potionitem, 1, 8206)	));
+		UpgradeRegistry.registerRecipe(new Recipe(nightVision, 				"gig", "bpb", "gig", 'g', "ingotGold", 			'b', "blockGlass", 			'i', "ingotIron", 		'p', Items.golden_carrot));
+		UpgradeRegistry.registerRecipe(new Recipe(invisibility, 			"gig", "bpb", "gig", 'g', "ingotGold", 			'b', "blockGlass", 			'i', "ingotIron", 		'p', Items.fermented_spider_eye	));
 		
 	}
 

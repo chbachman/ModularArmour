@@ -1,5 +1,6 @@
 package chbachman.api.upgrade;
 
+import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -38,6 +39,12 @@ public interface IArmourUpgrade extends IUpgrade{
 	 * @return null if no change, otherwise name of texture.
 	 */
 	String getArmourTexture(ItemStack stack, ArmourSlot slot);
+	
+	/**
+	 * Gets the Model for the Armour.
+	 * @return null if no change, otherwise the model to be used.
+	 */
+	ModelBiped getArmourModel(EntityLivingBase entityLiving, ItemStack itemStack, int armourSlot);
 
 	/**
 	 * Gets the name of the color to load onto the armour.

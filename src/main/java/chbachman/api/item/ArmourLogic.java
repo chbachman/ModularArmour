@@ -2,6 +2,7 @@ package chbachman.api.item;
 
 import java.util.List;
 
+import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -9,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor.ArmorProperties;
+import chbachman.api.upgrade.IArmourUpgrade;
 
 public interface ArmourLogic{
 
@@ -77,7 +79,16 @@ public interface ArmourLogic{
 	 * @return The location of the texture.
 	 */
 	public String getArmourTexture(ItemStack stack, Entity entity, int slot, String type);
-
+	
+	/**
+	 * Get the Armour Model. Will be added to any other model.
+	 * @param entityLiving
+	 * @param itemStack
+	 * @param armourSlot
+	 * @return
+	 */
+	public ModelBiped getArmourModel(EntityLivingBase entityLiving, ItemStack itemStack, int armourSlot);
+	
 	/**
 	 * Called every tick.
 	 * 
@@ -133,7 +144,7 @@ public interface ArmourLogic{
 	 * @param stack
 	 * @param toHeal
 	 */
-	public abstract void healArmour(ItemStack stack, int toHeal);
+	public void healArmour(ItemStack stack, int toHeal);
 
 	/**
 	 * Called to damage the armour.
@@ -141,6 +152,8 @@ public interface ArmourLogic{
 	 * @param stack
 	 * @param damage
 	 */
-	public abstract void damageArmour(ItemStack stack, int damage);
+	public void damageArmour(ItemStack stack, int damage);
+	
+	
 
 }

@@ -10,6 +10,7 @@ import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.upgrade.Recipe;
 import chbachman.api.util.ArmourSlot;
+import chbachman.api.util.ImmutableArray;
 import chbachman.armour.network.ArmourPacket;
 import chbachman.armour.network.ArmourPacket.PacketTypes;
 import chbachman.armour.register.Vanilla;
@@ -117,7 +118,7 @@ public class GenericEventHandler{
 		}
 
 		if (MiscUtil.isServer(e.player)){
-
+		    
 			ArmourPacket packet = ArmourPacket.getPacket(PacketTypes.RECIPESYNC);
 			
 			packet.addInt(UpgradeRegistry.getRecipeList().size());

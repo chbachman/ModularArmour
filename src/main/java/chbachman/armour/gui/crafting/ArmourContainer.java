@@ -34,6 +34,8 @@ public class ArmourContainer extends ContainerInventoryItem implements IInputHan
     	super(stack, inventory);
         this.item = (IModularItem) stack.getItem();
         
+        
+        
         this.bindCraftingGrid();
         this.bindPlayerInventory(inventory);
     }
