@@ -7,6 +7,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.common.ISpecialArmor.ArmorProperties;
 import chbachman.api.util.ArmourSlot;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public interface IArmourUpgrade extends IUpgrade{
 
@@ -44,6 +46,7 @@ public interface IArmourUpgrade extends IUpgrade{
 	 * Gets the Model for the Armour.
 	 * @return null if no change, otherwise the model to be used.
 	 */
+	@SideOnly(Side.CLIENT)
 	ModelBiped getArmourModel(EntityLivingBase entityLiving, ItemStack itemStack, int armourSlot);
 
 	/**

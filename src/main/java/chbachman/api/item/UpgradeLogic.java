@@ -23,6 +23,8 @@ import chbachman.api.nbt.helper.NBTHelper;
 import chbachman.api.upgrade.IArmourUpgrade;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.util.ArmourSlot;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public abstract class UpgradeLogic implements ArmourLogic{
 
@@ -164,6 +166,7 @@ public abstract class UpgradeLogic implements ArmourLogic{
 	}
 	
 	@Override
+	@SideOnly(Side.CLIENT)
 	public ModelBiped getArmourModel(EntityLivingBase entityLiving, ItemStack stack, int armourSlot){
 	    
 	    ModelBiped finalModel = null;

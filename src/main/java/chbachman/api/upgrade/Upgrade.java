@@ -10,6 +10,8 @@ import net.minecraftforge.common.ISpecialArmor.ArmorProperties;
 import chbachman.api.item.IModularItem;
 import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.util.ArmourSlot;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * Default implementation of IUpgrade. Use this or make your own.
@@ -110,6 +112,7 @@ public abstract class Upgrade implements IArmourUpgrade{
 	}
 	
 	@Override
+	@SideOnly(Side.CLIENT)
 	public ModelBiped getArmourModel(EntityLivingBase entityLiving, ItemStack itemStack, int armourSlot){
 	    return null;
 	}

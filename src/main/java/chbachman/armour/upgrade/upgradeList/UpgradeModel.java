@@ -7,6 +7,8 @@ import chbachman.api.item.IModularItem;
 import chbachman.api.upgrade.Upgrade;
 import chbachman.api.util.ArmourSlot;
 import chbachman.armour.items.armour.renderer.AdvancedArmourModel;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class UpgradeModel extends Upgrade{
     
@@ -22,6 +24,7 @@ public class UpgradeModel extends Upgrade{
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public ModelBiped getArmourModel(EntityLivingBase entityLiving, ItemStack itemStack, int armourSlot) {
         ArmourSlot slot = ArmourSlot.getArmourSlot(armourSlot);
         

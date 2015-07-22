@@ -15,6 +15,8 @@ import chbachman.armour.register.Vanilla;
 import chbachman.armour.util.ConfigHelper;
 import chbachman.armour.util.EnergyUtil;
 import chbachman.armour.util.UpgradeUtil;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class UpgradeHoverJetpack extends Upgrade {
     
@@ -60,6 +62,7 @@ public class UpgradeHoverJetpack extends Upgrade {
     }
     
     @Override
+    @SideOnly(Side.CLIENT)
     public ModelBiped getArmourModel(EntityLivingBase entityLiving, ItemStack stack, int armourSlot) {
         
         if(NBTHelper.getNBTUpgradeList(stack).contains(Vanilla.model)){
