@@ -2,12 +2,12 @@ package WayofTime.alchemicalWizardry.api.bindingRegistry;
 
 import net.minecraft.item.ItemStack;
 
-public class BindingRecipe
+public class UnbindingRecipe
 {
     public ItemStack requiredItem;
     public ItemStack outputItem;
 
-    public BindingRecipe(ItemStack outputItem, ItemStack requiredItem)
+    public UnbindingRecipe(ItemStack outputItem, ItemStack requiredItem)
     {
         this.requiredItem = requiredItem;
         this.outputItem = outputItem;

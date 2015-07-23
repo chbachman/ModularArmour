@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.util.ArmourSlot;
-import cofh.api.item.IInventoryContainerItem;
+import cofh.api.item.IInventoryContainerItem; //TODO: Get rid of
 
 /**
  * The interface that must be implemented for upgrades to work on your armour.
@@ -18,7 +18,7 @@ import cofh.api.item.IInventoryContainerItem;
  * @author CBachman
  *
  */
-public interface IModularItem extends IInventoryContainerItem{
+public interface IModularItem extends IInventoryContainerItem{ //TODO: This is only for technical reasons, I can't fake it with a Anon class
 
 	/**
 	 * Gets the slot that the armour contains. See {@link ArmourSlot} for

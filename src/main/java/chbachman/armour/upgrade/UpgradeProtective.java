@@ -11,7 +11,6 @@ import chbachman.api.item.IModularItem;
 import chbachman.api.util.ArmourSlot;
 import chbachman.armour.upgrade.upgradeList.UpgradeBasic;
 import chbachman.armour.util.EnergyUtil;
-import cofh.api.energy.IEnergyContainerItem;
 
 
 public abstract class UpgradeProtective extends UpgradeBasic{
@@ -28,15 +27,16 @@ public abstract class UpgradeProtective extends UpgradeBasic{
 
 	@Override
 	public ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, ArmourSlot slot) {
-		
-		IEnergyContainerItem energy = EnergyUtil.getItem(armor);
+	    
+		IModularItem item = (IModularItem) armor.getItem();
 		
 		if(EnergyUtil.isEmpty(armor)){
 			return new ArmorProperties(0,0,0);
 		}
 		
 		if(this.shouldDefend(player, armor, source, damage, slot)){
-			energy.extractEnergy(armor, (int) (this.getEnergyPerDamage(armor) * damage), false);
+		    
+			item.damageArmour(armor, (int) (this.getEnergyPerDamage(armor) * damage));
 			
 			float temp = maxProtection * protection.get(armor).getPercentage() * (limitDamage(player, armor, source, damage, slot) / 100F);
 			

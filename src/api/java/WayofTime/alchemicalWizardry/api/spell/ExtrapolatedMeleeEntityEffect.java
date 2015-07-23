@@ -1,12 +1,12 @@
 package WayofTime.alchemicalWizardry.api.spell;
 
-import java.util.List;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public abstract class ExtrapolatedMeleeEntityEffect implements IMeleeSpellEntityEffect
 {

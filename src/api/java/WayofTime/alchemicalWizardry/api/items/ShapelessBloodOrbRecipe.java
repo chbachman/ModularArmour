@@ -1,11 +1,6 @@
 package WayofTime.alchemicalWizardry.api.items;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
+import WayofTime.alchemicalWizardry.api.items.interfaces.IBloodOrb;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.Item;
@@ -14,7 +9,12 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.world.World;
 import net.minecraftforge.oredict.OreDictionary;
-import WayofTime.alchemicalWizardry.api.items.interfaces.IBloodOrb;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * Shapeless Blood Orb Recipe Handler by joshie *
@@ -39,12 +39,17 @@ public class ShapelessBloodOrbRecipe implements IRecipe
         output = result.copy();
         for (Object in : recipe)
         {
-            if (in instanceof ItemStack)
-            {
-                input.add(((ItemStack) in).copy());
-            } else if (in instanceof IBloodOrb)
+            if (in instanceof IBloodOrb)
             { //If the item is an instanceof IBloodOrb then save the level of the orb
-                input.add((Integer) (((IBloodOrb) in).getOrbLevel()));
+                input.add(((IBloodOrb) in).getOrbLevel());
+            }
+            else if (in instanceof ItemStack)
+            {
+                if (((ItemStack)in).getItem() instanceof IBloodOrb)
+                {
+                    input.add(((IBloodOrb) ((ItemStack)in).getItem()).getOrbLevel());
+                }
+                else input.add(((ItemStack) in).copy());
             } else if (in instanceof Item)
             {
                 input.add(new ItemStack((Item) in));
@@ -137,6 +142,7 @@ public class ShapelessBloodOrbRecipe implements IRecipe
                                 return false;
                             }
                         } else return false;
+                        match = true;
                     } else if (next instanceof ItemStack)
                     {
                         match = OreDictionary.itemMatches((ItemStack) next, slot, false);

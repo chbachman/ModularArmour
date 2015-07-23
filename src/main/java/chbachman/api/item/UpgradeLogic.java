@@ -149,12 +149,12 @@ public abstract class UpgradeLogic implements ArmourLogic{
 
 			if (textureLocation != null){
 				texture = textureLocation;
+				
+				if(textureLocation.startsWith("modulararmour:textures")){
+	                return textureLocation;
+	            }
 			}
 			
-			if(textureLocation.startsWith("modulararmour:textures")){
-			    return textureLocation;
-			}
-
 			String newColor = ((IArmourUpgrade) upgrade).getArmourColor(stack, ArmourSlot.getArmourSlot(slot));
 
 			if (newColor != null){
@@ -253,7 +253,7 @@ public abstract class UpgradeLogic implements ArmourLogic{
 		if (energy > 0){
 			this.damageArmour(stack, energy);
 		}else{
-			this.healArmour(stack, energy * -1);
+			this.healArmour(stack, -energy);
 		}
 	}
 

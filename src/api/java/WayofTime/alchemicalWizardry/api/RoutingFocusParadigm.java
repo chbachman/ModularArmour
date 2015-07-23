@@ -20,16 +20,26 @@ public class RoutingFocusParadigm
 	
 	public void addLogic(RoutingFocusLogic logic)
 	{
+		if(logic instanceof ILimitingLogic)
+		{
+			maximumAmount += ((ILimitingLogic)logic).getRoutingLimit();
+		}
 		logicList.add(logic);
 	}
 	
 	public boolean doesItemMatch(ItemStack keyStack, ItemStack checkedStack)
 	{
 		boolean isGood = false;
+		boolean isFirst = true;
 		for(RoutingFocusLogic logic : logicList)
 		{
+			if(isFirst)
+			{
+				isGood = logic.getDefaultMatch(keyStack, checkedStack);
+				isFirst = false;
+				continue;
+			}
 			isGood = logic.doesItemMatch(isGood, keyStack, checkedStack);
-			if(isGood){return true;}
 		}
 		
 		return isGood;
@@ -39,6 +49,7 @@ public class RoutingFocusParadigm
 	{
 		logicList.clear();
 		locationList.clear();
+		maximumAmount = 0;
 	}
 	
 	public void setMaximumAmount(int amt)

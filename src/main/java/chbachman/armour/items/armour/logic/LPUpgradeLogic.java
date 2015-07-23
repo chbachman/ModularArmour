@@ -1,5 +1,7 @@
 package chbachman.armour.items.armour.logic;
 
+import java.util.List;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -16,9 +18,20 @@ public class LPUpgradeLogic extends UpgradeLogicAdv{
 		cost = ModularArmour.config.get("Conversions", "1LP = ?RF", 1);
 	}
 	
+	
+	
 	@Override
+    public void addInformation(List<String> list, ItemStack stack) {
+        super.addInformation(list, stack);
+        
+        list.add("Current Owner: " + (SoulNetworkHandler.getOwnerName(stack) == null ? "None" : SoulNetworkHandler.getOwnerName(stack)));
+    }
+
+
+
+    @Override
 	public void onArmourEquip(World world, EntityPlayer player, ItemStack stack){
-		SoulNetworkHandler.checkAndSetItemOwner(stack, player);
+		SoulNetworkHandler.checkAndSetItemPlayer(stack, player);
 		super.onArmourEquip(world, player, stack);
 	}
 
@@ -26,7 +39,11 @@ public class LPUpgradeLogic extends UpgradeLogicAdv{
 	public void healArmour(ItemStack stack, int toHeal){
 		String name = SoulNetworkHandler.getOwnerName(stack);
 		EntityPlayer player = SoulNetworkHandler.getPlayerForUsername(name);
-
+		
+		if(player == null){
+		    return;
+		}
+		
 		if (!player.capabilities.isCreativeMode)
 		{
 			SoulNetworkHandler.addCurrentEssenceToMaximum(name, (int) (toHeal * cost), SoulNetworkHandler.getMaximumForOrbTier(SoulNetworkHandler.getCurrentMaxOrb(name)));
@@ -37,6 +54,12 @@ public class LPUpgradeLogic extends UpgradeLogicAdv{
 	public void damageArmour(ItemStack stack, int damage){
 		
 		EntityPlayer player = SoulNetworkHandler.getPlayerForUsername(SoulNetworkHandler.getOwnerName(stack));
+		
+		if(player == null){
+		    return;
+		}
+		
+		System.out.println("Draining: " + damage * cost);
 		
 		if (!player.capabilities.isCreativeMode)
         {

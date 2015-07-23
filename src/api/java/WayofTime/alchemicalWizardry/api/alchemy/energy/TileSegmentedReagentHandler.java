@@ -1,15 +1,15 @@
 
 package WayofTime.alchemicalWizardry.api.alchemy.energy;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class TileSegmentedReagentHandler extends TileEntity implements ISegmentedReagentHandler
 {
@@ -259,7 +259,7 @@ public class TileSegmentedReagentHandler extends TileEntity implements ISegmente
             return;
         }
 
-        this.attunedTankMap.put(reagent, new Integer(total));
+        this.attunedTankMap.put(reagent, total);
     }
 
     @Override
