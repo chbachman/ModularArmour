@@ -3,21 +3,43 @@ item.chbachman.armour.helmetModular.name=模块化头盔
 item.chbachman.armour.chestplateModular.name=模块化胸甲
 item.chbachman.armour.leggingsModular.name=模块化护腿
 item.chbachman.armour.bootsModular.name=模块化鞋子
-item.chbachman.armour.itemRing.0.name=模块化戒指
-item.chbachman.armour.itemPendant.0.name=模块化护身符
-item.chbachman.armour.itemBelt.0.name=模块化腰带
+
+item.chbachman.armour.helmetModularLP.name=LP能源模块化头盔
+item.chbachman.armour.chestplateModularLP.name=LP能源模块化胸甲
+item.chbachman.armour.leggingsModularLP.name=LP能源模块化护腿
+item.chbachman.armour.bootsModularLP.name=LP能源模块化鞋子
+
+item.chbachman.armour.helmetModularMana.name=魔力模块化头盔
+item.chbachman.armour.chestplateModularMana.name=魔力模块化胸甲
+item.chbachman.armour.leggingsModularMana.name=魔力模块化护腿
+item.chbachman.armour.bootsModularMana.name=魔力模块化鞋子
+
+item.chbachman.armour.helmetModularIC.name=电力模块化头盔
+item.chbachman.armour.chestplateModularIC.name=电力模块化胸甲
+item.chbachman.armour.leggingsModularIC.name=电力模块化护腿
+item.chbachman.armour.bootsModularIC.name=电力模块化鞋子
+
+item.chbachman.armour.itemRing.name=模块化戒指
+item.chbachman.armour.itemPendant.name=模块化护身符
+item.chbachman.armour.itemBelt.name=模块化腰带
+
+itemGroup.modularCreativeTab=模块化装甲
 
 item.modulararmour.material.heatedElectrum.name=炽热的金银合金
 item.modulararmour.material.temperedElectrum.name=冷却的金银合金
+item.modulararmour.upgrade.itemUpgrade.name=升级
 
-
-info.chbachman.control=控制
-info.chbachman.upgradeList=升级模块列表
+info.chbachman.control=control
+info.chbachman.upgradeList=查看升级模块列表
 info.chbachman.strong=强力
 info.chbachman.doesWork=不在运作
 info.chbachman.doesntWork=正在运作
+info.chbachman.openme=右键手持装甲添加升级模块.
 
+info.chbachman.level=等级
 info.chbachman.noUpgrade=这个升级组件没有介绍!
+
+info.chbachman.tutorial=用于升级你的装甲. 使用右侧栏合成所需升级模块.
 
 upgrade.chbachman.jetpack.name=飞行背包
 upgrade.chbachman.calfShields.name=小腿护盾
@@ -38,6 +60,36 @@ upgrade.chbachman.electrolyzer.name=电解器
 upgrade.chbachman.magnet.name=磁铁装置
 upgrade.chbachman.nightVision.name=夜视仪
 upgrade.chbachman.invisibility.name=隐身装置
+upgrade.chbachman.thomazm.name=托马斯材质
+upgrade.chbachman.sb.name=隐形装甲
+upgrade.chbachman.camelPack.name=实用背包
+upgrade.chbachman.gasMask.name=防毒面具
+upgrade.chbachman.pixie.name=精灵刷怪笼
+upgrade.chbachman.manaConverter.name=魔力转换仪
+upgrade.chbachman.blood.name=LP转换仪
+upgrade.chbachman.solarLeadstone.name=铅石太阳能头盔
+upgrade.chbachman.solarHardened.name=强化太阳能头盔
+upgrade.chbachman.solarRedstone.name=红石太阳能头盔
+upgrade.chbachman.solarResonant.name=谐振太阳能头盔
+upgrade.chbachman.solarAdvanced.name=高级太阳能头盔
+upgrade.chbachman.solarUltimate.name=终极太阳能头盔
+upgrade.chbachman.undead.name=亡灵保护
+upgrade.chbachman.arthropod.name=节肢保护
+upgrade.chbachman.fireProtector.name=火焰防护
+upgrade.chbachman.unblockableProtector.name=圣光护佑
+upgrade.chbachman.magicProtector.name=魔法防护
+upgrade.chbachman.lavaProtector.name=岩浆防护
+upgrade.chbachman.playerProtection.name=玩家防护
+upgrade.chbachman.witherProtector.name=凋零防护
+upgrade.chbachman.explosionProtector.name=爆炸防护
+upgrade.chbachman.projectileProtector.name=弹射防护
+upgrade.chbachman.generalProtection.name=通用防护
+upgrade.chbachman.advancedModel.name=高级模型
+
+upgrade.chbachman.speed.speed=速度
+upgrade.chbachman.protection.protection=防护
+upgrade.chbachman.magnet.reach=磁力延伸
+upgeade.chbachman.jumpBoost.jumpHeight=弹跳高度
 
 upgrade.chbachman.jetpack.information=让你像创造模式那样自由飞行. 建议配合小腿护盾组件使用
 upgrade.chbachman.calfShields.information=使用飞行背包十分容易. 但没了小腿护盾一切都是白搭
@@ -52,6 +104,8 @@ upgrade.chbachman.ironPlating.information=给予你铁制装备的保护
 upgrade.chbachman.visDiscount.information=让你更容易的制作法杖
 upgrade.chbachman.gogglesOfRevealing.information=天哪, 你是怎么将一副护目镜安装上头盔的?
 upgrade.chbachman.jumpBoost.information=跳得更高, 看的更远
+upgrade.chbachman.gasMask.information=帮助你避开周围的毒性气体.
+upgrade.chbachman.camelPack.information=为你提供饮用水. 有点像汽水头盔
 upgrade.chbachman.leadstone.information=借助铅石电容的力量, 你的装备现在能存储更多的能量了!
 upgrade.chbachman.hardened.information=借助硬化电容的力量, 你的装备现在能存储更多的能量了!
 upgrade.chbachman.reinforced.information=借助红石电容的力量, 你的装备现在能存储更多的能量了!
@@ -60,3 +114,25 @@ upgrade.chbachman.electrolyzer.information=你曾经因溺水而死? 试试这�
 upgrade.chbachman.magnet.information=让所有掉落物迎你而来
 upgrade.chbachman.nightVision.information=让你在黑夜中也能看清楚周围的东西, 真是魔法!
 upgrade.chbachman.invisibility.information=让你隐身, 可以用来调戏朋友
+upgrade.chbachman.thomazm.information=将糟糕的装甲材质换成托马斯制作的材质
+upgrade.chbachman.pixie.information=使用魔力转换器来生成小精灵
+upgrade.chbachman.manaConverter.information=将魔力转换为，使其可以为装甲充电
+upgrade.chbachman.blood.information=将LP转换为RF，使其能够为装甲充电
+upgrade.chbachman.sb.information=将护甲变为隐形！这样别人就能够看到你的皮肤了
+upgrade.chbachman.solarLeadstone.information=一个太阳能头盔. 产能 (1RF/t)
+upgrade.chbachman.solarHardened.information=一个太阳能头盔. 产能 (8RF/t)
+upgrade.chbachman.solarRedstone.information=一个太阳能头盔. 产能 (64RF/t)
+upgrade.chbachman.solarResonant.information=一个太阳能头盔. 产能 (512RF/t)
+upgrade.chbachman.solarAdvanced.information=一个太阳能头盔. 产能 (4096RF/t)
+upgrade.chbachman.solarUltimate.information=一个太阳能头盔. 产能 (32768RF/t)
+upgrade.chbachman.undead.information=帮助你防御来自亡灵的攻击
+upgrade.chbachman.arthropod.information=帮助你防御来自蜘蛛的攻击
+upgrade.chbachman.fireProtector.information=使用皮革来隔热,金属散热,从而让你远离高温
+upgrade.chbachman.unblockableProtector.information=它能够对抗一些无敌的东西，事实上我也不知道它怎么使用
+upgrade.chbachman.magicProtector.information=混合铁和金来帮助你防御魔法的攻击
+upgrade.chbachman.lavaProtector.information=Contains the Red Orb. Do not put near Groudon. 
+upgrade.chbachman.playerProtection.information=帮助抵御来自玩家的攻击
+upgrade.chbachman.witherProtector.information=凋零不再是恶梦一样的存在了
+upgrade.chbachman.explosionProtector.information=它能够通过TNT使你免受来自爆炸的伤害,原理？我也不知道
+upgrade.chbachman.projectileProtector.information=终于, 骷髅射手不再是你的烦恼.
+upgrade.chbachman.advancedModel.information=献给所有在抱怨没有好看的模型的人. 感谢SkeletonPunk制作的精美模型.
