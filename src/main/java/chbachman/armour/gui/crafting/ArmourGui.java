@@ -3,14 +3,19 @@ package chbachman.armour.gui.crafting;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import chbachman.api.nbt.NBTHelper;
 import chbachman.api.upgrade.IUpgrade;
+import chbachman.armour.gui.element.ElementUpgradeListBox;
+import chbachman.armour.gui.element.TabConfig;
+import chbachman.armour.gui.element.TabCrafting;
+import chbachman.armour.gui.element.TabError;
+import chbachman.armour.gui.element.TabUpgradeRemoval;
 import chbachman.armour.network.ArmourPacket;
 import chbachman.armour.network.ArmourPacket.PacketTypes;
 import chbachman.armour.reference.Reference;
 import chbachman.armour.upgrade.UpgradeException;
 import cofh.core.gui.GuiBaseAdv;
 import cofh.core.network.PacketHandler;
+import cofh.lib.util.helpers.StringHelper;
 
 public class ArmourGui extends GuiBaseAdv {
     
@@ -18,7 +23,7 @@ public class ArmourGui extends GuiBaseAdv {
     
     public ArmourContainer container;
     
-    public UpgradeComponent list;
+    public ElementUpgradeListBox list;
     
     public TabCrafting tabCrafting;
     public TabError scrolledText;
@@ -46,17 +51,21 @@ public class ArmourGui extends GuiBaseAdv {
     public void initGui() {
         super.initGui();
         
-        this.list = new UpgradeComponent(this, 8, 5, 160, 14, stack);
+        this.list = new ElementUpgradeListBox(this, 8, 5, 160, 142){
+        	
+        	public void onUpgradeSelected(IUpgrade upgrade, int index){
+        		selectedUpgrade = upgrade;
+        		config.onUpgradeSelected(upgrade);
+        	}
+        	
+        };
+        
         this.addElement(list);
-        
-        this.list.textLines = NBTHelper.getNBTUpgradeList(this.container.getContainerStack());
-        
-        this.list.highlightSelectedLine = true;
         
         this.tabCrafting = new TabCrafting(this);
         this.addTab(this.tabCrafting);
         
-        this.scrolledText = new TabError(this, "This is used to upgrade your armour. Use the tab to the right to craft your upgrade.");
+        this.scrolledText = new TabError(this, StringHelper.localize("info.chbachman.tutorial"));
         this.addTab(this.scrolledText);
         
         this.removal = new TabUpgradeRemoval(this);
@@ -69,20 +78,9 @@ public class ArmourGui extends GuiBaseAdv {
     }
     
     @Override
-    protected void mouseClicked(int mX, int mY, int mouseButton) {
-        super.mouseClicked(mX, mY, mouseButton);
-        
-        this.selectedUpgrade = this.list.getSelectedUpgrade();
-        
-        this.config.onUpgradeSelected(selectedUpgrade);
-        
-    }
-    
-    @Override
     protected void drawGuiContainerBackgroundLayer(float partialTick, int x, int y) {
-    	super.drawGuiContainerBackgroundLayer(partialTick, x, y);
-    	
-    	this.list.textLines = NBTHelper.getNBTUpgradeList(this.container.getContainerStack());
+    	super.drawGuiContainerBackgroundLayer(partialTick, x, y); 	
+    	this.list.loadStack(this.container.getContainerStack());
     }
     
     public void onButtonClick(String name) {
@@ -106,6 +104,8 @@ public class ArmourGui extends GuiBaseAdv {
             	this.list.scrollDown();
             }else if(name.equals("ScrollUp")){
             	this.list.scrollUp();
+            }else if(name.equals("ValueChanged")){
+                
             }
             
         } catch (UpgradeException e) {

@@ -1,15 +1,17 @@
 package chbachman.api.upgrade;
 
+import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor.ArmorProperties;
 import chbachman.api.item.IModularItem;
 import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.util.ArmourSlot;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * Default implementation of IUpgrade. Use this or make your own.
@@ -38,12 +40,12 @@ public abstract class Upgrade implements IArmourUpgrade{
 
 	@Override
 	public String getInformation(){
-		return StatCollector.translateToLocal(this.getLocalizationString() + ".information");
+		return this.getLocalizationString() + ".information";
 	}
 
 	@Override
 	public String getName(){
-		return StatCollector.translateToLocal(this.getLocalizationString() + ".name");
+		return this.getLocalizationString() + ".name";
 	}
 
 	@Override
@@ -61,49 +63,26 @@ public abstract class Upgrade implements IArmourUpgrade{
 		return "upgrade.chbachman." + this.name;
 	}
 
+	// Default Implementations
 	@Override
-	public int compareTo(IUpgrade upgrade){
-		return this.getName().compareTo(upgrade.getName());
-	}
-
-	@Override
-	public int hashCode(){
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + this.name.hashCode();
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj){
-		if (this == obj){
-			return true;
-		}
-		if (obj == null){
-			return false;
-		}
-		if (!(obj instanceof Upgrade)){
-			return false;
-		}
-		Upgrade other = (Upgrade) obj;
-		if (this.name != other.name){
-			return false;
-		}
+	public boolean isCompatible(IModularItem item, ItemStack stack, int armorType){
 		return true;
 	}
 
-	// Default Implementations
 	@Override
-	public boolean isCompatible(IModularItem item, ItemStack stack, int armorType){return true;}
+	public int getArmourDisplay(EntityPlayer player, ItemStack stack, ArmourSlot slot){
+		return 0;
+	}
 
 	@Override
-	public int getArmourDisplay(EntityPlayer player, ItemStack stack, ArmourSlot slot){return 0;}
+	public ArmorProperties getProperties(EntityLivingBase attacker, ItemStack armor, DamageSource source, double damage, ArmourSlot slot){
+		return null;
+	}
 
 	@Override
-	public ArmorProperties getProperties(EntityLivingBase attacker, ItemStack armor, DamageSource source, double damage, ArmourSlot slot){return null;}
-
-	@Override
-	public IUpgrade[] getDependencies(){return null;}
+	public IUpgrade[] getDependencies(){
+		return null;
+	}
 
 	@Override
 	public void onUpgradeAddition(IModularItem item, ItemStack stack){}
@@ -112,18 +91,30 @@ public abstract class Upgrade implements IArmourUpgrade{
 	public void onEquip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot){}
 
 	@Override
-	public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot){return 0;}
+	public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot){
+		return 0;
+	}
 
 	@Override
 	public void onDequip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot){}
 
 	@Override
-	public String getArmourTexture(ItemStack stack, ArmourSlot slot){return null;}
+	public String getArmourTexture(ItemStack stack, ArmourSlot slot){
+		return null;
+	}
 
 	@Override
 	public void registerConfigOptions(){}
+
+	@Override
+	public String getArmourColor(ItemStack stack, ArmourSlot slot){
+		return null;
+	}
 	
 	@Override
-	public String getArmourColor(ItemStack stack, ArmourSlot slot){return null;}
+	@SideOnly(Side.CLIENT)
+	public ModelBiped getArmourModel(EntityLivingBase entityLiving, ItemStack itemStack, int armourSlot){
+	    return null;
+	}
 
 }

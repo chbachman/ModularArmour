@@ -18,13 +18,13 @@ public class UpgradePotion extends Upgrade {
 	
 	public UpgradePotion(String name, Potion effect, int level, int energyCost) {
 		super(name);
-		this.effect = new PotionEffect(effect.id, level, 0, false);
+		this.effect = new PotionEffect(effect.id, level, 0, true);
 		this.energyCost = energyCost;
 	}
 	
 	public UpgradePotion(String name, Potion effect, int level, int duration, int energyCost){
 		super(name);
-		this.effect = new PotionEffect(effect.id, level, duration, false);
+		this.effect = new PotionEffect(effect.id, level, duration, true);
 		this.energyCost = energyCost;
 	}
 	

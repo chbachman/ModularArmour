@@ -1,8 +1,9 @@
 package chbachman.armour.register;
 
 import net.minecraft.block.Block;
+import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.upgrade.IUpgrade;
-import chbachman.armour.crafting.Recipe;
+import chbachman.api.upgrade.Recipe;
 import chbachman.armour.upgrade.upgradeList.UpgradeSolar;
 
 public class SolarExpansion implements Module{
@@ -43,7 +44,7 @@ public class SolarExpansion implements Module{
 	@Override
 	public void registerUpgradeRecipes() {
 		
-		Recipe.recipeList.remove(Vanilla.solar);
+		UpgradeRegistry.removeRecipe(Vanilla.solar);
 		
 		Block solarT1 = (Block) Block.blockRegistry.getObject("SolarExpansion:solarPanelLeadstone");
 		Block solarT2 = (Block) Block.blockRegistry.getObject("SolarExpansion:solarPanelHardened");
@@ -52,12 +53,12 @@ public class SolarExpansion implements Module{
 		Block solarT5 = (Block) Block.blockRegistry.getObject("SolarExpansion:solarPanelAdvanced");
 		Block solarT6 = (Block) Block.blockRegistry.getObject("SolarExpansion:solarPanelUltimate");
 
-		Recipe.recipeList.add(new Recipe(solarLeadstone, "A  ", "   ", "   ", 'A', solarT1));
-		Recipe.recipeList.add(new Recipe(solarHardened, "A  ", "   ", "   ", 'A', solarT2));
-		Recipe.recipeList.add(new Recipe(solarRedstone, "A  ", "   ", "   ", 'A', solarT3));
-		Recipe.recipeList.add(new Recipe(solarResonant, "A  ", "   ", "   ", 'A', solarT4));
-		Recipe.recipeList.add(new Recipe(solarAdvanced, "A  ", "   ", "   ", 'A', solarT5));
-		Recipe.recipeList.add(new Recipe(solarUltimate, "A  ", "   ", "   ", 'A', solarT6));
+		UpgradeRegistry.registerRecipe(new Recipe(solarLeadstone, "A  ", "   ", "   ", 'A', solarT1));
+		UpgradeRegistry.registerRecipe(new Recipe(solarHardened, "A  ", "   ", "   ", 'A', solarT2));
+		UpgradeRegistry.registerRecipe(new Recipe(solarRedstone, "A  ", "   ", "   ", 'A', solarT3));
+		UpgradeRegistry.registerRecipe(new Recipe(solarResonant, "A  ", "   ", "   ", 'A', solarT4));
+		UpgradeRegistry.registerRecipe(new Recipe(solarAdvanced, "A  ", "   ", "   ", 'A', solarT5));
+		UpgradeRegistry.registerRecipe(new Recipe(solarUltimate, "A  ", "   ", "   ", 'A', solarT6));
 	}
 
 }

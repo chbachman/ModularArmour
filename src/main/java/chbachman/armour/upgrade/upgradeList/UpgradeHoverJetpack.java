@@ -1,16 +1,22 @@
 package chbachman.armour.upgrade.upgradeList;
 
+import net.minecraft.client.model.ModelBiped;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import chbachman.api.item.IModularItem;
+import chbachman.api.nbt.helper.NBTHelper;
 import chbachman.api.upgrade.Upgrade;
 import chbachman.api.util.ArmourSlot;
+import chbachman.armour.items.armour.renderer.JetpackModel;
 import chbachman.armour.register.Vanilla;
 import chbachman.armour.util.ConfigHelper;
 import chbachman.armour.util.EnergyUtil;
 import chbachman.armour.util.UpgradeUtil;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class UpgradeHoverJetpack extends Upgrade {
     
@@ -53,6 +59,18 @@ public class UpgradeHoverJetpack extends Upgrade {
     @Override
     public void onDequip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
         setFlying(player, false, world);
+    }
+    
+    @Override
+    @SideOnly(Side.CLIENT)
+    public ModelBiped getArmourModel(EntityLivingBase entityLiving, ItemStack stack, int armourSlot) {
+        
+        if(NBTHelper.getNBTUpgradeList(stack).contains(Vanilla.model)){
+            return new JetpackModel();
+        }
+        
+        return null;
+        
     }
     
     private void setFlying(EntityPlayer player, boolean bool, World world){

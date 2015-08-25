@@ -12,8 +12,8 @@ import thaumcraft.api.nodes.IRevealer;
 import vazkii.botania.api.item.IPixieSpawner;
 import chbachman.api.item.IModularItem;
 import chbachman.api.item.UpgradeLogic;
-import chbachman.api.nbt.NBTHelper;
-import chbachman.api.nbt.NBTList;
+import chbachman.api.nbt.helper.NBTHelper;
+import chbachman.api.nbt.helper.NBTList;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.util.ArmourSlot;
 import chbachman.armour.ModularArmour;
@@ -48,7 +48,9 @@ public abstract class UpgradeLogicAdv extends UpgradeLogic implements IRevealer,
 	 * @param player
 	 * @return stack passed in.
 	 */
+	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player){
+		super.onItemRightClick(stack, world, player);
 		if (CoreUtils.isFakePlayer(player)) {
 			return stack;
 		}
@@ -123,6 +125,7 @@ public abstract class UpgradeLogicAdv extends UpgradeLogic implements IRevealer,
 	 * @param stack
 	 * @param toHeal
 	 */
+	@Override
 	public abstract void healArmour(ItemStack stack, int toHeal);
 
 	/**
@@ -130,6 +133,7 @@ public abstract class UpgradeLogicAdv extends UpgradeLogic implements IRevealer,
 	 * @param stack
 	 * @param damage
 	 */
+	@Override
 	public abstract void damageArmour(ItemStack stack, int damage);
 
 }

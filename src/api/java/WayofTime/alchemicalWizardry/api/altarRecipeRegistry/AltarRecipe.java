@@ -1,5 +1,6 @@
 package WayofTime.alchemicalWizardry.api.altarRecipeRegistry;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 import net.minecraft.item.ItemStack;
@@ -16,6 +17,7 @@ public class AltarRecipe
     public ItemStack requiredItem;
     public ItemStack result;
     public boolean useTag;
+    public ArrayList<Object> input = new ArrayList<Object>();
 
     public AltarRecipe(ItemStack result, ItemStack requiredItem, int minTier, int liquidRequired, int consumptionRate, int drainRate, boolean canBeFilled)
     {
@@ -89,7 +91,7 @@ public class AltarRecipe
     				NBTBase comparedBaseTag = comparedTag.getTag(str);
     				if(comparedBaseTag instanceof NBTTagCompound)
     				{
-    					if(!this.areTagsEqual((NBTTagCompound) tag, comparedTag))
+    					if(!this.areTagsEqual(tag, comparedTag))
     					{
     						return false;
     					}

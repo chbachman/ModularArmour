@@ -4,10 +4,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import chbachman.api.item.IModularItem;
-import chbachman.api.nbt.NBTHelper;
+import chbachman.api.nbt.helper.NBTHelper;
 import chbachman.api.registry.ModularItemRegistry;
+import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.upgrade.IUpgrade;
-import chbachman.armour.crafting.Recipe;
+import chbachman.api.upgrade.Recipe;
 import chbachman.armour.items.armour.BotaniaModularArmour;
 import chbachman.armour.reference.Reference;
 import chbachman.armour.upgrade.upgradeList.UpgradeBasic;
@@ -83,7 +84,7 @@ public class Botania implements Module{
 
 	@Override
 	public void registerUpgradeRecipes(){
-		Recipe.recipeList.add(new Recipe(pixie, "tet", "e e", "tet", 'e', "ingotElvenElementium", 't', "ingotManasteel"));
+		UpgradeRegistry.registerRecipe(new Recipe(pixie, "tet", "e e", "tet", 'e', "ingotElvenElementium", 't', "ingotManasteel"));
 	}
 
 }

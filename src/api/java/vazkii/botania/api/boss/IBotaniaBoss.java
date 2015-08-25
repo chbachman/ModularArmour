@@ -13,7 +13,6 @@ package vazkii.botania.api.boss;
 
 import java.awt.Rectangle;
 
-import net.minecraft.entity.boss.BossStatus;
 import net.minecraft.entity.boss.IBossDisplayData;
 import net.minecraft.util.ResourceLocation;
 import cpw.mods.fml.relauncher.Side;

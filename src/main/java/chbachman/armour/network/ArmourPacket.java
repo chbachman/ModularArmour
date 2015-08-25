@@ -4,23 +4,20 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import chbachman.api.item.IModularItem;
-import chbachman.api.nbt.NBTHelper;
+import chbachman.api.nbt.helper.NBTHelper;
+import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.upgrade.IUpgrade;
+import chbachman.api.upgrade.Recipe;
 import chbachman.api.util.ArmourSlot;
+import chbachman.api.util.Array;
 import chbachman.armour.util.MiscUtil;
 import cofh.core.network.PacketCoFHBase;
-import cofh.core.network.PacketHandler;
 
 public class ArmourPacket extends PacketCoFHBase {
     
-    public static void initialize() {
-        
-        PacketHandler.instance.registerPacket(ArmourPacket.class);
-    }
-    
     public enum PacketTypes {
         
-        BUTTON(), KEYTYPED(), ENTITYJOINWORLD(), CONTAINERSYNC();
+        BUTTON(), KEYTYPED(), ENTITYJOINWORLD(), CONTAINERSYNC(), RECIPESYNC();
         
     }
     
@@ -44,12 +41,16 @@ public class ArmourPacket extends PacketCoFHBase {
 			case CONTAINERSYNC:
 				this.handleContainerSync(player);
 				break;
+			case RECIPESYNC:
+				this.handleRecipeSync(player);
+				break;
                 
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 
 	/**
      * Get the packet for the given type.
@@ -114,6 +115,40 @@ public class ArmourPacket extends PacketCoFHBase {
     		
     	}
     	
+	}
+    
+	public void handleRecipeSync(EntityPlayer player){
+		
+		Array<Recipe> recipeList = UpgradeRegistry.INSTANCE.recipeList;
+		
+		recipeList.clear();
+		
+		
+		int size = this.getInt();
+		for (int i = 0; i < size; i++){
+			Object[] recipe = new Object[9];
+			for(int g = 0; g < 9; g++){
+				
+				byte type = this.getByte();
+				
+				if(type == 1){
+					recipe[g] = this.getString();
+				}
+				
+				if(type == 2){
+					recipe[g] = this.getItemStack();
+				}
+				
+				if(type == 3){
+					recipe[g] = null;
+				}
+				
+			}
+			
+			UpgradeRegistry.registerRecipe(new Recipe(UpgradeRegistry.getUpgrade(this.getString()), recipe, this.getInt(), this.getInt()));
+		}
+		
+		
 	}
     
 }

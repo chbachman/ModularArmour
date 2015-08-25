@@ -10,12 +10,12 @@ import chbachman.api.upgrade.IUpgrade;
 public class FieldList implements IUpgradeListener{
 
 	Field[] fields;
-	
+
 	public void refreshFields(IUpgrade upgrade, ConfigurableField[] f){
 		for (int i = 0; i < fields.length; i++){
 			try{
 				fields[i].set(upgrade, f.length);
-			}catch(Exception e){
+			}catch (Exception e){
 				e.printStackTrace();
 			}
 		}
@@ -23,7 +23,7 @@ public class FieldList implements IUpgradeListener{
 
 	public ConfigurableField[] getFieldList(IUpgrade upgrade){
 		ConfigurableField[] config = new ConfigurableField[fields.length];
-		
+
 		for (int i = 0; i < fields.length; i++){
 			try{
 				config[i] = (ConfigurableField) fields[i].get(upgrade);
@@ -38,9 +38,9 @@ public class FieldList implements IUpgradeListener{
 
 	@Override
 	public IUpgradeListener onUpgradeAdded(IUpgrade upgrade){
-		
+
 		FieldList list = new FieldList();
-		
+
 		Class<?> upgradeClass = upgrade.getClass();
 
 		List<Field> storageList = new ArrayList<Field>();
@@ -59,7 +59,7 @@ public class FieldList implements IUpgradeListener{
 		}
 
 		list.fields = storageList.toArray(new Field[0]);
-		
+
 		return list;
 
 	}

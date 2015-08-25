@@ -1,29 +1,18 @@
 package chbachman.armour.register;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import chbachman.api.registry.UpgradeRegistry;
-import chbachman.api.upgrade.IUpgrade;
-import chbachman.armour.ModularArmour;
+import chbachman.api.util.Array;
 import cpw.mods.fml.common.Loader;
 
 public class ItemRegister {
 	
 	public static final ItemRegister INSTANCE = new ItemRegister();
 	
-	private final List<Module> list;
-	
-	private final Map<String, Vanilla> vanillaList;
+	private final Array<Module> list;
 	
 	public Vanilla base;
 	
 	public ItemRegister(){
-		list = new ArrayList<Module>();
-		vanillaList = new HashMap<String, Vanilla>();
-		vanillaList.put("Vanilla", new Vanilla());
+		list = new Array<Module>();
 		
 		register(Baubles.class, "Baubles");
 		register(Thaumcraft.class, "Thaumcraft");
@@ -52,11 +41,7 @@ public class ItemRegister {
 			return;
 		}
 		
-		if(m instanceof Vanilla){
-			vanillaList.put(modid, (Vanilla) m);
-		}else{
-			list.add(m);
-		}
+		list.add(m);
 		
 	}
 	
@@ -75,11 +60,7 @@ public class ItemRegister {
 			return;
 		}
 		
-		if(m instanceof Vanilla){
-			vanillaList.put(displayName, (Vanilla) m);
-		}else{
-			list.add(m);
-		}
+		list.add(m);
 		
 	}
 	
@@ -88,13 +69,7 @@ public class ItemRegister {
 	 */
 	public void preInit(){
 		
-		Vanilla vanilla = vanillaList.get(ModularArmour.config.get("Change to change the recipes", "Recipes:", "Vanilla"));
-		
-		if(vanilla == null){
-			vanilla = vanillaList.get("Vanilla");
-		}
-		
-		this.base = vanilla;
+		this.base = new Vanilla();
 		
 		
 		base.preInit();
@@ -109,25 +84,7 @@ public class ItemRegister {
 			module.registerUpgrades();
 		}
 		
-		this.createRecipeList();
 		
-		
-	}
-	
-	private void createRecipeList(){
-
-		StringBuilder builder = new StringBuilder();
-
-		for(String string : vanillaList.keySet()){
-			builder.append(string + ",");
-		}
-
-		ModularArmour.output.write("Recipe Types", builder.toString());
-
-		for(IUpgrade upgrade : UpgradeRegistry.getUpgradeList()){
-
-			ModularArmour.output.write("upgrade names", new StringBuilder().append(upgrade.getBaseName()).append(" = ").append(upgrade.getName()).toString());
-		}
 	}
 
 	public void init(){

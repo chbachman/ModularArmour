@@ -6,15 +6,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import vazkii.botania.api.mana.IManaItem;
 import chbachman.api.item.IModularItem;
-import chbachman.api.nbt.NBTStorage;
+import chbachman.api.nbt.helper.NBTInteger;
 import chbachman.armour.ModularArmour;
 import cofh.lib.util.helpers.StringHelper;
 import cpw.mods.fml.common.Optional;
 
 public class ManaUpgradeLogic extends UpgradeLogicAdv implements IManaItem{
 	
-	public NBTStorage<Integer> mana = new NBTStorage<Integer>("mana", 10);
-	public NBTStorage<Integer> maxMana = new NBTStorage<Integer>("mana", 10);
+	public NBTInteger mana = new NBTInteger("mana", 10);
+	public NBTInteger maxMana = new NBTInteger("mana", 10);
 	
 	public ManaUpgradeLogic(IModularItem item) {
 		super(item);

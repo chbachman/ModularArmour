@@ -4,6 +4,7 @@ import ic2.api.item.IMetalArmor;
 
 import java.util.List;
 
+import net.minecraft.client.model.ModelBiped;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -85,10 +86,15 @@ public abstract class ItemModularArmour extends ItemArmor implements ISpecialArm
 
 	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type){
-		return this.holder.getArmourTexture(stack, entity, slot, type);
+	    return holder.getArmourTexture(stack, entity, slot, type);
 	}
 
-	// ISpecialArmor
+	@Override
+    public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack stack, int armourSlot) {
+	    return holder.getArmourModel(entityLiving, stack, armourSlot);
+    }
+
+    // ISpecialArmor
 	@Override
 	public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot){
 		this.holder.damageArmour(stack, damage);

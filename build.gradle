@@ -70,7 +70,7 @@ processResources {
 repositories {
 	ivy {
 		name "CoFHCore"
-		artifactPattern "http://addons-origin.cursecdn.com/files/2229/440/[module]-[revision].[ext]"
+		artifactPattern "http://addons-origin.cursecdn.com/files/2245/632/[module]-[revision].[ext]"
 	}
 
 	ivy {
@@ -90,7 +90,7 @@ dependencies {
 	compile "net.industrial-craft:industrialcraft-2:${ic2_version}-experimental:api"
 }
 
-jar { classifier = '' 
+jar { classifier = ''
 
 	manifest {
 		attributes 'FMLAT': 'modulararmour_at.cfg'
@@ -120,6 +120,10 @@ task 'v++' <<{
 	props.setProperty('mod_version', nextbuildnum.substring(0, index + 1) + ((nextbuildnum.substring(index + 1) as Integer) + 1).toString())
 
 	props.store(propsFile.newWriter(), null)
+}
+
+task blogPost <<{
+	println "ls".execute().text
 }
 
 task sourceJar(type: Jar) {

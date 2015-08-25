@@ -2,16 +2,13 @@ package chbachman.armour.upgrade.upgradeList;
 
 import net.minecraft.item.ItemStack;
 import chbachman.api.item.IModularItem;
-import chbachman.api.nbt.NBTHelper;
-import chbachman.api.nbt.NBTStorage;
+import chbachman.api.nbt.helper.NBTHelper;
 import chbachman.api.upgrade.Upgrade;
 import chbachman.api.util.ArmourSlot;
 
 public class UpgradeCamelPack extends Upgrade{
 
 	final int maxWaterStorage = 100;
-	
-	NBTStorage water = new NBTStorage("waterLevel", 0);
 	
 	public UpgradeCamelPack() {
 		super("camelPack");

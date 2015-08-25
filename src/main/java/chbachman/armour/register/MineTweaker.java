@@ -15,7 +15,7 @@ import stanhebben.zenscript.annotations.ZenClass;
 import stanhebben.zenscript.annotations.ZenMethod;
 import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.upgrade.IUpgrade;
-import chbachman.armour.crafting.Recipe;
+import chbachman.api.upgrade.Recipe;
 
 @ZenClass("mods.modularArmour")
 public class MineTweaker implements Module{
@@ -43,7 +43,7 @@ public class MineTweaker implements Module{
 		
 		List<Recipe> toRemove = new ArrayList<Recipe>();
 		
-		Iterator<Recipe> iterator = Recipe.recipeList.iterator();
+		Iterator<Recipe> iterator = UpgradeRegistry.getRecipeList().iterator();
 		
 		while(iterator.hasNext()){
 			Recipe recipe = iterator.next();
@@ -125,12 +125,12 @@ public class MineTweaker implements Module{
 				MineTweakerAPI.logError("Not an valid Upgrade");
 			}
 			
-			recipe = new Recipe(upgrade, mcIngredients, true);
+			recipe = new Recipe(upgrade, mcIngredients, 3, 3);
 		}
 
 		@Override
 		public void apply() {
-			Recipe.recipeList.add(recipe);
+			UpgradeRegistry.registerRecipe(recipe);
 		}
 
 		@Override
@@ -140,7 +140,7 @@ public class MineTweaker implements Module{
 
 		@Override
 		public void undo() {
-			Recipe.recipeList.remove(recipe);
+			UpgradeRegistry.removeRecipe(recipe);
 		}
 
 		@Override
@@ -168,7 +168,7 @@ public class MineTweaker implements Module{
 
 		@Override
 		public void apply() {
-			Recipe.recipeList.remove(recipe);
+			UpgradeRegistry.removeRecipe(recipe);
 		}
 
 		@Override
@@ -178,7 +178,7 @@ public class MineTweaker implements Module{
 
 		@Override
 		public void undo() {
-			Recipe.recipeList.add(recipe);
+			UpgradeRegistry.registerRecipe(recipe);
 		}
 
 		@Override

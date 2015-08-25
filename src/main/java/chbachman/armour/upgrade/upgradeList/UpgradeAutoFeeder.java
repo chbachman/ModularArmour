@@ -8,7 +8,7 @@ import net.minecraft.world.World;
 import chbachman.api.configurability.Configurable;
 import chbachman.api.configurability.ConfigurableField;
 import chbachman.api.item.IModularItem;
-import chbachman.api.nbt.NBTStorage;
+import chbachman.api.nbt.helper.NBTInteger;
 import chbachman.api.upgrade.Upgrade;
 import chbachman.api.util.ArmourSlot;
 import chbachman.armour.util.ConfigHelper;
@@ -16,7 +16,7 @@ import chbachman.armour.util.ConfigHelper;
 public class UpgradeAutoFeeder extends Upgrade{
 
 	// Data Storage
-	private NBTStorage<Integer> storedFood = new NBTStorage<Integer>("foodLevel", 0);
+	private NBTInteger storedFood = new NBTInteger("foodLevel", 0);
 
 	// Configrability
 	@Configurable

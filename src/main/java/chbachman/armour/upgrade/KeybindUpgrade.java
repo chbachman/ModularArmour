@@ -2,7 +2,7 @@ package chbachman.armour.upgrade;
 
 import net.minecraft.entity.player.EntityPlayer;
 import chbachman.api.upgrade.Upgrade;
-import cofh.CoFHCore;
+import chbachman.armour.ModularArmour;
 import cofh.core.key.IKeyBinding;
 import cofh.lib.util.helpers.StringHelper;
 
@@ -14,7 +14,7 @@ public abstract class KeybindUpgrade extends Upgrade implements IKeyBinding {
     
     @Override
     public boolean keyPress() {
-        return this.keyPress(CoFHCore.proxy.getClientPlayer());
+        return this.keyPress(ModularArmour.proxy.getClientPlayer());
     }
     
     public abstract boolean keyPress(EntityPlayer player);

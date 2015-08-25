@@ -2,11 +2,14 @@ package chbachman.armour.handler;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import chbachman.api.item.IModularItem;
-import chbachman.api.nbt.NBTHelper;
-import chbachman.api.nbt.NBTList;
+import chbachman.api.nbt.helper.NBTHelper;
+import chbachman.api.nbt.helper.NBTList;
+import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.upgrade.IUpgrade;
-import chbachman.armour.crafting.Recipe;
+import chbachman.api.upgrade.Recipe;
+import chbachman.api.util.ImmutableArray;
 import chbachman.armour.upgrade.UpgradeException;
 import chbachman.armour.util.UpgradeUtil;
 
@@ -17,9 +20,17 @@ public class UpgradeHandler {
 	 * @param containerWrapper
 	 * @return
 	 */
-    public static IUpgrade getResult(IInventory containerWrapper) {
+    public static IUpgrade getResult(IInventory crafting) {
     	
-        return Recipe.recipeList.getResult(containerWrapper);
+        ImmutableArray array = UpgradeRegistry.getRecipeList();
+        
+    	for(Recipe recipe : UpgradeRegistry.getRecipeList()){
+    		if(recipe.matches(crafting)){
+    			return recipe.getCraftingResult();
+    		}
+    	}
+    	
+    	return null;
     }
     
     /**
@@ -45,7 +56,7 @@ public class UpgradeHandler {
     public static boolean addUpgrade(ItemStack stack, IUpgrade upgrade) {
         NBTHelper.createDefaultStackTag(stack);
         
-        if (stack.getItem() instanceof IModularItem) {
+        if (stack.getItem() instanceof IModularItem){
             
         	IModularItem armour = (IModularItem) stack.getItem();
             
@@ -68,7 +79,7 @@ public class UpgradeHandler {
             
             upgrade.onUpgradeAddition((IModularItem) stack.getItem(), stack);
             
-            NBTList<IUpgrade> list = NBTHelper.getNBTUpgradeList(stack.stackTagCompound);
+            NBTList<IUpgrade> list = NBTHelper.getNBTUpgradeList(stack);
             
             list.add(upgrade);
             
@@ -107,7 +118,7 @@ public class UpgradeHandler {
         for (IUpgrade dependency : dependencies) {
             if (!UpgradeUtil.doesItemStackContainUpgrade(stack, dependency)) {
                 
-                throw new UpgradeException(String.format("This upgrade needs the %s upgrade to work", dependency.getName()), iUpgrade);
+                throw new UpgradeException(String.format("This upgrade needs the %s upgrade to work", StatCollector.translateToLocal(dependency.getName())), iUpgrade);
             }
         }
         

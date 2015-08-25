@@ -5,16 +5,17 @@ import ic2.api.item.IElectricItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import chbachman.api.item.IModularItem;
-import chbachman.api.nbt.NBTStorage;
+import chbachman.api.nbt.helper.NBTDouble;
+import chbachman.api.nbt.helper.NBTInteger;
 import chbachman.armour.ModularArmour;
 
 public class ICUpgradeLogic extends UpgradeLogicAdv implements IElectricItem{
 
 	Item i;
 	
-	NBTStorage<Double> maxCharge = new NBTStorage<Double>("maxCharge", 10000D);
-	NBTStorage<Integer> tier = new NBTStorage<Integer>("tier", 1);
-	NBTStorage<Double> limit = new NBTStorage<Double>("transferLimit", 10000D);
+	NBTDouble maxCharge = new NBTDouble("maxCharge", 10000D);
+	NBTInteger tier = new NBTInteger("tier", 1);
+	NBTDouble limit = new NBTDouble("transferLimit", 10000D);
 	
 	static int rfToEU = ModularArmour.config.get("Conversions", "RF to EU Conversion Factor", 3);
 	
@@ -23,18 +24,22 @@ public class ICUpgradeLogic extends UpgradeLogicAdv implements IElectricItem{
 		this.i = i;
 	}
 	
+	@Override
 	public boolean canProvideEnergy(ItemStack itemStack){
 		return true;
 	}
 
+	@Override
 	public double getMaxCharge(ItemStack itemStack){
 		return maxCharge.get(itemStack);
 	}
 
+	@Override
 	public int getTier(ItemStack itemStack){
 		return tier.get(itemStack);
 	}
 
+	@Override
 	public double getTransferLimit(ItemStack itemStack){
 		return limit.get(itemStack);
 	}

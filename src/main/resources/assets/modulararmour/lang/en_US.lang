@@ -1,4 +1,4 @@
- #en_US
+, #en_US
 item.chbachman.armour.helmetModular.name=Modular Helmet
 item.chbachman.armour.chestplateModular.name=Modular Chestplate
 item.chbachman.armour.leggingsModular.name=Modular Leggings
@@ -34,9 +34,12 @@ info.chbachman.upgradeList=Upgrade List
 info.chbachman.strong=Strong
 info.chbachman.doesWork=Does not work.
 info.chbachman.doesntWork=Does work.
+info.chbachman.openme=Right click Armour in your hand to add upgrades.
 
 info.chbachman.level=Level
 info.chbachman.noUpgrade=There is no description for this upgrade!
+
+info.chbachman.tutorial=This is used to upgrade your armour. Use the tab to the right to craft your upgrade.
 
 upgrade.chbachman.jetpack.name=Jetpack
 upgrade.chbachman.calfShields.name=Calf Shields
@@ -79,10 +82,14 @@ upgrade.chbachman.lavaProtector.name=Lava Protection
 upgrade.chbachman.playerProtection.name=Player Protector
 upgrade.chbachman.witherProtector.name=Wither Protector
 upgrade.chbachman.explosionProtector.name=Explosion Protector
+upgrade.chbachman.projectileProtector.name=Projectile Protection
+upgrade.chbachman.generalProtection.name=General Protector
+upgrade.chbachman.advancedModel.name=Advanced Model
 
 upgrade.chbachman.speed.speed=Speed
 upgrade.chbachman.protection.protection=Protection
 upgrade.chbachman.magnet.reach=Reach
+upgeade.chbachman.jumpBoost.jumpHeight=Jump Height
 
 upgrade.chbachman.jetpack.information=Allows you to fly like you are in creative. It is recommended to have Calf Shields.
 upgrade.chbachman.calfShields.information=Rocket Packs are easy. The hard part is inventing the Calf Shields.
@@ -127,4 +134,6 @@ upgrade.chbachman.lavaProtector.information=Contains the Red Orb. Do not put nea
 upgrade.chbachman.playerProtection.information=Protects against attacks by players.
 upgrade.chbachman.witherProtector.information=Withers are just not as mean anymore.
 upgrade.chbachman.explosionProtector.information=This somehow uses TnT to protect against explosions. How, I have no idea.
+upgrade.chbachman.projectileProtector.information=Finally. Skeletons are not such a giant pain.
+upgrade.chbachman.advancedModel.information=For all you people complaining about not having pretty models. Credits go to SkeletonPunk for the model.
 

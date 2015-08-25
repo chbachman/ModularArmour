@@ -32,6 +32,7 @@ public class UpgradeArthropod extends UpgradeProtective {
 		return entityMob.getCreatureAttribute() == EnumCreatureAttribute.ARTHROPOD;
 	}
 	
+	@Override
 	public int getEnergyPerDamage(ItemStack stack){
 		return 100;
 	}
