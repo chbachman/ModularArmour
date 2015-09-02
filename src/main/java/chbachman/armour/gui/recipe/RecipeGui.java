@@ -130,17 +130,18 @@ public class RecipeGui extends GuiBaseAdv {
 			for (int i = 0; i < recipes.size(); i++) {
 				indicies.add(i);
 			}
-		}
+			
+		}else{
+		    text = text.toLowerCase();
 
-		text = text.toLowerCase();
+	        for (int i = 0; i < recipes.size(); i++) {
 
-		for (int i = 0; i < recipes.size(); i++) {
+	            String name = StringHelper.localize(recipes.get(i).getRecipeOutput().getName()).toLowerCase();
 
-			String name = StringHelper.localize(recipes.get(i).getRecipeOutput().getName()).toLowerCase();
-
-			if (name.contains(text)) {
-				indicies.add(i);
-			}
+	            if (name.contains(text)) {
+	                indicies.add(i);
+	            }
+	        }
 		}
 
 		this.list.updateList();

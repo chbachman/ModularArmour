@@ -70,7 +70,8 @@ processResources {
 repositories {
 	ivy {
 		name "CoFHCore"
-		artifactPattern "http://addons-origin.cursecdn.com/files/2245/632/[module]-[revision].[ext]"
+		artifactPattern "http://addons-origin.cursecdn.com/files/2247/955/[module]-[revision].[ext]"
+		//http://addons-origin.cursecdn.com/files/2247/955/CoFHCore-[1.7.10]3.0.3-305-dev.jar
 	}
 
 	ivy {
