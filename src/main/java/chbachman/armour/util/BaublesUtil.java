@@ -105,4 +105,22 @@ public class BaublesUtil{
 		return list.contains(upgrade);
 	}
 
+    public static ItemStack[] getArmour(EntityPlayer player) {
+        ItemStack[] armour = new ItemStack[7];
+                
+        for(int i = 0; i < player.inventory.armorInventory.length; i++){
+            armour[i] = player.inventory.armorInventory[i];
+        }
+        
+        IInventory inventory = BaublesApi.getBaubles(player);
+        
+        for(int i = 0; i < inventory.getSizeInventory(); i++){
+            ItemStack bauble = inventory.getStackInSlot(i);
+
+            armour[i + player.inventory.armorInventory.length] = bauble;
+        }
+        
+        return armour;
+    }
+
 }
