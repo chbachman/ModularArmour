@@ -1,14 +1,11 @@
 package chbachman.armour.gui.element;
 
-import net.minecraft.util.ResourceLocation;
-import chbachman.armour.reference.Reference;
 import cofh.lib.gui.GuiBase;
 import cofh.lib.gui.element.ElementBase;
 import cofh.lib.render.RenderHelper;
+import net.minecraft.util.ResourceLocation;
 
-public class ElementBackground extends ElementBase{
-	
-	public static ResourceLocation TEXTURE = new ResourceLocation(Reference.TEXTURE_LOCATION + "/gui/tabletBackground.png");
+public abstract class ElementBackground extends ElementBase{
 	
 	private boolean isDragging;
 	
@@ -18,13 +15,14 @@ public class ElementBackground extends ElementBase{
 	private int prevMouseX;
 	private int prevMouseY;
 	
-	public float zoom = 1;
-	
 	public int sizeX;
 	public int sizeY;
 	
-	public ElementBackground(GuiBase containerScreen, int x, int y, int width, int height) {
+	public final ResourceLocation texture;
+	
+	public ElementBackground(GuiBase containerScreen, int x, int y, int width, int height, ResourceLocation texture) {
 		super(containerScreen, x, y, width, height);
+		this.texture = texture;
 	}
 	
 	@Override
@@ -33,6 +31,8 @@ public class ElementBackground extends ElementBase{
 		if(isDragging){
 			this.shiftedX -= prevMouseX - mouseX;
 			this.shiftedY -= prevMouseY - mouseY;
+			
+			onDrag(shiftedX, shiftedY);
 			
 			prevMouseX = mouseX;
 			prevMouseY = mouseY;
@@ -47,11 +47,11 @@ public class ElementBackground extends ElementBase{
 	}
 	
 	public void renderBackground(){
-		RenderHelper.bindTexture(TEXTURE);
+		RenderHelper.bindTexture(texture);
 		int startX = shiftedX % 256;
 		int startY = shiftedY % 256;
 		
-		this.gui.drawSizedTexturedModalRect(this.gui.guiLeft, this.gui.guiTop, 128 - startX, 0 - startY, 128, 198, 128 / zoom, 198 / zoom);
+		this.gui.drawSizedTexturedModalRect(this.gui.guiLeft, this.gui.guiTop, 128 - startX, 0 - startY, 128, 198, 128, 198);
 	}
 	
 	@Override
@@ -69,13 +69,12 @@ public class ElementBackground extends ElementBase{
 		isDragging = false;
 	}
 	
-	@Override
-	public boolean onMouseWheel(int mouseX, int mouseY, int movement) {
-		
-		//this.zoom = MathUtils.clamp(zoom + .1F * Math.signum(movement), .1F, 3);
-		
-		return true;
-	}
+	/**
+	 * Called when the drag changes.
+	 * @param shiftedX - The total shift in X
+	 * @param shiftedY - The total shift in Y
+	 */
+	public abstract void onDrag(int shiftedX, int shiftedY);
 	
 	
 	

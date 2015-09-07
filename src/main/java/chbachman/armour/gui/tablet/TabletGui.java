@@ -21,6 +21,9 @@ public class TabletGui extends GuiBaseAdv {
 	
 	public ElementBackground background;
 	
+	public int shiftX;
+	public int shiftY;
+	
 	public static final ResourceLocation TEXTURE = new ResourceLocation(Reference.TEXTURE_LOCATION + "/gui/tabletGui.png");
 	
 	public static Array<TabletPage> pages = new Array<TabletPage>();
@@ -34,7 +37,15 @@ public class TabletGui extends GuiBaseAdv {
 		this.ySize = 200;
 		this.drawInventory = false;
 		
-		background = new ElementBackground(this, 6, 6, 128, 200); 
+		background = new ElementBackground(this, 6, 6, 128, 200, new ResourceLocation(Reference.TEXTURE_LOCATION + "/gui/tabletBackground.png")){
+
+            @Override
+            public void onDrag(int shiftedX, int shiftedY) {
+                shiftX = shiftedX;
+                shiftY = shiftedY;
+            }
+		   
+		};
 		
 	}
 
@@ -44,6 +55,10 @@ public class TabletGui extends GuiBaseAdv {
 		
 		this.addElement(background);
 		pages.add(new TabletPage(this, 50, 50, 10, 10, "aaah", "blah"));
+		
+		for(TabletPage page : this.pages){ //For some reason, I need this. Otherwise the gui instance in page doesn't update.
+		    page.gui = this;
+		}
 		
 		for(int i = 0; i < container.inventorySlots.size(); i++){
 			((Slot) this.container.inventorySlots.get(i)).xDisplayPosition = -this.getGuiLeft() - 16; //Hide all the slots.
@@ -89,6 +104,8 @@ public class TabletGui extends GuiBaseAdv {
 		this.drawArrow(8, 8, 108, 108);
 		
 		for(TabletPage page : pages){
+		    
+		    //page.gui = this;
 		    
 		    if(page.isVisible()){
 		        page.render(x, y);
@@ -187,13 +204,11 @@ public class TabletGui extends GuiBaseAdv {
 	}
 	
 	public int getShiftX(){
-	    //System.out.println(Thread.currentThread().getStackTrace()[2].getMethodName() + " : " + "X" + " : " + background.shiftedX);
-	    return background.shiftedX;
+	    return shiftX;
 	}
 	
 	public int getShiftY(){
-	    //System.out.println(Thread.currentThread().getStackTrace()[2].getMethodName() + " : " + "Y" + " : " + background.shiftedY);
-	    return background.shiftedY;
+	    return shiftY;
 	}
 	
 	public int getXSize(){
