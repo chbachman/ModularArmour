@@ -13,87 +13,91 @@ import chbachman.api.upgrade.Upgrade;
 import chbachman.api.util.ArmourSlot;
 import chbachman.armour.util.ConfigHelper;
 
-public class UpgradeAutoFeeder extends Upgrade{
+public class UpgradeAutoFeeder extends Upgrade {
 
-	// Data Storage
-	private NBTInteger storedFood = new NBTInteger("foodLevel", 0);
+    // Data Storage
+    private NBTInteger storedFood = new NBTInteger("foodLevel", 0);
 
-	// Configrability
-	@Configurable
-	public ConfigurableField foodAmount = new ConfigurableField(this, "foodAmount", 100);
+    // Configrability
+    @Configurable
+    public ConfigurableField foodAmount = new ConfigurableField(this, "foodAmount", 100);
 
-	// Config Options
-	private int absorbing;
-	private int eating;
-	private int amountToHold;
+    // Config Options
+    private int absorbing;
+    private int eating;
+    private int amountToHold;
 
-	public UpgradeAutoFeeder() {
-		super("feeder");
-	}
+    public UpgradeAutoFeeder() {
+        super("feeder");
+    }
 
-	@Override
-	public void registerConfigOptions(){
-		absorbing = ConfigHelper.get(ConfigHelper.ENERGY, this, "cost for absorbing food", 100);
-		eating = ConfigHelper.get(ConfigHelper.ENERGY, this, "cost for eating food", 100);
+    @Override
+    public void registerConfigOptions() {
+        absorbing = ConfigHelper.get(ConfigHelper.ENERGY, this, "cost for absorbing food", 100);
+        eating = ConfigHelper.get(ConfigHelper.ENERGY, this, "cost for eating food", 100);
 
-		amountToHold = ConfigHelper.get(ConfigHelper.OTHER, this, "amount of food to hold", 20);
-	}
+        amountToHold = ConfigHelper.get(ConfigHelper.OTHER, this, "amount of food to hold", 20);
+    }
 
-	@Override
-	public boolean isCompatible(IModularItem item, ItemStack stack, int armourType){
-		return armourType == ArmourSlot.HELMET.id;
-	}
+    @Override
+    public boolean isCompatible(IModularItem item, ItemStack stack, int armourType) {
+        return armourType == ArmourSlot.HELMET.id;
+    }
 
-	@Override
-	public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot){
+    @Override
+    public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
 
-		int modifiedAmount = amountToHold * foodAmount.get(stack).getAmount();
-		
-		if (storedFood.get(stack) < modifiedAmount){ // Grab the food from the
-													// player's inventory.
-			for (int i = 0; i < player.inventory.mainInventory.length; i++){
-				
-				ItemStack playerStack = player.inventory.mainInventory[i];
-				
-				if (playerStack == null){
-					continue;
-				}
+        int modifiedAmount = amountToHold * foodAmount.get(stack).getAmount();
 
-				if (playerStack.getItem() instanceof ItemFood){
-					ItemFood food = (ItemFood) playerStack.getItem();
-					
-					int amountToStore = food.func_150905_g(playerStack);
-					
-					if(modifiedAmount - storedFood.get(stack) >= amountToStore){ //If we can store food
-						storedFood.set(stack, storedFood.get(stack) + amountToStore);
+        if (storedFood.get(stack) < modifiedAmount) { // Grab the food from the
+                                                      // player's inventory.
+            for (int i = 0; i < player.inventory.mainInventory.length; i++) {
 
-						playerStack.stackSize--;
+                ItemStack playerStack = player.inventory.mainInventory[i];
 
-						if (playerStack.stackSize <= 0){
-							player.inventory.mainInventory[i] = null;
-						}
+                if (playerStack == null) {
+                    continue;
+                }
 
-						return absorbing;
-					}
-				}
-			}
-		}
+                if (playerStack.getItem() instanceof ItemFood) {
+                    ItemFood food = (ItemFood) playerStack.getItem();
 
-		FoodStats food = player.getFoodStats(); // Feed the player if necesary.
+                    int amountToStore = food.func_150905_g(playerStack);
 
-		if (food.needFood() && this.storedFood.get(stack) > 0){
+                    if (modifiedAmount - storedFood.get(stack) >= amountToStore) { // If
+                                                                                   // we
+                                                                                   // can
+                                                                                   // store
+                                                                                   // food
+                        storedFood.set(stack, storedFood.get(stack) + amountToStore);
 
-			int foodNeeded = 20 - food.getFoodLevel();
+                        playerStack.stackSize--;
 
-			food.addStats(foodNeeded, 0);
+                        if (playerStack.stackSize <= 0) {
+                            player.inventory.mainInventory[i] = null;
+                        }
 
-			this.storedFood.set(stack, this.storedFood.get(stack) - foodNeeded);
+                        return absorbing;
+                    }
+                }
+            }
+        }
 
-			return eating;
-		}
+        FoodStats food = player.getFoodStats(); // Feed the player if necesary.
 
-		return 0;
+        if (food.needFood() && this.storedFood.get(stack) > 0) {
 
-	}
+            int foodNeeded = 20 - food.getFoodLevel();
+
+            food.addStats(foodNeeded, 0);
+
+            this.storedFood.set(stack, this.storedFood.get(stack) - foodNeeded);
+
+            return eating;
+        }
+
+        return 0;
+
+    }
 
 }

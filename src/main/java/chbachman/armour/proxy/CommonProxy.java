@@ -9,20 +9,20 @@ import cofh.core.network.PacketHandler;
 
 public abstract class CommonProxy implements IProxy {
 
-	@Override
-	public void registerPacketInformation() {
-		PacketHandler.instance.registerPacket(ArmourPacket.class);
-	}
-	
+    @Override
+    public void registerPacketInformation() {
+        PacketHandler.instance.registerPacket(ArmourPacket.class);
+    }
+
     @Override
     public void registerKeyBinds() {
-        
+
         for (IUpgrade upgrade : UpgradeRegistry.getUpgradeList()) {
             if (upgrade instanceof KeybindUpgrade) {
                 CoFHKeyHandler.addServerKeyBind((KeybindUpgrade) upgrade);
             }
         }
-        
+
     }
-    
+
 }

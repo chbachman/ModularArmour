@@ -5,14 +5,14 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
 public class JetpackModel extends ModelBiped {
-    
-    //public ModelRenderer bipedHead;
-    //public ModelRenderer bipedBody;
-    //public ModelRenderer bipedRightArm;
-    //public ModelRenderer bipedLeftArm;
-    //public ModelRenderer bipedRightLeg;
-    //public ModelRenderer bipedLeftLeg;
-    
+
+    // public ModelRenderer bipedHead;
+    // public ModelRenderer bipedBody;
+    // public ModelRenderer bipedRightArm;
+    // public ModelRenderer bipedLeftArm;
+    // public ModelRenderer bipedRightLeg;
+    // public ModelRenderer bipedLeftLeg;
+
     public ModelRenderer JPDecorationPieceRight15;
     public ModelRenderer JPDecorationPieceLeft15;
     public ModelRenderer JPDecorationPieceRight14;
@@ -153,14 +153,14 @@ public class JetpackModel extends ModelBiped {
         this.JPDecorationPieceRight12 = new ModelRenderer(this, 246, 122);
         this.JPDecorationPieceRight12.setRotationPoint(-5.0F, 10.0F, 3.0F);
         this.JPDecorationPieceRight12.addBox(0.0F, 0.0F, 0.0F, 4, 1, 1, 0.0F);
-        
+
         this.bipedBody.cubeList.clear();
         this.bipedHead.cubeList.clear();
         this.bipedLeftArm.cubeList.clear();
         this.bipedRightArm.cubeList.clear();
         this.bipedLeftLeg.cubeList.clear();
         this.bipedRightLeg.cubeList.clear();
-        
+
         this.bipedBody.addChild(this.JPDecorationPieceRight8);
         this.bipedBody.addChild(this.JPDecorationPieceLeft14);
         this.bipedBody.addChild(this.JPDecorationPieceLeft11);

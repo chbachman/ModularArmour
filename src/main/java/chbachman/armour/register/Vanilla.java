@@ -60,245 +60,251 @@ import cofh.lib.util.helpers.ItemHelper;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class Vanilla implements Module{
-	
-	public static ArmorMaterial materialModular;
+public class Vanilla implements Module {
 
-	public static Item helmetModular;
-	public static Item chestplateModular;
-	public static Item leggingsModular;
-	public static Item bootsModular;
+    public static ArmorMaterial materialModular;
 
-	public static ItemStack stackHelmetModular;
-	public static ItemStack stackChestplateModular;
-	public static ItemStack stackLeggingsModular;
-	public static ItemStack stackBootsModular;
+    public static Item helmetModular;
+    public static Item chestplateModular;
+    public static Item leggingsModular;
+    public static Item bootsModular;
 
-	public static ItemBase material;
-	public static ItemBase tablet;
+    public static ItemStack stackHelmetModular;
+    public static ItemStack stackChestplateModular;
+    public static ItemStack stackLeggingsModular;
+    public static ItemStack stackBootsModular;
 
-	public static ItemStack temperedElectrum;
-	public static ItemStack heatedElectrum;
-	
-	public static ItemStack defaultTablet;
+    public static ItemBase material;
+    public static ItemBase tablet;
 
-	public static IUpgrade calfShields;
-	public static IUpgrade basePotion;
-	public static IUpgrade hoverJetpack;
-	public static IUpgrade fallDamage;
-	public static IUpgrade solar;
-	public static IUpgrade speed;
-	public static IUpgrade stepAssist;
-	public static IUpgrade autoFeeder;
-	public static IUpgrade jumpBoost;
-	public static IUpgrade electrolyzer;
-	public static IUpgrade nightVision;
-	public static IUpgrade invisibility;
-	public static IUpgrade magnet;
+    public static ItemStack temperedElectrum;
+    public static ItemStack heatedElectrum;
 
-	public static IUpgrade leadstoneEnergy;
-	public static IUpgrade hardenedEnergy;
-	public static IUpgrade reinforcedEnergy;
-	public static IUpgrade resonantEnergy;
+    public static ItemStack defaultTablet;
 
-	public static IUpgrade decorative;
-	public static IUpgrade invisible;
-	public static IUpgrade model;
+    public static IUpgrade calfShields;
+    public static IUpgrade basePotion;
+    public static IUpgrade hoverJetpack;
+    public static IUpgrade fallDamage;
+    public static IUpgrade solar;
+    public static IUpgrade speed;
+    public static IUpgrade stepAssist;
+    public static IUpgrade autoFeeder;
+    public static IUpgrade jumpBoost;
+    public static IUpgrade electrolyzer;
+    public static IUpgrade nightVision;
+    public static IUpgrade invisibility;
+    public static IUpgrade magnet;
 
-	public static IUpgrade undeadProtection;
-	public static IUpgrade arthropodProtection;
-	public static IUpgrade projectileProtection;
-	public static IUpgrade fireProtection;
-	public static IUpgrade explosionProtection;
-	public static IUpgrade unblockableProtection;
-	public static IUpgrade magicalProtection;
-	public static IUpgrade witherProtection;
-	public static IUpgrade lavaProtection;
-	public static IUpgrade playerProtection;
-	public static IUpgrade generalProtection;
+    public static IUpgrade leadstoneEnergy;
+    public static IUpgrade hardenedEnergy;
+    public static IUpgrade reinforcedEnergy;
+    public static IUpgrade resonantEnergy;
 
-	@Override
-	public final void preInit(){
+    public static IUpgrade decorative;
+    public static IUpgrade invisible;
+    public static IUpgrade model;
 
-		material = (ItemBase) new ItemBase("modulararmour").setUnlocalizedName("material").setCreativeTab(ModularArmour.creativeTab);
-		
-		tablet = (ItemBase) new ItemTablet().setUnlocalizedName("tablet").setCreativeTab(ModularArmour.creativeTab);
+    public static IUpgrade undeadProtection;
+    public static IUpgrade arthropodProtection;
+    public static IUpgrade projectileProtection;
+    public static IUpgrade fireProtection;
+    public static IUpgrade explosionProtection;
+    public static IUpgrade unblockableProtection;
+    public static IUpgrade magicalProtection;
+    public static IUpgrade witherProtection;
+    public static IUpgrade lavaProtection;
+    public static IUpgrade playerProtection;
+    public static IUpgrade generalProtection;
 
-		materialModular = EnumHelper.addArmorMaterial("", 25, new int[] { 0, 0, 0, 0 }, 0);
+    @Override
+    public final void preInit() {
 
-		helmetModular = new RFModularArmour(materialModular, 0).setUnlocalizedName("chbachman.armour.helmetModular").setTextureName(Reference.ITEM_LOCATION + "ModularHelmet");
-		chestplateModular = new RFModularArmour(materialModular, 1).setUnlocalizedName("chbachman.armour.chestplateModular").setTextureName(Reference.ITEM_LOCATION + "ModularChestplate");
-		leggingsModular = new RFModularArmour(materialModular, 2).setUnlocalizedName("chbachman.armour.leggingsModular").setTextureName(Reference.ITEM_LOCATION + "ModularLegs");
-		bootsModular = new RFModularArmour(materialModular, 3).setUnlocalizedName("chbachman.armour.bootsModular").setTextureName(Reference.ITEM_LOCATION + "ModularBoots");
+        material = (ItemBase) new ItemBase("modulararmour").setUnlocalizedName("material").setCreativeTab(ModularArmour.creativeTab);
 
-		GameRegistry.registerItem(helmetModular, "helmetModular");
-		GameRegistry.registerItem(chestplateModular, "chestplateModular");
-		GameRegistry.registerItem(leggingsModular, "leggingsModular");
-		GameRegistry.registerItem(bootsModular, "bootsModular");
-		
-		UpgradeRegistry.registerListener(new FieldList());
+        tablet = (ItemBase) new ItemTablet().setUnlocalizedName("tablet").setCreativeTab(ModularArmour.creativeTab);
 
-	}
+        materialModular = EnumHelper.addArmorMaterial("", 25, new int[] { 0, 0, 0, 0 }, 0);
 
-	@Override
-	public final void registerUpgrades(){
-		calfShields = new UpgradeBasic("calfShields").setArmourSlot(ArmourSlot.LEGS);
-		hoverJetpack = new UpgradeHoverJetpack();
-		basePotion = new UpgradeBasic("potion");
-		fallDamage = new UpgradeFallDamage();
-		speed = new UpgradeSpeed();
-		stepAssist = new UpgradeStepAssist();
-		autoFeeder = new UpgradeAutoFeeder();
-		jumpBoost = new UpgradeJumpBoost();
-		electrolyzer = new UpgradeElectrolyzer();
-		nightVision = new UpgradePotion("nightVision", Potion.nightVision, 1, 10, 250);
-		invisibility = new UpgradePotion("invisibility", Potion.invisibility, 10, 500);
-		magnet = new UpgradeMagnet();
+        helmetModular = new RFModularArmour(materialModular, 0).setUnlocalizedName("chbachman.armour.helmetModular").setTextureName(Reference.ITEM_LOCATION + "ModularHelmet");
+        chestplateModular = new RFModularArmour(materialModular, 1).setUnlocalizedName("chbachman.armour.chestplateModular").setTextureName(Reference.ITEM_LOCATION + "ModularChestplate");
+        leggingsModular = new RFModularArmour(materialModular, 2).setUnlocalizedName("chbachman.armour.leggingsModular").setTextureName(Reference.ITEM_LOCATION + "ModularLegs");
+        bootsModular = new RFModularArmour(materialModular, 3).setUnlocalizedName("chbachman.armour.bootsModular").setTextureName(Reference.ITEM_LOCATION + "ModularBoots");
 
-		leadstoneEnergy = new UpgradeEnergy("leadstone", 800, 400000);
-		hardenedEnergy = new UpgradeEnergy("hardened", 4000, 2000000).setDependencies(leadstoneEnergy);
-		reinforcedEnergy = new UpgradeEnergy("reinforced", 20000, 10000000).setDependencies(hardenedEnergy);
-		resonantEnergy = new UpgradeEnergy("resonant", 100000, 50000000).setDependencies(reinforcedEnergy);
+        GameRegistry.registerItem(helmetModular, "helmetModular");
+        GameRegistry.registerItem(chestplateModular, "chestplateModular");
+        GameRegistry.registerItem(leggingsModular, "leggingsModular");
+        GameRegistry.registerItem(bootsModular, "bootsModular");
 
-		decorative = new UpgradeDecorative("thomazm").setTextureName("Thomaz");
-		invisible = new UpgradeDecorative("sb").setTextureName("Shad0wB1ade");
-		model = new UpgradeModel();
+        UpgradeRegistry.registerListener(new FieldList());
 
-		undeadProtection = new UpgradeUndead();
-		arthropodProtection = new UpgradeArthropod();
-		fireProtection = new UpgradeFire();
-		explosionProtection = new UpgradeExplosion();
-		unblockableProtection = new UpgradeUnblockable();
-		magicalProtection = new UpgradeMagic();
-		witherProtection = new UpgradeWither();
-		lavaProtection = new UpgradeLava();
-		playerProtection = new UpgradePlayerProtection();
-		projectileProtection = new UpgradeProjectileProtection();
-		generalProtection = new UpgradeGeneralProtection();
+    }
 
-		solar = new UpgradeSolar("solar", 1);
-	}
+    @Override
+    public final void registerUpgrades() {
+        calfShields = new UpgradeBasic("calfShields").setArmourSlot(ArmourSlot.LEGS);
+        hoverJetpack = new UpgradeHoverJetpack();
+        basePotion = new UpgradeBasic("potion");
+        fallDamage = new UpgradeFallDamage();
+        speed = new UpgradeSpeed();
+        stepAssist = new UpgradeStepAssist();
+        autoFeeder = new UpgradeAutoFeeder();
+        jumpBoost = new UpgradeJumpBoost();
+        electrolyzer = new UpgradeElectrolyzer();
+        nightVision = new UpgradePotion("nightVision", Potion.nightVision, 1, 10, 250);
+        invisibility = new UpgradePotion("invisibility", Potion.invisibility, 10, 500);
+        magnet = new UpgradeMagnet();
 
-	@Override
-	public final void init(){
+        leadstoneEnergy = new UpgradeEnergy("leadstone", 800, 400000);
+        hardenedEnergy = new UpgradeEnergy("hardened", 4000, 2000000).setDependencies(leadstoneEnergy);
+        reinforcedEnergy = new UpgradeEnergy("reinforced", 20000, 10000000).setDependencies(hardenedEnergy);
+        resonantEnergy = new UpgradeEnergy("resonant", 100000, 50000000).setDependencies(reinforcedEnergy);
 
-		heatedElectrum = material.addOreDictItem(1, "heatedElectrum", 1);
-		temperedElectrum = material.addOreDictItem(0, "temperedElectrum", 1);
-		
-		defaultTablet = tablet.addItem(0, "tablet");
+        decorative = new UpgradeDecorative("thomazm").setTextureName("Thomaz");
+        invisible = new UpgradeDecorative("sb").setTextureName("Shad0wB1ade");
+        model = new UpgradeModel();
 
-		stackHelmetModular = NBTHelper.createDefaultStackTag(new ItemStack(helmetModular));
-		stackChestplateModular = NBTHelper.createDefaultStackTag(new ItemStack(chestplateModular));
-		stackLeggingsModular = NBTHelper.createDefaultStackTag(new ItemStack(leggingsModular));
-		stackBootsModular = NBTHelper.createDefaultStackTag(new ItemStack(bootsModular));
+        undeadProtection = new UpgradeUndead();
+        arthropodProtection = new UpgradeArthropod();
+        fireProtection = new UpgradeFire();
+        explosionProtection = new UpgradeExplosion();
+        unblockableProtection = new UpgradeUnblockable();
+        magicalProtection = new UpgradeMagic();
+        witherProtection = new UpgradeWither();
+        lavaProtection = new UpgradeLava();
+        playerProtection = new UpgradePlayerProtection();
+        projectileProtection = new UpgradeProjectileProtection();
+        generalProtection = new UpgradeGeneralProtection();
 
-		ModularItemRegistry.registerItem((IModularItem) helmetModular);
-		ModularItemRegistry.registerItem((IModularItem) chestplateModular);
-		ModularItemRegistry.registerItem((IModularItem) leggingsModular);
-		ModularItemRegistry.registerItem((IModularItem) bootsModular);
+        solar = new UpgradeSolar("solar", 1);
+    }
 
-		if (Loader.isModLoaded("ThermalFoundation")){
-			ThermalExpansionHelper.addTransposerFill(4000, GameRegistry.findItemStack("ThermalFoundation", "ingotElectrum", 1), heatedElectrum, new FluidStack(FluidRegistry.getFluid("pyrotheum"), 500), false);
-			ThermalExpansionHelper.addTransposerFill(4000, heatedElectrum, temperedElectrum, new FluidStack(FluidRegistry.getFluid("cryotheum"), 500), false);
-		}
-	}
+    @Override
+    public final void init() {
 
-	@Override
-	public void registerUpgradeRecipes(){
-	    
-		UpgradeRegistry.registerRecipe(new Recipe(generalProtection, 		"i i", "iii", "iii", 'i', "ingotIron"			));
-		UpgradeRegistry.registerRecipe(new Recipe(calfShields, 				"i i", "i i", "i i", 'i', "ingotIron"			));
-		UpgradeRegistry.registerRecipe(new Recipe(decorative, 				"w w", "www", "www", 'w', Blocks.wool			));
-		UpgradeRegistry.registerRecipe(new Recipe(invisible, 				"g g", "ggg", "ggg", 'g', Blocks.glass			));
-		UpgradeRegistry.registerRecipe(new Recipe(undeadProtection, 		"zzz", "zzz", "zzz", 'z', Items.rotten_flesh	));
-		UpgradeRegistry.registerRecipe(new Recipe(unblockableProtection, 	"d d", "ddd", "ddd", 'd', Items.diamond			));
-		UpgradeRegistry.registerRecipe(new Recipe(model,                    "isi", "isi", "isi", 'i', "ingotIron",          's', Items.slime_ball   ));
-		UpgradeRegistry.registerRecipe(new Recipe(autoFeeder, 				"igi", "igi", "iii", 'i', "ingotIron", 			'g', Items.golden_apple	));
-		UpgradeRegistry.registerRecipe(new Recipe(speed, 					"pip", "i i", "i i", 'i', "ingotIron", 			'p', Blocks.piston		));
-		UpgradeRegistry.registerRecipe(new Recipe(stepAssist, 				"pip", "i i", "   ", 'i', "ingotIron", 			'p', Blocks.piston		));
-		UpgradeRegistry.registerRecipe(new Recipe(jumpBoost, 				"i i", "i i", "p p", 'i', "ingotIron", 			'p', Blocks.piston		));
-		UpgradeRegistry.registerRecipe(new Recipe(electrolyzer, 			"iii", "g g", "iii", 'i', "ingotIron", 			'g', "blockGlass"		));
-		UpgradeRegistry.registerRecipe(new Recipe(magnet, 					"g g", "i i", " i ", 'i', "ingotIron", 			'g', "ingotGold"		));
-		UpgradeRegistry.registerRecipe(new Recipe(magicalProtection, 		"gig", "igi", "gig", 'i', "ingotIron", 			'g', "ingotGold"		));
-		UpgradeRegistry.registerRecipe(new Recipe(fallDamage, 				"   ", "   ", "iwi", 'w', Blocks.wool, 			'i', "ingotIron"		));
-		UpgradeRegistry.registerRecipe(new Recipe(arthropodProtection, 		"sps", "psp", "sps", 's', Items.string, 		'p', Items.spider_eye	));
-		UpgradeRegistry.registerRecipe(new Recipe(fireProtection, 			"lgl", "lgl", "lgl", 'l', Items.leather, 		'g', Items.gold_ingot	));
-		UpgradeRegistry.registerRecipe(new Recipe(lavaProtection, 			"oio", "ooo", "oio", 'o', Blocks.obsidian, 		'i', "ingotIron"		));
-		UpgradeRegistry.registerRecipe(new Recipe(explosionProtection, 		"tit", "iti", "tit", 't', Blocks.tnt, 			'i', "ingotIron"		));
-		UpgradeRegistry.registerRecipe(new Recipe(projectileProtection, 	"afa", "faf", "afa", 'f', Items.fire_charge, 	'a', Items.arrow		));
-		UpgradeRegistry.registerRecipe(new Recipe(solar, 					"ggg", "ici", "iii", 'i', "ingotIron", 			'g', "blockGlass", 			'c', Items.coal		));
-		UpgradeRegistry.registerRecipe(new Recipe(playerProtection, 		"cih", "iii", "iii", 'i', "ingotIron", 			'c', Blocks.crafting_table, 'h', Blocks.chest	));
-		UpgradeRegistry.registerRecipe(new Recipe(witherProtection, 		"cic", "cwc", "cic", 'i', "ingotIron", 			'w', Items.skull, 			'c', Items.coal		));
-		UpgradeRegistry.registerRecipe(new Recipe(leadstoneEnergy, 			"iri", "rbr", "iri", 'i', "ingotIron", 			'r', "dustRedstone", 		'b', "blockIron"	));
-		UpgradeRegistry.registerRecipe(new Recipe(hardenedEnergy, 			"lrl", "rbr", "lrl", 'l', "gemLapis", 			'r', "dustRedstone", 		'b', "blockLapis"	));
-		UpgradeRegistry.registerRecipe(new Recipe(reinforcedEnergy, 		"grg", "rbr", "grg", 'g', "ingotGold", 			'r', "dustRedstone", 		'b', "blockGold"	));
-		UpgradeRegistry.registerRecipe(new Recipe(resonantEnergy, 			"drd", "rbr", "drd", 'd', "gemDiamond", 		'r', "dustRedstone", 		'b', "blockDiamond"	));
-		UpgradeRegistry.registerRecipe(new Recipe(hoverJetpack, 			"igi", "ini", "r r", 'i', "ingotIron", 			'g', "ingotGold", 			'r', "dustRedstone", 	'n', Items.nether_star	));
-		UpgradeRegistry.registerRecipe(new Recipe(basePotion, 				"iri", "gwg", "igi", 'i', "ingotIron", 			'g', "blockGlass", 			'r', "dustRedstone", 	'w', Items.water_bucket	));
-		UpgradeRegistry.registerRecipe(new Recipe(nightVision, 				"gig", "bpb", "gig", 'g', "ingotGold", 			'b', "blockGlass", 			'i', "ingotIron", 		'p', Items.golden_carrot));
-		UpgradeRegistry.registerRecipe(new Recipe(invisibility, 			"gig", "bpb", "gig", 'g', "ingotGold", 			'b', "blockGlass", 			'i', "ingotIron", 		'p', Items.fermented_spider_eye	));
-		
-	}
+        heatedElectrum = material.addOreDictItem(1, "heatedElectrum", 1);
+        temperedElectrum = material.addOreDictItem(0, "temperedElectrum", 1);
 
-	@Override
-	public final void postInit(){
+        defaultTablet = tablet.addItem(0, "tablet");
 
-		if (!Loader.isModLoaded("ThermalExpansion")){
-			if (ItemHelper.oreNameExists("ingotElectrum")){
-				for (ItemStack stack : OreDictionary.getOres("ingotElectrum")){
-					GameRegistry.addSmelting(stack, heatedElectrum, 0.0F);
-				}
-			}else{
-				for (ItemStack stack : OreDictionary.getOres("ingotGold")){
-					GameRegistry.addSmelting(stack, heatedElectrum, 0.0F);
-				}
-			}
+        stackHelmetModular = NBTHelper.createDefaultStackTag(new ItemStack(helmetModular));
+        stackChestplateModular = NBTHelper.createDefaultStackTag(new ItemStack(chestplateModular));
+        stackLeggingsModular = NBTHelper.createDefaultStackTag(new ItemStack(leggingsModular));
+        stackBootsModular = NBTHelper.createDefaultStackTag(new ItemStack(bootsModular));
 
-			GameRegistry.addRecipe(new ShapelessOreRecipe(temperedElectrum, Items.water_bucket, "heatedElectrum"));
-		}
+        ModularItemRegistry.registerItem((IModularItem) helmetModular);
+        ModularItemRegistry.registerItem((IModularItem) chestplateModular);
+        ModularItemRegistry.registerItem((IModularItem) leggingsModular);
+        ModularItemRegistry.registerItem((IModularItem) bootsModular);
 
-		GameRegistry.addRecipe(new ShapedOreRecipe(stackHelmetModular, new Object[] { "III", "I I", 'I', temperedElectrum }));
-		GameRegistry.addRecipe(new ShapedOreRecipe(stackChestplateModular, new Object[] { "I I", "III", "III", 'I', temperedElectrum }));
-		GameRegistry.addRecipe(new ShapedOreRecipe(stackLeggingsModular, new Object[] { "III", "I I", "I I", 'I', temperedElectrum }));
-		GameRegistry.addRecipe(new ShapedOreRecipe(stackBootsModular, new Object[] { "I I", "I I", 'I', temperedElectrum }));
+        if (Loader.isModLoaded("ThermalFoundation")) {
+            ThermalExpansionHelper.addTransposerFill(4000, GameRegistry.findItemStack("ThermalFoundation", "ingotElectrum", 1), heatedElectrum, new FluidStack(FluidRegistry.getFluid("pyrotheum"), 500), false);
+            ThermalExpansionHelper.addTransposerFill(4000, heatedElectrum, temperedElectrum, new FluidStack(FluidRegistry.getFluid("cryotheum"), 500), false);
+        }
+    }
 
-		registerAdminArmourPiece("modularHelmetUpgraded", Vanilla.stackHelmetModular.copy());
-		registerAdminArmourPiece("modularChestplateUpgraded", Vanilla.stackChestplateModular.copy());
-		registerAdminArmourPiece("modularLeggingsUpgraded", Vanilla.stackLeggingsModular.copy());
-		registerAdminArmourPiece("modularBootsUpgraded", Vanilla.stackBootsModular.copy());
+    @Override
+    public void registerUpgradeRecipes() {
 
-	}
-	
-	private final void registerAdminArmourPiece(String name, ItemStack armour){
-		ArrayList<IUpgrade> toAdd = new ArrayList<IUpgrade>();
-		
-		for(IUpgrade upgrade: UpgradeRegistry.getUpgradeList()){ //Populate the inital list, add all first level upgrades.
-			if(!UpgradeHandler.addUpgradeChecked(armour, upgrade)){
-				toAdd.add(upgrade);
-			}
-		}
-		
-		int prevSize = 0;
-		int currSize = toAdd.size();
-		
-		while(prevSize != currSize && currSize != 0){
-			Iterator<IUpgrade> iterator = toAdd.iterator();
-			
-			while(iterator.hasNext()){
-				IUpgrade next = iterator.next();
-				
-				if(UpgradeHandler.addUpgradeChecked(armour, next)){
-					iterator.remove();
-				}
-			}
-			
-			prevSize = currSize;
-			currSize = toAdd.size();
-		}
-		
-		armour.stackTagCompound.setInteger("Energy", EnergyUtil.getItem(armour).getMaxEnergyStored(armour));
-		
-		GameRegistry.registerCustomItemStack(name, ModularArmour.creativeTab.registerItemStack(armour));
-	}
+        UpgradeRegistry.registerRecipe(new Recipe(generalProtection, "i i", "iii", "iii", 'i', "ingotIron"));
+        UpgradeRegistry.registerRecipe(new Recipe(calfShields, "i i", "i i", "i i", 'i', "ingotIron"));
+        UpgradeRegistry.registerRecipe(new Recipe(decorative, "w w", "www", "www", 'w', Blocks.wool));
+        UpgradeRegistry.registerRecipe(new Recipe(invisible, "g g", "ggg", "ggg", 'g', Blocks.glass));
+        UpgradeRegistry.registerRecipe(new Recipe(undeadProtection, "zzz", "zzz", "zzz", 'z', Items.rotten_flesh));
+        UpgradeRegistry.registerRecipe(new Recipe(unblockableProtection, "d d", "ddd", "ddd", 'd', Items.diamond));
+        UpgradeRegistry.registerRecipe(new Recipe(model, "isi", "isi", "isi", 'i', "ingotIron", 's', Items.slime_ball));
+        UpgradeRegistry.registerRecipe(new Recipe(autoFeeder, "igi", "igi", "iii", 'i', "ingotIron", 'g', Items.golden_apple));
+        UpgradeRegistry.registerRecipe(new Recipe(speed, "pip", "i i", "i i", 'i', "ingotIron", 'p', Blocks.piston));
+        UpgradeRegistry.registerRecipe(new Recipe(stepAssist, "pip", "i i", "   ", 'i', "ingotIron", 'p', Blocks.piston));
+        UpgradeRegistry.registerRecipe(new Recipe(jumpBoost, "i i", "i i", "p p", 'i', "ingotIron", 'p', Blocks.piston));
+        UpgradeRegistry.registerRecipe(new Recipe(electrolyzer, "iii", "g g", "iii", 'i', "ingotIron", 'g', "blockGlass"));
+        UpgradeRegistry.registerRecipe(new Recipe(magnet, "g g", "i i", " i ", 'i', "ingotIron", 'g', "ingotGold"));
+        UpgradeRegistry.registerRecipe(new Recipe(magicalProtection, "gig", "igi", "gig", 'i', "ingotIron", 'g', "ingotGold"));
+        UpgradeRegistry.registerRecipe(new Recipe(fallDamage, "   ", "   ", "iwi", 'w', Blocks.wool, 'i', "ingotIron"));
+        UpgradeRegistry.registerRecipe(new Recipe(arthropodProtection, "sps", "psp", "sps", 's', Items.string, 'p', Items.spider_eye));
+        UpgradeRegistry.registerRecipe(new Recipe(fireProtection, "lgl", "lgl", "lgl", 'l', Items.leather, 'g', Items.gold_ingot));
+        UpgradeRegistry.registerRecipe(new Recipe(lavaProtection, "oio", "ooo", "oio", 'o', Blocks.obsidian, 'i', "ingotIron"));
+        UpgradeRegistry.registerRecipe(new Recipe(explosionProtection, "tit", "iti", "tit", 't', Blocks.tnt, 'i', "ingotIron"));
+        UpgradeRegistry.registerRecipe(new Recipe(projectileProtection, "afa", "faf", "afa", 'f', Items.fire_charge, 'a', Items.arrow));
+        UpgradeRegistry.registerRecipe(new Recipe(solar, "ggg", "ici", "iii", 'i', "ingotIron", 'g', "blockGlass", 'c', Items.coal));
+        UpgradeRegistry.registerRecipe(new Recipe(playerProtection, "cih", "iii", "iii", 'i', "ingotIron", 'c', Blocks.crafting_table, 'h', Blocks.chest));
+        UpgradeRegistry.registerRecipe(new Recipe(witherProtection, "cic", "cwc", "cic", 'i', "ingotIron", 'w', Items.skull, 'c', Items.coal));
+        UpgradeRegistry.registerRecipe(new Recipe(leadstoneEnergy, "iri", "rbr", "iri", 'i', "ingotIron", 'r', "dustRedstone", 'b', "blockIron"));
+        UpgradeRegistry.registerRecipe(new Recipe(hardenedEnergy, "lrl", "rbr", "lrl", 'l', "gemLapis", 'r', "dustRedstone", 'b', "blockLapis"));
+        UpgradeRegistry.registerRecipe(new Recipe(reinforcedEnergy, "grg", "rbr", "grg", 'g', "ingotGold", 'r', "dustRedstone", 'b', "blockGold"));
+        UpgradeRegistry.registerRecipe(new Recipe(resonantEnergy, "drd", "rbr", "drd", 'd', "gemDiamond", 'r', "dustRedstone", 'b', "blockDiamond"));
+        UpgradeRegistry.registerRecipe(new Recipe(hoverJetpack, "igi", "ini", "r r", 'i', "ingotIron", 'g', "ingotGold", 'r', "dustRedstone", 'n', Items.nether_star));
+        UpgradeRegistry.registerRecipe(new Recipe(basePotion, "iri", "gwg", "igi", 'i', "ingotIron", 'g', "blockGlass", 'r', "dustRedstone", 'w', Items.water_bucket));
+        UpgradeRegistry.registerRecipe(new Recipe(nightVision, "gig", "bpb", "gig", 'g', "ingotGold", 'b', "blockGlass", 'i', "ingotIron", 'p', Items.golden_carrot));
+        UpgradeRegistry.registerRecipe(new Recipe(invisibility, "gig", "bpb", "gig", 'g', "ingotGold", 'b', "blockGlass", 'i', "ingotIron", 'p', Items.fermented_spider_eye));
+
+    }
+
+    @Override
+    public final void postInit() {
+
+        if (!Loader.isModLoaded("ThermalExpansion")) {
+            if (ItemHelper.oreNameExists("ingotElectrum")) {
+                for (ItemStack stack : OreDictionary.getOres("ingotElectrum")) {
+                    GameRegistry.addSmelting(stack, heatedElectrum, 0.0F);
+                }
+            } else {
+                for (ItemStack stack : OreDictionary.getOres("ingotGold")) {
+                    GameRegistry.addSmelting(stack, heatedElectrum, 0.0F);
+                }
+            }
+
+            GameRegistry.addRecipe(new ShapelessOreRecipe(temperedElectrum, Items.water_bucket, "heatedElectrum"));
+        }
+
+        GameRegistry.addRecipe(new ShapedOreRecipe(stackHelmetModular, new Object[] { "III", "I I", 'I', temperedElectrum }));
+        GameRegistry.addRecipe(new ShapedOreRecipe(stackChestplateModular, new Object[] { "I I", "III", "III", 'I', temperedElectrum }));
+        GameRegistry.addRecipe(new ShapedOreRecipe(stackLeggingsModular, new Object[] { "III", "I I", "I I", 'I', temperedElectrum }));
+        GameRegistry.addRecipe(new ShapedOreRecipe(stackBootsModular, new Object[] { "I I", "I I", 'I', temperedElectrum }));
+
+        registerAdminArmourPiece("modularHelmetUpgraded", Vanilla.stackHelmetModular.copy());
+        registerAdminArmourPiece("modularChestplateUpgraded", Vanilla.stackChestplateModular.copy());
+        registerAdminArmourPiece("modularLeggingsUpgraded", Vanilla.stackLeggingsModular.copy());
+        registerAdminArmourPiece("modularBootsUpgraded", Vanilla.stackBootsModular.copy());
+
+    }
+
+    private final void registerAdminArmourPiece(String name, ItemStack armour) {
+        ArrayList<IUpgrade> toAdd = new ArrayList<IUpgrade>();
+
+        for (IUpgrade upgrade : UpgradeRegistry.getUpgradeList()) { // Populate
+                                                                    // the
+                                                                    // inital
+                                                                    // list, add
+                                                                    // all first
+                                                                    // level
+                                                                    // upgrades.
+            if (!UpgradeHandler.addUpgradeChecked(armour, upgrade)) {
+                toAdd.add(upgrade);
+            }
+        }
+
+        int prevSize = 0;
+        int currSize = toAdd.size();
+
+        while (prevSize != currSize && currSize != 0) {
+            Iterator<IUpgrade> iterator = toAdd.iterator();
+
+            while (iterator.hasNext()) {
+                IUpgrade next = iterator.next();
+
+                if (UpgradeHandler.addUpgradeChecked(armour, next)) {
+                    iterator.remove();
+                }
+            }
+
+            prevSize = currSize;
+            currSize = toAdd.size();
+        }
+
+        armour.stackTagCompound.setInteger("Energy", EnergyUtil.getItem(armour).getMaxEnergyStored(armour));
+
+        GameRegistry.registerCustomItemStack(name, ModularArmour.creativeTab.registerItemStack(armour));
+    }
 
 }

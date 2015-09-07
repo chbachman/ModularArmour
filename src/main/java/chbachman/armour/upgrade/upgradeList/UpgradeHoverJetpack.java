@@ -19,82 +19,82 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class UpgradeHoverJetpack extends Upgrade {
-    
+
     public UpgradeHoverJetpack() {
-    	super("jetpack");
+        super("jetpack");
     }
 
     private int cost;
-    
+
     @Override
-    public void registerConfigOptions(){
-    	cost = ConfigHelper.get(ConfigHelper.SPEED, this, "cost to fly each tick", 500);
+    public void registerConfigOptions() {
+        cost = ConfigHelper.get(ConfigHelper.SPEED, this, "cost to fly each tick", 500);
     }
 
     @Override
     public boolean isCompatible(IModularItem item, ItemStack stack, int armourType) {
         return armourType == ArmourSlot.CHESTPLATE.id;
     }
-    
+
     @Override
     public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
-        
-    	if(EnergyUtil.getEnergyStored(stack) != 0){
-    		setFlying(player, true, world);
-    	}else if(EnergyUtil.getEnergyStored(stack) == 0){
-    		setFlying(player, false, world);
-    	}
-    	
+
+        if (EnergyUtil.getEnergyStored(stack) != 0) {
+            setFlying(player, true, world);
+        } else if (EnergyUtil.getEnergyStored(stack) == 0) {
+            setFlying(player, false, world);
+        }
+
         if (!UpgradeUtil.doesPlayerHaveUpgrade(player, Vanilla.calfShields) && player.capabilities.isFlying) {
             player.attackEntityFrom(DamageSource.onFire, 4F);
         }
-        
+
         if (player.capabilities.isFlying) {
             return cost;
         } else {
             return 0;
         }
     }
-    
+
     @Override
     public void onDequip(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
         setFlying(player, false, world);
     }
-    
+
     @Override
     @SideOnly(Side.CLIENT)
     public ModelBiped getArmourModel(EntityLivingBase entityLiving, ItemStack stack, int armourSlot) {
-        
-        if(NBTHelper.getNBTUpgradeList(stack).contains(Vanilla.model)){
+
+        if (NBTHelper.getNBTUpgradeList(stack).contains(Vanilla.model)) {
             return new JetpackModel();
         }
-        
+
         return null;
-        
+
     }
-    
-    private void setFlying(EntityPlayer player, boolean bool, World world){
-    	//if(!world.isRemote){
-    	//	return;
-    	//}
-    	
-    	if(bool){
-    		if(player.capabilities.allowFlying == true){
-    			return;
-    		}
-    		
-    		player.capabilities.allowFlying = true;
+
+    private void setFlying(EntityPlayer player, boolean bool, World world) {
+        // if(!world.isRemote){
+        // return;
+        // }
+
+        if (bool) {
+            if (player.capabilities.allowFlying == true) {
+                return;
+            }
+
+            player.capabilities.allowFlying = true;
             player.sendPlayerAbilities();
-    	}else{
-    		
-    		if(player.capabilities.allowFlying == false){
-    			return;
-    		}
-    		
-    		player.capabilities.allowFlying = false;
+        } else {
+
+            if (player.capabilities.allowFlying == false) {
+                return;
+            }
+
+            player.capabilities.allowFlying = false;
             player.capabilities.isFlying = false;
             player.sendPlayerAbilities();
-    	}
+        }
     }
-    
+
 }

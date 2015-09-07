@@ -13,36 +13,36 @@ import chbachman.armour.util.EnergyUtil;
 
 public class UpgradePotion extends Upgrade {
 
-	public final PotionEffect effect;
-	public final int energyCost;
-	
-	public UpgradePotion(String name, Potion effect, int level, int energyCost) {
-		super(name);
-		this.effect = new PotionEffect(effect.id, level, 0, true);
-		this.energyCost = energyCost;
-	}
-	
-	public UpgradePotion(String name, Potion effect, int level, int duration, int energyCost){
-		super(name);
-		this.effect = new PotionEffect(effect.id, level, duration, true);
-		this.energyCost = energyCost;
-	}
-	
-	@Override
-	public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot){
-		
-		if(EnergyUtil.isEmpty(stack)){
-			return 0;
-		}
-		
-		player.addPotionEffect(new PotionEffect(effect));
-		return energyCost;
+    public final PotionEffect effect;
+    public final int energyCost;
+
+    public UpgradePotion(String name, Potion effect, int level, int energyCost) {
+        super(name);
+        this.effect = new PotionEffect(effect.id, level, 0, true);
+        this.energyCost = energyCost;
     }
-	
-	@Override
-	public IUpgrade[] getDependencies() {
-		
-        return new IUpgrade[]{Vanilla.basePotion};
+
+    public UpgradePotion(String name, Potion effect, int level, int duration, int energyCost) {
+        super(name);
+        this.effect = new PotionEffect(effect.id, level, duration, true);
+        this.energyCost = energyCost;
+    }
+
+    @Override
+    public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
+
+        if (EnergyUtil.isEmpty(stack)) {
+            return 0;
+        }
+
+        player.addPotionEffect(new PotionEffect(effect));
+        return energyCost;
+    }
+
+    @Override
+    public IUpgrade[] getDependencies() {
+
+        return new IUpgrade[] { Vanilla.basePotion };
     }
 
 }

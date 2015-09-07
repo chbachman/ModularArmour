@@ -87,22 +87,22 @@ public class InventoryUtil {
 
         return null;
     }
-    
-    public static ItemStack[] getArmour(EntityPlayer player){
-        
-        if(Loader.isModLoaded("Baubles")){
+
+    public static ItemStack[] getArmour(EntityPlayer player) {
+
+        if (Loader.isModLoaded("Baubles")) {
             return BaublesUtil.getArmour(player);
         }
-        
+
         ItemStack[] armour = new ItemStack[7];
-        
-        for(int i = 0; i < player.inventory.armorInventory.length; i++){
+
+        for (int i = 0; i < player.inventory.armorInventory.length; i++) {
             armour[i] = player.inventory.armorInventory[i];
         }
-        
+
         return armour;
     }
-    
+
     public static boolean itemMatches(ItemStack target, ItemStack input, boolean strict) {
         if (input == null && target != null || input != null && target == null) {
             return false;

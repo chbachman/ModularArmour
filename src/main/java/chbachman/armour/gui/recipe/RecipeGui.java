@@ -26,168 +26,169 @@ import com.badlogic.gdx.utils.IntArray;
 
 public class RecipeGui extends GuiBaseAdv {
 
-	private static final ResourceLocation TEXTURE = new ResourceLocation(Reference.TEXTURE_LOCATION + "/gui/recipeGui.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(Reference.TEXTURE_LOCATION + "/gui/recipeGui.png");
 
-	public RecipeContainer container;
+    public RecipeContainer container;
 
-	public ElementButton rightArrow;
-	public ElementButton leftArrow;
-	public ElementButton upgrade;
-	public ElementTextField field;
-	
-	public TabCompatible compatible;
-	public TabRecipeList list;
+    public ElementButton rightArrow;
+    public ElementButton leftArrow;
+    public ElementButton upgrade;
+    public ElementTextField field;
 
-	public int index = 0;
+    public TabCompatible compatible;
+    public TabRecipeList list;
 
-	public static final ImmutableArray<Recipe> recipes = UpgradeRegistry.getRecipeList();
+    public int index = 0;
 
-	public IntArray indicies = new IntArray();
+    public static final ImmutableArray<Recipe> recipes = UpgradeRegistry.getRecipeList();
 
-	public RecipeGui(RecipeContainer container, InventoryPlayer inventory) {
-		super(container, TEXTURE);
+    public IntArray indicies = new IntArray();
 
-		this.container = container;
+    public RecipeGui(RecipeContainer container, InventoryPlayer inventory) {
+        super(container, TEXTURE);
 
-		this.texture = TEXTURE;
-		this.drawTitle = false;
-		this.drawInventory = false;
-		this.xSize = 176;
-		this.ySize = 172;
+        this.container = container;
 
-		this.leftArrow = new ElementButton(this, 5, 25, "Go Back", 227, 12,227, 12, 227, 12, 7, 7, TEXTURE.toString());
-		this.rightArrow = new ElementButton(this, 164, 25, "Next", 235, 12, 235, 12, 235, 12, 7, 7, TEXTURE.toString());
+        this.texture = TEXTURE;
+        this.drawTitle = false;
+        this.drawInventory = false;
+        this.xSize = 176;
+        this.ySize = 172;
 
-		this.upgrade = new ElementButton(this, 71, 38, "Upgrade", 71, 38, 71, 38, 16, 16, TEXTURE.toString());
-		this.upgrade.setToolTip("Add Upgrade?");
+        this.leftArrow = new ElementButton(this, 5, 25, "Go Back", 227, 12, 227, 12, 227, 12, 7, 7, TEXTURE.toString());
+        this.rightArrow = new ElementButton(this, 164, 25, "Next", 235, 12, 235, 12, 235, 12, 7, 7, TEXTURE.toString());
 
-		this.field = new ElementTextField(this, 7, 6, 162, 11){
-		    
-		    @Override
-	        protected void onCharacterEntered(boolean success) {
-	            if (success) {
-	                handleTyping(this.getText());
-	            }
-	        }
-		};
-		
-		field.setBackgroundColor(0xFF000000, 0xFF000000, 0xFF000000);
+        this.upgrade = new ElementButton(this, 71, 38, "Upgrade", 71, 38, 71, 38, 16, 16, TEXTURE.toString());
+        this.upgrade.setToolTip("Add Upgrade?");
 
-		this.list = new TabRecipeList(this, indicies) {
+        this.field = new ElementTextField(this, 7, 6, 162, 11) {
 
-			@Override
-			public void onUpgradeSelected(IUpgrade upgrade, int index) {
-				RecipeGui.this.index = index;
-				syncAndWrapIndex();
-			}
+            @Override
+            protected void onCharacterEntered(boolean success) {
+                if (success) {
+                    handleTyping(this.getText());
+                }
+            }
+        };
 
-		};
+        field.setBackgroundColor(0xFF000000, 0xFF000000, 0xFF000000);
 
-		this.compatible = new TabCompatible(this, this.container);
+        this.list = new TabRecipeList(this, indicies) {
 
-		this.rightArrow.setToolTip("Next");
-		this.leftArrow.setToolTip("Back");
-	}
+            @Override
+            public void onUpgradeSelected(IUpgrade upgrade, int index) {
+                RecipeGui.this.index = index;
+                syncAndWrapIndex();
+            }
 
-	@Override
-	public void initGui() {
-		super.initGui();
+        };
 
-		this.addTab(this.compatible);
-		this.addTab(this.list);
-		
-		this.addElement(this.leftArrow);
-		this.addElement(this.rightArrow);
-		this.addElement(this.upgrade);
-		this.addElement(this.field);
-		
-		//this.addElement(new ElementItem(this, 180, 60).setItem(Vanilla.bootsModular));
+        this.compatible = new TabCompatible(this, this.container);
 
-		handleTyping("");
+        this.rightArrow.setToolTip("Next");
+        this.leftArrow.setToolTip("Back");
+    }
 
-		//this.compatible.displaySlots(false);
-	}
+    @Override
+    public void initGui() {
+        super.initGui();
 
-	@Override
-	protected void drawGuiContainerBackgroundLayer(float partialTick, int x, int y) {
-		super.drawGuiContainerBackgroundLayer(partialTick, x, y);
+        this.addTab(this.compatible);
+        this.addTab(this.list);
 
-		if (this.container.recipe != null) {
+        this.addElement(this.leftArrow);
+        this.addElement(this.rightArrow);
+        this.addElement(this.upgrade);
+        this.addElement(this.field);
 
-			IUpgrade upgrade = this.container.recipe.getRecipeOutput();
+        // this.addElement(new ElementItem(this, 180,
+        // 60).setItem(Vanilla.bootsModular));
 
-			GuiHelper.drawStringBounded(this, StringHelper.localize(upgrade.getName()), 70, this.guiLeft + 100, this.guiTop + 38, 0xFFFFFF);
+        handleTyping("");
 
-			GuiHelper.drawStringBounded(this, StringHelper.localize(upgrade.getInformation()), 159, this.guiLeft + 11, this.guiTop + 100, 0xFFFFFF);
-		}
-	}
+        // this.compatible.displaySlots(false);
+    }
 
-	public void handleTyping(String text) {
-		indicies.clear();
+    @Override
+    protected void drawGuiContainerBackgroundLayer(float partialTick, int x, int y) {
+        super.drawGuiContainerBackgroundLayer(partialTick, x, y);
 
-		if (text.isEmpty()) {
+        if (this.container.recipe != null) {
 
-			for (int i = 0; i < recipes.size(); i++) {
-				indicies.add(i);
-			}
-			
-		}else{
-		    text = text.toLowerCase();
+            IUpgrade upgrade = this.container.recipe.getRecipeOutput();
 
-	        for (int i = 0; i < recipes.size(); i++) {
+            GuiHelper.drawStringBounded(this, StringHelper.localize(upgrade.getName()), 70, this.guiLeft + 100, this.guiTop + 38, 0xFFFFFF);
 
-	            String name = StringHelper.localize(recipes.get(i).getRecipeOutput().getName()).toLowerCase();
+            GuiHelper.drawStringBounded(this, StringHelper.localize(upgrade.getInformation()), 159, this.guiLeft + 11, this.guiTop + 100, 0xFFFFFF);
+        }
+    }
 
-	            if (name.contains(text)) {
-	                indicies.add(i);
-	            }
-	        }
-		}
+    public void handleTyping(String text) {
+        indicies.clear();
 
-		this.list.updateList();
-		
-		this.syncAndWrapIndex();
-	}
+        if (text.isEmpty()) {
 
-	@Override
-	public void handleElementButtonClick(String buttonName, int mouseButton) {
-		super.handleElementButtonClick(buttonName, mouseButton);
-		
-		if(buttonName.equals("Upgrade")){
-		    PacketHandler.sendToServer(ArmourPacket.getPacket(PacketTypes.BUTTON).addString("Upgrade"));
-		}
-		
-		if (buttonName.equals("Go Back")) {
-			this.index--;
-		} else if (buttonName.equals("Next")) {
-			this.index++;
-		}
+            for (int i = 0; i < recipes.size(); i++) {
+                indicies.add(i);
+            }
 
-		syncAndWrapIndex();
-	}
+        } else {
+            text = text.toLowerCase();
 
-	private void syncAndWrapIndex() { // Wraps the index and syncs with the container.
+            for (int i = 0; i < recipes.size(); i++) {
 
-		if (this.indicies.size == 0) {
-			this.index = -1;
-			this.container.updateIndex(index);
-			PacketHandler.sendToServer(ArmourPacket.getPacket(PacketTypes.BUTTON).addString(" ").addInt(this.index));
-		} else {
-			this.index = MathUtils.clamp(this.index, 0, this.indicies.size - 1);
-			this.container.updateIndex(this.indicies.get(index));
-			PacketHandler.sendToServer(ArmourPacket.getPacket(PacketTypes.BUTTON).addString(" ").addInt(this.indicies.get(this.index)));
-		}
-		
-		
-	}
+                String name = StringHelper.localize(recipes.get(i).getRecipeOutput().getName()).toLowerCase();
 
-	@Override
-	public void keyTyped(char characterTyped, int keyPressed) {
-		if (keyPressed == Keyboard.KEY_ESCAPE) {
-			PacketHandler.sendToServer(ArmourPacket.getPacket(ArmourPacket.PacketTypes.KEYTYPED).addShort((short) characterTyped).addInt(keyPressed));
-			return;
-		}
-		super.keyTyped(characterTyped, keyPressed);
-	}
+                if (name.contains(text)) {
+                    indicies.add(i);
+                }
+            }
+        }
+
+        this.list.updateList();
+
+        this.syncAndWrapIndex();
+    }
+
+    @Override
+    public void handleElementButtonClick(String buttonName, int mouseButton) {
+        super.handleElementButtonClick(buttonName, mouseButton);
+
+        if (buttonName.equals("Upgrade")) {
+            PacketHandler.sendToServer(ArmourPacket.getPacket(PacketTypes.BUTTON).addString("Upgrade"));
+        }
+
+        if (buttonName.equals("Go Back")) {
+            this.index--;
+        } else if (buttonName.equals("Next")) {
+            this.index++;
+        }
+
+        syncAndWrapIndex();
+    }
+
+    private void syncAndWrapIndex() { // Wraps the index and syncs with the
+                                      // container.
+
+        if (this.indicies.size == 0) {
+            this.index = -1;
+            this.container.updateIndex(index);
+            PacketHandler.sendToServer(ArmourPacket.getPacket(PacketTypes.BUTTON).addString(" ").addInt(this.index));
+        } else {
+            this.index = MathUtils.clamp(this.index, 0, this.indicies.size - 1);
+            this.container.updateIndex(this.indicies.get(index));
+            PacketHandler.sendToServer(ArmourPacket.getPacket(PacketTypes.BUTTON).addString(" ").addInt(this.indicies.get(this.index)));
+        }
+
+    }
+
+    @Override
+    public void keyTyped(char characterTyped, int keyPressed) {
+        if (keyPressed == Keyboard.KEY_ESCAPE) {
+            PacketHandler.sendToServer(ArmourPacket.getPacket(ArmourPacket.PacketTypes.KEYTYPED).addShort((short) characterTyped).addInt(keyPressed));
+            return;
+        }
+        super.keyTyped(characterTyped, keyPressed);
+    }
 
 }

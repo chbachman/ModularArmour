@@ -10,74 +10,74 @@ import net.minecraftforge.client.event.TextureStitchEvent;
 import cpw.mods.fml.common.FMLCommonHandler;
 
 public class ServerProxy extends CommonProxy {
-    
+
     @Override
     public void registerIcons(TextureStitchEvent.Pre event) {
-    	
+
     }
-    
 
-	/* SERVER UTILS */
-	@Override
-	public boolean isOp(String playerName) {
+    /* SERVER UTILS */
+    @Override
+    public boolean isOp(String playerName) {
 
-		MinecraftServer theServer = FMLCommonHandler.instance().getMinecraftServerInstance();
-		playerName = playerName.trim();
-		for (String a : theServer.getConfigurationManager().func_152606_n()) {
-			if (playerName.equalsIgnoreCase(a)) {
-				return true; // TODO: this is completely horrible. needs improvement. will probably still be horrible.
-			}
-		}
-		return false;
-	}
+        MinecraftServer theServer = FMLCommonHandler.instance().getMinecraftServerInstance();
+        playerName = playerName.trim();
+        for (String a : theServer.getConfigurationManager().func_152606_n()) {
+            if (playerName.equalsIgnoreCase(a)) {
+                return true; // TODO: this is completely horrible. needs
+                             // improvement. will probably still be horrible.
+            }
+        }
+        return false;
+    }
 
-	@Override
-	public boolean isClient() {
+    @Override
+    public boolean isClient() {
 
-		return false;
-	}
+        return false;
+    }
 
-	@Override
-	public boolean isServer() {
+    @Override
+    public boolean isServer() {
 
-		return true;
-	}
+        return true;
+    }
 
-	@Override
-	public World getClientWorld() {
+    @Override
+    public World getClientWorld() {
 
-		return null;
-	}
+        return null;
+    }
 
-	/* PLAYER UTILS */
-	@Override
-	public EntityPlayer findPlayer(String player) {
+    /* PLAYER UTILS */
+    @Override
+    public EntityPlayer findPlayer(String player) {
 
-		return null;
-	}
+        return null;
+    }
 
-	@Override
-	public EntityPlayer getClientPlayer() {
+    @Override
+    public EntityPlayer getClientPlayer() {
 
-		return null;
-	}
+        return null;
+    }
 
-	@Override
-	public List<EntityPlayer> getPlayerList() {
+    @Override
+    public List<EntityPlayer> getPlayerList() {
 
-		List<EntityPlayer> result = new LinkedList<EntityPlayer>();
-		for (int i = 0; i < FMLCommonHandler.instance().getMinecraftServerInstance().worldServers.length; i++) {
-			if (FMLCommonHandler.instance().getMinecraftServerInstance().worldServers[i] != null) {
-				result.addAll(FMLCommonHandler.instance().getMinecraftServerInstance().worldServers[i].playerEntities);
-			}
-		}
-		return result;
-	}
-	
-	@Override
-	public float getSoundVolume(int category) {
+        List<EntityPlayer> result = new LinkedList<EntityPlayer>();
+        for (int i = 0; i < FMLCommonHandler.instance().getMinecraftServerInstance().worldServers.length; i++) {
+            if (FMLCommonHandler.instance().getMinecraftServerInstance().worldServers[i] != null) {
+                result.addAll(FMLCommonHandler.instance().getMinecraftServerInstance().worldServers[i].playerEntities);
+            }
+        }
+        return result;
+    }
 
-		return 0;
-	}
-    
+    @Override
+    public float getSoundVolume(int category) {
+
+        return 0;
+    }
+
 }

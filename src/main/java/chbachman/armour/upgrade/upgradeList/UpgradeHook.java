@@ -4,19 +4,15 @@ import org.lwjgl.input.Keyboard;
 
 import chbachman.armour.upgrade.UpgradeProjectile;
 
-public class UpgradeHook extends UpgradeProjectile{
+public class UpgradeHook extends UpgradeProjectile {
 
-	public UpgradeHook() {
-		super("hook");
-	}
+    public UpgradeHook() {
+        super("hook");
+    }
 
-	@Override
-	public int getKey(){
-		return Keyboard.KEY_D;
-	}
-	
-	
-	
-	
+    @Override
+    public int getKey() {
+        return Keyboard.KEY_D;
+    }
 
 }

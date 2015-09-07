@@ -8,27 +8,27 @@ import net.minecraft.util.DamageSource;
 import chbachman.api.util.ArmourSlot;
 import chbachman.armour.upgrade.UpgradeProtective;
 
-public class UpgradePlayerProtection extends UpgradeProtective{
+public class UpgradePlayerProtection extends UpgradeProtective {
 
-	public UpgradePlayerProtection() {
-		super("playerProtection", 90);
-	}
+    public UpgradePlayerProtection() {
+        super("playerProtection", 90);
+    }
 
-	@Override
-	public boolean shouldDefend(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, ArmourSlot slot) {
-		Entity entity = source.getSourceOfDamage();
+    @Override
+    public boolean shouldDefend(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, ArmourSlot slot) {
+        Entity entity = source.getSourceOfDamage();
 
-		if(entity == null){
-			return false;
-		}
+        if (entity == null) {
+            return false;
+        }
 
-		return entity instanceof EntityPlayer;
+        return entity instanceof EntityPlayer;
 
-	}
-	
-	@Override
-	public int getEnergyPerDamage(ItemStack stack){
-		return 100;
-	}
+    }
+
+    @Override
+    public int getEnergyPerDamage(ItemStack stack) {
+        return 100;
+    }
 
 }

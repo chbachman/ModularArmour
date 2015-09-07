@@ -16,85 +16,85 @@ import net.minecraftforge.common.util.Constants;
  * @author CBachman
  *
  */
-public class PlayerArmour implements IExtendedEntityProperties{
+public class PlayerArmour implements IExtendedEntityProperties {
 
-	// The identifier that is used for saving and loading.
-	public static final String IDENTIFIER = "ModularArmour:ArmourSaving";
+    // The identifier that is used for saving and loading.
+    public static final String IDENTIFIER = "ModularArmour:ArmourSaving";
 
-	ItemStack[] stacks;
-	
-	boolean hasCraftedArmour;
+    ItemStack[] stacks;
 
-	/**
-	 * Called every tick to update the player's worn armour.
-	 * 
-	 * @param armourList
-	 */
-	public void update(ItemStack[] armourList){
-		stacks = armourList.clone();
-	}
+    boolean hasCraftedArmour;
 
-	@Override
-	public void saveNBTData(NBTTagCompound compound){
+    /**
+     * Called every tick to update the player's worn armour.
+     * 
+     * @param armourList
+     */
+    public void update(ItemStack[] armourList) {
+        stacks = armourList.clone();
+    }
 
-		NBTTagList list = new NBTTagList();
-		for (ItemStack stack : stacks){
+    @Override
+    public void saveNBTData(NBTTagCompound compound) {
 
-			if (stack == null){
-				NBTTagCompound nbt = new NBTTagCompound();
-				nbt.setBoolean("Empty", true);
-				list.appendTag(nbt);
-				return;
-			}
+        NBTTagList list = new NBTTagList();
+        for (ItemStack stack : stacks) {
 
-			list.appendTag(stack.writeToNBT(new NBTTagCompound()));
-		}
-		compound.setTag("armourList", list);
-		
-		compound.setBoolean("hasCrafted", hasCraftedArmour);
-	}
+            if (stack == null) {
+                NBTTagCompound nbt = new NBTTagCompound();
+                nbt.setBoolean("Empty", true);
+                list.appendTag(nbt);
+                return;
+            }
 
-	@Override
-	public void loadNBTData(NBTTagCompound compound){
-		NBTTagList list = compound.getTagList("armourList", Constants.NBT.TAG_COMPOUND);
+            list.appendTag(stack.writeToNBT(new NBTTagCompound()));
+        }
+        compound.setTag("armourList", list);
 
-		for (int i = 0; i < list.tagCount(); i++){
-			NBTTagCompound nbt = list.getCompoundTagAt(i);
+        compound.setBoolean("hasCrafted", hasCraftedArmour);
+    }
 
-			if (nbt.hasKey("Empty")){
-				stacks[i] = null;
-				return;
-			}
+    @Override
+    public void loadNBTData(NBTTagCompound compound) {
+        NBTTagList list = compound.getTagList("armourList", Constants.NBT.TAG_COMPOUND);
 
-			stacks[i] = ItemStack.loadItemStackFromNBT(nbt);
-		}
-		
-		hasCraftedArmour = compound.getBoolean("hasCrafted");
+        for (int i = 0; i < list.tagCount(); i++) {
+            NBTTagCompound nbt = list.getCompoundTagAt(i);
 
-	}
+            if (nbt.hasKey("Empty")) {
+                stacks[i] = null;
+                return;
+            }
 
-	@Override
-	public void init(Entity entity, World world){
-		stacks = new ItemStack[4];
-	}
+            stacks[i] = ItemStack.loadItemStackFromNBT(nbt);
+        }
 
-	/**
-	 * Gets the storage instance for the given player.
-	 * 
-	 * @param player
-	 * @return
-	 */
-	public static PlayerArmour getFor(EntityPlayer player){
-		return (PlayerArmour) player.getExtendedProperties(IDENTIFIER);
-	}
+        hasCraftedArmour = compound.getBoolean("hasCrafted");
 
-	/**
-	 * Registers the storage instance for the player.
-	 * 
-	 * @param player
-	 */
-	public static void register(EntityPlayer player){
-		player.registerExtendedProperties(IDENTIFIER, new PlayerArmour());
-	}
+    }
+
+    @Override
+    public void init(Entity entity, World world) {
+        stacks = new ItemStack[4];
+    }
+
+    /**
+     * Gets the storage instance for the given player.
+     * 
+     * @param player
+     * @return
+     */
+    public static PlayerArmour getFor(EntityPlayer player) {
+        return (PlayerArmour) player.getExtendedProperties(IDENTIFIER);
+    }
+
+    /**
+     * Registers the storage instance for the player.
+     * 
+     * @param player
+     */
+    public static void register(EntityPlayer player) {
+        player.registerExtendedProperties(IDENTIFIER, new PlayerArmour());
+    }
 
 }

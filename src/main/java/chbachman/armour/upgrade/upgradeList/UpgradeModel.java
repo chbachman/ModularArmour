@@ -10,10 +10,10 @@ import chbachman.armour.items.armour.renderer.AdvancedArmourModel;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class UpgradeModel extends Upgrade{
-    
+public class UpgradeModel extends Upgrade {
+
     String temp = "modulararmour:textures/armour/" + "Advanced_Armour.png";
-    
+
     public UpgradeModel() {
         super("advancedModel");
     }
@@ -27,27 +27,27 @@ public class UpgradeModel extends Upgrade{
     @SideOnly(Side.CLIENT)
     public ModelBiped getArmourModel(EntityLivingBase entityLiving, ItemStack itemStack, int armourSlot) {
         ArmourSlot slot = ArmourSlot.getArmourSlot(armourSlot);
-        
-        switch(slot){
-        case HELMET: return new AdvancedArmourModel(true, false, false, false, false);
-        case CHESTPLATE: return new AdvancedArmourModel(false, true, true, false, false);
-        case LEGS: return new AdvancedArmourModel(false, false, false, true, false);
-        case BOOTS: return new AdvancedArmourModel(false, false, false, false, true);
+
+        switch (slot) {
+        case HELMET:
+            return new AdvancedArmourModel(true, false, false, false, false);
+        case CHESTPLATE:
+            return new AdvancedArmourModel(false, true, true, false, false);
+        case LEGS:
+            return new AdvancedArmourModel(false, false, false, true, false);
+        case BOOTS:
+            return new AdvancedArmourModel(false, false, false, false, true);
         default:
             break;
         }
-        
+
         return null;
-        
+
     }
 
     @Override
     public boolean isCompatible(IModularItem item, ItemStack stack, int armorType) {
         return item.isArmour();
     }
-    
-    
-    
-    
 
 }

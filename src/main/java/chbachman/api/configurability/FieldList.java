@@ -7,60 +7,60 @@ import java.util.List;
 import chbachman.api.registry.IUpgradeListener;
 import chbachman.api.upgrade.IUpgrade;
 
-public class FieldList implements IUpgradeListener{
+public class FieldList implements IUpgradeListener {
 
-	Field[] fields;
+    Field[] fields;
 
-	public void refreshFields(IUpgrade upgrade, ConfigurableField[] f){
-		for (int i = 0; i < fields.length; i++){
-			try{
-				fields[i].set(upgrade, f.length);
-			}catch (Exception e){
-				e.printStackTrace();
-			}
-		}
-	}
+    public void refreshFields(IUpgrade upgrade, ConfigurableField[] f) {
+        for (int i = 0; i < fields.length; i++) {
+            try {
+                fields[i].set(upgrade, f.length);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
-	public ConfigurableField[] getFieldList(IUpgrade upgrade){
-		ConfigurableField[] config = new ConfigurableField[fields.length];
+    public ConfigurableField[] getFieldList(IUpgrade upgrade) {
+        ConfigurableField[] config = new ConfigurableField[fields.length];
 
-		for (int i = 0; i < fields.length; i++){
-			try{
-				config[i] = (ConfigurableField) fields[i].get(upgrade);
-			}catch (Exception e){
-				e.printStackTrace();
-			}
+        for (int i = 0; i < fields.length; i++) {
+            try {
+                config[i] = (ConfigurableField) fields[i].get(upgrade);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
-		}
+        }
 
-		return config;
-	}
+        return config;
+    }
 
-	@Override
-	public IUpgradeListener onUpgradeAdded(IUpgrade upgrade){
+    @Override
+    public IUpgradeListener onUpgradeAdded(IUpgrade upgrade) {
 
-		FieldList list = new FieldList();
+        FieldList list = new FieldList();
 
-		Class<?> upgradeClass = upgrade.getClass();
+        Class<?> upgradeClass = upgrade.getClass();
 
-		List<Field> storageList = new ArrayList<Field>();
+        List<Field> storageList = new ArrayList<Field>();
 
-		for (Field field : upgradeClass.getFields()){
+        for (Field field : upgradeClass.getFields()) {
 
-			if (!field.isAnnotationPresent(Configurable.class)){
-				continue;
-			}
+            if (!field.isAnnotationPresent(Configurable.class)) {
+                continue;
+            }
 
-			if (field.getType() != ConfigurableField.class){
-				continue;
-			}
+            if (field.getType() != ConfigurableField.class) {
+                continue;
+            }
 
-			storageList.add(field);
-		}
+            storageList.add(field);
+        }
 
-		list.fields = storageList.toArray(new Field[0]);
+        list.fields = storageList.toArray(new Field[0]);
 
-		return list;
+        return list;
 
-	}
+    }
 }

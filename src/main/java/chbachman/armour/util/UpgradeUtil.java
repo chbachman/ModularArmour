@@ -13,76 +13,76 @@ import cpw.mods.fml.common.Loader;
 
 public class UpgradeUtil {
 
-	public static boolean doesPlayerHaveUpgrade(EntityPlayer player, IUpgrade upgrade) {
-		
-		if(Loader.isModLoaded("Baubles")){
-			return BaublesUtil.doesPlayerHaveUpgrade(player, upgrade);
-		}
-		
-		ItemStack[] armourArray = player.inventory.armorInventory;
+    public static boolean doesPlayerHaveUpgrade(EntityPlayer player, IUpgrade upgrade) {
 
-		for (ItemStack armour : armourArray) {
-			if(doesItemStackContainUpgrade(armour, upgrade)){
-				return true;
-			}
+        if (Loader.isModLoaded("Baubles")) {
+            return BaublesUtil.doesPlayerHaveUpgrade(player, upgrade);
+        }
 
-		}
+        ItemStack[] armourArray = player.inventory.armorInventory;
 
-		return false;
-	}
+        for (ItemStack armour : armourArray) {
+            if (doesItemStackContainUpgrade(armour, upgrade)) {
+                return true;
+            }
 
-	public static List<ItemStack> getPlayerUpgrades(EntityPlayer player, IUpgrade upgrade){
-		
-		if(Loader.isModLoaded("Baubles")){
-			return BaublesUtil.getPlayerUpgrades(player, upgrade);
-		}
-		
-		List<ItemStack> list = new ArrayList<ItemStack>(6);
-		ItemStack[] armourArray = player.inventory.armorInventory;
+        }
 
-		for (ItemStack armour : armourArray) {
-			if(doesItemStackContainUpgrade(armour, upgrade)){
-				list.add(armour);
-			}
+        return false;
+    }
 
-		}
+    public static List<ItemStack> getPlayerUpgrades(EntityPlayer player, IUpgrade upgrade) {
 
-		return list;
-	}
+        if (Loader.isModLoaded("Baubles")) {
+            return BaublesUtil.getPlayerUpgrades(player, upgrade);
+        }
 
-	public static void removeUpgrade(ItemStack stack, IUpgrade upgrade) {
+        List<ItemStack> list = new ArrayList<ItemStack>(6);
+        ItemStack[] armourArray = player.inventory.armorInventory;
 
-		if (stack.stackTagCompound == null) {
-			NBTHelper.createDefaultStackTag(stack);
-			return;
-		}
+        for (ItemStack armour : armourArray) {
+            if (doesItemStackContainUpgrade(armour, upgrade)) {
+                list.add(armour);
+            }
 
-		if (stack.getItem() instanceof IModularItem) {
+        }
 
-			NBTList<IUpgrade> list = NBTHelper.getNBTUpgradeList(stack.stackTagCompound);
+        return list;
+    }
 
-			list.remove(upgrade);
-		}
+    public static void removeUpgrade(ItemStack stack, IUpgrade upgrade) {
 
-	}
+        if (stack.stackTagCompound == null) {
+            NBTHelper.createDefaultStackTag(stack);
+            return;
+        }
 
-	public static List<IUpgrade> getDependencyList(IUpgrade upgrade) {
-		List<IUpgrade> list = new ArrayList<IUpgrade>();
-		list.add(upgrade);
-		return list;
-	}
+        if (stack.getItem() instanceof IModularItem) {
 
-	public static boolean doesItemStackContainUpgrade(ItemStack stack, IUpgrade upgrade) {
+            NBTList<IUpgrade> list = NBTHelper.getNBTUpgradeList(stack.stackTagCompound);
 
-		if(stack == null || upgrade == null){
-			return false;
-		}
+            list.remove(upgrade);
+        }
 
-		NBTHelper.createDefaultStackTag(stack);
+    }
 
-		NBTList<IUpgrade> list = NBTHelper.getNBTUpgradeList(stack.stackTagCompound);
+    public static List<IUpgrade> getDependencyList(IUpgrade upgrade) {
+        List<IUpgrade> list = new ArrayList<IUpgrade>();
+        list.add(upgrade);
+        return list;
+    }
 
-		return list.contains(upgrade);
-	}
+    public static boolean doesItemStackContainUpgrade(ItemStack stack, IUpgrade upgrade) {
+
+        if (stack == null || upgrade == null) {
+            return false;
+        }
+
+        NBTHelper.createDefaultStackTag(stack);
+
+        NBTList<IUpgrade> list = NBTHelper.getNBTUpgradeList(stack.stackTagCompound);
+
+        return list.contains(upgrade);
+    }
 
 }

@@ -11,30 +11,30 @@ import chbachman.armour.upgrade.UpgradeProtective;
 
 public class UpgradeArthropod extends UpgradeProtective {
 
-	public UpgradeArthropod() {
-		super("arthropod", 75);
-	}
+    public UpgradeArthropod() {
+        super("arthropod", 75);
+    }
 
-	@Override
-	public boolean shouldDefend(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, ArmourSlot slot) {
-		Entity entity = source.getSourceOfDamage();
+    @Override
+    public boolean shouldDefend(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, ArmourSlot slot) {
+        Entity entity = source.getSourceOfDamage();
 
-		if(entity == null){
-			return false;
-		}
+        if (entity == null) {
+            return false;
+        }
 
-		if(!(entity instanceof EntityMob)){
-			return false;
-		}
+        if (!(entity instanceof EntityMob)) {
+            return false;
+        }
 
-		EntityMob entityMob = (EntityMob) entity;
+        EntityMob entityMob = (EntityMob) entity;
 
-		return entityMob.getCreatureAttribute() == EnumCreatureAttribute.ARTHROPOD;
-	}
-	
-	@Override
-	public int getEnergyPerDamage(ItemStack stack){
-		return 100;
-	}
+        return entityMob.getCreatureAttribute() == EnumCreatureAttribute.ARTHROPOD;
+    }
+
+    @Override
+    public int getEnergyPerDamage(ItemStack stack) {
+        return 100;
+    }
 
 }

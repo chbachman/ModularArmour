@@ -3,35 +3,34 @@ package chbachman.armour.util;
 import static chbachman.armour.ModularArmour.config;
 import chbachman.api.upgrade.IUpgrade;
 
-public final class ConfigHelper{
+public final class ConfigHelper {
 
-	private ConfigHelper(){}
+    private ConfigHelper() {
+    }
 
-	public static final String ENERGY = "energy values";
-	public static final String SPEED = "speed values";
-	public static final String OTHER = "other values";
+    public static final String ENERGY = "energy values";
+    public static final String SPEED = "speed values";
+    public static final String OTHER = "other values";
 
-	
-	
-	public static int get(String category, IUpgrade upgrade, String description, int def){
-		if(upgrade == null){
-			return def;
-		}
-		
-		return config.get(category, new StringBuilder(upgrade.getName()).append(":").append(description).toString(), def);
-	}
+    public static int get(String category, IUpgrade upgrade, String description, int def) {
+        if (upgrade == null) {
+            return def;
+        }
 
-	public static double get(String category, IUpgrade upgrade, String description, double def){
-		if(upgrade == null){
-			return def;
-		}
-		
-		return config.get(category, new StringBuilder(upgrade.getName()).append(":").append(description).toString(), def);
-		
-	}
+        return config.get(category, new StringBuilder(upgrade.getName()).append(":").append(description).toString(), def);
+    }
 
-	public static float get(String category, IUpgrade upgrade, String description, float def){
-		return (float) get(category, upgrade, description, (double) def);
-	}
+    public static double get(String category, IUpgrade upgrade, String description, double def) {
+        if (upgrade == null) {
+            return def;
+        }
+
+        return config.get(category, new StringBuilder(upgrade.getName()).append(":").append(description).toString(), def);
+
+    }
+
+    public static float get(String category, IUpgrade upgrade, String description, float def) {
+        return (float) get(category, upgrade, description, (double) def);
+    }
 
 }

@@ -24,20 +24,20 @@ import chbachman.armour.util.UpgradeUtil;
 import cofh.core.network.PacketHandler;
 import cofh.lib.gui.container.ContainerInventoryItem;
 
-public class ArmourContainer extends ContainerInventoryItem implements IInputHandler, IContainerSyncable{
-    
+public class ArmourContainer extends ContainerInventoryItem implements IInputHandler, IContainerSyncable {
+
     public IUpgrade upgrade = null;
-    
+
     public final IModularItem item;
-    
+
     public ArmourContainer(ItemStack stack, InventoryPlayer inventory) {
-    	super(stack, inventory);
+        super(stack, inventory);
         this.item = (IModularItem) stack.getItem();
-        
+
         this.bindCraftingGrid();
         this.bindPlayerInventory(inventory);
     }
-    
+
     protected void bindCraftingGrid() {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -45,101 +45,99 @@ public class ArmourContainer extends ContainerInventoryItem implements IInputHan
             }
         }
     }
-    
+
     protected void bindPlayerInventory(InventoryPlayer inventoryPlayer) {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 9; j++) {
                 this.addSlotToContainer(new Slot(inventoryPlayer, j + i * 9 + 9, 8 + j * 18, 152 + i * 18));
             }
         }
-        
+
         for (int i = 0; i < 9; i++) {
             this.addSlotToContainer(new Slot(inventoryPlayer, i, 8 + i * 18, 152 + 58));
         }
     }
-    
+
     @Override
-	public void onSlotChanged() {
-    	super.onSlotChanged();
+    public void onSlotChanged() {
+        super.onSlotChanged();
         this.upgrade = UpgradeHandler.getResult(this.containerWrapper);
     }
-    
+
     NBTStorage<Percentage> storage = new NBTStorage<Percentage>(new PercentageNBT());
-    
+
     @Override
     public void onButtonClick(ArmourPacket packet, String name) {
-    	
-    	boolean shouldSync = false;
-    	
+
+        boolean shouldSync = false;
+
         try {
-            
+
             if (name.equals("UpgradeAddition")) {
                 if (UpgradeHandler.addUpgrade(this.getContainerStack(), this.upgrade)) {
-                    
-                	this.upgrade = UpgradeHandler.getResult(this.containerWrapper);
-                	
-                	for (int i = 0; i < this.containerWrapper.getSizeInventory(); i++)
-                    {
+
+                    this.upgrade = UpgradeHandler.getResult(this.containerWrapper);
+
+                    for (int i = 0; i < this.containerWrapper.getSizeInventory(); i++) {
                         InventoryUtil.decrementItemStack(this.player, this.containerWrapper, i);
                     }
-                    
+
                     shouldSync = true;
                 }
-                
+
             } else if (name.equals("RemoveItems")) {
-            	shouldSync = true;
-            	
-                for(int i = 0; i < 9; i++){
-                	this.transferStackInSlot(this.player, i);
+                shouldSync = true;
+
+                for (int i = 0; i < 9; i++) {
+                    this.transferStackInSlot(this.player, i);
                 }
-                
+
             } else if (name.equals("RemoveUpgrade")) {
                 UpgradeUtil.removeUpgrade(this.getContainerStack(), UpgradeRegistry.getUpgrade(packet.getString()));
-                
+
                 shouldSync = true;
-            } else if(name.equals("Recipe")){
-            	
+            } else if (name.equals("Recipe")) {
+
                 if (MiscUtil.isServer(this.player.worldObj)) {
                     this.player.openGui(ModularArmour.instance, GuiHandler.RECIPE_ID, this.player.worldObj, 0, 0, 0);
                 }
-                
-            }else if(name.equals("ValueChanged")){
-            	NBTHelper.createDefaultStackTag(getContainerStack());
-            	
-            	storage.setKey(packet.getString());
-            	
-            	storage.set(getContainerStack(), new Percentage(packet.getInt()));
+
+            } else if (name.equals("ValueChanged")) {
+                NBTHelper.createDefaultStackTag(getContainerStack());
+
+                storage.setKey(packet.getString());
+
+                storage.set(getContainerStack(), new Percentage(packet.getInt()));
             }
-            
-            
+
         } catch (UpgradeException e) {
-            
+
         } finally {
             this.player.inventory.mainInventory[this.containerIndex] = this.getContainerStack();
         }
-        
-        if(shouldSync){
-        	this.detectAndSendChanges();
-        	PacketHandler.sendTo(ArmourPacket.getPacket(PacketTypes.CONTAINERSYNC).addItemStack(this.getContainerStack()), player);
+
+        if (shouldSync) {
+            this.detectAndSendChanges();
+            PacketHandler.sendTo(ArmourPacket.getPacket(PacketTypes.CONTAINERSYNC).addItemStack(this.getContainerStack()), player);
         }
-        
+
     }
 
     @Override
     public void onKeyTyped(ArmourPacket packet, char key, int keyCode) {
-        
+
     }
 
-	@Override
-	public void clientLoad(ArmourPacket p){
-		ItemStack container = p.getItemStack();
-		
-		this.getContainerStack().stackTagCompound = container.stackTagCompound;
-	}
+    @Override
+    public void clientLoad(ArmourPacket p) {
+        ItemStack container = p.getItemStack();
 
-	@Override
-	public void serverLoad(ArmourPacket p){
-		
-	}
-    
+        this.getContainerStack().stackTagCompound = container.stackTagCompound;
+    }
+
+    @Override
+    public void serverLoad(ArmourPacket p) {
+
+    }
+
 }

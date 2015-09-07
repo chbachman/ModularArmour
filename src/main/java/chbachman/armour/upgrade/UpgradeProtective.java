@@ -12,231 +12,240 @@ import chbachman.api.util.ArmourSlot;
 import chbachman.armour.upgrade.upgradeList.UpgradeBasic;
 import chbachman.armour.util.EnergyUtil;
 
+public abstract class UpgradeProtective extends UpgradeBasic {
 
-public abstract class UpgradeProtective extends UpgradeBasic{
+    @Configurable
+    public ConfigurableField protection = new ConfigurableField(this.getBaseName() + "Protection", "upgrade.chbachman.protection.protection", 50);
 
-	@Configurable
-	public ConfigurableField protection = new ConfigurableField(this.getBaseName() + "Protection", "upgrade.chbachman.protection.protection", 50);
-	
-	final int maxProtection;
-	
-	public UpgradeProtective(String name, int protection) {
-		super(name);
-		this.maxProtection = protection;
-	}
+    final int maxProtection;
 
-	@Override
-	public ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, ArmourSlot slot) {
-	    
-		IModularItem item = (IModularItem) armor.getItem();
-		
-		if(EnergyUtil.isEmpty(armor)){
-			return new ArmorProperties(0,0,0);
-		}
-		
-		if(this.shouldDefend(player, armor, source, damage, slot)){
-		    
-			item.damageArmour(armor, (int) (this.getEnergyPerDamage(armor) * damage));
-			
-			float temp = maxProtection * protection.get(armor).getPercentage() * (limitDamage(player, armor, source, damage, slot) / 100F);
-			
-			return new ArmorProperties(0, temp / 100, Integer.MAX_VALUE);
-		}
-		
-		return new ArmorProperties(0,0,0);
-	}
-	
-	@Override
-	public boolean isCompatible(IModularItem item, ItemStack stack, int armorType) {
-		return item.isArmour();
-	}
-	
-	@Override
-	public int getArmourDisplay(EntityPlayer player, ItemStack stack, ArmourSlot slot) {
-		return (int) (protection.get(stack).getAmount() / 25);
-	}
+    public UpgradeProtective(String name, int protection) {
+        super(name);
+        this.maxProtection = protection;
+    }
 
-	/**
-	 * Limits the damage protected by this piece of armour to the value returned. Default implementation just breaks up the damage protection by slot.
-	 * @param player
-	 * @param armor
-	 * @param source
-	 * @param damage
-	 * @param slot
-	 * @return
-	 */
-	public int limitDamage(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, ArmourSlot slot){
-		switch(slot){
-		
-		case HELMET: return 15;
-		case CHESTPLATE: return 40;
-		case LEGS: return 30;
-		case BOOTS: return 15;
-		default: return 0;
-			
-		}
-	}
-	
-	/**
-	 * Return whether the upgrade should defend against the current situation.
-	 * @param player
-	 * @param armor
-	 * @param source
-	 * @param damage
-	 * @param slot
-	 * @return
-	 */
-	public abstract boolean shouldDefend(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, ArmourSlot slot);
-	
-	/**
-	 * Return the energy drained per damage.
-	 * @param stack
-	 * @return
-	 */
-	public abstract int getEnergyPerDamage(ItemStack stack);
-	
-	//Simple Subclasses Follow
-	public static class UpgradeProjectileProtection extends UpgradeProtective {
+    @Override
+    public ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, ArmourSlot slot) {
 
-		public UpgradeProjectileProtection() {
-			super("projectileProtector", 75);
-		}
+        IModularItem item = (IModularItem) armor.getItem();
 
-		@Override
-		public boolean shouldDefend(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, ArmourSlot slot) {
-			return source.isProjectile();
-		}
-		
-		@Override
-		public int getEnergyPerDamage(ItemStack stack){
-			return 100;
-		}
+        if (EnergyUtil.isEmpty(armor)) {
+            return new ArmorProperties(0, 0, 0);
+        }
 
-	}
-	
-	public static class UpgradeFire extends UpgradeProtective {
+        if (this.shouldDefend(player, armor, source, damage, slot)) {
 
-		public UpgradeFire() {
-			super("fireProtector", 75);
-		}
+            item.damageArmour(armor, (int) (this.getEnergyPerDamage(armor) * damage));
 
-		@Override
-		public boolean shouldDefend(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, ArmourSlot slot) {
-			return source.isFireDamage();
-		}
-		
-		@Override
-		public int getEnergyPerDamage(ItemStack stack){
-			return 100;
-		}
+            float temp = maxProtection * protection.get(armor).getPercentage() * (limitDamage(player, armor, source, damage, slot) / 100F);
 
-	}
-	
-	public static class UpgradeExplosion extends UpgradeProtective {
+            return new ArmorProperties(0, temp / 100, Integer.MAX_VALUE);
+        }
 
-		public UpgradeExplosion() {
-			super("explosionProtector", 75);
-		}
+        return new ArmorProperties(0, 0, 0);
+    }
 
-		@Override
-		public boolean shouldDefend(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, ArmourSlot slot) {
-			return source.isExplosion();
-		}
-		
-		@Override
-		public int getEnergyPerDamage(ItemStack stack){
-			return 100;
-		}
+    @Override
+    public boolean isCompatible(IModularItem item, ItemStack stack, int armorType) {
+        return item.isArmour();
+    }
 
-	}
-	
-	public static class UpgradeUnblockable extends UpgradeProtective {
+    @Override
+    public int getArmourDisplay(EntityPlayer player, ItemStack stack, ArmourSlot slot) {
+        return (int) (protection.get(stack).getAmount() / 25);
+    }
 
-		public UpgradeUnblockable() {
-			super("unblockableProtector", 10);
-		}
+    /**
+     * Limits the damage protected by this piece of armour to the value
+     * returned. Default implementation just breaks up the damage protection by
+     * slot.
+     * 
+     * @param player
+     * @param armor
+     * @param source
+     * @param damage
+     * @param slot
+     * @return
+     */
+    public int limitDamage(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, ArmourSlot slot) {
+        switch (slot) {
 
-		@Override
-		public boolean shouldDefend(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, ArmourSlot slot) {
-			return source.isUnblockable();
-		}
-		
-		@Override
-		public int getEnergyPerDamage(ItemStack stack){
-			return 100;
-		}
+        case HELMET:
+            return 15;
+        case CHESTPLATE:
+            return 40;
+        case LEGS:
+            return 30;
+        case BOOTS:
+            return 15;
+        default:
+            return 0;
 
-	}
-	
-	public static class UpgradeMagic extends UpgradeProtective {
+        }
+    }
 
-		public UpgradeMagic() {
-			super("magicProtector", 20);
-		}
+    /**
+     * Return whether the upgrade should defend against the current situation.
+     * 
+     * @param player
+     * @param armor
+     * @param source
+     * @param damage
+     * @param slot
+     * @return
+     */
+    public abstract boolean shouldDefend(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, ArmourSlot slot);
 
-		@Override
-		public boolean shouldDefend(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, ArmourSlot slot) {
-			return source.isMagicDamage();
-		}
+    /**
+     * Return the energy drained per damage.
+     * 
+     * @param stack
+     * @return
+     */
+    public abstract int getEnergyPerDamage(ItemStack stack);
 
-		@Override
-		public int getEnergyPerDamage(ItemStack stack){
-			return 100;
-		}
-	}
-	
-	public static class UpgradeWither extends UpgradeProtective {
+    // Simple Subclasses Follow
+    public static class UpgradeProjectileProtection extends UpgradeProtective {
 
-		public UpgradeWither() {
-			super("witherProtector", 20);
-		}
+        public UpgradeProjectileProtection() {
+            super("projectileProtector", 75);
+        }
 
-		@Override
-		public boolean shouldDefend(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, ArmourSlot slot) {
-			return source == DamageSource.wither;
-		}
-		
-		@Override
-		public int getEnergyPerDamage(ItemStack stack){
-			return 100;
-		}
+        @Override
+        public boolean shouldDefend(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, ArmourSlot slot) {
+            return source.isProjectile();
+        }
 
-	}
-	
-	public static class UpgradeLava extends UpgradeProtective {
+        @Override
+        public int getEnergyPerDamage(ItemStack stack) {
+            return 100;
+        }
 
-		public UpgradeLava() {
-			super("lavaProtector", 75);
-		}
+    }
 
-		@Override
-		public boolean shouldDefend(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, ArmourSlot slot) {
-			return source == DamageSource.lava;
-		}
-		
-		@Override
-		public int getEnergyPerDamage(ItemStack stack){
-			return 100;
-		}
+    public static class UpgradeFire extends UpgradeProtective {
 
-	}
-	
-	public static class UpgradeGeneralProtection extends UpgradeProtective{
-		
-		public UpgradeGeneralProtection(){
-			super("generalProtection", 80);
-		}
-		
-		@Override
-		public boolean shouldDefend(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, ArmourSlot slot) {
-			return true;
-		}
-		
-		@Override
-		public int getEnergyPerDamage(ItemStack stack){
-			return 100;
-		}
-		
-	}
-	
+        public UpgradeFire() {
+            super("fireProtector", 75);
+        }
+
+        @Override
+        public boolean shouldDefend(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, ArmourSlot slot) {
+            return source.isFireDamage();
+        }
+
+        @Override
+        public int getEnergyPerDamage(ItemStack stack) {
+            return 100;
+        }
+
+    }
+
+    public static class UpgradeExplosion extends UpgradeProtective {
+
+        public UpgradeExplosion() {
+            super("explosionProtector", 75);
+        }
+
+        @Override
+        public boolean shouldDefend(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, ArmourSlot slot) {
+            return source.isExplosion();
+        }
+
+        @Override
+        public int getEnergyPerDamage(ItemStack stack) {
+            return 100;
+        }
+
+    }
+
+    public static class UpgradeUnblockable extends UpgradeProtective {
+
+        public UpgradeUnblockable() {
+            super("unblockableProtector", 10);
+        }
+
+        @Override
+        public boolean shouldDefend(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, ArmourSlot slot) {
+            return source.isUnblockable();
+        }
+
+        @Override
+        public int getEnergyPerDamage(ItemStack stack) {
+            return 100;
+        }
+
+    }
+
+    public static class UpgradeMagic extends UpgradeProtective {
+
+        public UpgradeMagic() {
+            super("magicProtector", 20);
+        }
+
+        @Override
+        public boolean shouldDefend(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, ArmourSlot slot) {
+            return source.isMagicDamage();
+        }
+
+        @Override
+        public int getEnergyPerDamage(ItemStack stack) {
+            return 100;
+        }
+    }
+
+    public static class UpgradeWither extends UpgradeProtective {
+
+        public UpgradeWither() {
+            super("witherProtector", 20);
+        }
+
+        @Override
+        public boolean shouldDefend(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, ArmourSlot slot) {
+            return source == DamageSource.wither;
+        }
+
+        @Override
+        public int getEnergyPerDamage(ItemStack stack) {
+            return 100;
+        }
+
+    }
+
+    public static class UpgradeLava extends UpgradeProtective {
+
+        public UpgradeLava() {
+            super("lavaProtector", 75);
+        }
+
+        @Override
+        public boolean shouldDefend(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, ArmourSlot slot) {
+            return source == DamageSource.lava;
+        }
+
+        @Override
+        public int getEnergyPerDamage(ItemStack stack) {
+            return 100;
+        }
+
+    }
+
+    public static class UpgradeGeneralProtection extends UpgradeProtective {
+
+        public UpgradeGeneralProtection() {
+            super("generalProtection", 80);
+        }
+
+        @Override
+        public boolean shouldDefend(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, ArmourSlot slot) {
+            return true;
+        }
+
+        @Override
+        public int getEnergyPerDamage(ItemStack stack) {
+            return 100;
+        }
+
+    }
+
 }

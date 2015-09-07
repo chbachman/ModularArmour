@@ -21,169 +21,171 @@ import cpw.mods.fml.common.Optional;
 import cpw.mods.fml.common.Optional.Interface;
 
 @Optional.InterfaceList(value = { @Interface(iface = "thaumcraft.api.IVisDiscountGear", modid = "Thaumcraft"), @Interface(iface = "vazkii.botania.api.item.IPixieSpawner", modid = "Botania"), })
-public abstract class ItemBauble extends Item implements IBauble, IModularItem, IVisDiscountGear, IPixieSpawner{
+public abstract class ItemBauble extends Item implements IBauble, IModularItem, IVisDiscountGear, IPixieSpawner {
 
-	protected UpgradeLogicAdv holder;
+    protected UpgradeLogicAdv holder;
 
-	BaubleType type;
+    BaubleType type;
 
-	public ItemBauble() {
-		this.setCreativeTab(ModularArmour.creativeTab);
-	}
+    public ItemBauble() {
+        this.setCreativeTab(ModularArmour.creativeTab);
+    }
 
-	public ItemBauble setBaubleType(BaubleType type){
-		this.type = type;
-		return this;
-	}
+    public ItemBauble setBaubleType(BaubleType type) {
+        this.type = type;
+        return this;
+    }
 
-	@Override
-	public BaubleType getBaubleType(ItemStack itemstack){
-		return this.type;
-	}
+    @Override
+    public BaubleType getBaubleType(ItemStack itemstack) {
+        return this.type;
+    }
 
-	// Item
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@Override
-	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean check){
-		this.holder.addInformation(list, stack);
-	}
+    // Item
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    @Override
+    public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean check) {
+        this.holder.addInformation(list, stack);
+    }
 
-	@Override
-	public int getItemStackLimit(ItemStack stack){
-		return 1;
-	}
+    @Override
+    public int getItemStackLimit(ItemStack stack) {
+        return 1;
+    }
 
-	@Override
-	public int getDisplayDamage(ItemStack stack){
-		return this.holder.getDisplayDamage(stack);
-	}
+    @Override
+    public int getDisplayDamage(ItemStack stack) {
+        return this.holder.getDisplayDamage(stack);
+    }
 
-	@Override
-	public boolean getIsRepairable(ItemStack itemToRepair, ItemStack stack){
-		return this.holder.getIsRepairable(itemToRepair, stack);
-	}
+    @Override
+    public boolean getIsRepairable(ItemStack itemToRepair, ItemStack stack) {
+        return this.holder.getIsRepairable(itemToRepair, stack);
+    }
 
-	@Override
-	public int getMaxDamage(ItemStack stack){
-		return this.holder.getMaxDamage(stack);
-	}
+    @Override
+    public int getMaxDamage(ItemStack stack) {
+        return this.holder.getMaxDamage(stack);
+    }
 
-	@Override
-	public EnumRarity getRarity(ItemStack stack){
-		return EnumRarity.uncommon;
-	}
+    @Override
+    public EnumRarity getRarity(ItemStack stack) {
+        return EnumRarity.uncommon;
+    }
 
-	@Override
-	public boolean isDamaged(ItemStack stack){
-		return this.holder.isDamaged(stack);
-	}
+    @Override
+    public boolean isDamaged(ItemStack stack) {
+        return this.holder.isDamaged(stack);
+    }
 
-	@Override
-	public void onArmorTick(World world, EntityPlayer player, ItemStack stack){
-		this.holder.onArmourTick(world, player, stack);
-	}
+    @Override
+    public void onArmorTick(World world, EntityPlayer player, ItemStack stack) {
+        this.holder.onArmourTick(world, player, stack);
+    }
 
-	@Override
-	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player){
-		return this.holder.onItemRightClick(stack, world, player);
-	}
+    @Override
+    public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
+        return this.holder.onItemRightClick(stack, world, player);
+    }
 
-	@Override
-	public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type){
-		return this.holder.getArmourTexture(stack, entity, slot, type);
-	}
+    @Override
+    public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
+        return this.holder.getArmourTexture(stack, entity, slot, type);
+    }
 
-	// IModularItem
-	@Override
-	public int getSlot(){
-		switch (this.type) {
+    // IModularItem
+    @Override
+    public int getSlot() {
+        switch (this.type) {
 
-		case BELT:
-			return 4;
-		case RING:
-			return 5;
-		case AMULET:
-			return 6;
-		default:
-			return 7;
+        case BELT:
+            return 4;
+        case RING:
+            return 5;
+        case AMULET:
+            return 6;
+        default:
+            return 7;
 
-		}
-	}
+        }
+    }
 
-	@Override
-	public boolean isArmour(){
-		return false;
-	}
+    @Override
+    public boolean isArmour() {
+        return false;
+    }
 
-	@Override
-	public void onArmourDequip(World world, EntityPlayer player, ItemStack stack){}
+    @Override
+    public void onArmourDequip(World world, EntityPlayer player, ItemStack stack) {
+    }
 
-	@Override
-	public void onArmourEquip(World world, EntityPlayer player, ItemStack stack){}
+    @Override
+    public void onArmourEquip(World world, EntityPlayer player, ItemStack stack) {
+    }
 
-	@Override
-	public void damageArmour(ItemStack stack, int damage){
-		this.holder.damageArmour(stack, damage);
-	}
+    @Override
+    public void damageArmour(ItemStack stack, int damage) {
+        this.holder.damageArmour(stack, damage);
+    }
 
-	@Override
-	public void healArmour(ItemStack stack, int damage){
-		this.holder.healArmour(stack, damage);
-	}
+    @Override
+    public void healArmour(ItemStack stack, int damage) {
+        this.holder.healArmour(stack, damage);
+    }
 
-	@Override
-	public UpgradeLogicAdv getLogic(){
-		return this.holder;
-	}
+    @Override
+    public UpgradeLogicAdv getLogic() {
+        return this.holder;
+    }
 
-	@Override
-	public Item getItem(){
-		return this;
-	}
-	
-	// IBauble
+    @Override
+    public Item getItem() {
+        return this;
+    }
 
-	@Override
-	public void onWornTick(ItemStack itemstack, EntityLivingBase player){
-		this.holder.onArmourTick(player.worldObj, (EntityPlayer) player, itemstack);
-	}
+    // IBauble
 
-	@Override
-	public void onEquipped(ItemStack itemstack, EntityLivingBase player){
-		this.holder.onArmourEquip(player.worldObj, (EntityPlayer) player, itemstack);
-	}
+    @Override
+    public void onWornTick(ItemStack itemstack, EntityLivingBase player) {
+        this.holder.onArmourTick(player.worldObj, (EntityPlayer) player, itemstack);
+    }
 
-	@Override
-	public void onUnequipped(ItemStack itemstack, EntityLivingBase player){
-		this.holder.onArmourDequip(player.worldObj, (EntityPlayer) player, itemstack);
-	}
+    @Override
+    public void onEquipped(ItemStack itemstack, EntityLivingBase player) {
+        this.holder.onArmourEquip(player.worldObj, (EntityPlayer) player, itemstack);
+    }
 
-	@Override
-	public boolean canEquip(ItemStack itemstack, EntityLivingBase player){
-		return true;
-	}
+    @Override
+    public void onUnequipped(ItemStack itemstack, EntityLivingBase player) {
+        this.holder.onArmourDequip(player.worldObj, (EntityPlayer) player, itemstack);
+    }
 
-	@Override
-	public boolean canUnequip(ItemStack itemstack, EntityLivingBase player){
-		return true;
-	}
+    @Override
+    public boolean canEquip(ItemStack itemstack, EntityLivingBase player) {
+        return true;
+    }
 
-	// IVisDiscountGear
-	@Override
-	@Optional.Method(modid = "Thaumcraft")
-	public int getVisDiscount(ItemStack stack, EntityPlayer player, Aspect aspect){
-		return this.holder.getVisDiscount(stack, player, aspect);
-	}
+    @Override
+    public boolean canUnequip(ItemStack itemstack, EntityLivingBase player) {
+        return true;
+    }
 
-	// IPixieSpawner
-	@Override
-	public float getPixieChance(ItemStack stack){
-		return this.holder.getPixieChance(stack);
-	}
-	
-	@Override
-	public int getSizeInventory(ItemStack container){
-		return 9;
-	}
+    // IVisDiscountGear
+    @Override
+    @Optional.Method(modid = "Thaumcraft")
+    public int getVisDiscount(ItemStack stack, EntityPlayer player, Aspect aspect) {
+        return this.holder.getVisDiscount(stack, player, aspect);
+    }
+
+    // IPixieSpawner
+    @Override
+    public float getPixieChance(ItemStack stack) {
+        return this.holder.getPixieChance(stack);
+    }
+
+    @Override
+    public int getSizeInventory(ItemStack container) {
+        return 9;
+    }
 
 }

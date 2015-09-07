@@ -2,8 +2,8 @@ package chbachman.api.registry;
 
 import chbachman.api.item.IModularItem;
 
-public interface IItemListener{
+public interface IItemListener {
 
-	IItemListener onItemAdded(IModularItem items);
+    IItemListener onItemAdded(IModularItem items);
 
 }

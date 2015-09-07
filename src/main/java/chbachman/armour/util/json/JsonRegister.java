@@ -18,69 +18,69 @@ import chbachman.armour.ModularArmour;
 
 import com.google.gson.GsonBuilder;
 
-public class JsonRegister{
-	
-	public static void registerCustomSerializers(GsonBuilder gsonBuilder){
-		gsonBuilder.registerTypeAdapter(ItemStack.class, new CustomItemStackJson());
-		gsonBuilder.registerTypeAdapter(IUpgrade.class, new CustomIUpgradeJson());
-		gsonBuilder.registerTypeAdapter(Recipe.class, new CustomRecipeJson());
-	}
-	
-	public static void createJsonRecipes(GsonBuilder gsonBuilder){
-		File folder = new File(ModularArmour.getConfigDirectory(), "recipes");
+public class JsonRegister {
 
-		folder.mkdir();
-		
-		if(folder.listFiles((FileFilter) FileFilterUtils.suffixFileFilter(".json")).length == 0){
-			for(Recipe recipe : UpgradeRegistry.getRecipeList()){
-				writeRecipeToFile(gsonBuilder, recipe, folder);
-			}
-		}
-		
-	}
-	
-	public static void registerJsonRecipes(GsonBuilder gsonBuilder){
-		File folder = new File(ModularArmour.getConfigDirectory(), "recipes");
-		
+    public static void registerCustomSerializers(GsonBuilder gsonBuilder) {
+        gsonBuilder.registerTypeAdapter(ItemStack.class, new CustomItemStackJson());
+        gsonBuilder.registerTypeAdapter(IUpgrade.class, new CustomIUpgradeJson());
+        gsonBuilder.registerTypeAdapter(Recipe.class, new CustomRecipeJson());
+    }
+
+    public static void createJsonRecipes(GsonBuilder gsonBuilder) {
+        File folder = new File(ModularArmour.getConfigDirectory(), "recipes");
+
         folder.mkdir();
-        
-        File[] files = folder.listFiles((FileFilter) FileFilterUtils.suffixFileFilter(".json"));
-        
-        UpgradeRegistry.INSTANCE.recipeList.clear();
-        
-        for (File file : files){
-        	UpgradeRegistry.registerRecipe(createRecipeFromJson(gsonBuilder, file));
+
+        if (folder.listFiles((FileFilter) FileFilterUtils.suffixFileFilter(".json")).length == 0) {
+            for (Recipe recipe : UpgradeRegistry.getRecipeList()) {
+                writeRecipeToFile(gsonBuilder, recipe, folder);
+            }
         }
-	}
-	
-	public static void writeRecipeToFile(GsonBuilder gsonBuilder, Recipe recipe, File directory){
-		
-		String baseName = recipe.getRecipeOutput().getBaseName();
-		
-		File destination = new File(directory, baseName + ".json");
-		
-		int counter = 0;
-		while(destination.exists()){
-			destination = new File(directory, baseName + counter + ".json");
-			counter++;
-		}
-		
-		try {
-			FileWriter writer = new FileWriter(destination);
-			writer.write(createJsonFromRecipe(gsonBuilder, recipe));
-			writer.close();
-	 
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-	}
-	
-	public static String createJsonFromRecipe(GsonBuilder gsonBuilder, Recipe recipe){
-		return gsonBuilder.setPrettyPrinting().create().toJson(recipe, Recipe.class);
-	}
-	
-	public static Recipe createRecipeFromJson(GsonBuilder gsonBuilder, File file) {
+
+    }
+
+    public static void registerJsonRecipes(GsonBuilder gsonBuilder) {
+        File folder = new File(ModularArmour.getConfigDirectory(), "recipes");
+
+        folder.mkdir();
+
+        File[] files = folder.listFiles((FileFilter) FileFilterUtils.suffixFileFilter(".json"));
+
+        UpgradeRegistry.INSTANCE.recipeList.clear();
+
+        for (File file : files) {
+            UpgradeRegistry.registerRecipe(createRecipeFromJson(gsonBuilder, file));
+        }
+    }
+
+    public static void writeRecipeToFile(GsonBuilder gsonBuilder, Recipe recipe, File directory) {
+
+        String baseName = recipe.getRecipeOutput().getBaseName();
+
+        File destination = new File(directory, baseName + ".json");
+
+        int counter = 0;
+        while (destination.exists()) {
+            destination = new File(directory, baseName + counter + ".json");
+            counter++;
+        }
+
+        try {
+            FileWriter writer = new FileWriter(destination);
+            writer.write(createJsonFromRecipe(gsonBuilder, recipe));
+            writer.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static String createJsonFromRecipe(GsonBuilder gsonBuilder, Recipe recipe) {
+        return gsonBuilder.setPrettyPrinting().create().toJson(recipe, Recipe.class);
+    }
+
+    public static Recipe createRecipeFromJson(GsonBuilder gsonBuilder, File file) {
         try {
             return gsonBuilder.setPrettyPrinting().create().fromJson(new FileReader(file), Recipe.class);
         } catch (FileNotFoundException e) {

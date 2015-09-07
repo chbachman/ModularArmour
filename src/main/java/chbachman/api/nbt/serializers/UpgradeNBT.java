@@ -5,18 +5,18 @@ import chbachman.api.nbt.NBTSerializer;
 import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.upgrade.IUpgrade;
 
-public class UpgradeNBT implements NBTSerializer<IUpgrade>{
+public class UpgradeNBT implements NBTSerializer<IUpgrade> {
 
-	@Override
-	public IUpgrade loadFromNBT(NBTTagCompound d){
-		IUpgrade upgrade = UpgradeRegistry.getUpgrade(d.getString("ID"));
+    @Override
+    public IUpgrade loadFromNBT(NBTTagCompound d) {
+        IUpgrade upgrade = UpgradeRegistry.getUpgrade(d.getString("ID"));
 
-		return upgrade;
-	}
+        return upgrade;
+    }
 
-	@Override
-	public void saveToNBT(IUpgrade data, NBTTagCompound d){
-		d.setString("ID", data.getBaseName());
-	}
+    @Override
+    public void saveToNBT(IUpgrade data, NBTTagCompound d) {
+        d.setString("ID", data.getBaseName());
+    }
 
 }

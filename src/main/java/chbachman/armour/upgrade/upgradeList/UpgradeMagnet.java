@@ -13,62 +13,59 @@ import chbachman.api.upgrade.Upgrade;
 import chbachman.api.util.ArmourSlot;
 import chbachman.armour.util.ConfigHelper;
 
-public class UpgradeMagnet extends Upgrade{
+public class UpgradeMagnet extends Upgrade {
 
-	public UpgradeMagnet() {
-		super("magnet");
-	}
+    public UpgradeMagnet() {
+        super("magnet");
+    }
 
-	private int cost;
+    private int cost;
 
-	@Configurable
-	public ConfigurableField f = new ConfigurableField(this, "reach");
-	
-	@Override
-	public void registerConfigOptions(){
-		cost = ConfigHelper.get(ConfigHelper.SPEED,this, "energy cost to drag items in, per item", 100);
-	}
+    @Configurable
+    public ConfigurableField f = new ConfigurableField(this, "reach");
 
-	@Override
-	public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
-		float distanceToPull = 5 * f.get(stack).getPercentage();
-		
-		AxisAlignedBB box = player.boundingBox.expand(distanceToPull, distanceToPull, distanceToPull);
+    @Override
+    public void registerConfigOptions() {
+        cost = ConfigHelper.get(ConfigHelper.SPEED, this, "energy cost to drag items in, per item", 100);
+    }
 
-		@SuppressWarnings("unchecked")
-		List<EntityItem> list = world.getEntitiesWithinAABB(EntityItem.class, box);
+    @Override
+    public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
+        float distanceToPull = 5 * f.get(stack).getPercentage();
 
-		int energy = 0;
+        AxisAlignedBB box = player.boundingBox.expand(distanceToPull, distanceToPull, distanceToPull);
 
-		for (EntityItem e : list)
-		{
-			if (e.age >= 10)
-			{
-				double x = player.posX - e.posX;
-				double y = player.posY - e.posY;
-				double z = player.posZ - e.posZ;
+        @SuppressWarnings("unchecked")
+        List<EntityItem> list = world.getEntitiesWithinAABB(EntityItem.class, box);
 
-				double length = Math.sqrt(x * x + y * y + z * z) * 2;
+        int energy = 0;
 
-				x = x / length + player.motionX / 2;
-				y = y / length + player.motionY / 2;
-				z = z / length + player.motionZ / 2;
+        for (EntityItem e : list) {
+            if (e.age >= 10) {
+                double x = player.posX - e.posX;
+                double y = player.posY - e.posY;
+                double z = player.posZ - e.posZ;
 
-				e.motionX =+ x;
-				e.motionY =+ y;
-				e.motionZ =+ z;
-				e.isAirBorne = true;
+                double length = Math.sqrt(x * x + y * y + z * z) * 2;
 
-				if (e.isCollidedHorizontally)
-				{
-					e.motionY += 1;
-				}
+                x = x / length + player.motionX / 2;
+                y = y / length + player.motionY / 2;
+                z = z / length + player.motionZ / 2;
 
-				energy += cost;
-			}
-		}
+                e.motionX = +x;
+                e.motionY = +y;
+                e.motionZ = +z;
+                e.isAirBorne = true;
 
-		return energy;
-	}
+                if (e.isCollidedHorizontally) {
+                    e.motionY += 1;
+                }
+
+                energy += cost;
+            }
+        }
+
+        return energy;
+    }
 
 }

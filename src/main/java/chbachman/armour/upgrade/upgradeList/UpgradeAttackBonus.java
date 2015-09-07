@@ -5,25 +5,23 @@ import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import chbachman.armour.util.UpgradeUtil;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
-public class UpgradeAttackBonus extends UpgradeBasic{
-	
-	public UpgradeAttackBonus(String name) {
-		super(name);
-	}
+public class UpgradeAttackBonus extends UpgradeBasic {
 
-	@SubscribeEvent
-	public void onPlayerAttack(LivingAttackEvent e){
-		
-		if(e.source.getEntity() instanceof EntityPlayer){
-			
-			if(UpgradeUtil.doesPlayerHaveUpgrade((EntityPlayer) e.source.getEntity(), this)){
-				
-				
-				
-			}
-			
-		}
-		
-	}
+    public UpgradeAttackBonus(String name) {
+        super(name);
+    }
+
+    @SubscribeEvent
+    public void onPlayerAttack(LivingAttackEvent e) {
+
+        if (e.source.getEntity() instanceof EntityPlayer) {
+
+            if (UpgradeUtil.doesPlayerHaveUpgrade((EntityPlayer) e.source.getEntity(), this)) {
+
+            }
+
+        }
+
+    }
 
 }

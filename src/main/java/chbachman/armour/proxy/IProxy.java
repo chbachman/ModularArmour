@@ -7,27 +7,27 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.event.TextureStitchEvent;
 
 public interface IProxy {
-    
-	void registerKeyBinds();
-    
+
+    void registerKeyBinds();
+
     void registerIcons(TextureStitchEvent.Pre event);
 
     EntityPlayer getClientPlayer();
 
-	boolean isOp(String commandSenderName);
+    boolean isOp(String commandSenderName);
 
-	boolean isClient();
+    boolean isClient();
 
-	boolean isServer();
+    boolean isServer();
 
-	float getSoundVolume(int category);
-	
-	List<EntityPlayer> getPlayerList();
-	
-	World getClientWorld();
-	
-	EntityPlayer findPlayer(String player);
-	
-	void registerPacketInformation();
-    
+    float getSoundVolume(int category);
+
+    List<EntityPlayer> getPlayerList();
+
+    World getClientWorld();
+
+    EntityPlayer findPlayer(String player);
+
+    void registerPacketInformation();
+
 }

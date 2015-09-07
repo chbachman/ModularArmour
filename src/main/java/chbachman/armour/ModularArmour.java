@@ -35,93 +35,91 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 
 @Mod(modid = Reference.MODID, name = Reference.MODNAME, version = Reference.VERSION, dependencies = Reference.DEPENDENCIES)
-public class ModularArmour{
+public class ModularArmour {
 
-	@Instance(Reference.MODID)
-	public static ModularArmour instance;
+    @Instance(Reference.MODID)
+    public static ModularArmour instance;
 
-	@SidedProxy(clientSide = "chbachman.armour.proxy.ClientProxy", serverSide = "chbachman.armour.proxy.ServerProxy")
-	public static IProxy proxy;
+    @SidedProxy(clientSide = "chbachman.armour.proxy.ClientProxy", serverSide = "chbachman.armour.proxy.ServerProxy")
+    public static IProxy proxy;
 
-	// Whether we are in a development method.
-	public static final boolean developmentEnvironment = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
+    // Whether we are in a development method.
+    public static final boolean developmentEnvironment = (Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
 
-	// The log method
-	public static Logger log = LogManager.getLogger(Reference.MODID);
+    // The log method
+    public static Logger log = LogManager.getLogger(Reference.MODID);
 
-	public static GuiHandler guiHandler = new GuiHandler();
+    public static GuiHandler guiHandler = new GuiHandler();
 
-	// The config, use this between preInit and postInit.
-	public static ConfigHandler config = new ConfigHandler(Reference.VERSION);
-	public static OutputHandler output;
+    // The config, use this between preInit and postInit.
+    public static ConfigHandler config = new ConfigHandler(Reference.VERSION);
+    public static OutputHandler output;
 
-	private static File configDir;
+    private static File configDir;
 
-	// Modular Armour Creative Tab
-	public static ModularCreativeTab creativeTab;
+    // Modular Armour Creative Tab
+    public static ModularCreativeTab creativeTab;
 
-	@EventHandler
-	public void preInit(FMLPreInitializationEvent event){
-		configDir = new File(event.getModConfigurationDirectory(), "ModularArmour"); // Make
-																						// config
-																						// directory.
-		configDir.mkdir();
+    @EventHandler
+    public void preInit(FMLPreInitializationEvent event) {
+        configDir = new File(event.getModConfigurationDirectory(), "ModularArmour"); // Make
+                                                                                     // config
+                                                                                     // directory.
+        configDir.mkdir();
 
-		config.setConfiguration(new Configuration(new File(configDir, "Main.cfg"))); // Make
-																						// main
-																						// configuration.
-		output = new OutputHandler(new File(configDir, "ModularRecipes.txt")); // Make
-																				// the
-																				// recipe
-																				// text.
+        config.setConfiguration(new Configuration(new File(configDir, "Main.cfg"))); // Make
+                                                                                     // main
+                                                                                     // configuration.
+        output = new OutputHandler(new File(configDir, "ModularRecipes.txt")); // Make
+                                                                               // the
+                                                                               // recipe
+                                                                               // text.
 
-		creativeTab = new ModularCreativeTab(); // Make Creative Tab.
+        creativeTab = new ModularCreativeTab(); // Make Creative Tab.
 
-		ItemRegister.INSTANCE.preInit();
-		proxy.registerKeyBinds();
-	}
+        ItemRegister.INSTANCE.preInit();
+        proxy.registerKeyBinds();
+    }
 
-	@EventHandler
-	public void init(FMLInitializationEvent event){
+    @EventHandler
+    public void init(FMLInitializationEvent event) {
 
-		if (developmentEnvironment){
-			MinecraftForge.EVENT_BUS.register(new DamageEventHandler());
-		}
+        if (developmentEnvironment) {
+            MinecraftForge.EVENT_BUS.register(new DamageEventHandler());
+        }
 
-		GenericEventHandler.register();
-		MinecraftForge.EVENT_BUS.register(proxy);
+        GenericEventHandler.register();
+        MinecraftForge.EVENT_BUS.register(proxy);
 
-		ItemRegister.INSTANCE.init();
+        ItemRegister.INSTANCE.init();
 
-		for (IUpgrade upgrade : UpgradeRegistry.getUpgradeList()){
-			upgrade.registerConfigOptions();
-		}
+        for (IUpgrade upgrade : UpgradeRegistry.getUpgradeList()) {
+            upgrade.registerConfigOptions();
+        }
 
-		NetworkRegistry.INSTANCE.registerGuiHandler(instance, guiHandler);
-		
-		proxy.registerKeyBinds();
-		proxy.registerPacketInformation();
-	}
+        NetworkRegistry.INSTANCE.registerGuiHandler(instance, guiHandler);
 
-	@EventHandler
-	public void postInit(FMLPostInitializationEvent event){
-		config.cleanUp(false, true);
-		ItemRegister.INSTANCE.postInit();
-		output.save();
+        proxy.registerKeyBinds();
+        proxy.registerPacketInformation();
+    }
 
-		
+    @EventHandler
+    public void postInit(FMLPostInitializationEvent event) {
+        config.cleanUp(false, true);
+        ItemRegister.INSTANCE.postInit();
+        output.save();
 
-		PacketHandler.instance.postInit();
+        PacketHandler.instance.postInit();
 
-		GsonBuilder gsonBuilder = new GsonBuilder();
-		JsonRegister.registerCustomSerializers(gsonBuilder);
-		JsonRegister.createJsonRecipes(gsonBuilder);
-		JsonRegister.registerJsonRecipes(gsonBuilder);
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        JsonRegister.registerCustomSerializers(gsonBuilder);
+        JsonRegister.createJsonRecipes(gsonBuilder);
+        JsonRegister.registerJsonRecipes(gsonBuilder);
 
-	}
+    }
 
-	public static File getConfigDirectory(){
-		return configDir;
-	}
+    public static File getConfigDirectory() {
+        return configDir;
+    }
 
 }

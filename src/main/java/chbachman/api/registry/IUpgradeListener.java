@@ -9,14 +9,14 @@ import chbachman.api.upgrade.IUpgrade;
  * @author Chbachman
  *
  */
-public interface IUpgradeListener{
+public interface IUpgradeListener {
 
-	/**
-	 * Create and return the UpgradeListener that stores data for the upgrade
-	 * 
-	 * @param upgrade
-	 * @return
-	 */
-	IUpgradeListener onUpgradeAdded(IUpgrade upgrade);
+    /**
+     * Create and return the UpgradeListener that stores data for the upgrade
+     * 
+     * @param upgrade
+     * @return
+     */
+    IUpgradeListener onUpgradeAdded(IUpgrade upgrade);
 
 }

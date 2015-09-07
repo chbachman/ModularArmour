@@ -14,77 +14,77 @@ import chbachman.armour.reference.Reference;
 import chbachman.armour.upgrade.upgradeList.UpgradeBasic;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class Botania implements Module{
+public class Botania implements Module {
 
-	public static IUpgrade pixie;
-	public static IUpgrade woodenEnergy;
-	public static IUpgrade manaSteelEnergy;
-	public static IUpgrade terraSteelEnergy;
-	public static IUpgrade elvenEnergy;
+    public static IUpgrade pixie;
+    public static IUpgrade woodenEnergy;
+    public static IUpgrade manaSteelEnergy;
+    public static IUpgrade terraSteelEnergy;
+    public static IUpgrade elvenEnergy;
 
-	public static Item helmetModular;
-	public static Item chestplateModular;
-	public static Item leggingsModular;
-	public static Item bootsModular;
+    public static Item helmetModular;
+    public static Item chestplateModular;
+    public static Item leggingsModular;
+    public static Item bootsModular;
 
-	public static ItemStack stackHelmetModular;
-	public static ItemStack stackChestplateModular;
-	public static ItemStack stackLeggingsModular;
-	public static ItemStack stackBootsModular;
+    public static ItemStack stackHelmetModular;
+    public static ItemStack stackChestplateModular;
+    public static ItemStack stackLeggingsModular;
+    public static ItemStack stackBootsModular;
 
-	@Override
-	public void preInit(){
-		helmetModular = new BotaniaModularArmour(Vanilla.materialModular, 0).setUnlocalizedName("chbachman.armour.helmetModularMana").setTextureName(Reference.ITEM_LOCATION + "ModularHelmetMana");
-		chestplateModular = new BotaniaModularArmour(Vanilla.materialModular, 1).setUnlocalizedName("chbachman.armour.chestplateModularMana").setTextureName(Reference.ITEM_LOCATION + "ModularChestplateMana");
-		leggingsModular = new BotaniaModularArmour(Vanilla.materialModular, 2).setUnlocalizedName("chbachman.armour.leggingsModularMana").setTextureName(Reference.ITEM_LOCATION + "ModularLegsMana");
-		bootsModular = new BotaniaModularArmour(Vanilla.materialModular, 3).setUnlocalizedName("chbachman.armour.bootsModularMana").setTextureName(Reference.ITEM_LOCATION + "ModularBootsMana");
+    @Override
+    public void preInit() {
+        helmetModular = new BotaniaModularArmour(Vanilla.materialModular, 0).setUnlocalizedName("chbachman.armour.helmetModularMana").setTextureName(Reference.ITEM_LOCATION + "ModularHelmetMana");
+        chestplateModular = new BotaniaModularArmour(Vanilla.materialModular, 1).setUnlocalizedName("chbachman.armour.chestplateModularMana").setTextureName(Reference.ITEM_LOCATION + "ModularChestplateMana");
+        leggingsModular = new BotaniaModularArmour(Vanilla.materialModular, 2).setUnlocalizedName("chbachman.armour.leggingsModularMana").setTextureName(Reference.ITEM_LOCATION + "ModularLegsMana");
+        bootsModular = new BotaniaModularArmour(Vanilla.materialModular, 3).setUnlocalizedName("chbachman.armour.bootsModularMana").setTextureName(Reference.ITEM_LOCATION + "ModularBootsMana");
 
-		GameRegistry.registerItem(helmetModular, "helmetModularMana");
-		GameRegistry.registerItem(chestplateModular, "chestplateModularMana");
-		GameRegistry.registerItem(leggingsModular, "leggingsModularMana");
-		GameRegistry.registerItem(bootsModular, "bootsModularMana");
-	}
+        GameRegistry.registerItem(helmetModular, "helmetModularMana");
+        GameRegistry.registerItem(chestplateModular, "chestplateModularMana");
+        GameRegistry.registerItem(leggingsModular, "leggingsModularMana");
+        GameRegistry.registerItem(bootsModular, "bootsModularMana");
+    }
 
-	@Override
-	public void init(){
-		stackHelmetModular = NBTHelper.createDefaultStackTag(new ItemStack(helmetModular));
-		stackChestplateModular = NBTHelper.createDefaultStackTag(new ItemStack(chestplateModular));
-		stackLeggingsModular = NBTHelper.createDefaultStackTag(new ItemStack(leggingsModular));
-		stackBootsModular = NBTHelper.createDefaultStackTag(new ItemStack(bootsModular));
+    @Override
+    public void init() {
+        stackHelmetModular = NBTHelper.createDefaultStackTag(new ItemStack(helmetModular));
+        stackChestplateModular = NBTHelper.createDefaultStackTag(new ItemStack(chestplateModular));
+        stackLeggingsModular = NBTHelper.createDefaultStackTag(new ItemStack(leggingsModular));
+        stackBootsModular = NBTHelper.createDefaultStackTag(new ItemStack(bootsModular));
 
-		ModularItemRegistry.registerItem((IModularItem) helmetModular);
-		ModularItemRegistry.registerItem((IModularItem) chestplateModular);
-		ModularItemRegistry.registerItem((IModularItem) leggingsModular);
-		ModularItemRegistry.registerItem((IModularItem) bootsModular);
-	}
+        ModularItemRegistry.registerItem((IModularItem) helmetModular);
+        ModularItemRegistry.registerItem((IModularItem) chestplateModular);
+        ModularItemRegistry.registerItem((IModularItem) leggingsModular);
+        ModularItemRegistry.registerItem((IModularItem) bootsModular);
+    }
 
-	@Override
-	public void postInit(){
-		ItemStack manaTablet = GameRegistry.findItemStack("Botania", "manaTablet", 1);
-		ItemStack elementiumIngot = GameRegistry.findItemStack("Botania", "manaResource", 1);
-		
-		GameRegistry.addRecipe(new ShapedOreRecipe(stackHelmetModular, "IVI", "I I", 'I', elementiumIngot, 'V', manaTablet));
-		GameRegistry.addRecipe(new ShapedOreRecipe(stackChestplateModular, "I I", "IVI", "III", 'I', elementiumIngot, 'V', manaTablet));
-		GameRegistry.addRecipe(new ShapedOreRecipe(stackLeggingsModular, "IVI", "I I", "I I", 'I', elementiumIngot, 'V', manaTablet));
-		GameRegistry.addRecipe(new ShapedOreRecipe(stackBootsModular, "I I", "IVI", 'I', elementiumIngot, 'V', manaTablet));
-	}
+    @Override
+    public void postInit() {
+        ItemStack manaTablet = GameRegistry.findItemStack("Botania", "manaTablet", 1);
+        ItemStack elementiumIngot = GameRegistry.findItemStack("Botania", "manaResource", 1);
 
-	@Override
-	public void registerUpgrades(){
-		pixie = new UpgradeBasic("pixie");
-		
-		//Character.isLetter(ch)
-		
-		//woodenEnergy = new UpgradeMana("woodenEnergy", );
-		//manaSteelEnergy = new UpgradeMana("manasteelEnergy", );
-		//terraSteelEnergy = new UpgradeMana("terrasteelEnergy", );
-		//elvenEnergy = new UpgradeMana("elvenEnergy", );
-		
-	}
+        GameRegistry.addRecipe(new ShapedOreRecipe(stackHelmetModular, "IVI", "I I", 'I', elementiumIngot, 'V', manaTablet));
+        GameRegistry.addRecipe(new ShapedOreRecipe(stackChestplateModular, "I I", "IVI", "III", 'I', elementiumIngot, 'V', manaTablet));
+        GameRegistry.addRecipe(new ShapedOreRecipe(stackLeggingsModular, "IVI", "I I", "I I", 'I', elementiumIngot, 'V', manaTablet));
+        GameRegistry.addRecipe(new ShapedOreRecipe(stackBootsModular, "I I", "IVI", 'I', elementiumIngot, 'V', manaTablet));
+    }
 
-	@Override
-	public void registerUpgradeRecipes(){
-		UpgradeRegistry.registerRecipe(new Recipe(pixie, "tet", "e e", "tet", 'e', "ingotElvenElementium", 't', "ingotManasteel"));
-	}
+    @Override
+    public void registerUpgrades() {
+        pixie = new UpgradeBasic("pixie");
+
+        // Character.isLetter(ch)
+
+        // woodenEnergy = new UpgradeMana("woodenEnergy", );
+        // manaSteelEnergy = new UpgradeMana("manasteelEnergy", );
+        // terraSteelEnergy = new UpgradeMana("terrasteelEnergy", );
+        // elvenEnergy = new UpgradeMana("elvenEnergy", );
+
+    }
+
+    @Override
+    public void registerUpgradeRecipes() {
+        UpgradeRegistry.registerRecipe(new Recipe(pixie, "tet", "e e", "tet", 'e', "ingotElvenElementium", 't', "ingotManasteel"));
+    }
 
 }

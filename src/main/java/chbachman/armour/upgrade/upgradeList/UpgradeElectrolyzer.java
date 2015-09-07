@@ -9,33 +9,33 @@ import chbachman.api.util.ArmourSlot;
 import chbachman.armour.util.ConfigHelper;
 import chbachman.armour.util.EnergyUtil;
 
-public class UpgradeElectrolyzer extends Upgrade{
+public class UpgradeElectrolyzer extends Upgrade {
 
-	public UpgradeElectrolyzer() {
-		super("electrolyzer");
-	}
+    public UpgradeElectrolyzer() {
+        super("electrolyzer");
+    }
 
-	private int cost;
+    private int cost;
 
-	@Override
-	public void registerConfigOptions(){
-		cost = ConfigHelper.get(ConfigHelper.SPEED,this, "cost for air to be refilled.", 100);
-	}
-	
-	@Override
-	public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
-        if(player.getAir() <= 90 && EnergyUtil.getEnergyStored(stack) > 1000){
-        	
-        	player.setAir(300);
-        	return cost;
+    @Override
+    public void registerConfigOptions() {
+        cost = ConfigHelper.get(ConfigHelper.SPEED, this, "cost for air to be refilled.", 100);
+    }
+
+    @Override
+    public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
+        if (player.getAir() <= 90 && EnergyUtil.getEnergyStored(stack) > 1000) {
+
+            player.setAir(300);
+            return cost;
         }
-        
+
         return 0;
     }
-	
-	@Override
-	public boolean isCompatible(IModularItem item, ItemStack stack, int armorType) {
-		return armorType == ArmourSlot.HELMET.id;
-	}
+
+    @Override
+    public boolean isCompatible(IModularItem item, ItemStack stack, int armorType) {
+        return armorType == ArmourSlot.HELMET.id;
+    }
 
 }

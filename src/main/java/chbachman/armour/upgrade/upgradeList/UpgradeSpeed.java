@@ -12,37 +12,36 @@ import chbachman.api.util.ArmourSlot;
 import chbachman.armour.util.ConfigHelper;
 import chbachman.armour.util.EnergyUtil;
 
-public class UpgradeSpeed extends Upgrade{
-	
+public class UpgradeSpeed extends Upgrade {
+
     public UpgradeSpeed() {
         super("speed");
     }
 
-	@Configurable
-	public ConfigurableField f = new ConfigurableField(this, "speed");
-    
+    @Configurable
+    public ConfigurableField f = new ConfigurableField(this, "speed");
+
     private int cost;
-    
+
     @Override
-    public void registerConfigOptions(){
-    	cost = ConfigHelper.get(ConfigHelper.ENERGY, this, "cost to walk faster, per tick", 100);
+    public void registerConfigOptions() {
+        cost = ConfigHelper.get(ConfigHelper.ENERGY, this, "cost to walk faster, per tick", 100);
     }
-    
+
     @Override
     public boolean isCompatible(IModularItem item, ItemStack stack, int armourType) {
         return armourType == ArmourSlot.LEGS.id;
     }
-    
+
     @Override
-    public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot){
-    	
-    	if(!EnergyUtil.isEmpty(stack) && (player.onGround || player.capabilities.isFlying) && player.moveForward > 0F && !player.isInsideOfMaterial(Material.water)){
-			player.moveFlying(0F, 1F, player.capabilities.isFlying ? .15F * f.get(stack).getPercentage() : .15F * f.get(stack).getPercentage() * 2);
-			return cost;
-		}
-    	
-    	return 0;
+    public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
+
+        if (!EnergyUtil.isEmpty(stack) && (player.onGround || player.capabilities.isFlying) && player.moveForward > 0F && !player.isInsideOfMaterial(Material.water)) {
+            player.moveFlying(0F, 1F, player.capabilities.isFlying ? .15F * f.get(stack).getPercentage() : .15F * f.get(stack).getPercentage() * 2);
+            return cost;
+        }
+
+        return 0;
     }
-    
-    
+
 }

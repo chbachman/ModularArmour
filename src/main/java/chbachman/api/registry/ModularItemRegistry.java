@@ -6,97 +6,100 @@ import chbachman.api.item.IModularItem;
 import chbachman.api.util.Array;
 import chbachman.api.util.ImmutableArray;
 
-public final class ModularItemRegistry{
+public final class ModularItemRegistry {
 
-	private ModularItemRegistry() {}
+    private ModularItemRegistry() {
+    }
 
-	private static ModularItemRegistry INSTANCE = new ModularItemRegistry();
+    private static ModularItemRegistry INSTANCE = new ModularItemRegistry();
 
-	private Array<IModularItem> itemList = new Array<IModularItem>();
+    private Array<IModularItem> itemList = new Array<IModularItem>();
 
-	private Array<IItemListener> listenerList = new Array<IItemListener>();
+    private Array<IItemListener> listenerList = new Array<IItemListener>();
 
-	private HashMap<IModularItem, IItemListener[]> listenerMap = new HashMap<IModularItem, IItemListener[]>();
+    private HashMap<IModularItem, IItemListener[]> listenerMap = new HashMap<IModularItem, IItemListener[]>();
 
-	@SuppressWarnings("unchecked")
-	/**
-	 * Gets the UpgradeListener for the given Upgrade, used to retrieve data from the listener.
-	 * @param upgrade
-	 * @param clazz
-	 * @return
-	 */
-	public static <T extends IItemListener> T getListenerForUpgrade(IModularItem upgrade, Class<T> clazz){
+    @SuppressWarnings("unchecked")
+    /**
+     * Gets the UpgradeListener for the given Upgrade, used to retrieve data
+     * from the listener.
+     * 
+     * @param upgrade
+     * @param clazz
+     * @return
+     */
+    public static <T extends IItemListener> T getListenerForUpgrade(IModularItem upgrade, Class<T> clazz) {
 
-		IItemListener[] list = INSTANCE.listenerMap.get(upgrade);
+        IItemListener[] list = INSTANCE.listenerMap.get(upgrade);
 
-		for (IItemListener l : list){
-			if (l.getClass() == clazz){
-				return (T) l;
-			}
-		}
+        for (IItemListener l : list) {
+            if (l.getClass() == clazz) {
+                return (T) l;
+            }
+        }
 
-		return null;
+        return null;
 
-	}
+    }
 
-	/**
-	 * Registers the UpgradeListener to be notified of all future additions of
-	 * upgrades.
-	 * 
-	 * @param l
-	 * @return the listener, for chaining.
-	 */
-	public static IItemListener registerListener(IItemListener l){
-		INSTANCE.listenerList.add(l);
-		return l;
-	}
+    /**
+     * Registers the UpgradeListener to be notified of all future additions of
+     * upgrades.
+     * 
+     * @param l
+     * @return the listener, for chaining.
+     */
+    public static IItemListener registerListener(IItemListener l) {
+        INSTANCE.listenerList.add(l);
+        return l;
+    }
 
-	/**
-	 * Registers the given upgrade, adds it to the global list, and calls all
-	 * itemListeners.
-	 * 
-	 * @param upgrade
-	 * @return the upgrade, for chaining.
-	 */
-	public static IModularItem registerItem(IModularItem upgrade){
+    /**
+     * Registers the given upgrade, adds it to the global list, and calls all
+     * itemListeners.
+     * 
+     * @param upgrade
+     * @return the upgrade, for chaining.
+     */
+    public static IModularItem registerItem(IModularItem upgrade) {
 
-		IItemListener[] list = new IItemListener[INSTANCE.listenerList.size];
+        IItemListener[] list = new IItemListener[INSTANCE.listenerList.size];
 
-		for (int i = 0; i < INSTANCE.listenerList.size; i++){
-			list[i] = INSTANCE.listenerList.get(i).onItemAdded(upgrade);
-		}
+        for (int i = 0; i < INSTANCE.listenerList.size; i++) {
+            list[i] = INSTANCE.listenerList.get(i).onItemAdded(upgrade);
+        }
 
-		INSTANCE.listenerMap.put(upgrade, list);
-		INSTANCE.itemList.add(upgrade);
+        INSTANCE.listenerMap.put(upgrade, list);
+        INSTANCE.itemList.add(upgrade);
 
-		return upgrade;
-	}
+        return upgrade;
+    }
 
-	/**
-	 * Returns an immutable list of the currently registered Upgrades.
-	 * 
-	 * @return
-	 */
-	public static ImmutableArray<IModularItem> getItemList(){
-		return new ImmutableArray(INSTANCE.itemList);
-	}
+    /**
+     * Returns an immutable list of the currently registered Upgrades.
+     * 
+     * @return
+     */
+    public static ImmutableArray<IModularItem> getItemList() {
+        return new ImmutableArray(INSTANCE.itemList);
+    }
 
-	/**
-	 * Get the upgrade with the specified name
-	 * 
-	 * @param s
-	 * @return
-	 */
-	public static <T extends IModularItem> T getItem(Class<T> s){
-		for (IModularItem item : INSTANCE.itemList){
+    /**
+     * Get the upgrade with the specified name
+     * 
+     * @param s
+     * @return
+     */
+    public static <T extends IModularItem> T getItem(Class<T> s) {
+        for (IModularItem item : INSTANCE.itemList) {
 
-			if (s == item.getClass()){
-				return (T) item;
-			}
+            if (s == item.getClass()) {
+                return (T) item;
+            }
 
-		}
+        }
 
-		return null;
-	}
+        return null;
+    }
 
 }

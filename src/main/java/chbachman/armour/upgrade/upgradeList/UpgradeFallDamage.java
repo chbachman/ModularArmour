@@ -13,33 +13,33 @@ import chbachman.armour.util.EnergyUtil;
 
 public class UpgradeFallDamage extends Upgrade {
 
-	public UpgradeFallDamage() {
-		super("fallDamage");
-	}
+    public UpgradeFallDamage() {
+        super("fallDamage");
+    }
 
-	@Configurable
-	public ConfigurableField f = new ConfigurableField(this, "fallDamage");
-	
-	private int cost;
+    @Configurable
+    public ConfigurableField f = new ConfigurableField(this, "fallDamage");
 
-	@Override
-	public void registerConfigOptions(){
-		cost = ConfigHelper.get(ConfigHelper.SPEED,this, "cost to fall for every 2 blocks", 100);
-	}
-	
-	@Override
-	public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
-		if (player.fallDistance > (30 - 28 * f.get(stack).getPercentage()) && EnergyUtil.getEnergyStored(stack) > 100) {
-			player.fallDistance = 0;
-			return cost;
-		}
+    private int cost;
 
-		return 0;
-	}
+    @Override
+    public void registerConfigOptions() {
+        cost = ConfigHelper.get(ConfigHelper.SPEED, this, "cost to fall for every 2 blocks", 100);
+    }
 
-	@Override
-	public boolean isCompatible(IModularItem item, ItemStack stack, int armorType) {
-		return armorType == ArmourSlot.BOOTS.id;
-	}
+    @Override
+    public int onTick(World world, EntityPlayer player, ItemStack stack, ArmourSlot slot) {
+        if (player.fallDistance > (30 - 28 * f.get(stack).getPercentage()) && EnergyUtil.getEnergyStored(stack) > 100) {
+            player.fallDistance = 0;
+            return cost;
+        }
+
+        return 0;
+    }
+
+    @Override
+    public boolean isCompatible(IModularItem item, ItemStack stack, int armorType) {
+        return armorType == ArmourSlot.BOOTS.id;
+    }
 
 }

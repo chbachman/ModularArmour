@@ -1,23 +1,23 @@
 package chbachman.api.configurability;
 
-public class Percentage{
+public class Percentage {
 
-	private byte percentage;
+    private byte percentage;
 
-	public Percentage(int amount) {
-		percentage = (byte) amount;
-	}
+    public Percentage(int amount) {
+        percentage = (byte) amount;
+    }
 
-	public float getPercentage(){
-		return percentage / 100F;
-	}
+    public float getPercentage() {
+        return percentage / 100F;
+    }
 
-	public void setPercentage(int amount){
-		percentage = (byte) amount;
-	}
+    public void setPercentage(int amount) {
+        percentage = (byte) amount;
+    }
 
-	public int getAmount(){
-		return percentage;
-	}
+    public int getAmount() {
+        return percentage;
+    }
 
 }

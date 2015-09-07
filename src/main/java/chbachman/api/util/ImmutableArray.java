@@ -26,76 +26,76 @@ import chbachman.api.util.Array.ArrayIterable;
  * 
  * @author David Saltares
  */
-public class ImmutableArray<T> implements Iterable<T>{
-	private final Array<T> array;
-	private ArrayIterable<T> iterable;
+public class ImmutableArray<T> implements Iterable<T> {
+    private final Array<T> array;
+    private ArrayIterable<T> iterable;
 
-	public ImmutableArray(Array<T> array) {
-		this.array = array;
-	}
+    public ImmutableArray(Array<T> array) {
+        this.array = array;
+    }
 
-	public int size(){
-		return array.size;
-	}
+    public int size() {
+        return array.size;
+    }
 
-	public T get(int index){
-		return array.get(index);
-	}
+    public T get(int index) {
+        return array.get(index);
+    }
 
-	public boolean contains(T value, boolean identity){
-		return array.contains(value, identity);
-	}
+    public boolean contains(T value, boolean identity) {
+        return array.contains(value, identity);
+    }
 
-	public int indexOf(T value, boolean identity){
-		return array.indexOf(value, identity);
-	}
+    public int indexOf(T value, boolean identity) {
+        return array.indexOf(value, identity);
+    }
 
-	public int lastIndexOf(T value, boolean identity){
-		return array.lastIndexOf(value, identity);
-	}
+    public int lastIndexOf(T value, boolean identity) {
+        return array.lastIndexOf(value, identity);
+    }
 
-	public T peek(){
-		return array.peek();
-	}
+    public T peek() {
+        return array.peek();
+    }
 
-	public T first(){
-		return array.first();
-	}
+    public T first() {
+        return array.first();
+    }
 
-	public T random(){
-		return array.random();
-	}
+    public T random() {
+        return array.random();
+    }
 
-	public T[] toArray(){
-		return array.toArray();
-	}
+    public T[] toArray() {
+        return array.toArray();
+    }
 
-	public <V> V[] toArray(Class<?> type){
-		return array.toArray(type);
-	}
+    public <V> V[] toArray(Class<?> type) {
+        return array.toArray(type);
+    }
 
-	public int hashCode(){
-		return array.hashCode();
-	}
+    public int hashCode() {
+        return array.hashCode();
+    }
 
-	public boolean equals(Object object){
-		return array.equals(object);
-	}
+    public boolean equals(Object object) {
+        return array.equals(object);
+    }
 
-	public String toString(){
-		return array.toString();
-	}
+    public String toString() {
+        return array.toString();
+    }
 
-	public String toString(String separator){
-		return array.toString(separator);
-	}
+    public String toString(String separator) {
+        return array.toString(separator);
+    }
 
-	@Override
-	public Iterator<T> iterator(){
-		if (iterable == null){
-			iterable = new ArrayIterable<T>(array, false);
-		}
+    @Override
+    public Iterator<T> iterator() {
+        if (iterable == null) {
+            iterable = new ArrayIterable<T>(array, false);
+        }
 
-		return iterable.iterator();
-	}
+        return iterable.iterator();
+    }
 }

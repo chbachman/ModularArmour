@@ -5,14 +5,14 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
 public class AdvancedArmourModel extends ModelBiped {
-    
-    //public ModelRenderer bipedHead;
-    //public ModelRenderer bipedBody;
-    //public ModelRenderer bipedRightArm;
-    //public ModelRenderer bipedLeftArm;
-    //public ModelRenderer bipedRightLeg;
-    //public ModelRenderer bipedLeftLeg;
-    
+
+    // public ModelRenderer bipedHead;
+    // public ModelRenderer bipedBody;
+    // public ModelRenderer bipedRightArm;
+    // public ModelRenderer bipedLeftArm;
+    // public ModelRenderer bipedRightLeg;
+    // public ModelRenderer bipedLeftLeg;
+
     public ModelRenderer MainHeadPieceRight1;
     public ModelRenderer MainHeadPieceRight2;
     public ModelRenderer MainHeadPieceRight3;
@@ -86,13 +86,11 @@ public class AdvancedArmourModel extends ModelBiped {
     public ModelRenderer FrontBootPieceLeft2;
     public ModelRenderer SideBootPieceLeft4;
     public ModelRenderer SideBootPieceLeft3;
-    
+
     public AdvancedArmourModel(boolean renderHead, boolean renderBody, boolean renderArms, boolean renderLegs, boolean renderBoots) {
         this.textureWidth = 256;
         this.textureHeight = 128;
-        
 
-        
         this.ChestDecorationPiece6 = new ModelRenderer(this, 250, 66);
         this.ChestDecorationPiece6.setRotationPoint(-2.0F, 3.299999952316284F, -4.0F);
         this.ChestDecorationPiece6.addBox(0.0F, 3.4666666984558105F, 0.0F, 2, 1, 1, 0.0F);
@@ -321,15 +319,15 @@ public class AdvancedArmourModel extends ModelBiped {
         this.FrontShoulderPadLeft = new ModelRenderer(this, 174, 19);
         this.FrontShoulderPadLeft.setRotationPoint(-1.5F, -2.0F, -3.0F);
         this.FrontShoulderPadLeft.addBox(0.0F, 0.0F, 0.0F, 5, 4, 1, 0.0F);
-        
+
         this.bipedBody.cubeList.clear();
         this.bipedHead.cubeList.clear();
         this.bipedLeftArm.cubeList.clear();
         this.bipedRightArm.cubeList.clear();
         this.bipedLeftLeg.cubeList.clear();
         this.bipedRightLeg.cubeList.clear();
-        
-        if(renderHead){
+
+        if (renderHead) {
             this.bipedHead.addChild(this.MainHeadPieceLeft3);
             this.bipedHead.addChild(this.MainHeadPieceFront2);
             this.bipedHead.addChild(this.MainHeadPieceRight3);
@@ -354,8 +352,8 @@ public class AdvancedArmourModel extends ModelBiped {
             this.bipedHead.addChild(this.MainHeadPieceBottom);
 
         }
-        
-        if(renderBody){
+
+        if (renderBody) {
             this.bipedBody.addChild(this.ChestDecorationPiece6);
             this.bipedBody.addChild(this.TorsoPieceSideBottomRight);
             this.bipedBody.addChild(this.ChestDecorationCenter);
@@ -376,8 +374,8 @@ public class AdvancedArmourModel extends ModelBiped {
             this.bipedBody.addChild(this.ChestDecorationPiece1);
             this.bipedBody.addChild(this.TorsoPieceSideBottomLeft);
         }
-        
-        if(renderArms){
+
+        if (renderArms) {
             this.bipedRightArm.addChild(this.ArmDecorationRight1);
             this.bipedRightArm.addChild(this.BackShoulderPadRight);
             this.bipedRightArm.addChild(this.SideShoulderPadRight);
@@ -392,8 +390,8 @@ public class AdvancedArmourModel extends ModelBiped {
             this.bipedLeftArm.addChild(this.FrontShoulderPadLeft);
 
         }
-        
-        if(renderLegs){
+
+        if (renderLegs) {
             this.bipedRightLeg.addChild(this.MainLegPieceRight);
             this.bipedRightLeg.addChild(this.SideLegPieceRight2);
             this.bipedLeftLeg.addChild(this.SideLegPieceLeft1);
@@ -401,8 +399,8 @@ public class AdvancedArmourModel extends ModelBiped {
             this.bipedRightLeg.addChild(this.SideLegPieceRight1);
             this.bipedLeftLeg.addChild(this.MainLegPieceLeft);
         }
-        
-        if(renderBoots){
+
+        if (renderBoots) {
             this.bipedRightLeg.addChild(this.FrontBootPieceRight2);
             this.bipedRightLeg.addChild(this.SideBootPieceRight4);
             this.bipedRightLeg.addChild(this.SideBootPieceRight2);

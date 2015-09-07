@@ -21,93 +21,93 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ClientProxy extends CommonProxy {
-    
+
     @Override
     public void registerKeyBinds() {
         super.registerKeyBinds();
-        
+
         for (IUpgrade normalUpgrade : UpgradeRegistry.getUpgradeList()) {
             if (normalUpgrade instanceof KeybindUpgrade) {
-                
+
                 KeybindUpgrade upgrade = (KeybindUpgrade) normalUpgrade;
-                
+
                 CoFHKeyHandler.addKeyBind(upgrade);
             }
         }
     }
-    
+
     @Override
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public void registerIcons(TextureStitchEvent.Pre event) {
-        
+
         if (event.map.getTextureType() == 0) {
-            
+
         } else if (event.map.getTextureType() == 1) {
-            
+
             IconRegistry.addIcon("IconRecipe", Items.paper.getIconFromDamage(0));
             IconRegistry.addIcon("IconUpgrade", Vanilla.chestplateModular.getIconFromDamage(0));
-		}
+        }
     }
-    
+
     /* SERVER UTILS */
-	@Override
-	public boolean isOp(String playerName) {
+    @Override
+    public boolean isOp(String playerName) {
 
-		return true;
-	}
+        return true;
+    }
 
-	@Override
-	public boolean isClient() {
+    @Override
+    public boolean isClient() {
 
-		return true;
-	}
+        return true;
+    }
 
-	@Override
-	public boolean isServer() {
+    @Override
+    public boolean isServer() {
 
-		return false;
-	}
+        return false;
+    }
 
-	@Override
-	public World getClientWorld() {
+    @Override
+    public World getClientWorld() {
 
-		return Minecraft.getMinecraft().theWorld;
-	}
+        return Minecraft.getMinecraft().theWorld;
+    }
 
-	/* PLAYER UTILS */
-	@Override
-	public EntityPlayer findPlayer(String playerName) {
+    /* PLAYER UTILS */
+    @Override
+    public EntityPlayer findPlayer(String playerName) {
 
-		for (Object a : FMLClientHandler.instance().getClient().theWorld.playerEntities) {
-			EntityPlayer player = (EntityPlayer) a;
-			if (player.getCommandSenderName().toLowerCase().equals(playerName.toLowerCase())) {
-				return player;
-			}
-		}
-		return null;
-	}
+        for (Object a : FMLClientHandler.instance().getClient().theWorld.playerEntities) {
+            EntityPlayer player = (EntityPlayer) a;
+            if (player.getCommandSenderName().toLowerCase().equals(playerName.toLowerCase())) {
+                return player;
+            }
+        }
+        return null;
+    }
 
-	@Override
-	public EntityPlayer getClientPlayer() {
+    @Override
+    public EntityPlayer getClientPlayer() {
 
-		return Minecraft.getMinecraft().thePlayer;
-	}
+        return Minecraft.getMinecraft().thePlayer;
+    }
 
-	@Override
-	public List<EntityPlayer> getPlayerList() {
+    @Override
+    public List<EntityPlayer> getPlayerList() {
 
-		return new LinkedList<EntityPlayer>();
-	}
+        return new LinkedList<EntityPlayer>();
+    }
 
-	/* SOUND UTILS */
-	@Override
-	public float getSoundVolume(int category) {
+    /* SOUND UTILS */
+    @Override
+    public float getSoundVolume(int category) {
 
-		if (category > SoundCategory.values().length) {
-			return 0;
-		}
-		return FMLClientHandler.instance().getClient().gameSettings.getSoundLevel(SoundCategory.values()[category]);
-	}
-    
+        if (category > SoundCategory.values().length) {
+            return 0;
+        }
+        return FMLClientHandler.instance().getClient().gameSettings.getSoundLevel(SoundCategory.values()[category]);
+    }
+
 }

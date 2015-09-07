@@ -6,82 +6,82 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import chbachman.api.nbt.NBTSerializer;
 
-public class NBTList<E> extends AbstractList<E>{
+public class NBTList<E> extends AbstractList<E> {
 
-	public final NBTTagList list;
-	public final NBTSerializer<E> type;
-	
-	public NBTList(NBTSerializer<E> type) {
-		this(new NBTTagList(), type);
-	}
+    public final NBTTagList list;
+    public final NBTSerializer<E> type;
 
-	public NBTList(NBTTagList list, NBTSerializer<E> type) {
-		this.list = list;
-		this.type = type;
-	}
+    public NBTList(NBTSerializer<E> type) {
+        this(new NBTTagList(), type);
+    }
 
-	@Override
-	public E get(int index){
-		NBTTagCompound nbt = list.getCompoundTagAt(index);
+    public NBTList(NBTTagList list, NBTSerializer<E> type) {
+        this.list = list;
+        this.type = type;
+    }
 
-		if (nbt == null){
-			return null;
-		}
+    @Override
+    public E get(int index) {
+        NBTTagCompound nbt = list.getCompoundTagAt(index);
 
-		E data = (E) type.loadFromNBT(nbt);
+        if (nbt == null) {
+            return null;
+        }
 
-		return data;
+        E data = (E) type.loadFromNBT(nbt);
 
-	}
+        return data;
 
-	@Override
-	public int size(){
-		return list.tagCount();
-	}
+    }
 
-	@Override
-	public void add(int index, E element){
+    @Override
+    public int size() {
+        return list.tagCount();
+    }
 
-		if (element == null){
-			return;
-		}
+    @Override
+    public void add(int index, E element) {
 
-		this.list.appendTag(new NBTTagCompound());
+        if (element == null) {
+            return;
+        }
 
-		for (int i = list.tagCount() - 2; i >= index; i++){
-			list.func_150304_a(i + 1, list.getCompoundTagAt(i));
-		}
+        this.list.appendTag(new NBTTagCompound());
 
-		NBTTagCompound nbt = new NBTTagCompound();
-		type.saveToNBT(element, nbt);
-		
-		this.list.func_150304_a(index, nbt);
-	}
+        for (int i = list.tagCount() - 2; i >= index; i++) {
+            list.func_150304_a(i + 1, list.getCompoundTagAt(i));
+        }
 
-	@Override
-	public E set(int index, E element){
+        NBTTagCompound nbt = new NBTTagCompound();
+        type.saveToNBT(element, nbt);
 
-		E data = this.get(index);
+        this.list.func_150304_a(index, nbt);
+    }
 
-		if (element == null){
-			return data;
-		}
+    @Override
+    public E set(int index, E element) {
 
-		NBTTagCompound nbt = new NBTTagCompound();
-		type.saveToNBT(element, nbt);
-		
-		this.list.func_150304_a(index, nbt);
+        E data = this.get(index);
 
-		return data;
-	}
+        if (element == null) {
+            return data;
+        }
 
-	@Override
-	public E remove(int index){
+        NBTTagCompound nbt = new NBTTagCompound();
+        type.saveToNBT(element, nbt);
 
-		E data = this.get(index);
+        this.list.func_150304_a(index, nbt);
 
-		list.removeTag(index);
+        return data;
+    }
 
-		return data;
-	}
+    @Override
+    public E remove(int index) {
+
+        E data = this.get(index);
+
+        list.removeTag(index);
+
+        return data;
+    }
 }
