@@ -11,6 +11,7 @@ import org.lwjgl.opengl.GL11;
 import chbachman.api.util.Array;
 import chbachman.armour.gui.element.ElementBackground;
 import chbachman.armour.reference.Reference;
+import chbachman.armour.register.Vanilla;
 import cofh.core.gui.GuiBaseAdv;
 
 import com.badlogic.gdx.math.MathUtils;
@@ -54,7 +55,7 @@ public class TabletGui extends GuiBaseAdv {
         super.initGui();
 
         this.addElement(background);
-        pages.add(new TabletPage(this, 50, 50, 10, 10, "aaah", "blah"));
+        pages.add(new TabletPage(this, 50, 50, 10, 10, Vanilla.calfShields, "blah"));
 
         for (TabletPage page : this.pages) { // For some reason, I need this.
                                              // Otherwise the gui instance in

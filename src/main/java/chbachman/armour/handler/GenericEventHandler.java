@@ -1,16 +1,11 @@
 package chbachman.armour.handler;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 import chbachman.api.item.IModularItem;
 import chbachman.api.nbt.helper.NBTHelper;
 import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.upgrade.Recipe;
 import chbachman.api.util.ArmourSlot;
-import chbachman.api.util.ImmutableArray;
 import chbachman.armour.network.ArmourPacket;
 import chbachman.armour.network.ArmourPacket.PacketTypes;
 import chbachman.armour.register.Vanilla;
@@ -22,6 +17,10 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.PlayerTickEvent;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.EntityEvent.EntityConstructing;
 
 /**
  * Generic event handler, used for onEquip and onDequip methods.

@@ -28,7 +28,7 @@ public class NBTList<E> extends AbstractList<E> {
             return null;
         }
 
-        E data = (E) type.loadFromNBT(nbt);
+        E data = type.loadFromNBT(nbt);
 
         return data;
 

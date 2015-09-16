@@ -141,19 +141,6 @@ public class TabCrafting extends TabBase {
         super.toggleOpen();
     }
 
-    private void drawButton(String name, int xShift, int yShift, boolean active) {
-        if (active) {
-            if (this.isCoordsInBorders(this.gui.getMouseX() - this.currentShiftX, this.gui.getMouseY() - this.currentShiftY, xShift, xShift + 16, yShift, yShift + 16)) {
-                this.gui.drawButton(name, this.posX + xShift, this.posY + yShift, 1, 1);
-            } else {
-                this.gui.drawButton(name, this.posX + xShift, this.posY + yShift, 1, 0);
-            }
-        } else {
-            this.gui.drawButton(name, this.posX + xShift, this.posY + yShift, 1, 2);
-        }
-
-    }
-
     private void moveSlots(boolean isOpen) {
         if (!isOpen) {
             for (int i = 0; i < 9; i++) {

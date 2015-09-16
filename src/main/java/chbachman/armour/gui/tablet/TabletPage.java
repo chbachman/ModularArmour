@@ -2,12 +2,14 @@ package chbachman.armour.gui.tablet;
 
 import java.util.List;
 
+import chbachman.api.upgrade.IUpgrade;
+import cofh.lib.util.helpers.StringHelper;
 import net.minecraft.util.IIcon;
 
 public class TabletPage {
 
     TabletGui gui;
-    final String baseName;
+    final IUpgrade upgrade;
     final IIcon icon;
 
     int sizeX;
@@ -15,8 +17,8 @@ public class TabletPage {
     int posX;
     int posY;
 
-    public TabletPage(TabletGui gui, int posX, int posY, int sizeX, int sizeY, String baseName, IIcon icon) {
-        this.baseName = baseName;
+    public TabletPage(TabletGui gui, int posX, int posY, int sizeX, int sizeY, IUpgrade upgrade, IIcon icon) {
+        this.upgrade = upgrade;
         this.gui = gui;
         this.icon = icon;
         this.sizeX = sizeX;
@@ -25,8 +27,8 @@ public class TabletPage {
         this.posY = posY;
     }
 
-    public TabletPage(TabletGui gui, int posX, int posY, int sizeX, int sizeY, String baseName, String icon) {
-        this.baseName = baseName;
+    public TabletPage(TabletGui gui, int posX, int posY, int sizeX, int sizeY, IUpgrade upgrade, String icon) {
+        this.upgrade = upgrade;
         this.gui = gui;
         this.icon = gui.getIcon(icon);
         this.sizeX = sizeX;
@@ -40,7 +42,7 @@ public class TabletPage {
     }
 
     public void getTooltip(List<String> list) {
-        list.add("AAAAH");
+        list.add(StringHelper.localize(upgrade.getName()));
     }
 
     public boolean intersectsWith(int mouseX, int mouseY) {

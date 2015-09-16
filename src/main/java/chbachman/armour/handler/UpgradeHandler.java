@@ -1,17 +1,16 @@
 package chbachman.armour.handler;
 
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.StatCollector;
 import chbachman.api.item.IModularItem;
 import chbachman.api.nbt.helper.NBTHelper;
 import chbachman.api.nbt.helper.NBTList;
 import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.upgrade.Recipe;
-import chbachman.api.util.ImmutableArray;
 import chbachman.armour.upgrade.UpgradeException;
 import chbachman.armour.util.UpgradeUtil;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 
 public class UpgradeHandler {
 
@@ -22,8 +21,6 @@ public class UpgradeHandler {
      * @return
      */
     public static IUpgrade getResult(IInventory crafting) {
-
-        ImmutableArray array = UpgradeRegistry.getRecipeList();
 
         for (Recipe recipe : UpgradeRegistry.getRecipeList()) {
             if (recipe.matches(crafting)) {

@@ -3,18 +3,6 @@ package chbachman.armour.register;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemArmor.ArmorMaterial;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Potion;
-import net.minecraftforge.common.util.EnumHelper;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapedOreRecipe;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
 import chbachman.api.configurability.FieldList;
 import chbachman.api.item.IModularItem;
 import chbachman.api.nbt.helper.NBTHelper;
@@ -24,6 +12,7 @@ import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.upgrade.Recipe;
 import chbachman.api.util.ArmourSlot;
 import chbachman.armour.ModularArmour;
+import chbachman.armour.gui.tablet.UpgradePage;
 import chbachman.armour.handler.UpgradeHandler;
 import chbachman.armour.items.armour.RFModularArmour;
 import chbachman.armour.items.tablet.ItemTablet;
@@ -57,8 +46,22 @@ import chbachman.armour.util.EnergyUtil;
 import cofh.api.modhelpers.ThermalExpansionHelper;
 import cofh.core.item.ItemBase;
 import cofh.lib.util.helpers.ItemHelper;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.relauncher.Side;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor.ArmorMaterial;
+import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraftforge.common.util.EnumHelper;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.oredict.OreDictionary;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 public class Vanilla implements Module {
 
@@ -135,9 +138,14 @@ public class Vanilla implements Module {
         GameRegistry.registerItem(chestplateModular, "chestplateModular");
         GameRegistry.registerItem(leggingsModular, "leggingsModular");
         GameRegistry.registerItem(bootsModular, "bootsModular");
-
+        
         UpgradeRegistry.registerListener(new FieldList());
-
+        
+        if(FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT){
+        	UpgradeRegistry.registerListener(new UpgradePage());
+        }
+        
+        
     }
 
     @Override

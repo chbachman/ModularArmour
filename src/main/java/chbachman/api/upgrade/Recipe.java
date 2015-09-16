@@ -90,7 +90,7 @@ public class Recipe {
             } else if (in instanceof Block) {
                 itemMap.put(chr, new ItemStack((Block) in, 1, OreDictionary.WILDCARD_VALUE));
             } else if (in instanceof String) {
-                itemMap.put(chr, (String) in);
+                itemMap.put(chr, in);
             } else {
                 String ret = "Invalid shaped ore recipe: ";
                 for (Object tmp : recipe) {

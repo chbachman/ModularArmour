@@ -11,16 +11,6 @@ public class FieldList implements IUpgradeListener {
 
     Field[] fields;
 
-    public void refreshFields(IUpgrade upgrade, ConfigurableField[] f) {
-        for (int i = 0; i < fields.length; i++) {
-            try {
-                fields[i].set(upgrade, f.length);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     public ConfigurableField[] getFieldList(IUpgrade upgrade) {
         ConfigurableField[] config = new ConfigurableField[fields.length];
 

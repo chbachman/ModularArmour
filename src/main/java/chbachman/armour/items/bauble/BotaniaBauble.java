@@ -14,7 +14,7 @@ public class BotaniaBauble extends ItemBauble implements IManaItem {
     }
 
     public ManaUpgradeLogic getHolder() {
-        return (ManaUpgradeLogic) this.getHolder();
+        return (ManaUpgradeLogic) holder;
     }
 
     // IManaItem

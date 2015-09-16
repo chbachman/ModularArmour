@@ -1,20 +1,26 @@
 package chbachman.armour.upgrade.upgradeList;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.upgrade.Upgrade;
 import chbachman.api.util.ArmourSlot;
 import chbachman.armour.register.Vanilla;
 import chbachman.armour.util.EnergyUtil;
+import cpw.mods.fml.relauncher.Side;
 
 public class UpgradePotion extends Upgrade {
 
     public final PotionEffect effect;
     public final int energyCost;
+    
+    @SideOnly(Side.CLIENT)
+    public final IIcon icon = Items.potionitem.getIconFromDamage(0);
 
     public UpgradePotion(String name, Potion effect, int level, int energyCost) {
         super(name);
