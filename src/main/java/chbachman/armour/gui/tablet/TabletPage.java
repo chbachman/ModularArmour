@@ -9,6 +9,7 @@ import net.minecraft.util.IIcon;
 public class TabletPage {
 
     TabletGui gui;
+    
     final IUpgrade upgrade;
     final IIcon icon;
 
@@ -17,28 +18,33 @@ public class TabletPage {
     int posX;
     int posY;
 
-    public TabletPage(TabletGui gui, int posX, int posY, int sizeX, int sizeY, IUpgrade upgrade, IIcon icon) {
-        this.upgrade = upgrade;
+    public TabletPage(TabletGui gui, int posX, int posY, int sizeX, int sizeY, UpgradePage upgradePage) {
         this.gui = gui;
-        this.icon = icon;
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.posX = posX;
         this.posY = posY;
-    }
-
-    public TabletPage(TabletGui gui, int posX, int posY, int sizeX, int sizeY, IUpgrade upgrade, String icon) {
-        this.upgrade = upgrade;
-        this.gui = gui;
-        this.icon = gui.getIcon(icon);
-        this.sizeX = sizeX;
-        this.sizeY = sizeY;
-        this.posX = posX;
-        this.posY = posY;
+        
+        if(upgradePage.icon != null){
+        	icon = upgradePage.icon;
+        }else if(upgradePage.iconName != null){
+        	icon = gui.getIcon(upgradePage.iconName);
+        }else{
+        	icon = null; //Shouldn't ever happen
+        }
+        
+        upgrade = upgradePage.upgrade;
     }
 
     public void render(int mouseX, int mouseY) {
-        this.gui.drawRectWithCheck(posX, posY, posX + this.sizeX, posY + this.sizeY, 0xFFFFFFFF);
+    	
+    	if(icon == null){
+    		this.gui.drawRectWithCheck(posX, posY, posX + this.sizeX, posY + this.sizeY, 0xFFFFFFFF);
+    		return;
+    	}
+    	
+    	gui.drawIcon(icon, this.posX, this.posY, 1);
+        
     }
 
     public void getTooltip(List<String> list) {

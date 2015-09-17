@@ -137,26 +137,25 @@ public class Vanilla implements Module {
         GameRegistry.registerItem(helmetModular, "helmetModular");
         GameRegistry.registerItem(chestplateModular, "chestplateModular");
         GameRegistry.registerItem(leggingsModular, "leggingsModular");
-        GameRegistry.registerItem(bootsModular, "bootsModular");
-        
-        UpgradeRegistry.registerListener(new FieldList());
-        
-        if(FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT){
-        	UpgradeRegistry.registerListener(new UpgradePage());
-        }
-        
-        
-    }
+		GameRegistry.registerItem(bootsModular, "bootsModular");
 
-    @Override
-    public final void registerUpgrades() {
-        calfShields = new UpgradeBasic("calfShields").setArmourSlot(ArmourSlot.LEGS);
-        hoverJetpack = new UpgradeHoverJetpack();
-        basePotion = new UpgradeBasic("potion");
-        fallDamage = new UpgradeFallDamage();
-        speed = new UpgradeSpeed();
-        stepAssist = new UpgradeStepAssist();
-        autoFeeder = new UpgradeAutoFeeder();
+		UpgradeRegistry.registerListener(new FieldList());
+
+		if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
+			UpgradeRegistry.registerListener(new UpgradePage());
+		}
+
+	}
+
+	@Override
+	public final void registerUpgrades() {
+		calfShields = new UpgradeBasic("calfShields").setArmourSlot(ArmourSlot.LEGS);
+		hoverJetpack = new UpgradeHoverJetpack();
+		basePotion = new UpgradeBasic("potion");
+		fallDamage = new UpgradeFallDamage();
+		speed = new UpgradeSpeed();
+		stepAssist = new UpgradeStepAssist();
+		autoFeeder = new UpgradeAutoFeeder();
         jumpBoost = new UpgradeJumpBoost();
         electrolyzer = new UpgradeElectrolyzer();
         nightVision = new UpgradePotion("nightVision", Potion.nightVision, 1, 10, 250);
@@ -280,13 +279,7 @@ public class Vanilla implements Module {
     private final void registerAdminArmourPiece(String name, ItemStack armour) {
         ArrayList<IUpgrade> toAdd = new ArrayList<IUpgrade>();
 
-        for (IUpgrade upgrade : UpgradeRegistry.getUpgradeList()) { // Populate
-                                                                    // the
-                                                                    // inital
-                                                                    // list, add
-                                                                    // all first
-                                                                    // level
-                                                                    // upgrades.
+        for (IUpgrade upgrade : UpgradeRegistry.getUpgradeList()) { // Populate the inital list, add all first level upgrades.
             if (!UpgradeHandler.addUpgradeChecked(armour, upgrade)) {
                 toAdd.add(upgrade);
             }

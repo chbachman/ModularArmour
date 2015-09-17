@@ -2,19 +2,19 @@ package chbachman.armour.gui.tablet;
 
 import java.util.List;
 
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.Slot;
-import net.minecraft.util.ResourceLocation;
-
 import org.lwjgl.opengl.GL11;
 
+import com.badlogic.gdx.math.MathUtils;
+
+import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.util.Array;
 import chbachman.armour.gui.element.ElementBackground;
 import chbachman.armour.reference.Reference;
 import chbachman.armour.register.Vanilla;
 import cofh.core.gui.GuiBaseAdv;
-
-import com.badlogic.gdx.math.MathUtils;
+import net.minecraft.inventory.Container;
+import net.minecraft.inventory.Slot;
+import net.minecraft.util.ResourceLocation;
 
 public class TabletGui extends GuiBaseAdv {
 
@@ -55,7 +55,7 @@ public class TabletGui extends GuiBaseAdv {
         super.initGui();
 
         this.addElement(background);
-        pages.add(new TabletPage(this, 50, 50, 10, 10, Vanilla.calfShields, "blah"));
+        pages.add(new TabletPage(this, 50, 50, 10, 10, UpgradeRegistry.getListenerForUpgrade(Vanilla.basePotion, UpgradePage.class)));
 
         for (TabletPage page : this.pages) { // For some reason, I need this.
                                              // Otherwise the gui instance in
@@ -64,10 +64,7 @@ public class TabletGui extends GuiBaseAdv {
         }
 
         for (int i = 0; i < container.inventorySlots.size(); i++) {
-            ((Slot) this.container.inventorySlots.get(i)).xDisplayPosition = -this.getGuiLeft() - 16; // Hide
-                                                                                                      // all
-                                                                                                      // the
-                                                                                                      // slots.
+            ((Slot) this.container.inventorySlots.get(i)).xDisplayPosition = -this.getGuiLeft() - 16; // Hide all the slots.
             ((Slot) this.container.inventorySlots.get(i)).yDisplayPosition = -this.getGuiTop() - 16;
         }
     }

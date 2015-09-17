@@ -39,6 +39,7 @@ public final class UpgradeRegistry {
         IUpgradeListener[] list = INSTANCE.listenerMap.get(upgrade);
 
         for (IUpgradeListener l : list) {
+        	
             if (l.getClass() == clazz) {
                 return (T) l;
             }
@@ -78,13 +79,20 @@ public final class UpgradeRegistry {
             throw new IllegalArgumentException("Upgrade cannot be null");
         }
 
-        IUpgradeListener[] list = new IUpgradeListener[INSTANCE.listenerList.size];
+        Array<IUpgradeListener> list = new Array<IUpgradeListener>(IUpgradeListener.class);
 
         for (int i = 0; i < INSTANCE.listenerList.size; i++) {
-            list[i] = INSTANCE.listenerList.get(i).onUpgradeAdded(upgrade);
+        	
+        	IUpgradeListener listener = INSTANCE.listenerList.get(i).onUpgradeAdded(upgrade);
+        	
+        	if(listener == null){
+        		continue;
+        	}
+        	
+            list.add(listener);
         }
 
-        INSTANCE.listenerMap.put(upgrade, list);
+        INSTANCE.listenerMap.put(upgrade, list.toArray());
         INSTANCE.upgradeList.put(upgrade);
 
         return upgrade;

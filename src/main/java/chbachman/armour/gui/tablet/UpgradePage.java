@@ -12,14 +12,13 @@ public class UpgradePage implements IUpgradeListener{
 	IIcon icon;
 	String iconName;
 	
+	IUpgrade upgrade;
+	
 	@Override
 	public IUpgradeListener onUpgradeAdded(IUpgrade upgrade) {
 		
-		if(FMLCommonHandler.instance().getEffectiveSide() != Side.CLIENT){
-			return null;
-		}
-		
 		UpgradePage page = new UpgradePage();
+		page.upgrade = upgrade;
 		
 		Class upgradeClass = upgrade.getClass();
 		
@@ -34,6 +33,7 @@ public class UpgradePage implements IUpgradeListener{
 			ModularArmour.log.warn("The icon field on an upgrade needs to be public", e);
 			return null; //We don't want to crash here, so just ignore it.
 		} catch (NoSuchFieldException e) {
+			ModularArmour.log.warn("The Upgrade " + upgrade.getBaseName() + " does not have a icon field. This should happen.");
 			return null; //The field doesn't exist, we don't need to include it.
 		} catch (SecurityException e) {
 			throw new RuntimeException(e);
