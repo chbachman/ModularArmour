@@ -19,9 +19,6 @@ public class UpgradePotion extends Upgrade {
 
     public final PotionEffect effect;
     public final int energyCost;
-    
-    @SideOnly(Side.CLIENT)
-    public final IIcon icon = Items.glass_bottle.getIconFromDamage(0);
 
     public UpgradePotion(String name, Potion effect, int level, int energyCost) {
         super(name);
@@ -50,6 +47,15 @@ public class UpgradePotion extends Upgrade {
     public IUpgrade[] getDependencies() {
 
         return new IUpgrade[] { Vanilla.basePotion };
+    }
+    
+    @Override
+    @SideOnly(Side.CLIENT)
+    public IIcon getIcon(){
+    	
+    	IIcon icon = new ItemStack(Items.apple, 1).getIconIndex();
+    	//return null;
+    	return icon;
     }
 
 }

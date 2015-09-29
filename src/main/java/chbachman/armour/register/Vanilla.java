@@ -12,7 +12,6 @@ import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.upgrade.Recipe;
 import chbachman.api.util.ArmourSlot;
 import chbachman.armour.ModularArmour;
-import chbachman.armour.gui.tablet.UpgradePage;
 import chbachman.armour.handler.UpgradeHandler;
 import chbachman.armour.items.armour.RFModularArmour;
 import chbachman.armour.items.tablet.ItemTablet;
@@ -46,10 +45,8 @@ import chbachman.armour.util.EnergyUtil;
 import cofh.api.modhelpers.ThermalExpansionHelper;
 import cofh.core.item.ItemBase;
 import cofh.lib.util.helpers.ItemHelper;
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.relauncher.Side;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -141,17 +138,13 @@ public class Vanilla implements Module {
 
 		UpgradeRegistry.registerListener(new FieldList());
 
-		if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT) {
-			UpgradeRegistry.registerListener(new UpgradePage());
-		}
-
 	}
 
 	@Override
 	public final void registerUpgrades() {
 		calfShields = new UpgradeBasic("calfShields").setArmourSlot(ArmourSlot.LEGS);
 		hoverJetpack = new UpgradeHoverJetpack();
-		basePotion = new UpgradeBasic("potion");
+		basePotion = new UpgradeBasic("potion").setIcon("IconRecipe");
 		fallDamage = new UpgradeFallDamage();
 		speed = new UpgradeSpeed();
 		stepAssist = new UpgradeStepAssist();
@@ -185,7 +178,7 @@ public class Vanilla implements Module {
 
         solar = new UpgradeSolar("solar", 1);
     }
-
+	
     @Override
     public final void init() {
 

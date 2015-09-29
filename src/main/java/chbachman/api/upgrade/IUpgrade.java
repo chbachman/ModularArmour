@@ -1,10 +1,13 @@
 package chbachman.api.upgrade;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 import chbachman.api.item.IModularItem;
 import chbachman.api.util.ArmourSlot;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
 
 /**
  * Interface for adding upgrades. Any armour that can hold these must call each
@@ -96,5 +99,12 @@ public interface IUpgrade {
      * Register config options here. Called during init.
      */
     void registerConfigOptions();
+    
+    /**
+     * Called when the gui is initalized. 
+     * @return Icon to be rendered for the tablet, or null for no icon.
+     */
+    @SideOnly(Side.CLIENT)
+    IIcon getIcon();
 
 }

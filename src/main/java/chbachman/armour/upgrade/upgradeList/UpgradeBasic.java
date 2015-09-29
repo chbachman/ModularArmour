@@ -1,15 +1,20 @@
 package chbachman.armour.upgrade.upgradeList;
 
-import net.minecraft.item.ItemStack;
 import chbachman.api.item.IModularItem;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.upgrade.Upgrade;
 import chbachman.api.util.ArmourSlot;
+import cofh.core.render.IconRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.IIcon;
 
 public class UpgradeBasic extends Upgrade {
 
     private ArmourSlot slot = null;
     private IUpgrade dependency = null;
+    private String icon = null;
 
     public UpgradeBasic(String name) {
         super(name);
@@ -25,6 +30,11 @@ public class UpgradeBasic extends Upgrade {
         return this;
     }
 
+    public UpgradeBasic setIcon(String icon){
+    	this.icon = icon;
+    	return this;
+    }
+    
     @Override
     public boolean isCompatible(IModularItem item, ItemStack stack, int armorType) {
         if (this.slot == null) {
@@ -42,5 +52,12 @@ public class UpgradeBasic extends Upgrade {
 
         return new IUpgrade[] { this.dependency };
     }
+    
+    @Override
+    @SideOnly(Side.CLIENT)
+    public IIcon getIcon(){
+    	return IconRegistry.getIcon(icon);
+    }
+
 
 }

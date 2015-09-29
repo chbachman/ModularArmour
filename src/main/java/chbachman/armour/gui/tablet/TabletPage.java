@@ -3,6 +3,8 @@ package chbachman.armour.gui.tablet;
 import java.util.List;
 
 import chbachman.api.upgrade.IUpgrade;
+import chbachman.api.util.Array;
+import cofh.core.render.IconRegistry;
 import cofh.lib.util.helpers.StringHelper;
 import net.minecraft.util.IIcon;
 
@@ -17,32 +19,38 @@ public class TabletPage {
     int sizeY;
     int posX;
     int posY;
+    
+    boolean isEnabled;
+    
+    Array<TabletPage> dependencies = new Array<TabletPage>();
 
-    public TabletPage(TabletGui gui, int posX, int posY, int sizeX, int sizeY, UpgradePage upgradePage) {
+    public TabletPage(TabletGui gui, int posX, int posY, int sizeX, int sizeY, IUpgrade upgrade) {
         this.gui = gui;
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.posX = posX;
         this.posY = posY;
+        this.upgrade = upgrade;
         
-        if(upgradePage.icon != null){
-        	icon = upgradePage.icon;
-        }else if(upgradePage.iconName != null){
-        	icon = gui.getIcon(upgradePage.iconName);
-        }else{
-        	icon = null; //Shouldn't ever happen
+        icon = upgrade.getIcon();
+        
+        if(upgrade.getDependencies() != null){
+        	
+        	for(IUpgrade dependency : upgrade.getDependencies()){
+            	for(TabletPage page : gui.pages){
+            		if(page.upgrade == dependency){
+            			dependencies.add(page);
+            		}
+            	}
+            }
         }
         
-        upgrade = upgradePage.upgrade;
+        
     }
-
+    
     public void render(int mouseX, int mouseY) {
     	
-    	if(icon == null){
-    		this.gui.drawRectWithCheck(posX, posY, posX + this.sizeX, posY + this.sizeY, 0xFFFFFFFF);
-    		return;
-    	}
-    	
+    	gui.drawIcon(IconRegistry.getIcon("IconButton"), this.posX, this.posY, 1);
     	gui.drawIcon(icon, this.posX, this.posY, 1);
         
     }
@@ -64,11 +72,11 @@ public class TabletPage {
         int x = posX + gui.getShiftX();
         int y = posY + gui.getShiftY();
 
-        if (x > gui.getXSize()) { // Right of the screen
+        if (x + this.sizeX > gui.getXSize()) { // Right of the screen
             return false;
         }
 
-        if (y > gui.getYSize()) { // Below the screen
+        if (y + this.sizeY > gui.getYSize()) { // Below the screen
             return false;
         }
 

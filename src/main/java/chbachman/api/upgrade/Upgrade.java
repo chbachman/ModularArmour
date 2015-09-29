@@ -1,17 +1,18 @@
 package chbachman.api.upgrade;
 
-import net.minecraft.client.model.ModelBiped;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.DamageSource;
-import net.minecraft.world.World;
-import net.minecraftforge.common.ISpecialArmor.ArmorProperties;
 import chbachman.api.item.IModularItem;
 import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.util.ArmourSlot;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.client.model.ModelBiped;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.IIcon;
+import net.minecraft.world.World;
+import net.minecraftforge.common.ISpecialArmor.ArmorProperties;
 
 /**
  * Default implementation of IUpgrade. Use this or make your own.
@@ -119,6 +120,12 @@ public abstract class Upgrade implements IArmourUpgrade {
     @SideOnly(Side.CLIENT)
     public ModelBiped getArmourModel(EntityLivingBase entityLiving, ItemStack itemStack, int armourSlot) {
         return null;
+    }
+    
+    @Override
+    @SideOnly(Side.CLIENT)
+    public IIcon getIcon(){
+    	return null;
     }
 
 }
