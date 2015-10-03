@@ -1,16 +1,17 @@
 package chbachman.armour.gui.tablet;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.lwjgl.opengl.GL11;
 
 import com.badlogic.gdx.math.MathUtils;
 
+import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.util.Array;
 import chbachman.armour.gui.element.ElementBackground;
 import chbachman.armour.reference.Reference;
-import chbachman.armour.register.Vanilla;
 import cofh.core.gui.GuiBaseAdv;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
@@ -56,21 +57,15 @@ public class TabletGui extends GuiBaseAdv {
         super.initGui();
 
         this.addElement(background);
-        pages.add(new TabletPage(this, 50, 50, 16, 16, Vanilla.basePotion));
-        pages.add(new TabletPage(this, 30, 100, 16, 16, Vanilla.basePotion));
-        //pages.add(new TabletPage(this, 20, 100, 16, 16, Vanilla.invisibility));
-        //pages.add(new TabletPage(this, 100, 20, 16, 16, Vanilla.invisibility));
-        pages.add(new TabletPage(this, 100, 100, 16, 16, Vanilla.invisibility));
-        pages.add(new TabletPage(this, 20, 20, 16, 16, Vanilla.invisibility));
-        
-        this.addPage(Vanilla.basePotion);
 
+        this.addPages();
+        
         for (TabletPage page : this.pages) {
             page.gui = this; //For some reason, I need this.
             
             for(TabletPage dependency : page.dependencies){
             	
-            	boolean vertical = MathUtils.randomBoolean();
+            	boolean vertical = false;
             	
             	if(Math.abs(page.posX - dependency.posX) < 16){
             		vertical = true;
@@ -78,6 +73,10 @@ public class TabletGui extends GuiBaseAdv {
             	
             	if(Math.abs(page.posY - dependency.posY) < 16){
             		vertical = false;
+            	}
+            	
+            	if(dependency.depdendents.size == 0){
+            		vertical = true;
             	}
             	
             	this.arrows.add(new Arrow(this, dependency, page, vertical));
@@ -93,10 +92,67 @@ public class TabletGui extends GuiBaseAdv {
     
     
 
-    private void addPage(IUpgrade basePotion) {
-    	pages.add(new TabletPage(this, 50, 50, 16, 16, Vanilla.basePotion));
+    private void addPages() {
+    	
+    	Array<IUpgrade> upgrades = UpgradeRegistry.sortedRecipeList().getArray();
+    	
+    	
+    	
+    	
+    	{ // Add all the non-dependent upgrades.
+    		IUpgrade upgrade;
+    		
+    		Iterator<IUpgrade> iterator = upgrades.iterator();
+        	int i = 0;
+        	
+        	while(iterator.hasNext() && ((upgrade = iterator.next()).getDependencies() == null || upgrade.getDependencies().length == 0)){
+        		
+        		pages.add(new TabletPage(this, i * 200, 50, 16, 16, upgrade)); // This is the start of a cluster.
+        		iterator.remove();    		
+        		i++;
+        	}
+    	}
+    	
+    	for(IUpgrade upgrade : upgrades){
+    		
+    		IUpgrade[] dependencies = upgrade.getDependencies(); //No Null checking because above we already got rid of all of them.
+    		
+    		IUpgrade dependency = dependencies[0];
+    		
+    		
+    		TabletPage dependencyPage = getPageForUpgrade(dependency);
+    		
+    		if(dependencyPage == null){
+    			continue;
+    		}
+    		
+    		
+    		
+    		TabletPage page = new TabletPage(this, dependencyPage.posX + 50, 50 + dependencyPage.depdendents.size * 50, 16, 16, upgrade);
+    		
+    		dependencyPage.depdendents.add(page);
+    		
+    		pages.add(page);
+    		
+    		
+    		
+    		
+    	}
+    	
+    	
+    	
 	}
 
+    private TabletPage getPageForUpgrade(IUpgrade upgrade){
+    	for(TabletPage page : this.pages){
+    		if(page.upgrade == upgrade){
+    			return page;
+    		}
+    	}
+    	
+    	return null;
+    }
+    
 	@Override
     protected void drawGuiContainerForegroundLayer(int x, int y) {
         super.drawGuiContainerForegroundLayer(x, y);

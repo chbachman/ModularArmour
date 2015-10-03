@@ -23,6 +23,8 @@ public class TabletPage {
     boolean isEnabled;
     
     Array<TabletPage> dependencies = new Array<TabletPage>();
+    
+    Array<TabletPage> depdendents = new Array<TabletPage>();
 
     public TabletPage(TabletGui gui, int posX, int posY, int sizeX, int sizeY, IUpgrade upgrade) {
         this.gui = gui;
@@ -45,12 +47,34 @@ public class TabletPage {
             }
         }
         
+        //if(this.dependencies.size == 0){
+        	this.isEnabled = true;
+        //}
+        
         
     }
     
     public void render(int mouseX, int mouseY) {
     	
+    	if(!isEnabled){
+    		boolean shouldEnable = true;
+        	
+        	for(TabletPage page : dependencies){
+        		if(!page.isEnabled){
+        			shouldEnable = false;
+        			break;
+        		}
+        	}
+        	
+        	this.isEnabled = shouldEnable;
+    	}
+    	
     	gui.drawIcon(IconRegistry.getIcon("IconButton"), this.posX, this.posY, 1);
+    	
+    	if(icon == null){
+    		return;
+    	}
+    	
     	gui.drawIcon(icon, this.posX, this.posY, 1);
         
     }

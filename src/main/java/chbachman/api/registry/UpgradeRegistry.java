@@ -1,10 +1,14 @@
 package chbachman.api.registry;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.upgrade.Recipe;
 import chbachman.api.util.Array;
 import chbachman.api.util.ImmutableArray;
 import chbachman.api.util.ObjectMap;
+import chbachman.armour.handler.UpgradeHandler;
 
 public final class UpgradeRegistry {
 
@@ -156,6 +160,52 @@ public final class UpgradeRegistry {
 
     public static ImmutableArray<Recipe> getRecipeList() {
         return new ImmutableArray(INSTANCE.recipeList);
+    }
+    
+    private static Array<IUpgrade> sortedList;
+    
+    /**
+     * Gets a topologically sorted list of upgrades.
+     * @return
+     */
+    public static ImmutableArray<IUpgrade> sortedRecipeList(){
+    	
+    	if(sortedList == null || sortedList.size != INSTANCE.upgradeList.size){ //Either the list is empty, or we need to update it.
+    		sortedList = new Array<IUpgrade>();
+    		
+    		ArrayList<IUpgrade> toAdd = new ArrayList<IUpgrade>();
+
+            for (IUpgrade upgrade : UpgradeRegistry.getUpgradeList()) { // Populate the inital list, add all first level upgrades.
+                if (upgrade.getDependencies() == null || upgrade.getDependencies().length == 0) {
+                	sortedList.add(upgrade);
+                }else{
+                	toAdd.add(upgrade);
+                }
+            }
+
+            int prevSize = 0;
+            int currSize = toAdd.size();
+
+            while (prevSize != currSize && currSize != 0) {
+            	
+                Iterator<IUpgrade> iterator = toAdd.iterator();
+
+                while (iterator.hasNext()) {
+                    IUpgrade next = iterator.next();
+                    
+                    if (UpgradeHandler.checkDependencies(next, sortedList)) {
+                        iterator.remove();
+                        sortedList.add(next);
+                    }
+                }
+
+                prevSize = currSize;
+                currSize = toAdd.size();
+            }
+    	}
+    	
+    	return new ImmutableArray(sortedList);
+    	
     }
 
     /**

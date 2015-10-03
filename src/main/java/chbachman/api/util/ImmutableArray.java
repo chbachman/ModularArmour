@@ -89,7 +89,11 @@ public class ImmutableArray<T> implements Iterable<T> {
     public String toString(String separator) {
         return array.toString(separator);
     }
-
+    
+    public Array<T> getArray(){
+    	return new Array(this.array);
+    }
+    
     @Override
     public Iterator<T> iterator() {
         if (iterable == null) {

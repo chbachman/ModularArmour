@@ -1,8 +1,5 @@
 package chbachman.armour.register;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
 import chbachman.api.configurability.FieldList;
 import chbachman.api.item.IModularItem;
 import chbachman.api.nbt.helper.NBTHelper;
@@ -11,6 +8,7 @@ import chbachman.api.registry.UpgradeRegistry;
 import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.upgrade.Recipe;
 import chbachman.api.util.ArmourSlot;
+import chbachman.api.util.ImmutableArray;
 import chbachman.armour.ModularArmour;
 import chbachman.armour.handler.UpgradeHandler;
 import chbachman.armour.items.armour.RFModularArmour;
@@ -270,31 +268,12 @@ public class Vanilla implements Module {
     }
 
     private final void registerAdminArmourPiece(String name, ItemStack armour) {
-        ArrayList<IUpgrade> toAdd = new ArrayList<IUpgrade>();
-
-        for (IUpgrade upgrade : UpgradeRegistry.getUpgradeList()) { // Populate the inital list, add all first level upgrades.
-            if (!UpgradeHandler.addUpgradeChecked(armour, upgrade)) {
-                toAdd.add(upgrade);
-            }
-        }
-
-        int prevSize = 0;
-        int currSize = toAdd.size();
-
-        while (prevSize != currSize && currSize != 0) {
-            Iterator<IUpgrade> iterator = toAdd.iterator();
-
-            while (iterator.hasNext()) {
-                IUpgrade next = iterator.next();
-
-                if (UpgradeHandler.addUpgradeChecked(armour, next)) {
-                    iterator.remove();
-                }
-            }
-
-            prevSize = currSize;
-            currSize = toAdd.size();
-        }
+        
+    	ImmutableArray<IUpgrade> upgrades = UpgradeRegistry.sortedRecipeList();
+    	
+    	for(IUpgrade upgrade : upgrades){
+    		UpgradeHandler.addUpgradeChecked(armour, upgrade);
+    	}
 
         armour.stackTagCompound.setInteger("Energy", EnergyUtil.getItem(armour).getMaxEnergyStored(armour));
 

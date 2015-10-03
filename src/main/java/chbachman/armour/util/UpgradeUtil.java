@@ -3,16 +3,17 @@ package chbachman.armour.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import chbachman.api.item.IModularItem;
 import chbachman.api.nbt.helper.NBTHelper;
 import chbachman.api.nbt.helper.NBTList;
 import chbachman.api.upgrade.IUpgrade;
+import chbachman.api.util.Array;
 import cpw.mods.fml.common.Loader;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 
 public class UpgradeUtil {
-
+	
     public static boolean doesPlayerHaveUpgrade(EntityPlayer player, IUpgrade upgrade) {
 
         if (Loader.isModLoaded("Baubles")) {

@@ -1,5 +1,7 @@
 package chbachman.armour.handler;
 
+import com.google.common.collect.Iterables;
+
 import chbachman.api.item.IModularItem;
 import chbachman.api.nbt.helper.NBTHelper;
 import chbachman.api.nbt.helper.NBTList;
@@ -130,6 +132,15 @@ public class UpgradeHandler {
 
         return true;
 
+    }
+    
+    public static boolean checkDependencies(IUpgrade upgrade, Iterable<IUpgrade> currentList){
+    	for (IUpgrade dependency : upgrade.getDependencies()) {
+    		if(!Iterables.contains(currentList, dependency)){
+    			return false;
+    		}
+        }
+    	return true;
     }
 
 }
