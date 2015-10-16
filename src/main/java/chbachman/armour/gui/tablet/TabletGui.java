@@ -27,8 +27,8 @@ public class TabletGui extends GuiBaseAdv {
     public int shiftY;
 
     public static final ResourceLocation TEXTURE = new ResourceLocation(Reference.TEXTURE_LOCATION + "/gui/tabletGui.png");
-
-    public Array<TabletPage> pages = new Array<TabletPage>();
+    
+    public static Array<TabletPage> pages = new Array<TabletPage>();
     private Array<Arrow> arrows = new Array<Arrow>();
 
     public TabletGui(Container container) {
@@ -36,11 +36,11 @@ public class TabletGui extends GuiBaseAdv {
 
         this.container = container;
 
-        this.xSize = 128;
+        this.xSize = 200;
         this.ySize = 200;
         this.drawInventory = false;
 
-        background = new ElementBackground(this, 6, 6, 128, 200, new ResourceLocation(Reference.TEXTURE_LOCATION + "/gui/tabletBackground.png")) {
+        background = new ElementBackground(this, 0, 0, xSize, ySize, new ResourceLocation(Reference.TEXTURE_LOCATION + "/gui/tabletBackground.png")) {
 
             @Override
             public void onDrag(int shiftedX, int shiftedY) {
@@ -51,27 +51,37 @@ public class TabletGui extends GuiBaseAdv {
         };
 
     }
-
+    
+    public static void registerPage(IUpgrade upgrade, int xPos, int yPos){
+    	pages.add(new TabletPage(xPos, yPos, upgrade));
+    }
+    
+    private static boolean dependenciesInit = false;
+    
     @Override
     public void initGui() {
         super.initGui();
 
         this.addElement(background);
-
-        this.addPages();
+        
+        if(!dependenciesInit){
+        	for(TabletPage page : pages){
+        		page.initDependencies(pages);
+        	}
+        	dependenciesInit = true;
+        }
         
         for (TabletPage page : this.pages) {
-            page.gui = this; //For some reason, I need this.
             
             for(TabletPage dependency : page.dependencies){
             	
             	boolean vertical = false;
             	
-            	if(Math.abs(page.posX - dependency.posX) < 16){
+            	if(Math.abs(page.posX - dependency.posX) < page.sizeX){
             		vertical = true;
             	}
             	
-            	if(Math.abs(page.posY - dependency.posY) < 16){
+            	if(Math.abs(page.posY - dependency.posY) < page.sizeY){
             		vertical = false;
             	}
             	
@@ -96,8 +106,19 @@ public class TabletGui extends GuiBaseAdv {
     	
     	Array<IUpgrade> upgrades = UpgradeRegistry.sortedRecipeList().getArray();
     	
+    	int size = 0;
     	
+    	{
+    		IUpgrade upgrade;
+    		
+    		Iterator<IUpgrade> iterator = upgrades.iterator();
+        	
+        	while(iterator.hasNext() && ((upgrade = iterator.next()).getDependencies() == null || upgrade.getDependencies().length == 0)){	
+        		size++;
+        	}
+    	}
     	
+    	/*
     	
     	{ // Add all the non-dependent upgrades.
     		IUpgrade upgrade;
@@ -107,11 +128,15 @@ public class TabletGui extends GuiBaseAdv {
         	
         	while(iterator.hasNext() && ((upgrade = iterator.next()).getDependencies() == null || upgrade.getDependencies().length == 0)){
         		
-        		pages.add(new TabletPage(this, i * 200, 50, 16, 16, upgrade)); // This is the start of a cluster.
+        		pages.add(createPage(i, size, 50, 50, upgrade)); // This is the start of a cluster.
         		iterator.remove();    		
         		i++;
         	}
     	}
+    	
+    	*/
+    	
+    	/*
     	
     	for(IUpgrade upgrade : upgrades){
     		
@@ -128,7 +153,7 @@ public class TabletGui extends GuiBaseAdv {
     		
     		
     		
-    		TabletPage page = new TabletPage(this, dependencyPage.posX + 50, 50 + dependencyPage.depdendents.size * 50, 16, 16, upgrade);
+    		TabletPage page = createPage(0, dependencyPage.posX + 50, 50 + dependencyPage.depdendents.size * 50, upgrade);
     		
     		dependencyPage.depdendents.add(page);
     		
@@ -139,10 +164,30 @@ public class TabletGui extends GuiBaseAdv {
     		
     	}
     	
+    	*/
+    	
     	
     	
 	}
-
+    
+    private TabletPage createPage(int i, int total, int currX, int currY, IUpgrade upgrade){
+    	return createPage(i, total, currX, currY, upgrade, 1);
+    }
+    
+    private TabletPage createPage(int i, int total, int currX, int currY, IUpgrade upgrade, int scalingFactor){
+    	
+    	int sqrt = ((int) Math.sqrt(total));
+    	
+    	int half = (total / 2) - 1;
+    	
+    	i += i < half ? 0 : 1;
+    	
+    	int xShift = (i % sqrt) * 50;
+    	int yShift = (i / sqrt) * 50;
+    	
+    	return new TabletPage(currX + xShift, currY + yShift, upgrade);
+    }
+    
     private TabletPage getPageForUpgrade(IUpgrade upgrade){
     	for(TabletPage page : this.pages){
     		if(page.upgrade == upgrade){
@@ -181,7 +226,7 @@ public class TabletGui extends GuiBaseAdv {
 
         TabletPage page = getPageAtPosition(mouseX - getShiftX(), mouseY - getShiftY());
 
-        if (page != null && page.isVisible()) {
+        if (page != null && page.isVisible(this)) {
             page.getTooltip(tooltip);
         }
     }
@@ -193,8 +238,8 @@ public class TabletGui extends GuiBaseAdv {
     	}
         
         for(TabletPage page : pages){
-        	if (page.isVisible()) {
-                page.render(x, y);
+        	if (page.isVisible(this)) {
+                page.render(this, x, y);
             }
         }
 

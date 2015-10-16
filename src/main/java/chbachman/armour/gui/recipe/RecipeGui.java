@@ -124,6 +124,9 @@ public class RecipeGui extends GuiBaseAdv {
     }
 
     public void handleTyping(String text) {
+    	
+    	ImmutableArray<Recipe> recipes = UpgradeRegistry.getRecipeList();
+    	
         indicies.clear();
 
         if (text.isEmpty()) {

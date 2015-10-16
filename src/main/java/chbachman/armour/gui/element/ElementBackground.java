@@ -15,9 +15,6 @@ public abstract class ElementBackground extends ElementBase {
     private int prevMouseX;
     private int prevMouseY;
 
-    public int sizeX;
-    public int sizeY;
-
     public final ResourceLocation texture;
 
     public ElementBackground(GuiBase containerScreen, int x, int y, int width, int height, ResourceLocation texture) {
@@ -50,7 +47,7 @@ public abstract class ElementBackground extends ElementBase {
         int startX = shiftedX % 256;
         int startY = shiftedY % 256;
 
-        this.gui.drawSizedTexturedModalRect(this.gui.guiLeft, this.gui.guiTop, 128 - startX, 0 - startY, 128, 198, 128, 198);
+        this.gui.drawSizedTexturedModalRect(this.gui.guiLeft, this.gui.guiTop, this.sizeX - startX, 0 - startY, this.sizeX, this.sizeY, 128, 198);
     }
 
     @Override

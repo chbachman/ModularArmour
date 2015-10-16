@@ -9,8 +9,6 @@ import cofh.lib.util.helpers.StringHelper;
 import net.minecraft.util.IIcon;
 
 public class TabletPage {
-
-    TabletGui gui;
     
     final IUpgrade upgrade;
     final IIcon icon;
@@ -26,8 +24,7 @@ public class TabletPage {
     
     Array<TabletPage> depdendents = new Array<TabletPage>();
 
-    public TabletPage(TabletGui gui, int posX, int posY, int sizeX, int sizeY, IUpgrade upgrade) {
-        this.gui = gui;
+    public TabletPage(int posX, int posY, int sizeX, int sizeY, IUpgrade upgrade) {
         this.sizeX = sizeX;
         this.sizeY = sizeY;
         this.posX = posX;
@@ -35,26 +32,31 @@ public class TabletPage {
         this.upgrade = upgrade;
         
         icon = upgrade.getIcon();
-        
-        if(upgrade.getDependencies() != null){
+
+    }
+    
+    public TabletPage(int posX, int posY, IUpgrade upgrade){
+    	this(posX, posY, 10, 10, upgrade);
+    }
+    
+    public void initDependencies(Array<TabletPage> others){
+    	if(upgrade.getDependencies() != null){
         	
         	for(IUpgrade dependency : upgrade.getDependencies()){
-            	for(TabletPage page : gui.pages){
+            	for(TabletPage page : others){
             		if(page.upgrade == dependency){
             			dependencies.add(page);
             		}
             	}
             }
         }
-        
-        //if(this.dependencies.size == 0){
-        	this.isEnabled = true;
-        //}
-        
-        
+    	
+    	//if(this.dependencies.size == 0){
+    	this.isEnabled = true;
+    	//}
     }
     
-    public void render(int mouseX, int mouseY) {
+    public void render(TabletGui gui, int mouseX, int mouseY) {
     	
     	if(!isEnabled){
     		boolean shouldEnable = true;
@@ -91,7 +93,7 @@ public class TabletPage {
         return false;
     }
 
-    public boolean isVisible() {
+    public boolean isVisible(TabletGui gui) {
 
         int x = posX + gui.getShiftX();
         int y = posY + gui.getShiftY();

@@ -98,7 +98,7 @@ public final class UpgradeRegistry {
 
         INSTANCE.listenerMap.put(upgrade, list.toArray());
         INSTANCE.upgradeList.put(upgrade);
-
+        
         return upgrade;
     }
 

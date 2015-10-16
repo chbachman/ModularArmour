@@ -29,6 +29,8 @@ item.modulararmour.material.heatedElectrum.name=Heated Electrum
 item.modulararmour.material.temperedElectrum.name=Tempered Electrum
 item.modulararmour.upgrade.itemUpgrade.name=Upgrade
 
+command.chbachman.refresh=Refresh
+
 info.chbachman.control=Control
 info.chbachman.upgradeList=Upgrade List
 info.chbachman.strong=Strong
@@ -85,6 +87,10 @@ upgrade.chbachman.explosionProtector.name=Explosion Protector
 upgrade.chbachman.projectileProtector.name=Projectile Protection
 upgrade.chbachman.generalProtection.name=General Protector
 upgrade.chbachman.advancedModel.name=Advanced Model
+upgrade.chbachman.flight.name=Flight Preperation
+upgrade.chbachman.visual.name=Visual Preperation
+upgrade.chbachman.piston.name=Piston
+upgrade.chbachman.battery.name=Battery
 
 upgrade.chbachman.speed.speed=Speed
 upgrade.chbachman.protection.protection=Protection
@@ -137,4 +143,7 @@ upgrade.chbachman.explosionProtector.information=This somehow uses TnT to protec
 upgrade.chbachman.projectileProtector.information=Finally. Skeletons are not such a giant pain.
 upgrade.chbachman.advancedModel.information=For all you people complaining about not having pretty models. Credits go to SkeletonPunk for the model.
 upgrade.chbachman.generalProtection.information=General Protection. For all you complainers out there.
-
+upgrade.chbachman.flight.information=Preliminary preperation on flight. Does nothing on its own.
+upgrade.chbachman.visual.information=Slathering your armour with dyes made it so that you can add other things to its appearance as well.
+upgrade.chbachman.piston.information=Using the magic of a extra large piston, your armour now has the potential to make things move.
+upgrade.chbachman.battery.information=Adds a battery into the armour

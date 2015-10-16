@@ -1,5 +1,7 @@
 package chbachman.armour.register;
 
+import chbachman.api.registry.UpgradeRegistry;
+import chbachman.api.upgrade.IUpgrade;
 import chbachman.api.util.Array;
 import cpw.mods.fml.common.Loader;
 
@@ -7,7 +9,7 @@ public class ItemRegister {
 
     public static final ItemRegister INSTANCE = new ItemRegister();
 
-    private final Array<Module> list;
+    public final Array<Module> list;
 
     public Vanilla base;
 
@@ -92,6 +94,10 @@ public class ItemRegister {
 
         for (Module module : list) {
             module.init();
+        }
+        
+        for (IUpgrade upgrade : UpgradeRegistry.getUpgradeList()) {
+            upgrade.registerConfigOptions();
         }
 
     }
