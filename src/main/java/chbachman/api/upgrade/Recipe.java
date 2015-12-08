@@ -26,7 +26,9 @@ public class Recipe {
     public int width = 0;
     public int height = 0;
     public boolean mirrored = true;
-
+    
+    public String modid;
+    
     /**
      * Construct the recipe with a contructor identical to
      * {@link ShapedOreRecipe}.
@@ -123,7 +125,16 @@ public class Recipe {
         this.width = width;
         this.height = height;
     }
-
+    
+    /**
+     * Sets the modid that needs to be loaded for the recipe to load.
+     * @return
+     */
+    public Recipe setModid(String modid) {
+    	this.modid = modid;
+    	return this;
+    }
+    
     /**
      * Returns an Item that is the result of this recipe
      */

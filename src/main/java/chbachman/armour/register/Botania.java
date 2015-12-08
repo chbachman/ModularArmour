@@ -84,7 +84,7 @@ public class Botania implements Module {
 
     @Override
     public void registerUpgradeRecipes() {
-        UpgradeRegistry.registerRecipe(new Recipe(pixie, "tet", "e e", "tet", 'e', "ingotElvenElementium", 't', "ingotManasteel"));
+        UpgradeRegistry.registerRecipe(new Recipe(pixie, "tet", "e e", "tet", 'e', "ingotElvenElementium", 't', "ingotManasteel").setModid("Baubles"));
     }
 
 }

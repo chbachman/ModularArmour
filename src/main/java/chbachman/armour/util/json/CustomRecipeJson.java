@@ -26,6 +26,11 @@ public class CustomRecipeJson implements JsonDeserializer<Recipe>, JsonSerialize
         JsonObject json = new JsonObject();
 
         json.add("output", context.serialize(src.getRecipeOutput(), IUpgrade.class));
+        
+        if (src.modid != null) {
+        	json.addProperty("modid", src.modid);
+        }
+        
 
         json.addProperty("width", src.width);
         json.addProperty("height", src.height);
@@ -88,6 +93,11 @@ public class CustomRecipeJson implements JsonDeserializer<Recipe>, JsonSerialize
 
         recipe.width = json.get("width").getAsInt();
         recipe.height = json.get("height").getAsInt();
+        
+        if (json.has("modid")) {
+        	recipe.setModid(json.get("modid").getAsString());
+        }
+        
 
         return recipe;
 

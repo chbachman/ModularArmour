@@ -39,8 +39,8 @@ public class Thaumcraft implements Module {
 
     @Override
     public void registerUpgradeRecipes() {
-        UpgradeRegistry.registerRecipe(new Recipe(gogglesOfRevealing, "iii", "igi", "iii", 'i', "ingotIron", 'g', ItemApi.getItem("itemGoggles", 0)));
-        UpgradeRegistry.registerRecipe(new Recipe(visDiscount, "c c", "ccc", "ccc", 'c', ItemApi.getItem("itemResource", 7)));
+        UpgradeRegistry.registerRecipe(new Recipe(gogglesOfRevealing, "iii", "igi", "iii", 'i', "ingotIron", 'g', ItemApi.getItem("itemGoggles", 0)).setModid("Thaumcraft"));
+        UpgradeRegistry.registerRecipe(new Recipe(visDiscount, "c c", "ccc", "ccc", 'c', ItemApi.getItem("itemResource", 7)).setModid("Thaumcraft"));
     }
 
 }

@@ -9,6 +9,7 @@ import chbachman.api.util.Array;
 import chbachman.api.util.ImmutableArray;
 import chbachman.api.util.ObjectMap;
 import chbachman.armour.handler.UpgradeHandler;
+import cpw.mods.fml.common.Loader;
 
 public final class UpgradeRegistry {
 
@@ -110,6 +111,10 @@ public final class UpgradeRegistry {
 
         if (recipe.getRecipeOutput() == null) {
             throw new IllegalArgumentException(String.format("Recipe cannot create a null upgrade. Please fix %s recipe.", recipe.toString()));
+        }
+        
+        if (recipe.modid != null && !Loader.isModLoaded(recipe.modid)) {
+        	return recipe;
         }
 
         INSTANCE.recipeList.add(recipe);
