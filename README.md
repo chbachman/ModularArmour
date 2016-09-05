@@ -17,7 +17,7 @@ Finally, there is almost no way to automatically download dependencies. Since yo
 
 With constantly changing depdendencies, no frameworks/apis to work with, and a lack of any good way to distribute depdencies to users, we end up writing too much code to do way to little, and spend most of our time trying to maintain said code in a constantly changing landscape.
 
-
+##TL;DR: So Long, and Thanks for all the Fish
 
 A Minecraft mod that adds Modular Armour.
 
